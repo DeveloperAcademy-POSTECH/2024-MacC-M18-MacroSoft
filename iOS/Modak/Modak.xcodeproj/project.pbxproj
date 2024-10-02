@@ -6,17 +6,26 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		10AB91AA2CACD29A00BFA2EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10AB91A42CACD29A00BFA2EC /* Preview Assets.xcassets */; };
+		10AB91AB2CACD29A00BFA2EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10AB91A62CACD29A00BFA2EC /* Assets.xcassets */; };
+		10AB91AC2CACD29A00BFA2EC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91A72CACD29A00BFA2EC /* ContentView.swift */; };
+		10AB91AD2CACD29A00BFA2EC /* ModakApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91A82CACD29A00BFA2EC /* ModakApp.swift */; };
+		10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91D32CACD79300BFA2EC /* ProfileView.swift */; };
+		10AB91D62CACD7A100BFA2EC /* CampfiresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91D52CACD7A100BFA2EC /* CampfiresView.swift */; };
+		10AB91D82CACD7AC00BFA2EC /* LogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91D72CACD7AC00BFA2EC /* LogDetailView.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		10AB91712CACCE4F00BFA2EC /* Modak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Modak.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		10AB91A42CACD29A00BFA2EC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		10AB91A62CACD29A00BFA2EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		10AB91A72CACD29A00BFA2EC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		10AB91A82CACD29A00BFA2EC /* ModakApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModakApp.swift; sourceTree = "<group>"; };
+		10AB91D32CACD79300BFA2EC /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		10AB91D52CACD7A100BFA2EC /* CampfiresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfiresView.swift; sourceTree = "<group>"; };
+		10AB91D72CACD7AC00BFA2EC /* LogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		10AB91732CACCE4F00BFA2EC /* Modak */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Modak;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		10AB916E2CACCE4F00BFA2EC /* Frameworks */ = {
@@ -32,8 +41,8 @@
 		10AB91682CACCE4F00BFA2EC = {
 			isa = PBXGroup;
 			children = (
-				10AB91732CACCE4F00BFA2EC /* Modak */,
 				10AB91722CACCE4F00BFA2EC /* Products */,
+				10AB91A92CACD29A00BFA2EC /* Modak */,
 			);
 			sourceTree = "<group>";
 		};
@@ -43,6 +52,76 @@
 				10AB91712CACCE4F00BFA2EC /* Modak.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		10AB91A52CACD29A00BFA2EC /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				10AB91A42CACD29A00BFA2EC /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		10AB91A92CACD29A00BFA2EC /* Modak */ = {
+			isa = PBXGroup;
+			children = (
+				10AB91B22CACD2E000BFA2EC /* App */,
+				10AB91AE2CACD2AC00BFA2EC /* Model */,
+				10AB91AF2CACD2B400BFA2EC /* View */,
+				10AB91B02CACD2C700BFA2EC /* ViewModel */,
+				10AB91B12CACD2D600BFA2EC /* Resource */,
+				10AB91A52CACD29A00BFA2EC /* Preview Content */,
+			);
+			path = Modak;
+			sourceTree = "<group>";
+		};
+		10AB91AE2CACD2AC00BFA2EC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		10AB91AF2CACD2B400BFA2EC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				10AB91A72CACD29A00BFA2EC /* ContentView.swift */,
+				10AB91D92CACDCD000BFA2EC /* Component */,
+				10AB91D32CACD79300BFA2EC /* ProfileView.swift */,
+				10AB91D52CACD7A100BFA2EC /* CampfiresView.swift */,
+				10AB91D72CACD7AC00BFA2EC /* LogDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		10AB91B02CACD2C700BFA2EC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		10AB91B12CACD2D600BFA2EC /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				10AB91A62CACD29A00BFA2EC /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		10AB91B22CACD2E000BFA2EC /* App */ = {
+			isa = PBXGroup;
+			children = (
+				10AB91A82CACD29A00BFA2EC /* ModakApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		10AB91D92CACDCD000BFA2EC /* Component */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -59,9 +138,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				10AB91732CACCE4F00BFA2EC /* Modak */,
 			);
 			name = Modak;
 			packageProductDependencies = (
@@ -109,6 +185,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10AB91AA2CACD29A00BFA2EC /* Preview Assets.xcassets in Resources */,
+				10AB91AB2CACD29A00BFA2EC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +197,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10AB91AC2CACD29A00BFA2EC /* ContentView.swift in Sources */,
+				10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */,
+				10AB91AD2CACD29A00BFA2EC /* ModakApp.swift in Sources */,
+				10AB91D62CACD7A100BFA2EC /* CampfiresView.swift in Sources */,
+				10AB91D82CACD7AC00BFA2EC /* LogDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
