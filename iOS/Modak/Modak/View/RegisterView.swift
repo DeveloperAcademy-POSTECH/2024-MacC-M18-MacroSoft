@@ -56,7 +56,17 @@ struct RegisterView: View {
                 .background(.white)
                 .cornerRadius(76)
                 
-                Spacer(minLength: 46)
+                Button(action: {
+                    // 동작 추가 필요
+                }) {
+                    Text("건너뛰기")
+                        .font(.custom("Pretendard-Medium", size: 16))
+                        .foregroundColor(.mainColor1)
+                        .underline()
+                }
+                .padding(.top, 14)
+                
+                Spacer(minLength: 12)
             }
             .multilineTextAlignment(.center)
         }
@@ -78,14 +88,14 @@ struct RegisterView: View {
             highlightedText
                 .font(.custom("Pretendard-Bold", size: 22))
                 .lineSpacing(22 * 0.45)
-                .padding(.top, 72)
+                .padding(.top, 68)
                 .padding(.bottom, 12)
             
             Text(context)
                 .foregroundStyle(Color.textColorGray1)
                 .font(.custom("Pretendard-Regular", size: 16))
                 .lineSpacing(16 * 0.5)
-                .padding(.bottom, 53)
+                .padding(.bottom, 50)
             
             Rectangle()
                 .frame(width: 316, height: 316)
