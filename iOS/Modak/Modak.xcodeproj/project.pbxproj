@@ -14,6 +14,16 @@
 		10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91D32CACD79300BFA2EC /* ProfileView.swift */; };
 		10AB91D62CACD7A100BFA2EC /* CampfiresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91D52CACD7A100BFA2EC /* CampfiresView.swift */; };
 		10AB91D82CACD7AC00BFA2EC /* LogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91D72CACD7AC00BFA2EC /* LogDetailView.swift */; };
+		10BE376A2CB30743008D1DA1 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10BE37672CB30743008D1DA1 /* Pretendard-Regular.otf */; };
+		10BE376B2CB30743008D1DA1 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10BE37682CB30743008D1DA1 /* Pretendard-SemiBold.otf */; };
+		10BE376C2CB30743008D1DA1 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10BE37642CB30743008D1DA1 /* Pretendard-ExtraLight.otf */; };
+		10BE376D2CB30743008D1DA1 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10BE37622CB30743008D1DA1 /* Pretendard-Bold.otf */; };
+		10BE376E2CB30743008D1DA1 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10BE37692CB30743008D1DA1 /* Pretendard-Thin.otf */; };
+		10BE376F2CB30743008D1DA1 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10BE37632CB30743008D1DA1 /* Pretendard-ExtraBold.otf */; };
+		10BE37702CB30743008D1DA1 /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10BE37612CB30743008D1DA1 /* Pretendard-Black.otf */; };
+		10BE37712CB30743008D1DA1 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10BE37652CB30743008D1DA1 /* Pretendard-Light.otf */; };
+		10BE37722CB30743008D1DA1 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10BE37662CB30743008D1DA1 /* Pretendard-Medium.otf */; };
+		10BE37772CB30CF9008D1DA1 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BE37762CB30CF9008D1DA1 /* RegisterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +35,17 @@
 		10AB91D32CACD79300BFA2EC /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		10AB91D52CACD7A100BFA2EC /* CampfiresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfiresView.swift; sourceTree = "<group>"; };
 		10AB91D72CACD7AC00BFA2EC /* LogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetailView.swift; sourceTree = "<group>"; };
+		10BE37612CB30743008D1DA1 /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
+		10BE37622CB30743008D1DA1 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		10BE37632CB30743008D1DA1 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
+		10BE37642CB30743008D1DA1 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
+		10BE37652CB30743008D1DA1 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
+		10BE37662CB30743008D1DA1 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		10BE37672CB30743008D1DA1 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		10BE37682CB30743008D1DA1 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		10BE37692CB30743008D1DA1 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
+		10BE37732CB3085A008D1DA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		10BE37762CB30CF9008D1DA1 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +86,7 @@
 		10AB91A92CACD29A00BFA2EC /* Modak */ = {
 			isa = PBXGroup;
 			children = (
+				10BE37732CB3085A008D1DA1 /* Info.plist */,
 				10AB91B22CACD2E000BFA2EC /* App */,
 				10AB91AE2CACD2AC00BFA2EC /* Model */,
 				10AB91AF2CACD2B400BFA2EC /* View */,
@@ -90,6 +112,7 @@
 				10AB91D32CACD79300BFA2EC /* ProfileView.swift */,
 				10AB91D52CACD7A100BFA2EC /* CampfiresView.swift */,
 				10AB91D72CACD7AC00BFA2EC /* LogDetailView.swift */,
+				10BE37762CB30CF9008D1DA1 /* RegisterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -104,6 +127,7 @@
 		10AB91B12CACD2D600BFA2EC /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				10BE37602CB306DC008D1DA1 /* Pretendard */,
 				10AB91A62CACD29A00BFA2EC /* Assets.xcassets */,
 			);
 			path = Resource;
@@ -122,6 +146,22 @@
 			children = (
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		10BE37602CB306DC008D1DA1 /* Pretendard */ = {
+			isa = PBXGroup;
+			children = (
+				10BE37612CB30743008D1DA1 /* Pretendard-Black.otf */,
+				10BE37622CB30743008D1DA1 /* Pretendard-Bold.otf */,
+				10BE37632CB30743008D1DA1 /* Pretendard-ExtraBold.otf */,
+				10BE37642CB30743008D1DA1 /* Pretendard-ExtraLight.otf */,
+				10BE37652CB30743008D1DA1 /* Pretendard-Light.otf */,
+				10BE37662CB30743008D1DA1 /* Pretendard-Medium.otf */,
+				10BE37672CB30743008D1DA1 /* Pretendard-Regular.otf */,
+				10BE37682CB30743008D1DA1 /* Pretendard-SemiBold.otf */,
+				10BE37692CB30743008D1DA1 /* Pretendard-Thin.otf */,
+			);
+			path = Pretendard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,6 +226,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				10AB91AA2CACD29A00BFA2EC /* Preview Assets.xcassets in Resources */,
+				10BE376A2CB30743008D1DA1 /* Pretendard-Regular.otf in Resources */,
+				10BE376B2CB30743008D1DA1 /* Pretendard-SemiBold.otf in Resources */,
+				10BE376C2CB30743008D1DA1 /* Pretendard-ExtraLight.otf in Resources */,
+				10BE376D2CB30743008D1DA1 /* Pretendard-Bold.otf in Resources */,
+				10BE376E2CB30743008D1DA1 /* Pretendard-Thin.otf in Resources */,
+				10BE376F2CB30743008D1DA1 /* Pretendard-ExtraBold.otf in Resources */,
+				10BE37702CB30743008D1DA1 /* Pretendard-Black.otf in Resources */,
+				10BE37712CB30743008D1DA1 /* Pretendard-Light.otf in Resources */,
+				10BE37722CB30743008D1DA1 /* Pretendard-Medium.otf in Resources */,
 				10AB91AB2CACD29A00BFA2EC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -199,6 +248,7 @@
 			files = (
 				10AB91AC2CACD29A00BFA2EC /* ContentView.swift in Sources */,
 				10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */,
+				10BE37772CB30CF9008D1DA1 /* RegisterView.swift in Sources */,
 				10AB91AD2CACD29A00BFA2EC /* ModakApp.swift in Sources */,
 				10AB91D62CACD7A100BFA2EC /* CampfiresView.swift in Sources */,
 				10AB91D82CACD7AC00BFA2EC /* LogDetailView.swift in Sources */,
@@ -338,6 +388,7 @@
 				DEVELOPMENT_TEAM = 3GB5WJ43G4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Modak/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -367,6 +418,7 @@
 				DEVELOPMENT_TEAM = 3GB5WJ43G4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Modak/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
