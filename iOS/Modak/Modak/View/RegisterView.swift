@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RegisterView: View {
     private let totalPages = 3
+    @State private var currentPage = 0
     
     init() {
         // 페이지 인디케이터 색깔 설정
@@ -21,7 +22,7 @@ struct RegisterView: View {
             Color.backgroundDefault.ignoresSafeArea(.all)
             
             VStack {
-                TabView {
+                TabView(selection: $currentPage) {
                     onboardingView(
                         title: "소중한 순간,\n자동으로 모아드릴게요",
                         titleHighlightRange: 0...7,
