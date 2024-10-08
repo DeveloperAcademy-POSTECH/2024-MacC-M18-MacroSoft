@@ -1,5 +1,5 @@
 //
-//  ProfileView.swift
+//  LogPileView.swift
 //  Modak
 //
 //  Created by kimjihee on 10/2/24.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct ProfileView: View {
+struct LogPileView: View {
     var body: some View {
-        Text("ProfileView")
+        Text("LogPileView")
     }
 }
 
 #Preview {
-    ProfileView()
+    LogPileView()
 }

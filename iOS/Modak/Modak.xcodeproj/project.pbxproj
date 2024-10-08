@@ -12,8 +12,8 @@
 		10AB91AC2CACD29A00BFA2EC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91A72CACD29A00BFA2EC /* ContentView.swift */; };
 		10AB91AD2CACD29A00BFA2EC /* ModakApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91A82CACD29A00BFA2EC /* ModakApp.swift */; };
 		10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91D32CACD79300BFA2EC /* ProfileView.swift */; };
-		10AB91D62CACD7A100BFA2EC /* CampfiresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91D52CACD7A100BFA2EC /* CampfiresView.swift */; };
-		10AB91D82CACD7AC00BFA2EC /* LogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91D72CACD7AC00BFA2EC /* LogDetailView.swift */; };
+		10AB91D62CACD7A100BFA2EC /* CampfireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91D52CACD7A100BFA2EC /* CampfireView.swift */; };
+		10AB91D82CACD7AC00BFA2EC /* LogPileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91D72CACD7AC00BFA2EC /* LogPileView.swift */; };
 		CAA76CB52CB38DEE00533C96 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAA76CB42CB38DEE00533C96 /* Colors.xcassets */; };
 		CAA76CD02CB3BF0200533C96 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAA76CCF2CB3BF0200533C96 /* Images.xcassets */; };
 		CAF594002CB36745006290E3 /* EmptyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF593FF2CB3673B006290E3 /* EmptyModel.swift */; };
@@ -28,8 +28,8 @@
 		10AB91A72CACD29A00BFA2EC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		10AB91A82CACD29A00BFA2EC /* ModakApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModakApp.swift; sourceTree = "<group>"; };
 		10AB91D32CACD79300BFA2EC /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		10AB91D52CACD7A100BFA2EC /* CampfiresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfiresView.swift; sourceTree = "<group>"; };
-		10AB91D72CACD7AC00BFA2EC /* LogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetailView.swift; sourceTree = "<group>"; };
+		10AB91D52CACD7A100BFA2EC /* CampfireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireView.swift; sourceTree = "<group>"; };
+		10AB91D72CACD7AC00BFA2EC /* LogPileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPileView.swift; sourceTree = "<group>"; };
 		CAA76CB42CB38DEE00533C96 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		CAA76CCF2CB3BF0200533C96 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CAF593FF2CB3673B006290E3 /* EmptyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyModel.swift; sourceTree = "<group>"; };
@@ -97,10 +97,10 @@
 			isa = PBXGroup;
 			children = (
 				10AB91A72CACD29A00BFA2EC /* ContentView.swift */,
-				10AB91D92CACDCD000BFA2EC /* Component */,
 				10AB91D32CACD79300BFA2EC /* ProfileView.swift */,
-				10AB91D52CACD7A100BFA2EC /* CampfiresView.swift */,
-				10AB91D72CACD7AC00BFA2EC /* LogDetailView.swift */,
+				10AB91D52CACD7A100BFA2EC /* CampfireView.swift */,
+				10AB91D72CACD7AC00BFA2EC /* LogPileView.swift */,
+				10AB91D92CACDCD000BFA2EC /* Component */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -218,8 +218,8 @@
 				10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */,
 				CAF594042CB36768006290E3 /* EmptyViewModel.swift in Sources */,
 				10AB91AD2CACD29A00BFA2EC /* ModakApp.swift in Sources */,
-				10AB91D62CACD7A100BFA2EC /* CampfiresView.swift in Sources */,
-				10AB91D82CACD7AC00BFA2EC /* LogDetailView.swift in Sources */,
+				10AB91D62CACD7A100BFA2EC /* CampfireView.swift in Sources */,
+				10AB91D82CACD7AC00BFA2EC /* LogPileView.swift in Sources */,
 				CAF594002CB36745006290E3 /* EmptyModel.swift in Sources */,
 				CAF594022CB36758006290E3 /* EmptyComponent.swift in Sources */,
 			);
