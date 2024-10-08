@@ -42,6 +42,7 @@ struct RegisterView: View {
                         image: "다같이 캠프파이어 즐기는 모습"
                     ).tag(2)
                 }
+                .padding(.top, 58)
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
                 
                 Spacer(minLength: 0)

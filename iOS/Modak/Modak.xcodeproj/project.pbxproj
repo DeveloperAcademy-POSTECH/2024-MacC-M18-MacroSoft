@@ -26,6 +26,7 @@
 		10BE37772CB30CF9008D1DA1 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BE37762CB30CF9008D1DA1 /* RegisterView.swift */; };
 		10C0E7FE2CB4B88E00C7F3DE /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E7FD2CB4B88E00C7F3DE /* AuthorizationView.swift */; };
 		10C0E8022CB4BCA300C7F3DE /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E8012CB4BCA300C7F3DE /* OnboardingView.swift */; };
+		10C0E8062CB4C48700C7F3DE /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E8052CB4C48700C7F3DE /* BackButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		10BE37762CB30CF9008D1DA1 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		10C0E7FD2CB4B88E00C7F3DE /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
 		10C0E8012CB4BCA300C7F3DE /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OnboardingView.swift; path = Modak/View/OnboardingView.swift; sourceTree = SOURCE_ROOT; };
+		10C0E8052CB4C48700C7F3DE /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BackButton.swift; path = Modak/View/BackButton.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				10C0E8012CB4BCA300C7F3DE /* OnboardingView.swift */,
+				10C0E8052CB4C48700C7F3DE /* BackButton.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				10BE37772CB30CF9008D1DA1 /* RegisterView.swift in Sources */,
 				10AB91AD2CACD29A00BFA2EC /* ModakApp.swift in Sources */,
 				10AB91D62CACD7A100BFA2EC /* CampfiresView.swift in Sources */,
+				10C0E8062CB4C48700C7F3DE /* BackButton.swift in Sources */,
 				10C0E8022CB4BCA300C7F3DE /* OnboardingView.swift in Sources */,
 				10C0E7FE2CB4B88E00C7F3DE /* AuthorizationView.swift in Sources */,
 				10AB91D82CACD7AC00BFA2EC /* LogDetailView.swift in Sources */,
