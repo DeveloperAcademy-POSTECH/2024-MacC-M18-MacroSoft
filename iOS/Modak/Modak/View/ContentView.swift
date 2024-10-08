@@ -7,34 +7,64 @@
 
 import SwiftUI
 
+// MARK: - ContentView
+
 struct ContentView: View {
-    @State var selection: Int = 0
     
     var body: some View {
-        TabView(selection: $selection) {
-            LogDetailView()
-                .tabItem {
-                    Image(systemName: "house.fill")
-                    Text("추억로그")
+        
+        // TODO: TabView selection 변수가 필요한지 체크하기
+        // TODO: Tab 글자 폰트 적용시키기
+        if #available(iOS 18.0, *) {
+            TabView {
+                Tab {
+                    LogPileView()
+                        .toolbarBackground(.backgroundLogPile, for: .tabBar)
+                        .toolbarBackgroundVisibility(.visible, for: .tabBar)
+                } label: {
+                    Image(.tabLogFile)
+                    Text("장작 창고")
                 }
-                .tag(0)
-            
-            CampfiresView()
-                .tabItem {
-                    Image(systemName: "magnifyingglass")
-                    Text("Search")
+                
+                Tab {
+                    CampfireView()
+                        .toolbarBackground(.backgroundLogPile, for: .tabBar)
+                        .toolbarBackgroundVisibility(.visible, for: .tabBar)
+                } label: {
+                    Image(.tabCampfire)
+                    Text("캠프파이어")
                 }
-                .tag(1)
+                
+                Tab {
+                    ProfileView()
+                        .toolbarBackground(.backgroundLogPile, for: .tabBar)
+                        .toolbarBackgroundVisibility(.visible, for: .tabBar)
+                } label: {
+                    Image(.tabProfile)
+                    Text("프로필")
+                }
+            }
+        } else {
+            TabView {
+                Group {
+                    LogPileView()
+                        .tabItem {
+                            Label("장작 창고", image: .tabLogFile)
+                        }
                     
-            ProfileView()
-                .tabItem {
-                    Image(systemName: "person.fill")
-                    Text("Profile")
+                    CampfireView()
+                        .tabItem {
+                            Label("캠프파이어", image: .tabCampfire)
+                        }
+                    
+                    ProfileView()
+                        .tabItem {
+                            Label("프로필", image: .tabProfile)
+                        }
                 }
-                .tag(2)
-        }
-        .onAppear {
-            selection = 0
+                .toolbarBackground(.backgroundLogPile, for: .tabBar)
+                .toolbarBackground(.visible, for: .tabBar)
+            }
         }
     }
 }
