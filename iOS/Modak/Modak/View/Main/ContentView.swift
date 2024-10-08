@@ -14,7 +14,6 @@ struct ContentView: View {
     var body: some View {
         
         // TODO: TabView selection 변수가 필요한지 체크하기
-        // TODO: Tab 글자 폰트 적용시키기
         if #available(iOS 18.0, *) {
             TabView {
                 Tab {
