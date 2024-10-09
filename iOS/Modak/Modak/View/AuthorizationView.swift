@@ -13,7 +13,7 @@ struct AuthorizationView: View {
         ZStack {
             Color.backgroundDefault.ignoresSafeArea(.all)
             VStack {
-                Image("Test_PagingBar1") // 테스팅 용입니다. 추후 구현 예정.
+                Image("Test_PagingBar1")
                     .padding(.top, -12)
                 
                 onboardingView(
