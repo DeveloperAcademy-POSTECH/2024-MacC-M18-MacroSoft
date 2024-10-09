@@ -30,7 +30,7 @@ struct BottomSheetView: View {
                         .padding(.bottom, 12)
                     
                     VStack(alignment: .leading) {
-                        Text("자작이란?")
+                        Text("장작이란?")
                             .foregroundStyle(Color.textColor2)
                             .font(.custom("Pretendard-Bold", size: 21))
                             .padding(.bottom, 18)
