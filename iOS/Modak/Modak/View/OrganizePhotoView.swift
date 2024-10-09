@@ -71,7 +71,7 @@ struct OrganizePhotoView: View {
                 Button(action: {
                     showBottomSheet.toggle()
                 }) {
-                    Text("창작이 무엇인가요?")
+                    Text("장작이 무엇인가요?")
                         .font(.custom("Pretendard-Medium", size: 16))
                         .foregroundColor(.mainColor1)
                         .underline()
