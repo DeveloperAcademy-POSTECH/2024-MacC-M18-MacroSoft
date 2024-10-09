@@ -94,11 +94,20 @@ extension OrganizePhotoView {
     
     private var progressSection: some View {
         VStack {
-            Text("장작을 모으는 중")
-                .foregroundStyle(Color.textColor3)
-                .font(.custom("Pretendard-Bold", size: 23))
-                .padding(.top, 14)
-                .padding(.bottom, 65)
+            Group {
+                if progressText == "장작을 모두 모았어요" {
+                    Text("장작을 ")
+                        .foregroundStyle(Color.textColor3)
+                    + Text("모두 모았어요")
+                        .foregroundStyle(Color.textColor2)
+                } else {
+                    Text(progressText)
+                        .foregroundStyle(Color.textColor3)
+                }
+            }
+            .font(.custom("Pretendard-Bold", size: 23))
+            .padding(.top, 14)
+            .padding(.bottom, 65)
             
             ProgressNumber(currentCount: currentCount, totalCount: totalCount)
                 .padding(.bottom, 26)
@@ -119,6 +128,23 @@ extension OrganizePhotoView {
                     timer.invalidate()
                 }
             }
+        }
+    }
+    
+    private var progressText: String {
+        let progressPercentage = (Double(currentCount) / Double(totalCount)) * 100
+        
+        switch progressPercentage {
+        case 0..<40:
+            return "장작을 모으는 중"
+        case 40..<70:
+            return "기억에서 장작 선별중.."
+        case 70..<100:
+            return "장작의 원산지를 파악중"
+        case 100:
+            return "장작을 모두 모았어요"
+        default:
+            return "장작을 모으는 중"
         }
     }
 }
