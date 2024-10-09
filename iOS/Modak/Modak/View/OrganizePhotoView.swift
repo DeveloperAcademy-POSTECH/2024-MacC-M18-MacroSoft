@@ -23,7 +23,7 @@ struct OrganizePhotoView: View {
         ZStack {
             Color.backgroundDefault.ignoresSafeArea(.all)
             VStack {
-                Image("Test_PagingBar2") // 테스팅 용입니다. 추후 구현 예정.
+                Image(currentCount >= totalCount ? "Test_PagingBar3" : "Test_PagingBar2")
                     .padding(.top, 24)
                 
                 TabView(selection: $currentPage) {

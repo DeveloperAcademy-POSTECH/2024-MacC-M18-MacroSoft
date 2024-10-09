@@ -34,15 +34,58 @@ struct ProgressNumber: View {
             }
             .padding(.horizontal, 14)
             .padding(.vertical, 8)
-            .background(RoundedRectangle(cornerRadius: 42).fill(Color.textBackgroundRedGray.opacity(0.1)))
+            .background(backgroundView)
             
             Spacer()
+        }
+    }
+    
+    @ViewBuilder
+    private var backgroundView: some View {
+        if currentCount >= totalCount {
+            RoundedRectangle(cornerRadius: 42)
+                .fill(Color.textBackgroundRedGray.opacity(0.01))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 42)
+                        .fill(
+                            LinearGradient(
+                                gradient: Gradient(colors: [
+                                    Color(red: 0.69, green: 0.57, blue: 0.57).opacity(0),
+                                    Color(red: 0.91, green: 0.73, blue: 0.73).opacity(0.78)
+                                ]),
+                                startPoint: .bottomLeading,
+                                endPoint: .topTrailing
+                            ).opacity(0.1)
+                        )
+                        .strokeBorder(
+                            LinearGradient(
+                                gradient: Gradient(colors: [
+                                    Color(red: 1.0, green: 0.58, blue: 0.54),
+                                    Color(red: 1.0, green: 0.70, blue: 0.87)
+                                ]),
+                                startPoint: .bottomLeading,
+                                endPoint: .topTrailing
+                            ),
+                            lineWidth: 1
+                        )
+                        .overlay(
+                            // Inner shadow effect
+                            RoundedRectangle(cornerRadius: 42)
+                                .stroke(Color(red: 1.0, green: 0.93, blue: 0.92).opacity(0.1), lineWidth: 7)
+                                .blur(radius: 7)
+                                .offset(x: 0, y: 0)
+                                .mask(RoundedRectangle(cornerRadius: 42))
+                        )
+                )
+        } else {
+            RoundedRectangle(cornerRadius: 42)
+                .fill(Color.textBackgroundRedGray.opacity(0.1))
         }
     }
 }
 
 #Preview {
-    ProgressNumber(currentCount: 10, totalCount: 10245)
+    ProgressNumber(currentCount: 10245, totalCount: 10245)
 }
 
 
