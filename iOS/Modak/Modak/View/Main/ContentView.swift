@@ -10,59 +10,59 @@ import SwiftUI
 // MARK: - ContentView
 
 struct ContentView: View {
+    @State private var tabSelection: Int = 0
+    
+    init () {
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.backgroundColor = .backgroundLogPile
+        tabBarAppearance.shadowColor = UIColor(.white.opacity(0.15))
+        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+    }
     
     var body: some View {
         
-        // TODO: TabView selection 변수가 필요한지 체크하기
         if #available(iOS 18.0, *) {
-            TabView {
-                Tab {
+            TabView(selection: $tabSelection) {
+                Tab(value: 0) {
                     LogPileView()
-                        .toolbarBackground(.backgroundLogPile, for: .tabBar)
-                        .toolbarBackgroundVisibility(.visible, for: .tabBar)
                 } label: {
                     Image(.tabLogFile)
                     Text("장작 창고")
                 }
                 
-                Tab {
+                Tab(value: 1) {
                     CampfireView()
-                        .toolbarBackground(.backgroundLogPile, for: .tabBar)
-                        .toolbarBackgroundVisibility(.visible, for: .tabBar)
                 } label: {
                     Image(.tabCampfire)
                     Text("캠프파이어")
                 }
                 
-                Tab {
+                Tab(value: 2) {
                     ProfileView()
-                        .toolbarBackground(.backgroundLogPile, for: .tabBar)
-                        .toolbarBackgroundVisibility(.visible, for: .tabBar)
                 } label: {
                     Image(.tabProfile)
                     Text("프로필")
                 }
             }
         } else {
-            TabView {
-                Group {
-                    LogPileView()
-                        .tabItem {
-                            Label("장작 창고", image: .tabLogFile)
-                        }
-                    
-                    CampfireView()
-                        .tabItem {
-                            Label("캠프파이어", image: .tabCampfire)
-                        }
-                    
-                    ProfileView()
-                        .tabItem {
-                            Label("프로필", image: .tabProfile)
-                        }
-                }
-                .toolbarBackground(.backgroundLogPile, for: .tabBar)
-                .toolbarBackground(.visible, for: .tabBar)
+            TabView(selection: $tabSelection) {
+                LogPileView()
+                    .tabItem {
+                        Label("장작 창고", image: .tabLogFile)
+                    }
+                    .tag(0)
+                
+                CampfireView()
+                    .tabItem {
+                        Label("캠프파이어", image: .tabCampfire)
+                    }
+                    .tag(1)
+                
+                ProfileView()
+                    .tabItem {
+                        Label("프로필", image: .tabProfile)
+                    }
+                    .tag(2)
             }
         }
     }
