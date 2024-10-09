@@ -56,14 +56,15 @@ struct OrganizePhotoView: View {
                 }) {
                     RoundedRectangle(cornerRadius: 73)
                         .frame(width: 345, height: 58)
-                        .foregroundStyle(Color.mainColor1)
+                        .foregroundStyle(currentCount >= totalCount ? Color.mainColor1 : Color.disable)
                         .overlay {
                             Text("확인하러 가기")
                                 .font(.custom("Pretendard-Bold", size: 17))
                                 .lineSpacing(14 * 0.4)
-                                .foregroundStyle(Color.white)
+                                .foregroundStyle(currentCount >= totalCount ? Color.white : Color.textColorGray4)
                         }
                 }
+                .disabled(currentCount < totalCount)
                 .padding(.bottom, 14)
                 
                 Button(action: {
