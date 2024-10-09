@@ -31,6 +31,7 @@
 		10C0E80A2CB56BF000C7F3DE /* ProgressNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E8092CB56BF000C7F3DE /* ProgressNumber.swift */; };
 		10C0E80D2CB65F4C00C7F3DE /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E80C2CB65F4C00C7F3DE /* CircularProgressBar.swift */; };
 		10C0E80F2CB6698300C7F3DE /* CircularProgressPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E80E2CB6698300C7F3DE /* CircularProgressPhoto.swift */; };
+		10C0E8112CB6787000C7F3DE /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E8102CB6787000C7F3DE /* BottomSheetView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		10C0E8092CB56BF000C7F3DE /* ProgressNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProgressNumber.swift; path = Modak/View/ProgressNumber.swift; sourceTree = SOURCE_ROOT; };
 		10C0E80C2CB65F4C00C7F3DE /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CircularProgressBar.swift; path = Modak/View/CircularProgressBar.swift; sourceTree = SOURCE_ROOT; };
 		10C0E80E2CB6698300C7F3DE /* CircularProgressPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CircularProgressPhoto.swift; path = Modak/View/CircularProgressPhoto.swift; sourceTree = SOURCE_ROOT; };
+		10C0E8102CB6787000C7F3DE /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BottomSheetView.swift; path = Modak/View/BottomSheetView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +167,7 @@
 				10C0E8092CB56BF000C7F3DE /* ProgressNumber.swift */,
 				10C0E80C2CB65F4C00C7F3DE /* CircularProgressBar.swift */,
 				10C0E80E2CB6698300C7F3DE /* CircularProgressPhoto.swift */,
+				10C0E8102CB6787000C7F3DE /* BottomSheetView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 				10C0E8022CB4BCA300C7F3DE /* OnboardingView.swift in Sources */,
 				10C0E7FE2CB4B88E00C7F3DE /* AuthorizationView.swift in Sources */,
 				10C0E8082CB5593E00C7F3DE /* OrganizePhotoView.swift in Sources */,
+				10C0E8112CB6787000C7F3DE /* BottomSheetView.swift in Sources */,
 				10AB91D82CACD7AC00BFA2EC /* LogDetailView.swift in Sources */,
 				10C0E80D2CB65F4C00C7F3DE /* CircularProgressBar.swift in Sources */,
 			);

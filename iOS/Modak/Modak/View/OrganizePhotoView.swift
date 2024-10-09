@@ -11,6 +11,7 @@ struct OrganizePhotoView: View {
     @State private var currentPage = 0
     @State private var currentCount: Int = 1
     let totalCount: Int = 10245
+    @State private var showBottomSheet = false
     
     init() {
         // 페이지 인디케이터 색깔 설정
@@ -68,7 +69,7 @@ struct OrganizePhotoView: View {
                 .padding(.bottom, 14)
                 
                 Button(action: {
-                    // 동작 추가 필요
+                    showBottomSheet.toggle()
                 }) {
                     Text("창작이 무엇인가요?")
                         .font(.custom("Pretendard-Medium", size: 16))
@@ -78,8 +79,14 @@ struct OrganizePhotoView: View {
                 
                 Spacer(minLength: 12)
             }
+            .multilineTextAlignment(.center)
+            
+            if showBottomSheet {
+                BottomSheetView(isPresented: $showBottomSheet)
+                    .transition(.move(edge: .bottom))
+            }
+
         }
-        .multilineTextAlignment(.center)
     }
 }
 
