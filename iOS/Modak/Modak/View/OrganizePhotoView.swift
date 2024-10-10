@@ -9,9 +9,8 @@ import SwiftUI
 import Photos
 
 struct OrganizePhotoView: View {
+    @StateObject private var viewModel = OrganizePhotoViewModel()
     @State private var currentPage = 0
-    @State private var currentCount: Int = 1
-    @State private var totalCount: Int = 0
     @State private var showBottomSheet = false
     
     init() {
@@ -24,7 +23,7 @@ struct OrganizePhotoView: View {
         ZStack {
             Color.backgroundDefault.ignoresSafeArea(.all)
             VStack {
-                Image(currentCount >= totalCount ? "Test_PagingBar3" : "Test_PagingBar2")
+                Image(viewModel.currentCount >= viewModel.totalCount ? "Test_PagingBar3" : "Test_PagingBar2")
                     .padding(.top, 24)
                 
                 TabView(selection: $currentPage) {
@@ -58,15 +57,15 @@ struct OrganizePhotoView: View {
                 }) {
                     RoundedRectangle(cornerRadius: 73)
                         .frame(width: 345, height: 58)
-                        .foregroundStyle(currentCount >= totalCount ? Color.mainColor1 : Color.disable)
+                        .foregroundStyle(viewModel.currentCount >= viewModel.totalCount ? Color.mainColor1 : Color.disable)
                         .overlay {
                             Text("확인하러 가기")
                                 .font(.custom("Pretendard-Bold", size: 17))
                                 .lineSpacing(14 * 0.4)
-                                .foregroundStyle(currentCount >= totalCount ? Color.white : Color.textColorGray4)
+                                .foregroundStyle(viewModel.currentCount >= viewModel.totalCount ? Color.white : Color.textColorGray4)
                         }
                 }
-                .disabled(currentCount < totalCount)
+                .disabled(viewModel.currentCount >= viewModel.totalCount)
                 .padding(.bottom, 14)
                 
                 Button(action: {
@@ -87,16 +86,6 @@ struct OrganizePhotoView: View {
                     .transition(.move(edge: .bottom))
             }
         }
-        .onAppear {
-            fetchPhotoTotalCount()
-        }
-    }
-    
-    private func fetchPhotoTotalCount() {
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.predicate = NSPredicate(format: "mediaType == %d", PHAssetMediaType.image.rawValue)
-        let fetchResult = PHAsset.fetchAssets(with: fetchOptions)
-        self.totalCount = fetchResult.count
     }
 }
 
@@ -119,31 +108,21 @@ extension OrganizePhotoView {
             .padding(.top, 14)
             .padding(.bottom, 65)
             
-            ProgressNumber(currentCount: currentCount, totalCount: totalCount)
-                .padding(.bottom, 26)
-            
+            ProgressNumber(currentCount: viewModel.currentCount, totalCount: viewModel.totalCount)
+                            .padding(.bottom, 26)
+                        
             ZStack {
-                CircularProgressBar(progress: Double(currentCount) / Double(totalCount))
+                CircularProgressBar(progress: Double(viewModel.currentCount) / Double(viewModel.totalCount))
                 CircularProgressPhoto()
             }
             
             Spacer()
         }
-        .onAppear {
-            // 숫자 증가 애니메이션
-            Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true) { timer in
-                if self.currentCount < totalCount {
-                    self.currentCount += 1
-                } else {
-                    timer.invalidate()
-                }
-            }
-        }
     }
     
     private var progressText: String {
-        let progressPercentage = (Double(currentCount) / Double(totalCount)) * 100
-        
+        let progressPercentage = (Double(viewModel.currentCount) / Double(viewModel.totalCount)) * 100
+
         switch progressPercentage {
         case 0..<40:
             return "장작을 모으는 중"
