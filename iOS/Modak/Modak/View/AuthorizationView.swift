@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import Photos
 
 struct AuthorizationView: View {
+    @State private var showAlert = false
+    @State private var navigateToOrganizePhotoView = false
     
     var body: some View {
         ZStack {
@@ -26,7 +29,7 @@ struct AuthorizationView: View {
                 Spacer()
                 
                 Button(action: {
-                    // 동작 추가 필요
+                    requestPhotoLibraryAccess()
                 }) {
                     RoundedRectangle(cornerRadius: 73)
                         .frame(width: 345, height: 58)
@@ -70,8 +73,36 @@ struct AuthorizationView: View {
             
         }
         .multilineTextAlignment(.center)
-        .navigationBarBackButtonHidden(true)  // 기본 네비게이션 백 버튼 숨기기
-        .navigationBarItems(leading: BackButton())  // 커스텀 백 버튼 추가
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: BackButton())
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("사진첩 접근 권한을 허용해주세요"),
+                message: Text("\n원활한 사용을 위해서 사진첩 접근 권한이 필요합니다.\n\n*사진을 정리할 때 사진 정보는 서버에 공유되지 않아요."),
+                primaryButton: .default(Text("확인")) {
+                    if let appSettings = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(appSettings)
+                    }
+                },
+                secondaryButton: .cancel(Text("취소"))
+            )
+        }
+        .fullScreenCover(isPresented: $navigateToOrganizePhotoView) {
+            OrganizePhotoView()
+        }
+    }
+    
+    private func requestPhotoLibraryAccess() {
+        PHPhotoLibrary.requestAuthorization { status in
+            switch status {
+            case .authorized, .limited:
+                navigateToOrganizePhotoView = true
+            case .denied, .restricted, .notDetermined:
+                showAlert = true
+            @unknown default:
+                break
+            }
+        }
     }
 }
 
