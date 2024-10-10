@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import Photos
 
 struct OrganizePhotoView: View {
     @State private var currentPage = 0
     @State private var currentCount: Int = 1
-    let totalCount: Int = 10245
+    @State private var totalCount: Int = 0
     @State private var showBottomSheet = false
     
     init() {
@@ -85,8 +86,17 @@ struct OrganizePhotoView: View {
                 BottomSheetView(isPresented: $showBottomSheet)
                     .transition(.move(edge: .bottom))
             }
-
         }
+        .onAppear {
+            fetchPhotoTotalCount()
+        }
+    }
+    
+    private func fetchPhotoTotalCount() {
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.predicate = NSPredicate(format: "mediaType == %d", PHAssetMediaType.image.rawValue)
+        let fetchResult = PHAsset.fetchAssets(with: fetchOptions)
+        self.totalCount = fetchResult.count
     }
 }
 
