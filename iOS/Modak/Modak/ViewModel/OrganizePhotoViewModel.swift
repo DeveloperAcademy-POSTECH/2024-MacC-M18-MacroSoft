@@ -15,6 +15,7 @@ class OrganizePhotoViewModel: ObservableObject {
     @Published var clusters: [[PhotoMetadata]] = []
     @Published var photoMetadataList: [PhotoMetadata] = []
     @Published var statusMessage: String = "장작을 모으는 중"
+    @Published var currentCircularProgressPhoto: UIImage? = nil
     
     private var dbscan = DBSCAN()
     private var timer: Timer?
@@ -43,6 +44,7 @@ class OrganizePhotoViewModel: ObservableObject {
             let resultClusters = self.dbscan.applyAlgorithm(points: self.photoMetadataList) { progress in
                 DispatchQueue.main.async {
                     self.currentCount = progress // 알고리즘 진행 상황을 메인 스레드에서 업데이트
+                    self.updateCircularProgressPhoto(currentProgress: progress)
                 }
             }
             
@@ -96,6 +98,30 @@ class OrganizePhotoViewModel: ObservableObject {
     func stopStatusMessageRotation() {
         messageRotationTimer?.invalidate()
         messageRotationTimer = nil
+    }
+    
+    private func updateCircularProgressPhoto(currentProgress: Int) {
+        let updateFrequency = 600
+            
+        if currentProgress % updateFrequency == 0, currentProgress > 0, currentProgress < photoMetadataList.count {
+            let asset = photoMetadataList[currentProgress].asset
+            fetchPhoto(for: asset) { image in
+                DispatchQueue.main.async {
+                    self.currentCircularProgressPhoto = image
+                }
+            }
+        }
+    }
+
+    private func fetchPhoto(for asset: PHAsset, completion: @escaping (UIImage?) -> Void) {
+        let imageManager = PHImageManager.default()
+        let options = PHImageRequestOptions()
+        options.isSynchronous = false
+        options.deliveryMode = .highQualityFormat
+        
+        imageManager.requestImage(for: asset, targetSize: CGSize(width: 213, height: 213), contentMode: .aspectFill, options: options) { image, _ in
+            completion(image)
+        }
     }
 }
 

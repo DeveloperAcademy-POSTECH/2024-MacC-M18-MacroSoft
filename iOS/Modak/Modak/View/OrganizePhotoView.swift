@@ -115,7 +115,7 @@ extension OrganizePhotoView {
                         
             ZStack {
                 CircularProgressBar(progress: Double(viewModel.currentCount) / Double(viewModel.totalCount))
-                CircularProgressPhoto()
+                CircularProgressPhoto(image: viewModel.currentCircularProgressPhoto)
             }
             
             Spacer()
