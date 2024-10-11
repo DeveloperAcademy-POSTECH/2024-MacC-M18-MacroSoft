@@ -38,12 +38,6 @@ class OrganizePhotoViewModel: ObservableObject {
     }
     
     func applyDBSCAN() {
-        // 사진이 존재하는지 확인
-        guard !photoMetadataList.isEmpty else { return }
-
-        estimatedTimeToComplete = estimateTimeForClustering() // 예상 시간을 계산
-        startProgressTimer(duration: estimatedTimeToComplete) // 시각적 진행률 업데이트 시작
-        
         // 비동기적으로 DBSCAN 알고리즘 적용
         DispatchQueue.global(qos: .userInitiated).async {
             let resultClusters = self.dbscan.applyAlgorithm(points: self.photoMetadataList) { progress in
@@ -55,40 +49,14 @@ class OrganizePhotoViewModel: ObservableObject {
             // 클러스터링 결과를 메인 스레드에서 업데이트
             DispatchQueue.main.async {
                 self.clusters = resultClusters
-                self.stopProgressTimer() // 알고리즘 완료 시 타이머 중지
+                print("총 클러스터링된 데이터 개수: \(self.clusters.flatMap { $0 }.count)")
                 self.currentCount = self.totalCount // 최종적으로 진행률을 100%로 설정
             }
         }
     }
     
-    private func estimateTimeForClustering() -> TimeInterval {
-        // O(n²) 시간 복잡도를 기반으로 사진 수에 따른 예상 시간 계산 (초 단위)
-        let baseTimePerPhoto = 0.01 // 사진 한 장당 기본 처리 시간 (0.01초)
-        let estimatedTime = baseTimePerPhoto * pow(Double(totalCount), 2) // O(n²) 예측 모델
-        let bufferTime = max(5.0, estimatedTime * 0.1) // 예측 시간의 10% 또는 최소 5초 추가
-        return estimatedTime + bufferTime
-    }
-    
-    private func startProgressTimer(duration: TimeInterval) {
-        let progressIncrement = 1.0 / duration // 초당 진행률을 계산
-        
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            if self.currentCount < self.totalCount {
-                let progressIncrease = Int(Double(self.totalCount) * progressIncrement)
-                self.currentCount = min(self.currentCount + progressIncrease, self.totalCount)
-            } else {
-                self.stopProgressTimer()
-            }
-        }
-    }
-    
-    private func stopProgressTimer() {
-        timer?.invalidate()
-        timer = nil
-    }
-    
     func startStatusMessageRotation() {
-        messageRotationTimer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: true) { _ in
+        messageRotationTimer = Timer.scheduledTimer(withTimeInterval: 4, repeats: true) { _ in
             guard self.currentCount < self.totalCount else { return }
             if let currentIndex = self.statusMessages.firstIndex(of: self.statusMessage) {
                 let nextIndex = (currentIndex + 1) % self.statusMessages.count

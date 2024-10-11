@@ -88,7 +88,6 @@ struct OrganizePhotoView: View {
         }
         .onAppear {
             viewModel.applyDBSCAN() // 뷰가 나타날 때 DBSCAN 실행
-            viewModel.startStatusMessageRotation()
         }
     }
 }
@@ -101,9 +100,6 @@ extension OrganizePhotoView {
                 if viewModel.currentCount >= viewModel.totalCount {
                     Text("장작을 모두 모았어요")
                         .foregroundStyle(Color.textColor3)
-                        .onAppear {
-                            viewModel.stopStatusMessageRotation()
-                        }
                 } else {
                     Text(viewModel.statusMessage)
                         .foregroundStyle(Color.textColor3)
