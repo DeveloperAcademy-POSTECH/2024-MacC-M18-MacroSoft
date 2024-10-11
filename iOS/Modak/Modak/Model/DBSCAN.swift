@@ -39,7 +39,7 @@ class DBSCAN {
             var queue = neighbors
             while !queue.isEmpty {
                 let neighbor = queue.removeFirst()
-                if !visited.contains(neighbor) {
+                if !visited.contains(neighbor) { // 방문하지 않은 포인트만 처리
                     visited.insert(neighbor)
                     let newNeighbors = regionQuery(point: neighbor)
                     if newNeighbors.count >= minPts {
@@ -53,22 +53,26 @@ class DBSCAN {
         }
         
         for point in points {
-            if visited.contains(point) { continue }
-            visited.insert(point)
-            let neighbors = regionQuery(point: point)
-            if neighbors.count < minPts {
-                noise.append(point)
-            } else {
-                var cluster: [PhotoMetadata] = []
-                expandCluster(point: point, neighbors: neighbors, cluster: &cluster)
-                clusters.append(cluster)
+            // 방문 여부에 관계없이 일단 모든 포인트를 처리하도록 변경
+            if !visited.contains(point) {
+                visited.insert(point)
+                let neighbors = regionQuery(point: point)
+                if neighbors.count < minPts {
+                    noise.append(point)  // 클러스터링 되지 않는 포인트는 노이즈로 추가
+                } else {
+                    var cluster: [PhotoMetadata] = []
+                    expandCluster(point: point, neighbors: neighbors, cluster: &cluster)
+                    clusters.append(cluster)
+                }
             }
-            
-            // 진행 상황 업데이트
+        
+            // 진행 상황 업데이트: 모든 포인트에 대해 업데이트되도록 보장
             processedPoints += 1
-            progressUpdate(processedPoints) // 현재 처리된 포인트 수를 콜백으로 반환
+            progressUpdate(processedPoints)
+            print("Main Loop - Processing photo \(processedPoints) out of \(points.count)")
         }
         
+        print("Total clusters formed: \(clusters.count)")
         return clusters
     }
     
