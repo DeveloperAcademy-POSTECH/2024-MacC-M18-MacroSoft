@@ -56,13 +56,41 @@ class OrganizePhotoViewModel: ObservableObject {
     }
     
     func startStatusMessageRotation() {
-        messageRotationTimer = Timer.scheduledTimer(withTimeInterval: 4, repeats: true) { _ in
-            guard self.currentCount < self.totalCount else { return }
-            if let currentIndex = self.statusMessages.firstIndex(of: self.statusMessage) {
-                let nextIndex = (currentIndex + 1) % self.statusMessages.count
-                self.statusMessage = self.statusMessages[nextIndex]
+        // 사진 장수에 따라 메시지 변경 시점을 결정
+        let changePoints = calculateChangePoints(for: totalCount)
+        var currentChangeIndex = 0
+
+        messageRotationTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+            DispatchQueue.main.async {
+                guard self.currentCount < self.totalCount else {
+                    self.stopStatusMessageRotation()
+                    return
+                }
+                
+                // 현재 진행률이 다음 메시지 변경 지점에 도달했는지 확인
+                if currentChangeIndex < changePoints.count && Double(self.currentCount) / Double(self.totalCount) >= changePoints[currentChangeIndex] {
+                    let nextIndex = currentChangeIndex % self.statusMessages.count
+                    self.statusMessage = self.statusMessages[nextIndex]
+                    print("Status Message : \(self.statusMessage)")
+                    currentChangeIndex += 1
+                }
             }
         }
+    }
+
+    private func calculateChangePoints(for totalCount: Int) -> [Double] {
+        let numberOfChanges: Int
+
+        // 사진 장수에 따라 메시지 변경 횟수를 설정
+        if totalCount <= 5000 {
+            numberOfChanges = 3
+        } else {
+            numberOfChanges = ((totalCount / 5000) * 3)
+        }
+
+        // 100%를 변경 횟수로 나누어, 구간 형성. 메시지 변경 지점을 배열로 생성.
+        let interval = 1.0 / Double(numberOfChanges)
+        return (0...numberOfChanges).map { Double($0) * interval }
     }
         
     func stopStatusMessageRotation() {

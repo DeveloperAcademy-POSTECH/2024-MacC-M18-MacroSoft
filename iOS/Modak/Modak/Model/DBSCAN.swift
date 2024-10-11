@@ -69,7 +69,7 @@ class DBSCAN {
             // 진행 상황 업데이트: 모든 포인트에 대해 업데이트되도록 보장
             processedPoints += 1
             progressUpdate(processedPoints)
-            print("Main Loop - Processing photo \(processedPoints) out of \(points.count)")
+//            print("Main Loop - Processing photo \(processedPoints) out of \(points.count)")
         }
         
         print("Total clusters formed: \(clusters.count)")
