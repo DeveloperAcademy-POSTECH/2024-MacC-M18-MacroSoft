@@ -118,6 +118,9 @@ extension OrganizePhotoView {
             
             Spacer()
         }
+        .onAppear {
+            viewModel.applyDBSCAN() // 뷰가 나타날 때 DBSCAN 실행
+        }
     }
     
     private var progressText: String {
