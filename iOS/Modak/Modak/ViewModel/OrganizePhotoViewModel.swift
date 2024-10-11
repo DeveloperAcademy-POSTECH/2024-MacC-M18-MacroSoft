@@ -103,7 +103,7 @@ class OrganizePhotoViewModel: ObservableObject {
     private func updateCircularProgressPhoto(currentProgress: Int) {
         let updateFrequency = 600
             
-        if currentProgress % updateFrequency == 0, currentProgress > 0, currentProgress < photoMetadataList.count {
+        if currentProgress % updateFrequency == 0 && currentProgress > 0 && currentProgress < photoMetadataList.count {
             let asset = photoMetadataList[currentProgress].asset
             fetchPhoto(for: asset) { image in
                 DispatchQueue.main.async {

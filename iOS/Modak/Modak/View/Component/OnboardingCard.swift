@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public func onboardingView(title: String, titleHighlightRanges: [ClosedRange<Int>], context: String, image: String) -> some View {
+public func onboardingCard(title: String, titleHighlightRanges: [ClosedRange<Int>], context: String, image: String) -> some View {
     var highlightedText = Text("")
     
     for (index, character) in title.enumerated() {

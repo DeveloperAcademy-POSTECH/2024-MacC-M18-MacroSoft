@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct BottomSheetView: View {
+struct BottomSheet: View {
     @Binding var isPresented: Bool
     @State private var offset: CGFloat = UIScreen.main.bounds.height
+    let viewName: String
     
     var body: some View {
         GeometryReader { geometry in
@@ -30,37 +31,7 @@ struct BottomSheetView: View {
                         .padding(.bottom, 12)
                     
                     VStack(alignment: .leading) {
-                        Text("장작이란?")
-                            .foregroundStyle(Color.textColor2)
-                            .font(.custom("Pretendard-Bold", size: 21))
-                            .padding(.bottom, 18)
-                        
-                        HStack {
-                            Text("여러분의 ")
-                                .foregroundStyle(Color.textColorGray1)
-                                .font(.custom("Pretendard-Regular", size: 18))
-                            + Text("기억의 숲 ")
-                                .foregroundStyle(Color.mainColor2)
-                                .font(.custom("Pretendard-SemiBold", size: 18))
-                            + Text("에서 구할 수 있는\n")
-                                .foregroundStyle(Color.textColorGray1)
-                                .font(.custom("Pretendard-Regular", size: 18))
-                            + Text("특별한 장작")
-                                .foregroundStyle(Color.textColor1)
-                                .font(.custom("Pretendard-SemiBold", size: 18))
-                            + Text("이에요")
-                                .foregroundStyle(Color.textColorGray1)
-                                .font(.custom("Pretendard-Regular", size: 18))
-                            
-                            Spacer()
-                        }
-                        .lineSpacing(18 * 0.45)
-                        .padding(.bottom, 18)
-                        
-                        Text("장작을 많이 구비해두면 기억하고싶은 특별한 순간의\n추억 불씨를 피울 수 있어요")
-                            .foregroundStyle(Color.textColorGray2)
-                            .font(.custom("Pretendard-Regular", size: 16))
-                            .lineSpacing(16 * 0.5)
+                        bottomSheetContent(viewName)
                     }
                     .padding(.leading, 24)
                     
@@ -134,6 +105,50 @@ struct RoundedCorner: Shape {
     }
 }
 
+extension BottomSheet {
+    @ViewBuilder
+    func bottomSheetContent(_ name: String) -> some View {
+        switch name {
+        case "OrganizePhotoView":
+            Text("장작이란?")
+                .foregroundStyle(Color.textColor2)
+                .font(.custom("Pretendard-Bold", size: 21))
+                .padding(.bottom, 18)
+            
+            HStack {
+                Text("여러분의 ")
+                    .foregroundStyle(Color.textColorGray1)
+                    .font(.custom("Pretendard-Regular", size: 18))
+                + Text("기억의 숲 ")
+                    .foregroundStyle(Color.mainColor2)
+                    .font(.custom("Pretendard-SemiBold", size: 18))
+                + Text("에서 구할 수 있는\n")
+                    .foregroundStyle(Color.textColorGray1)
+                    .font(.custom("Pretendard-Regular", size: 18))
+                + Text("특별한 장작")
+                    .foregroundStyle(Color.textColor1)
+                    .font(.custom("Pretendard-SemiBold", size: 18))
+                + Text("이에요")
+                    .foregroundStyle(Color.textColorGray1)
+                    .font(.custom("Pretendard-Regular", size: 18))
+                
+                Spacer()
+            }
+            .lineSpacing(18 * 0.45)
+            .padding(.bottom, 18)
+            
+            Text("장작을 많이 구비해두면 기억하고싶은 특별한 순간의\n추억 불씨를 피울 수 있어요")
+                .foregroundStyle(Color.textColorGray2)
+                .font(.custom("Pretendard-Regular", size: 16))
+                .lineSpacing(16 * 0.5)
+        default:
+            Text("기본 콘텐츠")
+                .font(.custom("Pretendard-Regular", size: 16))
+                .foregroundStyle(Color.textColorGray2)
+        }
+    }
+}
+
 #Preview {
-    BottomSheetView(isPresented: .constant(true))
+    BottomSheet(isPresented: .constant(true), viewName: "OrganizePhotoView")
 }
