@@ -27,12 +27,7 @@ struct CircularProgressBar: View {
                 )
                 .rotationEffect(Angle(degrees: -90))
                 .frame(width: 277, height: 277)
-                .animation(progress >= 0.8 ? slowAnimation : .default, value: progress)
         }
-    }
-
-    private var slowAnimation: Animation {
-        Animation.linear(duration: 0.4)
     }
 }
 
