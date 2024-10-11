@@ -14,10 +14,14 @@ class OrganizePhotoViewModel: ObservableObject {
     @Published var totalCount: Int = 0
     @Published var clusters: [[PhotoMetadata]] = []
     @Published var photoMetadataList: [PhotoMetadata] = []
+    @Published var statusMessage: String = "장작을 모으는 중"
     
     private var dbscan = DBSCAN()
     private var timer: Timer?
+    private var messageRotationTimer: Timer?
     private var estimatedTimeToComplete: TimeInterval = 0
+    
+    private let statusMessages = ["장작을 모으는 중", "기억에서 장작 선별중..", "장작의 원산지를 파악중"]
 
     init() {
         fetchPhotoTotalCount()
@@ -77,10 +81,25 @@ class OrganizePhotoViewModel: ObservableObject {
             }
         }
     }
-        
+    
     private func stopProgressTimer() {
         timer?.invalidate()
         timer = nil
+    }
+    
+    func startStatusMessageRotation() {
+        messageRotationTimer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: true) { _ in
+            guard self.currentCount < self.totalCount else { return }
+            if let currentIndex = self.statusMessages.firstIndex(of: self.statusMessage) {
+                let nextIndex = (currentIndex + 1) % self.statusMessages.count
+                self.statusMessage = self.statusMessages[nextIndex]
+            }
+        }
+    }
+        
+    func stopStatusMessageRotation() {
+        messageRotationTimer?.invalidate()
+        messageRotationTimer = nil
     }
 }
 

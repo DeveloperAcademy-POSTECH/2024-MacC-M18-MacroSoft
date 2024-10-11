@@ -88,6 +88,7 @@ struct OrganizePhotoView: View {
         }
         .onAppear {
             viewModel.applyDBSCAN() // 뷰가 나타날 때 DBSCAN 실행
+            viewModel.startStatusMessageRotation()
         }
     }
 }
@@ -97,13 +98,14 @@ extension OrganizePhotoView {
     private var progressSection: some View {
         VStack {
             Group {
-                if progressText == "장작을 모두 모았어요" {
-                    Text("장작을 ")
+                if viewModel.currentCount >= viewModel.totalCount {
+                    Text("장작을 모두 모았어요")
                         .foregroundStyle(Color.textColor3)
-                    + Text("모두 모았어요")
-                        .foregroundStyle(Color.textColor2)
+                        .onAppear {
+                            viewModel.stopStatusMessageRotation()
+                        }
                 } else {
-                    Text(progressText)
+                    Text(viewModel.statusMessage)
                         .foregroundStyle(Color.textColor3)
                 }
             }
@@ -120,23 +122,6 @@ extension OrganizePhotoView {
             }
             
             Spacer()
-        }
-    }
-    
-    private var progressText: String {
-        let progressPercentage = (Double(viewModel.currentCount) / Double(viewModel.totalCount)) * 100
-
-        switch progressPercentage {
-        case 0..<40:
-            return "장작을 모으는 중"
-        case 40..<70:
-            return "기억에서 장작 선별중.."
-        case 70..<100:
-            return "장작의 원산지를 파악중"
-        case 100:
-            return "장작을 모두 모았어요"
-        default:
-            return "장작을 모으는 중"
         }
     }
 }
