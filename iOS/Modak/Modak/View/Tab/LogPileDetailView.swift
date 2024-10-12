@@ -47,41 +47,49 @@ struct LogPileDetailView:View {
                 ToolbarItem(placement: .topBarLeading) {
                     VStack(alignment: .leading, spacing: 14) {
                         Button {
-                            
+                            // TODO: 뒤로가기 기능 적용
                         } label: {
                             Image(systemName: "chevron.left")
                         }
                         .padding(.top, 64)
-                        HStack(spacing: 10) {
-                            // TODO: 이미지 받아서 적용시키기
-                            Image(.testPhotosIcon)
-                                .padding(.bottom, 5)
-                            VStack(alignment: .leading) {
-                                HStack {
-                                    // TODO: 역지오 코딩 적용
-                                    Text("포항시 남구")
-                                        .font(
-                                            Font.custom("Pretendard-Bold", size: 18)
-                                        )
-                                        .foregroundStyle(.textColor1)
-                                    +
-                                    Text("에서의 추억로그")
-                                        .font(
-                                            Font.custom("Pretendard-regular", size: 18)
-                                        )
-                                }
-                                Text("2024년 10월 12일")
-                                    .font(
-                                        Font.custom("Pretendard-Medium", size: 14)
-                                    )
-                                    .opacity(0.8)
-                            }
-                        }
+                        
+                        LogPileDetailViewTitle()
                     }
                     .foregroundStyle(.textColorGray1)
                 }
             }
             .toolbarBackground(.hidden, for: .navigationBar)
+        }
+    }
+}
+
+private struct LogPileDetailViewTitle: View {
+    var body: some View {
+        HStack(spacing: 10) {
+            // TODO: 이미지 받아서 적용시키기
+            Image(.testPhotosIcon)
+                .padding(.bottom, 5)
+            VStack(alignment: .leading) {
+                HStack {
+                    // TODO: 역지오 코딩 적용
+                    Text("포항시 남구")
+                        .font(
+                            Font.custom("Pretendard-Bold", size: 18)
+                        )
+                        .foregroundStyle(.textColor1)
+                    +
+                    Text("에서의 추억로그")
+                        .font(
+                            Font.custom("Pretendard-regular", size: 18)
+                        )
+                }
+                // TODO: 날짜 데이터 적용
+                Text("2024년 10월 12일")
+                    .font(
+                        Font.custom("Pretendard-Medium", size: 14)
+                    )
+                    .opacity(0.8)
+            }
         }
     }
 }
