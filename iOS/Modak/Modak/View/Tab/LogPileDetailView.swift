@@ -8,29 +8,17 @@
 import SwiftUI
 
 struct LogPileDetailView:View {
-    private var gridItems: [GridItem] = Array(repeating: GridItem(.fixed(UIScreen.main.bounds.size.width / 3), spacing: 1.5), count: 3)
-    
     // TODO: 네비게이션 연결하기
     var body: some View {
         NavigationStack{
             ScrollView {
-                LazyVGrid(columns: gridItems, spacing: 1.5) {
-                    ForEach(0..<20) { _ in
-                        Button {
-                            // TODO: 네비게이션 연결하기
-                        } label: {
-                            // TODO: 실제 사진 받아와서 적용시키기
-                            Rectangle()
-                                .aspectRatio(1, contentMode: .fill)
-                                .foregroundStyle(.accent)
-                        }
-                    }
-                }
+                LogPileDetailViewGrid()
                 // TODO: 현재 Figma의 패딩과 다름
                 .padding(.top, UIScreen.main.bounds.size.width / 5)
             }
             .background(.black)
             .overlay{
+                // TODO: LinearGradient extension으로 넘기기
                 LinearGradient(
                     stops: [
                         Gradient.Stop(color: Color(red: 0.09, green: 0.09, blue: 0.09), location: 0.00),
@@ -89,6 +77,25 @@ private struct LogPileDetailViewTitle: View {
                         Font.custom("Pretendard-Medium", size: 14)
                     )
                     .opacity(0.8)
+            }
+        }
+    }
+}
+
+private struct LogPileDetailViewGrid: View {
+    private var gridItems: [GridItem] = Array(repeating: GridItem(.fixed(UIScreen.main.bounds.size.width / 3), spacing: 1.5), count: 3)
+    
+    var body: some View {
+        LazyVGrid(columns: gridItems, spacing: 1.5) {
+            ForEach(0..<20) { _ in
+                Button {
+                    // TODO: 네비게이션 연결하기
+                } label: {
+                    // TODO: 실제 사진 받아와서 적용시키기
+                    Rectangle()
+                        .aspectRatio(1, contentMode: .fill)
+                        .foregroundStyle(.accent)
+                }
             }
         }
     }
