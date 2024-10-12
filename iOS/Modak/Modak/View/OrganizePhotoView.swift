@@ -6,15 +6,15 @@
 //
 
 import SwiftUI
+import Photos
 
 struct OrganizePhotoView: View {
+    @StateObject private var viewModel = OrganizePhotoViewModel()
     @State private var currentPage = 0
-    @State private var currentCount: Int = 1
-    let totalCount: Int = 10245
     @State private var showBottomSheet = false
     
     init() {
-        // 페이지 인디케이터 색깔 설정
+        // 페이지 인디케이터 색상 설정
         UIPageControl.appearance().currentPageIndicatorTintColor = .pagenationAble
         UIPageControl.appearance().pageIndicatorTintColor = .pagenationDisable
     }
@@ -23,29 +23,32 @@ struct OrganizePhotoView: View {
         ZStack {
             Color.backgroundDefault.ignoresSafeArea(.all)
             VStack {
-                Image(currentCount >= totalCount ? "Test_PagingBar3" : "Test_PagingBar2")
+                Image(viewModel.currentCount >= viewModel.totalCount ? "pagenationBar3" : "pagenationBar2")
                     .padding(.top, 24)
                 
                 TabView(selection: $currentPage) {
                     progressSection
                         .tag(0)
-                    onboardingView(
+                    onboardingCard(
                         title: "소중한 순간,\n자동으로 모아드릴게요",
                         titleHighlightRanges: [0...7],
                         context: "여행, 소풍, 즐거운 순간들,\n시공간에 따른 추억을 하나의 이야기로 모아드려요",
-                        image: "추억(장작)을 정리하기\n패기"
+                        image: "onboarding_image1",
+                        imagePadding: 10
                     ).tag(1)
-                    onboardingView(
+                    onboardingCard(
                         title: "추억의 순간 속 사람들과\n모닥불에서 모이세요",
                         titleHighlightRanges: [14...16],
                         context: "함께한 사람들과 그룹을 만들고 추억을 모아보세요\n잊혀진 순간이 있더라도 모닥불이 찾아드릴게요",
-                        image: "추억을 장작 삼아서 불지피기"
+                        image: "onboarding_image2",
+                        imagePadding: 10
                     ).tag(2)
-                    onboardingView(
+                    onboardingCard(
                         title: "같이 만든 추억을\n함께 나누세요",
                         titleHighlightRanges: [9...16],
                         context: "추억으로 피워낸 모닥불 앞에 모여 함께 감상하세요\n",
-                        image: "다같이 캠프파이어 즐기는 모습"
+                        image: "onboarding_image3",
+                        imagePadding: 10
                     ).tag(3)
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
@@ -57,15 +60,15 @@ struct OrganizePhotoView: View {
                 }) {
                     RoundedRectangle(cornerRadius: 73)
                         .frame(width: 345, height: 58)
-                        .foregroundStyle(currentCount >= totalCount ? Color.mainColor1 : Color.disable)
+                        .foregroundStyle(viewModel.currentCount >= viewModel.totalCount ? Color.mainColor1 : Color.disable)
                         .overlay {
                             Text("확인하러 가기")
                                 .font(.custom("Pretendard-Bold", size: 17))
                                 .lineSpacing(14 * 0.4)
-                                .foregroundStyle(currentCount >= totalCount ? Color.white : Color.textColorGray4)
+                                .foregroundStyle(viewModel.currentCount >= viewModel.totalCount ? Color.white : Color.textColorGray4)
                         }
                 }
-                .disabled(currentCount < totalCount)
+                .disabled(viewModel.currentCount >= viewModel.totalCount)
                 .padding(.bottom, 14)
                 
                 Button(action: {
@@ -82,26 +85,24 @@ struct OrganizePhotoView: View {
             .multilineTextAlignment(.center)
             
             if showBottomSheet {
-                BottomSheetView(isPresented: $showBottomSheet)
+                BottomSheet(isPresented: $showBottomSheet, viewName: "OrganizePhotoView")
                     .transition(.move(edge: .bottom))
             }
-
+        }
+        .onAppear {
+            viewModel.applyDBSCAN()
+            viewModel.startStatusMessageRotation()
         }
     }
-}
-
-extension OrganizePhotoView {
     
     private var progressSection: some View {
         VStack {
             Group {
-                if progressText == "장작을 모두 모았어요" {
-                    Text("장작을 ")
+                if viewModel.currentCount >= viewModel.totalCount {
+                    Text("장작을 모두 모았어요")
                         .foregroundStyle(Color.textColor3)
-                    + Text("모두 모았어요")
-                        .foregroundStyle(Color.textColor2)
                 } else {
-                    Text(progressText)
+                    Text(viewModel.statusMessage)
                         .foregroundStyle(Color.textColor3)
                 }
             }
@@ -109,46 +110,18 @@ extension OrganizePhotoView {
             .padding(.top, 14)
             .padding(.bottom, 65)
             
-            ProgressNumber(currentCount: currentCount, totalCount: totalCount)
-                .padding(.bottom, 26)
-            
+            ProgressNumber(currentCount: viewModel.currentCount, totalCount: viewModel.totalCount)
+                            .padding(.bottom, 26)
+                        
             ZStack {
-                CircularProgressBar(progress: Double(currentCount) / Double(totalCount))
-                CircularProgressPhoto()
+                CircularProgressBar(progress: Double(viewModel.currentCount) / Double(viewModel.totalCount))
+                CircularProgressPhoto(image: viewModel.currentCircularProgressPhoto)
             }
             
             Spacer()
         }
-        .onAppear {
-            // 숫자 증가 애니메이션
-            Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true) { timer in
-                if self.currentCount < totalCount {
-                    self.currentCount += 1
-                } else {
-                    timer.invalidate()
-                }
-            }
-        }
-    }
-    
-    private var progressText: String {
-        let progressPercentage = (Double(currentCount) / Double(totalCount)) * 100
-        
-        switch progressPercentage {
-        case 0..<40:
-            return "장작을 모으는 중"
-        case 40..<70:
-            return "기억에서 장작 선별중.."
-        case 70..<100:
-            return "장작의 원산지를 파악중"
-        case 100:
-            return "장작을 모두 모았어요"
-        default:
-            return "장작을 모으는 중"
-        }
     }
 }
-
 
 #Preview {
     OrganizePhotoView()
