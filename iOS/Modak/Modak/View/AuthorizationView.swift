@@ -6,27 +6,30 @@
 //
 
 import SwiftUI
+import Photos
 
 struct AuthorizationView: View {
+    @StateObject private var viewModel = AuthorizationViewModel()
     
     var body: some View {
         ZStack {
             Color.backgroundDefault.ignoresSafeArea(.all)
             VStack {
-                Image("Test_PagingBar1")
+                Image("pagenationBar1")
                     .padding(.top, -12)
                 
-                onboardingView(
+                onboardingCard(
                     title: "잊어버린 사진 속 순간들을\n추억으로 정리해요",
                     titleHighlightRanges: [5...11, 15...16],
                     context: "추억을 만나기 위해 다음 권한이 필요해요",
-                    image: "null"
+                    image: "null",
+                    imagePadding: 0
                 )
                 
                 Spacer()
                 
                 Button(action: {
-                    // 동작 추가 필요
+                    viewModel.requestPhotoLibraryAccess()
                 }) {
                     RoundedRectangle(cornerRadius: 73)
                         .frame(width: 345, height: 58)
@@ -42,7 +45,7 @@ struct AuthorizationView: View {
             }
             
             VStack {
-                Image("Test_PhotosIcon")
+                Image("photosIcon")
                     .padding(.bottom, 20)
                 
                 Text("카메라•사진첩")
@@ -70,8 +73,26 @@ struct AuthorizationView: View {
             
         }
         .multilineTextAlignment(.center)
-        .navigationBarBackButtonHidden(true)  // 기본 네비게이션 백 버튼 숨기기
-        .navigationBarItems(leading: BackButton())  // 커스텀 백 버튼 추가
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                BackButton()
+            }
+        }
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(
+                title: Text("사진첩 접근 권한을 허용해주세요"),
+                message: Text("\n원활한 사용을 위해서 사진첩 접근 권한이 필요합니다.\n\n*사진을 정리할 때 사진 정보는 서버에 공유되지 않아요."),
+                primaryButton: .default(Text("확인")) {
+                    if let appSettings = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(appSettings)
+                    }
+                },
+                secondaryButton: .cancel(Text("취소"))
+            )
+        }
+        .fullScreenCover(isPresented: $viewModel.navigateToOrganizePhotoView) {
+            OrganizePhotoView()
+        }
     }
 }
 
