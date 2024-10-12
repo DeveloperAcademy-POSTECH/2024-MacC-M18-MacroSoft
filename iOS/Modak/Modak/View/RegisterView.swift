@@ -23,23 +23,26 @@ struct RegisterView: View {
             
             VStack {
                 TabView(selection: $currentPage) {
-                    onboardingView(
+                    onboardingCard(
                         title: "소중한 순간,\n자동으로 모아드릴게요",
                         titleHighlightRanges: [0...7],
                         context: "여행, 소풍, 즐거운 순간들,\n시공간에 따른 추억을 하나의 이야기로 모아드려요",
-                        image: "추억(장작)을 정리하기\n패기"
+                        image: "onboarding_image1",
+                        imagePadding: 12
                     ).tag(0)
-                    onboardingView(
+                    onboardingCard(
                         title: "추억의 순간 속 사람들과\n모닥불에서 모이세요",
                         titleHighlightRanges: [14...16],
                         context: "함께한 사람들과 그룹을 만들고 추억을 모아보세요\n잊혀진 순간이 있더라도 모닥불이 찾아드릴게요",
-                        image: "추억을 장작 삼아서 불지피기"
+                        image: "onboarding_image2",
+                        imagePadding: 12
                     ).tag(1)
-                    onboardingView(
+                    onboardingCard(
                         title: "같이 만든 추억을\n함께 나누세요",
                         titleHighlightRanges: [9...16],
                         context: "추억으로 피워낸 모닥불 앞에 모여 함께 감상하세요\n",
-                        image: "다같이 캠프파이어 즐기는 모습"
+                        image: "onboarding_image3",
+                        imagePadding: 12
                     ).tag(2)
                 }
                 .padding(.top, 58)

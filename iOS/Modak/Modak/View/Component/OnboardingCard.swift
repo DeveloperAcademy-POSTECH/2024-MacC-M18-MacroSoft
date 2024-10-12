@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public func onboardingView(title: String, titleHighlightRanges: [ClosedRange<Int>], context: String, image: String) -> some View {
+public func onboardingCard(title: String, titleHighlightRanges: [ClosedRange<Int>], context: String, image: String, imagePadding: CGFloat) -> some View {
     var highlightedText = Text("")
     
     for (index, character) in title.enumerated() {
@@ -33,18 +33,15 @@ public func onboardingView(title: String, titleHighlightRanges: [ClosedRange<Int
             .foregroundStyle(Color.textColorGray1)
             .font(.custom("Pretendard-Regular", size: 16))
             .lineSpacing(16 * 0.5)
-            .padding(.bottom, 50)
+            .padding(.bottom, imagePadding)
         
         if image != "null" {
-            Rectangle()
-                .frame(width: 316, height: 316)
-                .foregroundStyle(Color.black.opacity(0.3))
-                .overlay {
-                    Text(image)
-                        .font(.custom("Pretendard-Bold", size: 22))
-                        .foregroundStyle(Color.textColorGray1)
-                        .opacity(0.4)
-                }
+            GeometryReader { geometry in
+                Image(image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: geometry.size.width)
+            }
         }
         
         Spacer()

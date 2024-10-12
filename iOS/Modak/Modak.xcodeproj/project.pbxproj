@@ -14,6 +14,16 @@
 		10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91D32CACD79300BFA2EC /* ProfileView.swift */; };
 		10AB91D62CACD7A100BFA2EC /* CampfireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91D52CACD7A100BFA2EC /* CampfireView.swift */; };
 		10AB91D82CACD7AC00BFA2EC /* LogPileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91D72CACD7AC00BFA2EC /* LogPileView.swift */; };
+		10BCB0DC2CB81D410013E227 /* OrganizePhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCB0DB2CB81D410013E227 /* OrganizePhotoViewModel.swift */; };
+		10BCB0DE2CB81F2D0013E227 /* PhotoMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCB0DD2CB81F2D0013E227 /* PhotoMetadata.swift */; };
+		10BCB0E02CB8206C0013E227 /* DBSCAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCB0DF2CB8206C0013E227 /* DBSCAN.swift */; };
+		10BCB0E72CB825520013E227 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCB0E12CB825520013E227 /* BackButton.swift */; };
+		10BCB0E82CB825520013E227 /* OnboardingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCB0E52CB825520013E227 /* OnboardingCard.swift */; };
+		10BCB0E92CB825520013E227 /* CircularProgressPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCB0E42CB825520013E227 /* CircularProgressPhoto.swift */; };
+		10BCB0EA2CB825520013E227 /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCB0E32CB825520013E227 /* CircularProgressBar.swift */; };
+		10BCB0EB2CB825520013E227 /* ProgressNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCB0E62CB825520013E227 /* ProgressNumber.swift */; };
+		10BCB0EC2CB825520013E227 /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCB0E22CB825520013E227 /* BottomSheet.swift */; };
+		10BCB0EE2CB84BCB0013E227 /* AuthorizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCB0ED2CB84BCB0013E227 /* AuthorizationViewModel.swift */; };
 		10BE376A2CB30743008D1DA1 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10BE37672CB30743008D1DA1 /* Pretendard-Regular.otf */; };
 		10BE376B2CB30743008D1DA1 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10BE37682CB30743008D1DA1 /* Pretendard-SemiBold.otf */; };
 		10BE376C2CB30743008D1DA1 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10BE37642CB30743008D1DA1 /* Pretendard-ExtraLight.otf */; };
@@ -25,19 +35,14 @@
 		10BE37722CB30743008D1DA1 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10BE37662CB30743008D1DA1 /* Pretendard-Medium.otf */; };
 		10BE37772CB30CF9008D1DA1 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BE37762CB30CF9008D1DA1 /* RegisterView.swift */; };
 		10C0E7FE2CB4B88E00C7F3DE /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E7FD2CB4B88E00C7F3DE /* AuthorizationView.swift */; };
-		10C0E8022CB4BCA300C7F3DE /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E8012CB4BCA300C7F3DE /* OnboardingView.swift */; };
-		10C0E8062CB4C48700C7F3DE /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E8052CB4C48700C7F3DE /* BackButton.swift */; };
+		CA2B5D052CBA6FDB0070DEBF /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D042CBA6FBD0070DEBF /* DateExtension.swift */; };
+		CA2B5D072CBA70280070DEBF /* LinearGradientExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D062CBA70210070DEBF /* LinearGradientExtension.swift */; };
+		CA2B5D0B2CBA70C40070DEBF /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D0A2CBA70C00070DEBF /* ColorExtension.swift */; };
+		CA2B5D0D2CBA81200070DEBF /* LogPileViewTestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D0C2CBA81130070DEBF /* LogPileViewTestModel.swift */; };
 		10C0E8082CB5593E00C7F3DE /* OrganizePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E8072CB5593E00C7F3DE /* OrganizePhotoView.swift */; };
-		10C0E80A2CB56BF000C7F3DE /* ProgressNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E8092CB56BF000C7F3DE /* ProgressNumber.swift */; };
-		10C0E80D2CB65F4C00C7F3DE /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E80C2CB65F4C00C7F3DE /* CircularProgressBar.swift */; };
-		10C0E80F2CB6698300C7F3DE /* CircularProgressPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E80E2CB6698300C7F3DE /* CircularProgressPhoto.swift */; };
-		10C0E8112CB6787000C7F3DE /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E8102CB6787000C7F3DE /* BottomSheetView.swift */; };
 		CA2B5D0F2CBAAE5C0070DEBF /* LogPileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D0E2CBAAE5C0070DEBF /* LogPileDetailView.swift */; };
 		CAA76CB52CB38DEE00533C96 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAA76CB42CB38DEE00533C96 /* Colors.xcassets */; };
 		CAA76CD02CB3BF0200533C96 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAA76CCF2CB3BF0200533C96 /* Images.xcassets */; };
-		CAF594002CB36745006290E3 /* EmptyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF593FF2CB3673B006290E3 /* EmptyModel.swift */; };
-		CAF594022CB36758006290E3 /* EmptyComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF594012CB3674F006290E3 /* EmptyComponent.swift */; };
-		CAF594042CB36768006290E3 /* EmptyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF594032CB36762006290E3 /* EmptyViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +54,16 @@
 		10AB91D32CACD79300BFA2EC /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		10AB91D52CACD7A100BFA2EC /* CampfireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireView.swift; sourceTree = "<group>"; };
 		10AB91D72CACD7AC00BFA2EC /* LogPileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPileView.swift; sourceTree = "<group>"; };
+		10BCB0DB2CB81D410013E227 /* OrganizePhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizePhotoViewModel.swift; sourceTree = "<group>"; };
+		10BCB0DD2CB81F2D0013E227 /* PhotoMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMetadata.swift; sourceTree = "<group>"; };
+		10BCB0DF2CB8206C0013E227 /* DBSCAN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBSCAN.swift; sourceTree = "<group>"; };
+		10BCB0E12CB825520013E227 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		10BCB0E22CB825520013E227 /* BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
+		10BCB0E32CB825520013E227 /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
+		10BCB0E42CB825520013E227 /* CircularProgressPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressPhoto.swift; sourceTree = "<group>"; };
+		10BCB0E52CB825520013E227 /* OnboardingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCard.swift; sourceTree = "<group>"; };
+		10BCB0E62CB825520013E227 /* ProgressNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressNumber.swift; sourceTree = "<group>"; };
+		10BCB0ED2CB84BCB0013E227 /* AuthorizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewModel.swift; sourceTree = "<group>"; };
 		10BE37612CB30743008D1DA1 /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
 		10BE37622CB30743008D1DA1 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		10BE37632CB30743008D1DA1 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
@@ -61,19 +76,14 @@
 		10BE37732CB3085A008D1DA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		10BE37762CB30CF9008D1DA1 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		10C0E7FD2CB4B88E00C7F3DE /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
-		10C0E8012CB4BCA300C7F3DE /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OnboardingView.swift; path = Modak/View/OnboardingView.swift; sourceTree = SOURCE_ROOT; };
-		10C0E8052CB4C48700C7F3DE /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BackButton.swift; path = Modak/View/BackButton.swift; sourceTree = SOURCE_ROOT; };
+		CA2B5D042CBA6FBD0070DEBF /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		CA2B5D062CBA70210070DEBF /* LinearGradientExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGradientExtension.swift; sourceTree = "<group>"; };
+		CA2B5D0A2CBA70C00070DEBF /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		CA2B5D0C2CBA81130070DEBF /* LogPileViewTestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPileViewTestModel.swift; sourceTree = "<group>"; };
 		10C0E8072CB5593E00C7F3DE /* OrganizePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizePhotoView.swift; sourceTree = "<group>"; };
-		10C0E8092CB56BF000C7F3DE /* ProgressNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProgressNumber.swift; path = Modak/View/ProgressNumber.swift; sourceTree = SOURCE_ROOT; };
-		10C0E80C2CB65F4C00C7F3DE /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CircularProgressBar.swift; path = Modak/View/CircularProgressBar.swift; sourceTree = SOURCE_ROOT; };
-		10C0E80E2CB6698300C7F3DE /* CircularProgressPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CircularProgressPhoto.swift; path = Modak/View/CircularProgressPhoto.swift; sourceTree = SOURCE_ROOT; };
-		10C0E8102CB6787000C7F3DE /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BottomSheetView.swift; path = Modak/View/BottomSheetView.swift; sourceTree = SOURCE_ROOT; };
 		CA2B5D0E2CBAAE5C0070DEBF /* LogPileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPileDetailView.swift; sourceTree = "<group>"; };
 		CAA76CB42CB38DEE00533C96 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		CAA76CCF2CB3BF0200533C96 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		CAF593FF2CB3673B006290E3 /* EmptyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyModel.swift; sourceTree = "<group>"; };
-		CAF594012CB3674F006290E3 /* EmptyComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyComponent.swift; sourceTree = "<group>"; };
-		CAF594032CB36762006290E3 /* EmptyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +129,7 @@
 				10AB91AE2CACD2AC00BFA2EC /* Model */,
 				10AB91AF2CACD2B400BFA2EC /* View */,
 				10AB91B02CACD2C700BFA2EC /* ViewModel */,
+				CA2B5D032CBA6F4C0070DEBF /* Helper */,
 				10AB91B12CACD2D600BFA2EC /* Resource */,
 				10AB91A52CACD29A00BFA2EC /* Preview Content */,
 			);
@@ -128,7 +139,9 @@
 		10AB91AE2CACD2AC00BFA2EC /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CAF593FF2CB3673B006290E3 /* EmptyModel.swift */,
+				CA2B5D0C2CBA81130070DEBF /* LogPileViewTestModel.swift */,
+				10BCB0DD2CB81F2D0013E227 /* PhotoMetadata.swift */,
+				10BCB0DF2CB8206C0013E227 /* DBSCAN.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -149,7 +162,8 @@
 		10AB91B02CACD2C700BFA2EC /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				CAF594032CB36762006290E3 /* EmptyViewModel.swift */,
+				10BCB0DB2CB81D410013E227 /* OrganizePhotoViewModel.swift */,
+				10BCB0ED2CB84BCB0013E227 /* AuthorizationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -176,13 +190,12 @@
 		10AB91D92CACDCD000BFA2EC /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				CAF594012CB3674F006290E3 /* EmptyComponent.swift */,
-				10C0E8012CB4BCA300C7F3DE /* OnboardingView.swift */,
-				10C0E8052CB4C48700C7F3DE /* BackButton.swift */,
-				10C0E8092CB56BF000C7F3DE /* ProgressNumber.swift */,
-				10C0E80C2CB65F4C00C7F3DE /* CircularProgressBar.swift */,
-				10C0E80E2CB6698300C7F3DE /* CircularProgressPhoto.swift */,
-				10C0E8102CB6787000C7F3DE /* BottomSheetView.swift */,
+				10BCB0E12CB825520013E227 /* BackButton.swift */,
+				10BCB0E22CB825520013E227 /* BottomSheet.swift */,
+				10BCB0E32CB825520013E227 /* CircularProgressBar.swift */,
+				10BCB0E42CB825520013E227 /* CircularProgressPhoto.swift */,
+				10BCB0E52CB825520013E227 /* OnboardingCard.swift */,
+				10BCB0E62CB825520013E227 /* ProgressNumber.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -201,6 +214,16 @@
 				10BE37692CB30743008D1DA1 /* Pretendard-Thin.otf */,
 			);
 			path = Pretendard;
+			sourceTree = "<group>";
+		};
+		CA2B5D032CBA6F4C0070DEBF /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				CA2B5D0A2CBA70C00070DEBF /* ColorExtension.swift */,
+				CA2B5D062CBA70210070DEBF /* LinearGradientExtension.swift */,
+				CA2B5D042CBA6FBD0070DEBF /* DateExtension.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		CA7C6EA92CB58FBC00254837 /* Main */ = {
@@ -306,24 +329,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA2B5D052CBA6FDB0070DEBF /* DateExtension.swift in Sources */,
+				CA2B5D072CBA70280070DEBF /* LinearGradientExtension.swift in Sources */,
+				10BCB0EE2CB84BCB0013E227 /* AuthorizationViewModel.swift in Sources */,
+				10BCB0DC2CB81D410013E227 /* OrganizePhotoViewModel.swift in Sources */,
 				10AB91AC2CACD29A00BFA2EC /* ContentView.swift in Sources */,
+				10BCB0E72CB825520013E227 /* BackButton.swift in Sources */,
+				10BCB0E82CB825520013E227 /* OnboardingCard.swift in Sources */,
+				10BCB0E92CB825520013E227 /* CircularProgressPhoto.swift in Sources */,
+				10BCB0EA2CB825520013E227 /* CircularProgressBar.swift in Sources */,
+				10BCB0EB2CB825520013E227 /* ProgressNumber.swift in Sources */,
+				10BCB0EC2CB825520013E227 /* BottomSheet.swift in Sources */,
+				10BCB0E02CB8206C0013E227 /* DBSCAN.swift in Sources */,
 				10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */,
 				CA2B5D0F2CBAAE5C0070DEBF /* LogPileDetailView.swift in Sources */,
 				10BE37772CB30CF9008D1DA1 /* RegisterView.swift in Sources */,
 				10AB91AD2CACD29A00BFA2EC /* ModakApp.swift in Sources */,
 				10AB91D62CACD7A100BFA2EC /* CampfireView.swift in Sources */,
-				10C0E8062CB4C48700C7F3DE /* BackButton.swift in Sources */,
-				10C0E8022CB4BCA300C7F3DE /* OnboardingView.swift in Sources */,
 				10C0E7FE2CB4B88E00C7F3DE /* AuthorizationView.swift in Sources */,
 				10AB91D82CACD7AC00BFA2EC /* LogPileView.swift in Sources */,
-				10C0E80A2CB56BF000C7F3DE /* ProgressNumber.swift in Sources */,
-				10C0E80F2CB6698300C7F3DE /* CircularProgressPhoto.swift in Sources */,
+				10BCB0DE2CB81F2D0013E227 /* PhotoMetadata.swift in Sources */,
 				10C0E8082CB5593E00C7F3DE /* OrganizePhotoView.swift in Sources */,
-				10C0E8112CB6787000C7F3DE /* BottomSheetView.swift in Sources */,
-				10C0E80D2CB65F4C00C7F3DE /* CircularProgressBar.swift in Sources */,
 				CAF594042CB36768006290E3 /* EmptyViewModel.swift in Sources */,
-				CAF594002CB36745006290E3 /* EmptyModel.swift in Sources */,
-				CAF594022CB36758006290E3 /* EmptyComponent.swift in Sources */,
+				CA2B5D0D2CBA81200070DEBF /* LogPileViewTestModel.swift in Sources */,
+				CA2B5D0B2CBA70C40070DEBF /* ColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +490,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Modak/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "원활한 사용을 위해서 사진첩 접근 권한이 필요합니다. 사진을 정리할 때 사진 정보는 서버에 공유되지 않아요.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -491,6 +521,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Modak/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "원활한 사용을 위해서 사진첩 접근 권한이 필요합니다. 사진을 정리할 때 사진 정보는 서버에 공유되지 않아요.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
