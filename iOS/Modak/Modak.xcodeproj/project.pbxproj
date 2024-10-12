@@ -40,6 +40,7 @@
 		CA2B5D0B2CBA70C40070DEBF /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D0A2CBA70C00070DEBF /* ColorExtension.swift */; };
 		CA2B5D0D2CBA81200070DEBF /* LogPileViewTestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D0C2CBA81130070DEBF /* LogPileViewTestModel.swift */; };
 		10C0E8082CB5593E00C7F3DE /* OrganizePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E8072CB5593E00C7F3DE /* OrganizePhotoView.swift */; };
+		CA2B5D0F2CBAAE5C0070DEBF /* LogPileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D0E2CBAAE5C0070DEBF /* LogPileDetailView.swift */; };
 		CAA76CB52CB38DEE00533C96 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAA76CB42CB38DEE00533C96 /* Colors.xcassets */; };
 		CAA76CD02CB3BF0200533C96 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAA76CCF2CB3BF0200533C96 /* Images.xcassets */; };
 /* End PBXBuildFile section */
@@ -80,6 +81,7 @@
 		CA2B5D0A2CBA70C00070DEBF /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		CA2B5D0C2CBA81130070DEBF /* LogPileViewTestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPileViewTestModel.swift; sourceTree = "<group>"; };
 		10C0E8072CB5593E00C7F3DE /* OrganizePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizePhotoView.swift; sourceTree = "<group>"; };
+		CA2B5D0E2CBAAE5C0070DEBF /* LogPileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPileDetailView.swift; sourceTree = "<group>"; };
 		CAA76CB42CB38DEE00533C96 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		CAA76CCF2CB3BF0200533C96 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -237,6 +239,7 @@
 			children = (
 				10AB91D52CACD7A100BFA2EC /* CampfireView.swift */,
 				10AB91D72CACD7AC00BFA2EC /* LogPileView.swift */,
+				CA2B5D0E2CBAAE5C0070DEBF /* LogPileDetailView.swift */,
 				10AB91D32CACD79300BFA2EC /* ProfileView.swift */,
 			);
 			path = Tab;
@@ -339,6 +342,7 @@
 				10BCB0EC2CB825520013E227 /* BottomSheet.swift in Sources */,
 				10BCB0E02CB8206C0013E227 /* DBSCAN.swift in Sources */,
 				10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */,
+				CA2B5D0F2CBAAE5C0070DEBF /* LogPileDetailView.swift in Sources */,
 				10BE37772CB30CF9008D1DA1 /* RegisterView.swift in Sources */,
 				10AB91AD2CACD29A00BFA2EC /* ModakApp.swift in Sources */,
 				10AB91D62CACD7A100BFA2EC /* CampfireView.swift in Sources */,
