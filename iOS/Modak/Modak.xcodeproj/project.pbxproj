@@ -32,6 +32,7 @@
 		10C0E80D2CB65F4C00C7F3DE /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E80C2CB65F4C00C7F3DE /* CircularProgressBar.swift */; };
 		10C0E80F2CB6698300C7F3DE /* CircularProgressPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E80E2CB6698300C7F3DE /* CircularProgressPhoto.swift */; };
 		10C0E8112CB6787000C7F3DE /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E8102CB6787000C7F3DE /* BottomSheetView.swift */; };
+		CA2B5D0F2CBAAE5C0070DEBF /* LogPileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D0E2CBAAE5C0070DEBF /* LogPileDetailView.swift */; };
 		CAA76CB52CB38DEE00533C96 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAA76CB42CB38DEE00533C96 /* Colors.xcassets */; };
 		CAA76CD02CB3BF0200533C96 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAA76CCF2CB3BF0200533C96 /* Images.xcassets */; };
 		CAF594002CB36745006290E3 /* EmptyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF593FF2CB3673B006290E3 /* EmptyModel.swift */; };
@@ -67,6 +68,7 @@
 		10C0E80C2CB65F4C00C7F3DE /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CircularProgressBar.swift; path = Modak/View/CircularProgressBar.swift; sourceTree = SOURCE_ROOT; };
 		10C0E80E2CB6698300C7F3DE /* CircularProgressPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CircularProgressPhoto.swift; path = Modak/View/CircularProgressPhoto.swift; sourceTree = SOURCE_ROOT; };
 		10C0E8102CB6787000C7F3DE /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BottomSheetView.swift; path = Modak/View/BottomSheetView.swift; sourceTree = SOURCE_ROOT; };
+		CA2B5D0E2CBAAE5C0070DEBF /* LogPileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPileDetailView.swift; sourceTree = "<group>"; };
 		CAA76CB42CB38DEE00533C96 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		CAA76CCF2CB3BF0200533C96 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CAF593FF2CB3673B006290E3 /* EmptyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyModel.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 			children = (
 				10AB91D52CACD7A100BFA2EC /* CampfireView.swift */,
 				10AB91D72CACD7AC00BFA2EC /* LogPileView.swift */,
+				CA2B5D0E2CBAAE5C0070DEBF /* LogPileDetailView.swift */,
 				10AB91D32CACD79300BFA2EC /* ProfileView.swift */,
 			);
 			path = Tab;
@@ -305,13 +308,14 @@
 			files = (
 				10AB91AC2CACD29A00BFA2EC /* ContentView.swift in Sources */,
 				10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */,
-        10BE37772CB30CF9008D1DA1 /* RegisterView.swift in Sources */,
-        10AB91AD2CACD29A00BFA2EC /* ModakApp.swift in Sources */,
-        10AB91D62CACD7A100BFA2EC /* CampfireView.swift in Sources */,
-        10C0E8062CB4C48700C7F3DE /* BackButton.swift in Sources */,
-        10C0E8022CB4BCA300C7F3DE /* OnboardingView.swift in Sources */,
-        10C0E7FE2CB4B88E00C7F3DE /* AuthorizationView.swift in Sources */,
-        10AB91D82CACD7AC00BFA2EC /* LogPileView.swift in Sources */,
+				CA2B5D0F2CBAAE5C0070DEBF /* LogPileDetailView.swift in Sources */,
+				10BE37772CB30CF9008D1DA1 /* RegisterView.swift in Sources */,
+				10AB91AD2CACD29A00BFA2EC /* ModakApp.swift in Sources */,
+				10AB91D62CACD7A100BFA2EC /* CampfireView.swift in Sources */,
+				10C0E8062CB4C48700C7F3DE /* BackButton.swift in Sources */,
+				10C0E8022CB4BCA300C7F3DE /* OnboardingView.swift in Sources */,
+				10C0E7FE2CB4B88E00C7F3DE /* AuthorizationView.swift in Sources */,
+				10AB91D82CACD7AC00BFA2EC /* LogPileView.swift in Sources */,
 				10C0E80A2CB56BF000C7F3DE /* ProgressNumber.swift in Sources */,
 				10C0E80F2CB6698300C7F3DE /* CircularProgressPhoto.swift in Sources */,
 				10C0E8082CB5593E00C7F3DE /* OrganizePhotoView.swift in Sources */,
