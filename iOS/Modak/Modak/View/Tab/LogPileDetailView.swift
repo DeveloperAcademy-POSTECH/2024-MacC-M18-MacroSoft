@@ -10,13 +10,14 @@ import SwiftUI
 struct LogPileDetailView:View {
     private var gridItems: [GridItem] = Array(repeating: GridItem(.fixed(UIScreen.main.bounds.size.width / 3), spacing: 1.5), count: 3)
     
+    // TODO: 네비게이션 연결하기
     var body: some View {
         NavigationStack{
             ScrollView {
                 LazyVGrid(columns: gridItems, spacing: 1.5) {
                     ForEach(0..<20) { _ in
                         Button {
-                            
+                            // TODO: 네비게이션 연결하기
                         } label: {
                             // TODO: 실제 사진 받아와서 적용시키기
                             Rectangle()
@@ -25,6 +26,7 @@ struct LogPileDetailView:View {
                         }
                     }
                 }
+                // TODO: 현재 Figma의 패딩과 다름
                 .padding(.top, UIScreen.main.bounds.size.width / 5)
             }
             .background(.black)
