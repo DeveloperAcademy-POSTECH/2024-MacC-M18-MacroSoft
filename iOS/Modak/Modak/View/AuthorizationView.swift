@@ -73,8 +73,12 @@ struct AuthorizationView: View {
             
         }
         .multilineTextAlignment(.center)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                BackButton()
+            }
+        }
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton())
         .alert(isPresented: $viewModel.showAlert) {
             Alert(
                 title: Text("사진첩 접근 권한을 허용해주세요"),
