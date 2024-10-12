@@ -12,11 +12,12 @@ import SwiftUI
 struct ContentView: View {
     @State private var tabSelection: Int = 0
     
-    init () {
+    init() {
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.backgroundColor = .backgroundLogPile
         tabBarAppearance.shadowColor = UIColor(.white.opacity(0.15))
         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        UITabBar.appearance().standardAppearance = tabBarAppearance
     }
     
     var body: some View {
