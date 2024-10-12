@@ -54,9 +54,8 @@ struct LogPileDetailView:View {
 private struct LogPileDetailViewTitle: View {
     var body: some View {
         HStack(spacing: 10) {
-            // TODO: 이미지 받아서 적용시키기
-            Image(.testPhotosIcon)
-                .padding(.bottom, 5)
+            Image(.log3D)
+                .aspectRatio(1, contentMode: .fill)
             VStack(alignment: .leading) {
                 HStack {
                     // TODO: 역지오 코딩 적용
