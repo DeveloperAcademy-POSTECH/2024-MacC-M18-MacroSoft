@@ -11,7 +11,7 @@ struct LogPileView: View {
     private var logPile: LogPileTestModel = logPileViewTestData
     
     var body: some View {
-        NavigationStack {
+        
             Group {
                 if logPile.logList.count > 0 {
                     ScrollView {
@@ -34,23 +34,6 @@ struct LogPileView: View {
                 }
             }
             .background(.backgroundLogPile)
-            .toolbar {
-                ToolbarItem(placement: .navigation) {
-                    LogPileViewTitle()
-                }
-            }
-            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
-        }
-        .colorScheme(.dark)
-    }
-}
-
-private struct LogPileViewTitle: View {
-    var body: some View {
-        Text("내 장작 창고")
-            .foregroundStyle(.textColorTitleView)
-            .font(Font.custom("Pretendard-SemiBold", size: 17))
-            .padding(.leading, 8)
     }
 }
 
