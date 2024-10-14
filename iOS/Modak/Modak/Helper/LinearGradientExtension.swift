@@ -24,4 +24,16 @@ extension LinearGradient {
             endPoint: UnitPoint(x: 0.5, y: 0.37)
         )
     }
+    
+    static var logPileDetailViewBackground: LinearGradient {
+        return LinearGradient(
+            stops: [
+                Gradient.Stop(color: Color(red: 0.09, green: 0.09, blue: 0.09), location: 0.00),
+                Gradient.Stop(color: Color(red: 0.09, green: 0.09, blue: 0.09).opacity(0.51), location: 0.81),
+                Gradient.Stop(color: Color(red: 0.09, green: 0.09, blue: 0.09).opacity(0), location: 1.00),
+            ],
+            startPoint: UnitPoint(x: 0.5, y: 0),
+            endPoint: UnitPoint(x: 0.5, y: 0.2)
+        )
+    }
 }

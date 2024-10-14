@@ -10,50 +10,37 @@ import SwiftUI
 struct LogPileDetailView:View {
     // TODO: 네비게이션 연결하기
     var body: some View {
-        NavigationStack{
-            ScrollView {
-                LogPileDetailViewGrid()
-                // TODO: 현재 Figma의 패딩과 다름
+        ScrollView {
+            LogPileDetailViewGrid()
+            // TODO: 현재 Figma의 패딩과 다름
                 .padding(.top, UIScreen.main.bounds.size.width / 5)
-            }
-            .background(.black)
-            .overlay{
-                // TODO: LinearGradient extension으로 넘기기
-                LinearGradient(
-                    stops: [
-                        Gradient.Stop(color: Color(red: 0.09, green: 0.09, blue: 0.09), location: 0.00),
-                        Gradient.Stop(color: Color(red: 0.09, green: 0.09, blue: 0.09).opacity(0.51), location: 0.81),
-                        Gradient.Stop(color: Color(red: 0.09, green: 0.09, blue: 0.09).opacity(0), location: 1.00),
-                    ],
-                    startPoint: UnitPoint(x: 0.5, y: 0),
-                    endPoint: UnitPoint(x: 0.5, y: 0.2)
-                )
+        }
+        .background(.black)
+        .overlay{
+            LinearGradient.logPileDetailViewBackground
                 .ignoresSafeArea(.all)
                 .allowsHitTesting(false)
-            }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    VStack(alignment: .leading, spacing: 14) {
-                        Button {
-                            // TODO: 뒤로가기 기능 적용
-                        } label: {
-                            Image(systemName: "chevron.left")
-                        }
-                        .padding(.top, 64)
-                        
-                        LogPileDetailViewTitle()
-                    }
-                    .foregroundStyle(.textColorGray1)
-                }
-            }
-            .toolbarBackground(.hidden, for: .navigationBar)
         }
+        .overlay {
+            LogPileDetailViewTitle()
+                .padding(.leading, 20)
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                VStack(alignment: .leading, spacing: 14) {
+                    BackButton()
+                }
+                .foregroundStyle(.textColorGray1)
+            }
+        }
+        .toolbarBackground(.hidden, for: .navigationBar)
+        .navigationBarBackButtonHidden(true)
     }
 }
 
 private struct LogPileDetailViewTitle: View {
     var body: some View {
-        HStack(spacing: 10) {
+        HStack(alignment: .top, spacing: 10) {
             Image(.log3D)
                 .aspectRatio(1, contentMode: .fill)
             VStack(alignment: .leading) {
@@ -76,8 +63,11 @@ private struct LogPileDetailViewTitle: View {
                         Font.custom("Pretendard-Medium", size: 14)
                     )
                     .opacity(0.8)
+                Spacer()
             }
+            Spacer()
         }
+        .foregroundStyle(.textColorGray1)
     }
 }
 
