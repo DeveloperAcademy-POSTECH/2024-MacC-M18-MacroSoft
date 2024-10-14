@@ -24,8 +24,8 @@
 		10BCB0EB2CB825520013E227 /* ProgressNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCB0E62CB825520013E227 /* ProgressNumber.swift */; };
 		10BCB0EC2CB825520013E227 /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCB0E22CB825520013E227 /* BottomSheet.swift */; };
 		10BCB0EE2CB84BCB0013E227 /* AuthorizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCB0ED2CB84BCB0013E227 /* AuthorizationViewModel.swift */; };
-		10BCB0F22CBCB3E20013E227 /* LogPileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCB0F12CBCB3E20013E227 /* LogPileViewModel.swift */; };
 		10BCB0F42CBCB58B0013E227 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCB0F32CBCB58B0013E227 /* Log.swift */; };
+		10BCB0F82CBCCABB0013E227 /* ExampleLogPileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCB0F72CBCCABB0013E227 /* ExampleLogPileView.swift */; };
 		10BE376A2CB30743008D1DA1 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10BE37672CB30743008D1DA1 /* Pretendard-Regular.otf */; };
 		10BE376B2CB30743008D1DA1 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10BE37682CB30743008D1DA1 /* Pretendard-SemiBold.otf */; };
 		10BE376C2CB30743008D1DA1 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10BE37642CB30743008D1DA1 /* Pretendard-ExtraLight.otf */; };
@@ -66,8 +66,8 @@
 		10BCB0E52CB825520013E227 /* OnboardingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCard.swift; sourceTree = "<group>"; };
 		10BCB0E62CB825520013E227 /* ProgressNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressNumber.swift; sourceTree = "<group>"; };
 		10BCB0ED2CB84BCB0013E227 /* AuthorizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewModel.swift; sourceTree = "<group>"; };
-		10BCB0F12CBCB3E20013E227 /* LogPileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPileViewModel.swift; sourceTree = "<group>"; };
 		10BCB0F32CBCB58B0013E227 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		10BCB0F72CBCCABB0013E227 /* ExampleLogPileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleLogPileView.swift; sourceTree = "<group>"; };
 		10BE37612CB30743008D1DA1 /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
 		10BE37622CB30743008D1DA1 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		10BE37632CB30743008D1DA1 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
@@ -160,6 +160,7 @@
 				10BE37762CB30CF9008D1DA1 /* RegisterView.swift */,
 				10C0E7FD2CB4B88E00C7F3DE /* AuthorizationView.swift */,
 				10C0E8072CB5593E00C7F3DE /* OrganizePhotoView.swift */,
+				10BCB0F72CBCCABB0013E227 /* ExampleLogPileView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -167,9 +168,8 @@
 		10AB91B02CACD2C700BFA2EC /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				10BCB0DB2CB81D410013E227 /* OrganizePhotoViewModel.swift */,
 				10BCB0ED2CB84BCB0013E227 /* AuthorizationViewModel.swift */,
-				10BCB0F12CBCB3E20013E227 /* LogPileViewModel.swift */,
+				10BCB0DB2CB81D410013E227 /* OrganizePhotoViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -340,12 +340,12 @@
 				10BCB0EE2CB84BCB0013E227 /* AuthorizationViewModel.swift in Sources */,
 				10BCB0DC2CB81D410013E227 /* OrganizePhotoViewModel.swift in Sources */,
 				10AB91AC2CACD29A00BFA2EC /* ContentView.swift in Sources */,
+				10BCB0F82CBCCABB0013E227 /* ExampleLogPileView.swift in Sources */,
 				10BCB0E72CB825520013E227 /* BackButton.swift in Sources */,
 				10BCB0E82CB825520013E227 /* OnboardingCard.swift in Sources */,
 				10BCB0F42CBCB58B0013E227 /* Log.swift in Sources */,
 				10BCB0E92CB825520013E227 /* CircularProgressPhoto.swift in Sources */,
 				10BCB0EA2CB825520013E227 /* CircularProgressBar.swift in Sources */,
-				10BCB0F22CBCB3E20013E227 /* LogPileViewModel.swift in Sources */,
 				10BCB0EB2CB825520013E227 /* ProgressNumber.swift in Sources */,
 				10BCB0EC2CB825520013E227 /* BottomSheet.swift in Sources */,
 				10BCB0E02CB8206C0013E227 /* DBSCAN.swift in Sources */,
