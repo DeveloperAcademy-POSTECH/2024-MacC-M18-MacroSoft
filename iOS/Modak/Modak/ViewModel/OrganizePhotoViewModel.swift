@@ -43,7 +43,7 @@ class OrganizePhotoViewModel: ObservableObject {
         }
     }
     
-    func applyDBSCAN() {
+    func applyDBSCAN(completion: @escaping () -> Void) {
         // 비동기적으로 DBSCAN 알고리즘 적용
         DispatchQueue.global(qos: .userInitiated).async {
             let resultClusters = self.dbscan.applyAlgorithm(points: self.photoMetadataList) { progress in
@@ -58,6 +58,7 @@ class OrganizePhotoViewModel: ObservableObject {
                 self.clusters = resultClusters
                 print("총 클러스터링된 데이터 개수: \(self.clusters.flatMap { $0 }.count)")
                 self.currentCount = self.totalCount // 최종적으로 진행률을 100%로 설정
+                completion() // DBSCAN 완료 시점에 콜백 호출
             }
         }
     }
