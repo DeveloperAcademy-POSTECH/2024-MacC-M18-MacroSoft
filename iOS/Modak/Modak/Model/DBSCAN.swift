@@ -11,7 +11,7 @@ class DBSCAN {
     var eps: TimeInterval // 최대 시간 차이 (초 단위)
     var minPts: Int // 최소 포인트 수
 
-    init(eps: TimeInterval = 10800, minPts: Int = 10) { // 기본값 설정
+    init(eps: TimeInterval = 7200, minPts: Int = 10) { // 기본값 설정
         self.eps = eps
         self.minPts = minPts
     }
