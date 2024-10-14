@@ -13,13 +13,13 @@ import SwiftData
 class OrganizePhotoViewModel: ObservableObject {
     @Published var currentCount: Int = 0
     @Published var totalCount: Int = 0
+    @Published var displayedCount: Int = 0
     @Published var clusters: [[PhotoMetadata]] = []
     @Published var photoMetadataList: [PhotoMetadata] = []
     @Published var statusMessage: String = "장작을 모으는 중"
     @Published var currentCircularProgressPhoto: UIImage? = nil
     
     private var dbscan = DBSCAN()
-    private var timer: Timer?
     private var messageRotationTimer: Timer?
     private var estimatedTimeToComplete: TimeInterval = 0
     
@@ -87,16 +87,7 @@ class OrganizePhotoViewModel: ObservableObject {
     }
 
     private func calculateChangePoints(for totalCount: Int) -> [Double] {
-        let numberOfChanges: Int
-
-        // 사진 장수에 따라 메시지 변경 횟수를 설정
-        if totalCount <= 5000 {
-            numberOfChanges = 3
-        } else {
-            numberOfChanges = ((totalCount / 5000) * 3)
-        }
-
-        // 100%를 변경 횟수로 나누어, 구간 형성. 메시지 변경 지점을 배열로 생성.
+        let numberOfChanges = totalCount <= 5000 ? 3 : ((totalCount / 5000) * 3)
         let interval = 1.0 / Double(numberOfChanges)
         return (0...numberOfChanges).map { Double($0) * interval }
     }
@@ -107,7 +98,7 @@ class OrganizePhotoViewModel: ObservableObject {
     }
     
     private func updateCircularProgressPhoto(currentProgress: Int) {
-        let updateFrequency = 600
+        let updateFrequency = 10
             
         if currentProgress % updateFrequency == 0 && currentProgress > 0 && currentProgress < photoMetadataList.count {
             let metadata = photoMetadataList[currentProgress]
@@ -135,6 +126,20 @@ class OrganizePhotoViewModel: ObservableObject {
         
         imageManager.requestImage(for: asset, targetSize: CGSize(width: 213, height: 213), contentMode: .aspectFill, options: options) { image, _ in
             completion(image)
+        }
+    }
+    
+    // 화면에 표시되는 진행 상황, 딜레이 부여 후 업데이트
+    func updateDisplayedCount() {
+        guard displayedCount <= totalCount else { return }
+        let progressRatio = Double(displayedCount) / Double(totalCount)
+        let delay = progressRatio >= 0.999 ? 0.1 : (progressRatio >= 0.985 ? 0.05 : 0.0)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            if self.displayedCount < self.currentCount && self.displayedCount < self.totalCount {
+                self.displayedCount += 1
+            }
+            self.updateDisplayedCount()
         }
     }
 }

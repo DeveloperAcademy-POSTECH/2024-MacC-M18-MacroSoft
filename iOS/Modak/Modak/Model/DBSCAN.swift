@@ -15,14 +15,6 @@ class DBSCAN {
         self.eps = eps
         self.minPts = minPts
     }
-    
-    func changeMinPts(_ minPts: String) {
-        self.minPts = Int(minPts) ?? 10
-    }
-    
-    func changeMaxDis(_ maxDis: String) {
-        self.eps = TimeInterval(maxDis) ?? 10800
-    }
 
     func applyAlgorithm(points: [PhotoMetadata], progressUpdate: (Int) -> Void) -> [[PhotoMetadata]] {
         var clusters: [[PhotoMetadata]] = []

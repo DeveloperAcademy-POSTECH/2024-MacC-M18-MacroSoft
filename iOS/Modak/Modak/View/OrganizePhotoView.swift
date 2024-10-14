@@ -17,8 +17,7 @@ struct OrganizePhotoView: View {
     @State private var showBottomSheet = false
     @State private var isNavigationActive = false
     @State private var locationCache: [String: (center: CLLocationCoordinate2D, radius: Double, address: String)] = [:]
-    let geocoder = CLGeocoder() // Geocoder 추가
-    @State private var displayedCount = 0
+    let geocoder = CLGeocoder()
     
     init() {
         UIPageControl.appearance().currentPageIndicatorTintColor = .pagenationAble
@@ -69,16 +68,16 @@ struct OrganizePhotoView: View {
                         }) {
                             RoundedRectangle(cornerRadius: 73)
                                 .frame(width: 345, height: 58)
-                                .foregroundStyle(displayedCount >= viewModel.totalCount ? Color.mainColor1 : Color.disable)
+                                .foregroundStyle(viewModel.displayedCount >= viewModel.totalCount ? Color.mainColor1 : Color.disable)
                                 .overlay {
                                     Text("확인하러 가기")
                                         .font(.custom("Pretendard-Bold", size: 17))
                                         .lineSpacing(14 * 0.4)
-                                        .foregroundStyle(displayedCount >= viewModel.totalCount ? Color.white : Color.textColorGray4)
+                                        .foregroundStyle(viewModel.displayedCount >= viewModel.totalCount ? Color.white : Color.textColorGray4)
                                 }
                         }
                     }
-                    .disabled(displayedCount < viewModel.totalCount)
+                    .disabled(viewModel.displayedCount < viewModel.totalCount)
                     .padding(.bottom, 14)
                     
                     Button(action: {
@@ -115,7 +114,7 @@ struct OrganizePhotoView: View {
     private var progressSection: some View {
         VStack {
             Group {
-                if displayedCount >= viewModel.totalCount {
+                if viewModel.displayedCount >= viewModel.totalCount {
                     Text("장작을 모두 모았어요")
                         .foregroundStyle(Color.textColor3)
                 } else {
@@ -127,34 +126,18 @@ struct OrganizePhotoView: View {
             .padding(.top, 14)
             .padding(.bottom, 65)
             
-            ProgressNumber(currentCount: displayedCount, totalCount: viewModel.totalCount)
+            ProgressNumber(currentCount: viewModel.displayedCount, totalCount: viewModel.totalCount)
                 .padding(.bottom, 26)
                             
             ZStack {
-                CircularProgressBar(progress: Double(displayedCount) / Double(viewModel.totalCount))
+                CircularProgressBar(progress: Double(viewModel.displayedCount) / Double(viewModel.totalCount))
                 CircularProgressPhoto(image: viewModel.currentCircularProgressPhoto)
             }
                 
             Spacer()
         }
         .onAppear {
-            updateDisplayedCount()
-        }
-    }
-    
-    // 비동기적으로 진행 상황을 업데이트
-    private func updateDisplayedCount() {
-        guard displayedCount <= viewModel.totalCount else { return }
-
-        // 96% 이상일 때 0.05초, 99.5% 이상일 때 1.00초로 딜레이 설정
-        let progressRatio = Double(displayedCount) / Double(viewModel.totalCount)
-        let delay = progressRatio >= 0.995 ? 0.1 : (progressRatio >= 0.96 ? 0.05 : 0.0)
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            if displayedCount <= viewModel.currentCount && displayedCount <= viewModel.totalCount {
-                displayedCount += 1
-            }
-            updateDisplayedCount() // 재귀적으로 호출하여 지속적으로 진행 업데이트
+            viewModel.updateDisplayedCount()
         }
     }
     
