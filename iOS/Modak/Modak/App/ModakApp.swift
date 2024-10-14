@@ -12,6 +12,7 @@ struct ModakApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .modelContainer(for: [Log.self, PhotoMetadata.self])
         }
     }
 }
