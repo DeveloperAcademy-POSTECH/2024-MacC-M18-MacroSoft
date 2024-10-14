@@ -15,7 +15,6 @@ struct OrganizePhotoView: View {
     @StateObject private var viewModel = OrganizePhotoViewModel()
     @State private var currentPage = 0
     @State private var showBottomSheet = false
-    @State private var isNavigationActive = false
     @State private var locationCache: [String: (center: CLLocationCoordinate2D, radius: Double, address: String)] = [:]
     let geocoder = CLGeocoder()
     
@@ -25,87 +24,81 @@ struct OrganizePhotoView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.backgroundDefault.ignoresSafeArea(.all)
-                VStack {
-                    Image(viewModel.currentCount >= viewModel.totalCount ? "pagenationBar3" : "pagenationBar2")
-                        .padding(.top, 24)
-                    
-                    TabView(selection: $currentPage) {
-                        progressSection.tag(0)
-                        onboardingCard(
-                            title: "소중한 순간,\n자동으로 모아드릴게요",
-                            titleHighlightRanges: [0...7],
-                            context: "여행, 소풍, 즐거운 순간들,\n시공간에 따른 추억을 하나의 이야기로 모아드려요",
-                            image: "onboarding_image1",
-                            imagePadding: 10
-                        ).tag(1)
-                        onboardingCard(
-                            title: "추억의 순간 속 사람들과\n모닥불에서 모이세요",
-                            titleHighlightRanges: [14...16],
-                            context: "함께한 사람들과 그룹을 만들고 추억을 모아보세요\n잊혀진 순간이 있더라도 모닥불이 찾아드릴게요",
-                            image: "onboarding_image2",
-                            imagePadding: 10
-                        ).tag(2)
-                        onboardingCard(
-                            title: "같이 만든 추억을\n함께 나누세요",
-                            titleHighlightRanges: [9...16],
-                            context: "추억으로 피워낸 모닥불 앞에 모여 함께 감상하세요\n",
-                            image: "onboarding_image3",
-                            imagePadding: 10
-                        ).tag(3)
-                    }
-                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-                    
-                    Spacer(minLength: 0)
-                    
-                    NavigationLink(destination: ExampleLogPileView(), isActive: $isNavigationActive) {
-                        Button(action: {
-                            Task {
-                                isNavigationActive = true
-                            }
-                        }) {
-                            RoundedRectangle(cornerRadius: 73)
-                                .frame(width: 345, height: 58)
-                                .foregroundStyle(viewModel.displayedCount >= viewModel.totalCount ? Color.mainColor1 : Color.disable)
-                                .overlay {
-                                    Text("확인하러 가기")
-                                        .font(.custom("Pretendard-Bold", size: 17))
-                                        .lineSpacing(14 * 0.4)
-                                        .foregroundStyle(viewModel.displayedCount >= viewModel.totalCount ? Color.white : Color.textColorGray4)
-                                }
-                        }
-                    }
-                    .disabled(viewModel.displayedCount < viewModel.totalCount)
-                    .padding(.bottom, 14)
-                    
-                    Button(action: {
-                        showBottomSheet.toggle()
-                    }) {
-                        Text("장작이 무엇인가요?")
-                            .font(.custom("Pretendard-Medium", size: 16))
-                            .foregroundColor(.mainColor1)
-                            .underline()
-                    }
-                    
-                    Spacer(minLength: 12)
-                }
-                .multilineTextAlignment(.center)
+        ZStack {
+            Color.backgroundDefault.ignoresSafeArea(.all)
+            VStack {
+                Image(viewModel.currentCount >= viewModel.totalCount ? "pagenationBar3" : "pagenationBar2")
+                    .padding(.top, 24)
                 
-                if showBottomSheet {
-                    BottomSheet(isPresented: $showBottomSheet, viewName: "OrganizePhotoView")
-                        .transition(.move(edge: .bottom))
+                TabView(selection: $currentPage) {
+                    progressSection.tag(0)
+                    onboardingCard(
+                        title: "소중한 순간,\n자동으로 모아드릴게요",
+                        titleHighlightRanges: [0...7],
+                        context: "여행, 소풍, 즐거운 순간들,\n시공간에 따른 추억을 하나의 이야기로 모아드려요",
+                        image: "onboarding_image1",
+                        imagePadding: 10
+                    ).tag(1)
+                    onboardingCard(
+                        title: "추억의 순간 속 사람들과\n모닥불에서 모이세요",
+                        titleHighlightRanges: [14...16],
+                        context: "함께한 사람들과 그룹을 만들고 추억을 모아보세요\n잊혀진 순간이 있더라도 모닥불이 찾아드릴게요",
+                        image: "onboarding_image2",
+                        imagePadding: 10
+                    ).tag(2)
+                    onboardingCard(
+                        title: "같이 만든 추억을\n함께 나누세요",
+                        titleHighlightRanges: [9...16],
+                        context: "추억으로 피워낸 모닥불 앞에 모여 함께 감상하세요\n",
+                        image: "onboarding_image3",
+                        imagePadding: 10
+                    ).tag(3)
                 }
-            }
-            .onAppear {
-                viewModel.startStatusMessageRotation()  // 메시지 회전 시작
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+                
+                Spacer(minLength: 0)
+                
+                Button(action: {
 
-                // DBSCAN이 끝나면 콜백에서 saveClusteredLogs 실행
-                viewModel.applyDBSCAN {
-                    Task {
-                        await saveClusteredLogs()  // 클러스터 로그 저장
-                    }
+                }) {
+                    RoundedRectangle(cornerRadius: 73)
+                        .frame(width: 345, height: 58)
+                        .foregroundStyle(viewModel.displayedCount >= viewModel.totalCount ? Color.mainColor1 : Color.disable)
+                        .overlay {
+                            Text("확인하러 가기")
+                                .font(.custom("Pretendard-Bold", size: 17))
+                                .lineSpacing(14 * 0.4)
+                                .foregroundStyle(viewModel.displayedCount >= viewModel.totalCount ? Color.white : Color.textColorGray4)
+                        }
+                }
+                .disabled(viewModel.displayedCount < viewModel.totalCount)
+                .padding(.bottom, 14)
+                
+                Button(action: {
+                    showBottomSheet.toggle()
+                }) {
+                    Text("장작이 무엇인가요?")
+                        .font(.custom("Pretendard-Medium", size: 16))
+                        .foregroundColor(.mainColor1)
+                        .underline()
+                }
+                
+                Spacer(minLength: 12)
+            }
+            .multilineTextAlignment(.center)
+            
+            if showBottomSheet {
+                BottomSheet(isPresented: $showBottomSheet, viewName: "OrganizePhotoView")
+                    .transition(.move(edge: .bottom))
+            }
+        }
+        .onAppear {
+            viewModel.startStatusMessageRotation()  // 메시지 회전 시작
+
+            // DBSCAN이 끝나면 콜백에서 saveClusteredLogs 실행
+            viewModel.applyDBSCAN {
+                Task {
+                    await saveClusteredLogs()  // 클러스터 로그 저장
                 }
             }
         }
