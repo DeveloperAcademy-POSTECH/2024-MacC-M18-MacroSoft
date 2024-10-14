@@ -9,6 +9,7 @@ import SwiftUI
 import Photos
 
 struct OrganizePhotoView: View {
+    @Environment(\.modelContext) private var modelContext
     @StateObject private var viewModel = OrganizePhotoViewModel()
     @State private var currentPage = 0
     @State private var showBottomSheet = false
@@ -56,7 +57,7 @@ struct OrganizePhotoView: View {
                 Spacer(minLength: 0)
                 
                 Button(action: {
-                    viewModel.saveClusteredLogs()
+                    saveClusteredLogs()
                 }) {
                     RoundedRectangle(cornerRadius: 73)
                         .frame(width: 345, height: 58)
@@ -119,6 +120,38 @@ struct OrganizePhotoView: View {
             }
             
             Spacer()
+        }
+    }
+    
+    private func saveClusteredLogs() {
+        for cluster in viewModel.clusters {
+            guard let firstMetadata = cluster.first, let lastMetadata = cluster.last else { continue }
+
+            let startAt = firstMetadata.creationDate ?? Date()
+            let endAt = lastMetadata.creationDate ?? Date()
+            
+            let minLatitude = cluster.compactMap { $0.latitude }.min() ?? 0
+            let maxLatitude = cluster.compactMap { $0.latitude }.max() ?? 0
+            let minLongitude = cluster.compactMap { $0.longitude }.min() ?? 0
+            let maxLongitude = cluster.compactMap { $0.longitude }.max() ?? 0
+                        
+            let newLog = Log(
+                minLatitude: minLatitude,
+                maxLatitude: maxLatitude,
+                minLongitude: minLongitude,
+                maxLongitude: maxLongitude,
+                startAt: startAt,
+                endAt: endAt,
+                images: cluster
+            )
+            
+            modelContext.insert(newLog)
+        }
+        
+        do {
+            try modelContext.save()
+        } catch {
+            print("Failed to save logs: \(error)")
         }
     }
 }

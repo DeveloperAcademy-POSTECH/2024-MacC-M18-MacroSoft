@@ -11,8 +11,6 @@ import Photos
 import SwiftData
 
 class OrganizePhotoViewModel: ObservableObject {
-    @Environment(\.modelContext) private var modelContext
-    
     @Published var currentCount: Int = 0
     @Published var totalCount: Int = 0
     @Published var clusters: [[PhotoMetadata]] = []
@@ -60,41 +58,7 @@ class OrganizePhotoViewModel: ObservableObject {
                 self.clusters = resultClusters
                 print("총 클러스터링된 데이터 개수: \(self.clusters.flatMap { $0 }.count)")
                 self.currentCount = self.totalCount // 최종적으로 진행률을 100%로 설정
-                
-                self.saveClusteredLogs()
             }
-        }
-    }
-    
-    func saveClusteredLogs() {
-        for cluster in clusters {
-            guard let firstMetadata = cluster.first, let lastMetadata = cluster.last else { continue }
-
-            let startAt = firstMetadata.creationDate ?? Date()
-            let endAt = lastMetadata.creationDate ?? Date()
-            
-            let minLatitude = cluster.compactMap { $0.latitude }.min() ?? 0
-            let maxLatitude = cluster.compactMap { $0.latitude }.max() ?? 0
-            let minLongitude = cluster.compactMap { $0.longitude }.min() ?? 0
-            let maxLongitude = cluster.compactMap { $0.longitude }.max() ?? 0
-                        
-            let newLog = Log(
-                minLatitude: minLatitude,
-                maxLatitude: maxLatitude,
-                minLongitude: minLongitude,
-                maxLongitude: maxLongitude,
-                startAt: startAt,
-                endAt: endAt,
-                images: cluster
-            )
-            
-            modelContext.insert(newLog)
-        }
-        
-        do {
-            try modelContext.save()
-        } catch {
-            print("Failed to save logs: \(error)")
         }
     }
     
