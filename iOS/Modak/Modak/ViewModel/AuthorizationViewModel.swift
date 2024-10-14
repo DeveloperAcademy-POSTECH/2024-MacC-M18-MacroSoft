@@ -5,9 +5,8 @@
 //  Created by kimjihee on 10/11/24.
 //
 
-import Foundation
-import Photos
 import SwiftUI
+import Photos
 
 class AuthorizationViewModel: ObservableObject {
     @Published var showAlert: Bool = false

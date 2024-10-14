@@ -8,7 +8,6 @@
 import SwiftUI
 import Photos
 import SwiftData
-import CoreLocation
 
 struct ExampleLogPileView: View {
     @Environment(\.modelContext) private var modelContext
