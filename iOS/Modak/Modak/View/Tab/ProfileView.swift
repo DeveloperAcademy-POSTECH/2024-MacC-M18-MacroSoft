@@ -46,15 +46,7 @@ struct ProfileView: View {
         .foregroundStyle(.textColor1)
         .padding(.top, 18)
         .padding(.horizontal, 13)
-        // TODO: LinearGradient extension 파일에 합치기
-        .background(LinearGradient(
-            stops: [
-                Gradient.Stop(color: Color.init(hex: "FFC5A0").opacity(0.09), location: 0.00),
-                Gradient.Stop(color: Color.init(hex: "FFEEA0").opacity(0), location: 1.00),
-            ],
-            startPoint: UnitPoint(x: 0.5, y: -0.07),
-            endPoint: UnitPoint(x: 0.5, y: 0.37)
-        ))
+        .background(LinearGradient.profileViewBackground)
         .background(Color.backgroundLogPile)
     }
 }

@@ -10,40 +10,31 @@ import SwiftUI
 struct LogPileDetailView:View {
     // TODO: 네비게이션 연결하기
     var body: some View {
-            ScrollView {
-                LogPileDetailViewGrid()
-                // TODO: 현재 Figma의 패딩과 다름
+        ScrollView {
+            LogPileDetailViewGrid()
+            // TODO: 현재 Figma의 패딩과 다름
                 .padding(.top, UIScreen.main.bounds.size.width / 5)
-            }
-            .background(.black)
-            .overlay{
-                // TODO: LinearGradient extension으로 넘기기
-                LinearGradient(
-                    stops: [
-                        Gradient.Stop(color: Color(red: 0.09, green: 0.09, blue: 0.09), location: 0.00),
-                        Gradient.Stop(color: Color(red: 0.09, green: 0.09, blue: 0.09).opacity(0.51), location: 0.81),
-                        Gradient.Stop(color: Color(red: 0.09, green: 0.09, blue: 0.09).opacity(0), location: 1.00),
-                    ],
-                    startPoint: UnitPoint(x: 0.5, y: 0),
-                    endPoint: UnitPoint(x: 0.5, y: 0.2)
-                )
+        }
+        .background(.black)
+        .overlay{
+            LinearGradient.logPileDetailViewBackground
                 .ignoresSafeArea(.all)
                 .allowsHitTesting(false)
-            }
-            .overlay {
-                LogPileDetailViewTitle()
-                    .padding(.leading, 20)
-            }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    VStack(alignment: .leading, spacing: 14) {
-                        BackButton()
-                    }
-                    .foregroundStyle(.textColorGray1)
+        }
+        .overlay {
+            LogPileDetailViewTitle()
+                .padding(.leading, 20)
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                VStack(alignment: .leading, spacing: 14) {
+                    BackButton()
                 }
+                .foregroundStyle(.textColorGray1)
             }
-            .toolbarBackground(.hidden, for: .navigationBar)
-            .navigationBarBackButtonHidden(true)
+        }
+        .toolbarBackground(.hidden, for: .navigationBar)
+        .navigationBarBackButtonHidden(true)
     }
 }
 

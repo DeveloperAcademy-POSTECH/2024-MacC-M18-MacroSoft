@@ -21,7 +21,6 @@ struct ContentView: View {
     }
     
     var body: some View {
-        
         NavigationStack() {
             Group {
                 if #available(iOS 18.0, *) {
@@ -100,6 +99,7 @@ private struct NavigationCustomTitle: View {
         .padding(.leading, 8)
     }
 }
+
 private struct NavigationBarModifier: ViewModifier {
     private(set) var tabSelection: Int
     
@@ -113,9 +113,7 @@ private struct NavigationBarModifier: ViewModifier {
             content
                 .toolbarBackground(.hidden, for: .navigationBar)
         }
-        
     }
-    
 }
 
 #Preview {

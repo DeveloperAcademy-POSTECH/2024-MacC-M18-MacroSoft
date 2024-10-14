@@ -11,29 +11,28 @@ struct LogPileView: View {
     private var logPile: LogPileTestModel = logPileViewTestData
     
     var body: some View {
-        
-            Group {
-                if logPile.logList.count > 0 {
-                    ScrollView {
-                        LazyVStack(alignment: .leading, pinnedViews: [.sectionHeaders]) {
-                            ForEach(logPile.logList, id: \.self){ log in
-                                Section {
-                                    LogPileViewRow(pictureCount: log.pictureList.count)
-                                        .background(LinearGradient.logPileRowBackground)
-                                        .clipShape(RoundedRectangle(cornerRadius: 20))
-                                        .padding([.horizontal, .bottom], 10)
-                                        .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 3)
-                                } header: {
-                                    LogPileViewSubTitle(date: log.date)
-                                }
+        Group {
+            if logPile.logList.count > 0 {
+                ScrollView {
+                    LazyVStack(alignment: .leading, pinnedViews: [.sectionHeaders]) {
+                        ForEach(logPile.logList, id: \.self){ log in
+                            Section {
+                                LogPileViewRow(pictureCount: log.pictureList.count)
+                                    .background(LinearGradient.logPileRowBackground)
+                                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                                    .padding([.horizontal, .bottom], 10)
+                                    .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 3)
+                            } header: {
+                                LogPileViewSubTitle(date: log.date)
                             }
                         }
                     }
-                } else {
-                    NoLogView()
                 }
+            } else {
+                NoLogView()
             }
-            .background(.backgroundLogPile)
+        }
+        .background(.backgroundLogPile)
     }
 }
 

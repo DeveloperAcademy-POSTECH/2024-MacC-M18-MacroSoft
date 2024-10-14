@@ -63,7 +63,6 @@ struct RegisterView: View {
                 .cornerRadius(76)
                 
                 Button(action: {
-                    // 동작 추가 필요
                     isSkipRegister = true
                 }) {
                     Text("건너뛰기")
