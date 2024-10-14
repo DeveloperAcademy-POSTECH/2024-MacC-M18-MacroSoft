@@ -18,8 +18,9 @@ class Log {
     var startAt: Date
     var endAt: Date
     var images: [PhotoMetadata] // 클러스터링된 PhotoMetadata 배열
+    var address: String? // 주소값 ex)포항시
 
-    init(minLatitude: Double, maxLatitude: Double, minLongitude: Double, maxLongitude: Double, startAt: Date, endAt: Date, images: [PhotoMetadata]) {
+    init(minLatitude: Double, maxLatitude: Double, minLongitude: Double, maxLongitude: Double, startAt: Date, endAt: Date, images: [PhotoMetadata], address: String? = nil) {
         self.id = UUID()
         self.minLatitude = minLatitude
         self.maxLatitude = maxLatitude
@@ -28,5 +29,7 @@ class Log {
         self.startAt = startAt
         self.endAt = endAt
         self.images = images
+        self.address = address
     }
 }
+
