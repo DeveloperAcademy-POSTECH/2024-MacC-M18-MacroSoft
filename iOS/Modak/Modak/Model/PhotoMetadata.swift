@@ -8,7 +8,6 @@
 import Foundation
 import Photos
 import SwiftData
-import CoreLocation
 
 @Model
 class PhotoMetadata {
