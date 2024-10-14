@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct ModakApp: App {
+    @AppStorage("isSkipRegister") var isSkipRegister: Bool = false
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if isSkipRegister {
+                ContentView()
+            } else {
+                RegisterView()
+            }
         }
     }
 }

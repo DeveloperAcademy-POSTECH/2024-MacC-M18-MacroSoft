@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RegisterView: View {
+    @AppStorage("isSkipRegister") var isSkipRegister: Bool = false
     private let totalPages = 3
     @State private var currentPage = 0
     
@@ -63,6 +64,7 @@ struct RegisterView: View {
                 
                 Button(action: {
                     // 동작 추가 필요
+                    isSkipRegister = true
                 }) {
                     Text("건너뛰기")
                         .font(.custom("Pretendard-Medium", size: 16))
