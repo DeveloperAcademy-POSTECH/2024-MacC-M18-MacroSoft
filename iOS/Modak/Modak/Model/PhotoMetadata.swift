@@ -7,30 +7,20 @@
 
 import Foundation
 import Photos
-import SwiftUI
+import SwiftData
+import CoreLocation
 
-class PhotoMetadata: Identifiable, Hashable {
-    var id: UUID = UUID()
-    var asset: PHAsset
-    var localIdentifier: String
-    var location: CLLocation?
+@Model
+class PhotoMetadata {
+    @Attribute(.unique) var localIdentifier: String // 고유 식별자
+    var latitude: Double?
+    var longitude: Double?
     var creationDate: Date?
     
-    init(asset: PHAsset, localIdentifier: String, location: CLLocation?, creationDate: Date?) {
-        self.asset = asset
+    init(localIdentifier: String, latitude: Double?, longitude: Double?, creationDate: Date?) {
         self.localIdentifier = localIdentifier
-        self.location = location
+        self.latitude = latitude
+        self.longitude = longitude
         self.creationDate = creationDate
     }
-    
-    // Hashable 프로토콜을 구현하기 위한 메서드
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id) // id로 고유 해시 생성
-    }
-    
-    // Equatable 프로토콜을 구현하기 위한 메서드
-    static func == (lhs: PhotoMetadata, rhs: PhotoMetadata) -> Bool {
-        return lhs.id == rhs.id
-    }
 }
-
