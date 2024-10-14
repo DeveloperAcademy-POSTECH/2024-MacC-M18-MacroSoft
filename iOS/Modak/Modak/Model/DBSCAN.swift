@@ -11,17 +11,9 @@ class DBSCAN {
     var eps: TimeInterval // 최대 시간 차이 (초 단위)
     var minPts: Int // 최소 포인트 수
 
-    init(eps: TimeInterval = 10800, minPts: Int = 10) { // 기본값 설정
+    init(eps: TimeInterval = 7200, minPts: Int = 10) { // 기본값 설정
         self.eps = eps
         self.minPts = minPts
-    }
-    
-    func changeMinPts(_ minPts: String) {
-        self.minPts = Int(minPts) ?? 10
-    }
-    
-    func changeMaxDis(_ maxDis: String) {
-        self.eps = TimeInterval(maxDis) ?? 10800
     }
 
     func applyAlgorithm(points: [PhotoMetadata], progressUpdate: (Int) -> Void) -> [[PhotoMetadata]] {

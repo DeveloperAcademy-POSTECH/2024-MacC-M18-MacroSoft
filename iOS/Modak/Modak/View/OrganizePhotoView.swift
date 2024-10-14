@@ -7,15 +7,18 @@
 
 import SwiftUI
 import Photos
+import SwiftData
 
 struct OrganizePhotoView: View {
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = OrganizePhotoViewModel()
     @State private var currentPage = 0
     @State private var showBottomSheet = false
+    @State private var locationCache: [String: (center: CLLocationCoordinate2D, radius: Double, address: String)] = [:]
+    let geocoder = CLGeocoder()
     
     init() {
-        // 페이지 인디케이터 색상 설정
         UIPageControl.appearance().currentPageIndicatorTintColor = .pagenationAble
         UIPageControl.appearance().pageIndicatorTintColor = .pagenationDisable
     }
@@ -28,8 +31,7 @@ struct OrganizePhotoView: View {
                     .padding(.top, 24)
                 
                 TabView(selection: $currentPage) {
-                    progressSection
-                        .tag(0)
+                    progressSection.tag(0)
                     onboardingCard(
                         title: "소중한 순간,\n자동으로 모아드릴게요",
                         titleHighlightRanges: [0...7],
@@ -61,15 +63,15 @@ struct OrganizePhotoView: View {
                 }) {
                     RoundedRectangle(cornerRadius: 73)
                         .frame(width: 345, height: 58)
-                        .foregroundStyle(viewModel.currentCount >= viewModel.totalCount ? Color.mainColor1 : Color.disable)
+                        .foregroundStyle(viewModel.displayedCount >= viewModel.totalCount ? Color.mainColor1 : Color.disable)
                         .overlay {
                             Text("확인하러 가기")
                                 .font(.custom("Pretendard-Bold", size: 17))
                                 .lineSpacing(14 * 0.4)
-                                .foregroundStyle(viewModel.currentCount >= viewModel.totalCount ? Color.white : Color.textColorGray4)
+                                .foregroundStyle(viewModel.displayedCount >= viewModel.totalCount ? Color.white : Color.textColorGray4)
                         }
                 }
-                .disabled(viewModel.currentCount >= viewModel.totalCount)
+                .disabled(viewModel.displayedCount < viewModel.totalCount)
                 .padding(.bottom, 14)
                 
                 Button(action: {
@@ -91,15 +93,21 @@ struct OrganizePhotoView: View {
             }
         }
         .onAppear {
-            viewModel.applyDBSCAN()
-            viewModel.startStatusMessageRotation()
+            viewModel.startStatusMessageRotation()  // 메시지 회전 시작
+
+            // DBSCAN이 끝나면 콜백에서 saveClusteredLogs 실행
+            viewModel.applyDBSCAN {
+                Task {
+                    await saveClusteredLogs()  // 클러스터 로그 저장
+                }
+            }
         }
     }
     
     private var progressSection: some View {
         VStack {
             Group {
-                if viewModel.currentCount >= viewModel.totalCount {
+                if viewModel.displayedCount >= viewModel.totalCount {
                     Text("장작을 모두 모았어요")
                         .foregroundStyle(Color.textColor3)
                 } else {
@@ -111,17 +119,113 @@ struct OrganizePhotoView: View {
             .padding(.top, 14)
             .padding(.bottom, 65)
             
-            ProgressNumber(currentCount: viewModel.currentCount, totalCount: viewModel.totalCount)
-                            .padding(.bottom, 26)
-                        
+            ProgressNumber(currentCount: viewModel.displayedCount, totalCount: viewModel.totalCount)
+                .padding(.bottom, 26)
+                            
             ZStack {
-                CircularProgressBar(progress: Double(viewModel.currentCount) / Double(viewModel.totalCount))
+                CircularProgressBar(progress: Double(viewModel.displayedCount) / Double(viewModel.totalCount))
                 CircularProgressPhoto(image: viewModel.currentCircularProgressPhoto)
             }
-            
+                
             Spacer()
         }
+        .onAppear {
+            viewModel.updateDisplayedCount()
+        }
     }
+    
+    private func saveClusteredLogs() async {
+        var savedClusterIdentifiers = Set<String>()
+
+        for cluster in viewModel.clusters {
+            guard let firstMetadata = cluster.first, let lastMetadata = cluster.last else {
+                print("클러스터에 이미지가 없습니다.")
+                continue
+            }
+
+            let clusterID = firstMetadata.localIdentifier
+            if savedClusterIdentifiers.contains(clusterID) {
+                print("중복 클러스터 발견, 저장하지 않음: \(clusterID)")
+                continue
+            }
+
+            savedClusterIdentifiers.insert(clusterID)
+
+            let startAt = firstMetadata.creationDate ?? Date()
+            let endAt = lastMetadata.creationDate ?? Date()
+
+            let minLatitude = cluster.compactMap { $0.latitude }.min() ?? 0
+            let maxLatitude = cluster.compactMap { $0.latitude }.max() ?? 0
+            let minLongitude = cluster.compactMap { $0.longitude }.min() ?? 0
+            let maxLongitude = cluster.compactMap { $0.longitude }.max() ?? 0
+            var address = "위치 정보 없음"
+
+            // 클러스터 내에서 위치 정보가 있는 첫 번째 사진을 찾음
+            if let locationMetadata = cluster.first(where: { $0.latitude != nil && $0.longitude != nil }),
+                let latitude = locationMetadata.latitude, let longitude = locationMetadata.longitude {
+
+                let location = CLLocation(latitude: latitude, longitude: longitude)
+
+                // 캐시된 범위 내에 있는지 확인
+                if let cachedLocation = isWithinCachedRange(location) {
+                    address = cachedLocation
+                } else {
+                    // 비동기로 주소 가져옴
+                    do {
+                        let placemarks = try await geocoder.reverseGeocodeLocation(location)
+                        if let placemark = placemarks.first {
+                            let city = placemark.locality ?? "알 수 없음"
+                            address = "\(city)"
+
+                            // 위치 정보 캐시에 저장 (포항시 범위 예시)
+                            locationCache["\(city)"] = (
+                                center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
+                                radius: 7000,  // 7km 반경
+                                address: address
+                            )
+                        }
+                    } catch {
+                        print("Geocoding error")
+                    }
+                }
+            }
+
+            let newLog = Log(
+                minLatitude: minLatitude,
+                maxLatitude: maxLatitude,
+                minLongitude: minLongitude,
+                maxLongitude: maxLongitude,
+                startAt: startAt,
+                endAt: endAt,
+                images: cluster,
+                address: address // 위치 정보 포함하여 저장
+            )
+
+            modelContext.insert(newLog)
+
+            do {
+                try modelContext.save()
+                print("로그와 주소 저장 성공: \(address)")
+            } catch {
+                print("로그와 주소 저장 실패: \(error)")
+            }
+        }
+    }
+
+    // 캐시된 위치 범위 내에 있는지 확인
+    private func isWithinCachedRange(_ location: CLLocation) -> String? {
+        for (_, value) in locationCache {
+            let cachedCenter = CLLocation(latitude: value.center.latitude, longitude: value.center.longitude)
+            let distance = location.distance(from: cachedCenter)
+
+            // 캐시된 반경 내에 있으면 해당 주소 반환
+            if distance <= value.radius {
+                return value.address
+            }
+        }
+        return nil
+    }
+
 }
 
 #Preview {
