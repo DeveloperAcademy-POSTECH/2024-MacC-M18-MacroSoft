@@ -9,6 +9,7 @@ import SwiftUI
 import Photos
 
 struct AuthorizationView: View {
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = AuthorizationViewModel()
     
     var body: some View {
@@ -93,6 +94,12 @@ struct AuthorizationView: View {
         .fullScreenCover(isPresented: $viewModel.navigateToOrganizePhotoView) {
             OrganizePhotoView()
         }
+        .onChange(of: viewModel.navigateToOrganizePhotoView, {
+            if viewModel.navigateToOrganizePhotoView == false {
+                dismiss()
+            }
+        })
+        .navigationBarBackButtonHidden(true)
     }
 }
 
