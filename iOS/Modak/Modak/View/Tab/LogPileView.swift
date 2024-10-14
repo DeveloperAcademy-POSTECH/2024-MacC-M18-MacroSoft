@@ -11,46 +11,28 @@ struct LogPileView: View {
     private var logPile: LogPileTestModel = logPileViewTestData
     
     var body: some View {
-        NavigationStack {
-            Group {
-                if logPile.logList.count > 0 {
-                    ScrollView {
-                        LazyVStack(alignment: .leading, pinnedViews: [.sectionHeaders]) {
-                            ForEach(logPile.logList, id: \.self){ log in
-                                Section {
-                                    LogPileViewRow(pictureCount: log.pictureList.count)
-                                        .background(LinearGradient.logPileRowBackground)
-                                        .clipShape(RoundedRectangle(cornerRadius: 20))
-                                        .padding([.horizontal, .bottom], 10)
-                                        .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 3)
-                                } header: {
-                                    LogPileViewSubTitle(date: log.date)
-                                }
+        Group {
+            if logPile.logList.count > 0 {
+                ScrollView {
+                    LazyVStack(alignment: .leading, pinnedViews: [.sectionHeaders]) {
+                        ForEach(logPile.logList, id: \.self){ log in
+                            Section {
+                                LogPileViewRow(pictureCount: log.pictureList.count)
+                                    .background(LinearGradient.logPileRowBackground)
+                                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                                    .padding([.horizontal, .bottom], 10)
+                                    .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 3)
+                            } header: {
+                                LogPileViewSubTitle(date: log.date)
                             }
                         }
                     }
-                } else {
-                    NoLogView()
                 }
+            } else {
+                NoLogView()
             }
-            .background(.backgroundLogPile)
-            .toolbar {
-                ToolbarItem(placement: .navigation) {
-                    LogPileViewTitle()
-                }
-            }
-            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
         }
-        .colorScheme(.dark)
-    }
-}
-
-private struct LogPileViewTitle: View {
-    var body: some View {
-        Text("내 장작 창고")
-            .foregroundStyle(.textColorTitleView)
-            .font(Font.custom("Pretendard-SemiBold", size: 17))
-            .padding(.leading, 8)
+        .background(.backgroundLogPile)
     }
 }
 
@@ -135,8 +117,8 @@ private struct LogPileViewRow: View {
         Group {
             if isShowLeaf{
                 VStack(spacing: 0) {
-                    Button {
-                        // TODO: 네비게이션
+                    NavigationLink {
+                        LogPileDetailView()
                     } label: {
                         VStack {
                             LogPileViewRowTitle(date: Date(), isLeaf: false)
@@ -171,12 +153,11 @@ private struct LogPileViewRow: View {
                         }
                     }
                     
-                    Button {
-                        // TODO: 네비게이션
+                    NavigationLink {
+                        LogPileDetailView()
                     } label: {
                         VStack {
                             LogPileViewRowTitle(date: Date(), isLeaf: true)
-                            
                             HStack {
                                 Divider()
                                     .frame(width: 1)
@@ -208,8 +189,8 @@ private struct LogPileViewRow: View {
                     }
                 }
             } else {
-                Button {
-                    // TODO: 네비게이션
+                NavigationLink {
+                    LogPileDetailView()
                 } label: {
                     VStack {
                         LogPileViewRowTitle(date: Date(), isLeaf: false)
@@ -261,8 +242,8 @@ private struct NoLogView: View {
                 .foregroundColor(.textColorGray2)
                 .padding(.bottom, 27)
             
-            Button {
-                
+            NavigationLink {
+                AuthorizationView()
             } label: {
                 RoundedRectangle(cornerRadius: 20)
                     .foregroundStyle(.mainColor1)

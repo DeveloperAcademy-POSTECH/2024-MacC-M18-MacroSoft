@@ -11,6 +11,7 @@ import SwiftData
 
 struct OrganizePhotoView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = OrganizePhotoViewModel()
     @State private var currentPage = 0
     @State private var showBottomSheet = false
@@ -58,7 +59,7 @@ struct OrganizePhotoView: View {
                 Spacer(minLength: 0)
                 
                 Button(action: {
-
+                    dismiss()
                 }) {
                     RoundedRectangle(cornerRadius: 73)
                         .frame(width: 345, height: 58)
