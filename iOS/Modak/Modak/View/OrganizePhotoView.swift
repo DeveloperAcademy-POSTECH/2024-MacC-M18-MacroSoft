@@ -56,7 +56,7 @@ struct OrganizePhotoView: View {
                 Spacer(minLength: 0)
                 
                 Button(action: {
-                    // 동작 추가 필요
+                    viewModel.saveClusteredLogs()
                 }) {
                     RoundedRectangle(cornerRadius: 73)
                         .frame(width: 345, height: 58)
@@ -68,7 +68,7 @@ struct OrganizePhotoView: View {
                                 .foregroundStyle(viewModel.currentCount >= viewModel.totalCount ? Color.white : Color.textColorGray4)
                         }
                 }
-                .disabled(viewModel.currentCount >= viewModel.totalCount)
+                .disabled(viewModel.currentCount < viewModel.totalCount)
                 .padding(.bottom, 14)
                 
                 Button(action: {

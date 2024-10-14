@@ -8,8 +8,11 @@
 import Foundation
 import SwiftUI
 import Photos
+import SwiftData
 
 class OrganizePhotoViewModel: ObservableObject {
+    @Environment(\.modelContext) private var modelContext
+    
     @Published var currentCount: Int = 0
     @Published var totalCount: Int = 0
     @Published var clusters: [[PhotoMetadata]] = []
@@ -33,8 +36,12 @@ class OrganizePhotoViewModel: ObservableObject {
         fetchOptions.predicate = NSPredicate(format: "mediaType == %d", PHAssetMediaType.image.rawValue)
         let fetchResult = PHAsset.fetchAssets(with: fetchOptions)
         self.totalCount = fetchResult.count
-        self.photoMetadataList = fetchResult.objects(at: IndexSet(0..<fetchResult.count)).map {
-            PhotoMetadata(asset: $0, location: nil, creationDate: $0.creationDate)
+        
+        fetchResult.enumerateObjects { (asset, _, _) in
+            let latitude = asset.location?.coordinate.latitude
+            let longitude = asset.location?.coordinate.longitude
+            let metadata = PhotoMetadata(localIdentifier: asset.localIdentifier, latitude: latitude, longitude: longitude, creationDate: asset.creationDate)
+            self.photoMetadataList.append(metadata)
         }
     }
     
@@ -53,7 +60,41 @@ class OrganizePhotoViewModel: ObservableObject {
                 self.clusters = resultClusters
                 print("총 클러스터링된 데이터 개수: \(self.clusters.flatMap { $0 }.count)")
                 self.currentCount = self.totalCount // 최종적으로 진행률을 100%로 설정
+                
+                self.saveClusteredLogs()
             }
+        }
+    }
+    
+    func saveClusteredLogs() {
+        for cluster in clusters {
+            guard let firstMetadata = cluster.first, let lastMetadata = cluster.last else { continue }
+
+            let startAt = firstMetadata.creationDate ?? Date()
+            let endAt = lastMetadata.creationDate ?? Date()
+            
+            let minLatitude = cluster.compactMap { $0.latitude }.min() ?? 0
+            let maxLatitude = cluster.compactMap { $0.latitude }.max() ?? 0
+            let minLongitude = cluster.compactMap { $0.longitude }.min() ?? 0
+            let maxLongitude = cluster.compactMap { $0.longitude }.max() ?? 0
+                        
+            let newLog = Log(
+                minLatitude: minLatitude,
+                maxLatitude: maxLatitude,
+                minLongitude: minLongitude,
+                maxLongitude: maxLongitude,
+                startAt: startAt,
+                endAt: endAt,
+                images: cluster
+            )
+            
+            modelContext.insert(newLog)
+        }
+        
+        do {
+            try modelContext.save()
+        } catch {
+            print("Failed to save logs: \(error)")
         }
     }
     
@@ -104,8 +145,8 @@ class OrganizePhotoViewModel: ObservableObject {
         let updateFrequency = 600
             
         if currentProgress % updateFrequency == 0 && currentProgress > 0 && currentProgress < photoMetadataList.count {
-            let asset = photoMetadataList[currentProgress].asset
-            fetchPhoto(for: asset) { image in
+            let metadata = photoMetadataList[currentProgress]
+            fetchPhoto(for: metadata) { image in
                 DispatchQueue.main.async {
                     self.currentCircularProgressPhoto = image
                 }
@@ -113,7 +154,15 @@ class OrganizePhotoViewModel: ObservableObject {
         }
     }
 
-    private func fetchPhoto(for asset: PHAsset, completion: @escaping (UIImage?) -> Void) {
+    // localIdentifier를 통해 PHAsset을 불러오는 함수
+    func fetchPhoto(for metadata: PhotoMetadata, completion: @escaping (UIImage?) -> Void) {
+        let fetchResult = PHAsset.fetchAssets(withLocalIdentifiers: [metadata.localIdentifier], options: nil)
+        
+        guard let asset = fetchResult.firstObject else {
+            completion(nil) // 해당하는 사진이 없을 경우
+            return
+        }
+        
         let imageManager = PHImageManager.default()
         let options = PHImageRequestOptions()
         options.isSynchronous = false
