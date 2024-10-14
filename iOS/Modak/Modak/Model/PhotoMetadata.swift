@@ -11,14 +11,14 @@ import SwiftUI
 
 class PhotoMetadata: Identifiable, Hashable {
     var id: UUID = UUID()
-    var color: Color
     var asset: PHAsset
+    var localIdentifier: String
     var location: CLLocation?
     var creationDate: Date?
     
-    init(color: Color = .black, asset: PHAsset, location: CLLocation?, creationDate: Date?) {
-        self.color = color
+    init(asset: PHAsset, localIdentifier: String, location: CLLocation?, creationDate: Date?) {
         self.asset = asset
+        self.localIdentifier = localIdentifier
         self.location = location
         self.creationDate = creationDate
     }
