@@ -11,7 +11,8 @@ import SwiftUI
 struct ModakApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CoordinatorView()
+                .modelContainer(for: [Log.self, PhotoMetadata.self])
         }
     }
 }
