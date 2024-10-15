@@ -1,5 +1,5 @@
 //
-//  PhotoView.swift
+//  SelectedPhotoView.swift
 //  Modak
 //
 //  Created by Park Junwoo on 10/14/24.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Photos
 
-struct PhotoGridView: View {
+struct SelectedPhotoView: View {
     private(set) var selectedLog: Log
     private(set) var selectedPhotoMetadata: PhotoMetadata
     @State private var tabSelection: String = ""
@@ -38,12 +38,15 @@ struct PhotoGridView: View {
             
             ToolbarItem(placement: .principal) {
                 VStack{
-                    Text("포항시 남구")
+                    Text(selectedLog.address == "위치 정보 없음" ? "지구" : selectedLog.address ?? "지구")
                         .foregroundStyle(.textColorWhite)
                         .font(Font.custom("Pretendard-Regular", size: 13))
-                    Text("\(Date().logPileRowTitleDayFormat)")
-                        .foregroundStyle(.textColor1)
-                        .font(Font.custom("Pretendard-Regular", size: 10))
+                    // 혹시 몰라서 현재 보여지는 사진의 날짜를 가지고 오기는 하는데,,, 현재 로직 상 한 로그는 같은 날짜일거라서...흠
+                    if let currentImage = selectedLog.images.first(where: { $0.localIdentifier == tabSelection }) {
+                        Text(currentImage.creationDate?.logPileRowTitleDayFormat ?? Date().logPileRowTitleDayFormat)
+                            .foregroundStyle(.textColor1)
+                            .font(Font.custom("Pretendard-Regular", size: 10))
+                    }
                 }
             }
             // TODO: 하단 사진 Selector 구현하기
@@ -129,5 +132,5 @@ private struct PhotoGridViewRowImage: View {
 }
 
 //#Preview {
-//    PhotoGridView(selectedPicture: .constant(0))
+//    SelectedPhotoView(selectedPicture: .constant(0))
 //}

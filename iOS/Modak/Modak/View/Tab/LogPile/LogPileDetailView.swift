@@ -85,7 +85,7 @@ private struct LogPileDetailViewGrid: View {
             ForEach(selectedLog.images, id: \.id) { metadata in
                 // 원래 여기서 @Bindable로 PhotoGridView에 metadata를 넘겨줬었는데 그랬더니 데이터가 엉켜서 같은 사진만 2장 보이는 경우가 생김
                 NavigationLink {
-                    PhotoGridView(selectedLog: selectedLog, selectedPhotoMetadata: metadata)
+                    SelectedPhotoView(selectedLog: selectedLog, selectedPhotoMetadata: metadata)
                 } label: {
                     // TODO: 실제 사진 받아와서 적용시키기
                     LogPileDetailViewImage(photoMetadata: metadata)
