@@ -14,6 +14,7 @@
 		10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91D32CACD79300BFA2EC /* ProfileView.swift */; };
 		10AB91D62CACD7A100BFA2EC /* CampfireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91D52CACD7A100BFA2EC /* CampfireView.swift */; };
 		10AB91D82CACD7AC00BFA2EC /* LogPileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91D72CACD7AC00BFA2EC /* LogPileView.swift */; };
+		10B0A6702CBE6F820048C313 /* AppleSigninViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B0A66F2CBE6F820048C313 /* AppleSigninViewModel.swift */; };
 		10BCB0DC2CB81D410013E227 /* OrganizePhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCB0DB2CB81D410013E227 /* OrganizePhotoViewModel.swift */; };
 		10BCB0DE2CB81F2D0013E227 /* PhotoMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCB0DD2CB81F2D0013E227 /* PhotoMetadata.swift */; };
 		10BCB0E02CB8206C0013E227 /* DBSCAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCB0DF2CB8206C0013E227 /* DBSCAN.swift */; };
@@ -58,6 +59,7 @@
 		10AB91D32CACD79300BFA2EC /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		10AB91D52CACD7A100BFA2EC /* CampfireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireView.swift; sourceTree = "<group>"; };
 		10AB91D72CACD7AC00BFA2EC /* LogPileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPileView.swift; sourceTree = "<group>"; };
+		10B0A66F2CBE6F820048C313 /* AppleSigninViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSigninViewModel.swift; sourceTree = "<group>"; };
 		10BCB0DB2CB81D410013E227 /* OrganizePhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizePhotoViewModel.swift; sourceTree = "<group>"; };
 		10BCB0DD2CB81F2D0013E227 /* PhotoMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMetadata.swift; sourceTree = "<group>"; };
 		10BCB0DF2CB8206C0013E227 /* DBSCAN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBSCAN.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 			children = (
 				10BCB0ED2CB84BCB0013E227 /* AuthorizationViewModel.swift */,
 				10BCB0DB2CB81D410013E227 /* OrganizePhotoViewModel.swift */,
+				10B0A66F2CBE6F820048C313 /* AppleSigninViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				10AB91AC2CACD29A00BFA2EC /* ContentView.swift in Sources */,
 				10BCB0F82CBCCABB0013E227 /* ExampleLogPileView.swift in Sources */,
 				10BCB0E72CB825520013E227 /* BackButton.swift in Sources */,
+				10B0A6702CBE6F820048C313 /* AppleSigninViewModel.swift in Sources */,
 				10BCB0E82CB825520013E227 /* OnboardingCard.swift in Sources */,
 				10BCB0F42CBCB58B0013E227 /* Log.swift in Sources */,
 				10BCB0E92CB825520013E227 /* CircularProgressPhoto.swift in Sources */,
