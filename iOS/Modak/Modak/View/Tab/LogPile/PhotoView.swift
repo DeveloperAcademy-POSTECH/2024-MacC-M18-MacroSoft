@@ -24,7 +24,6 @@ struct PhotoView: View {
                             .tag(image)
                         Spacer()
                     }
-                    .background(.red)
                 }
             }
             .background(.backgroundPhoto)
