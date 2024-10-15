@@ -69,6 +69,7 @@
 		10BCB0ED2CB84BCB0013E227 /* AuthorizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewModel.swift; sourceTree = "<group>"; };
 		10BCB0F32CBCB58B0013E227 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		10BCB0F72CBCCABB0013E227 /* ExampleLogPileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleLogPileView.swift; sourceTree = "<group>"; };
+		10BCB0FB2CBE13510013E227 /* Modak.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Modak.entitlements; sourceTree = "<group>"; };
 		10BE37612CB30743008D1DA1 /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
 		10BE37622CB30743008D1DA1 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		10BE37632CB30743008D1DA1 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
@@ -130,6 +131,7 @@
 		10AB91A92CACD29A00BFA2EC /* Modak */ = {
 			isa = PBXGroup;
 			children = (
+				10BCB0FB2CBE13510013E227 /* Modak.entitlements */,
 				10BE37732CB3085A008D1DA1 /* Info.plist */,
 				10AB91B22CACD2E000BFA2EC /* App */,
 				10AB91AE2CACD2AC00BFA2EC /* Model */,
@@ -494,6 +496,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Modak/Modak.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Modak/Preview Content\"";
@@ -525,6 +528,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Modak/Modak.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Modak/Preview Content\"";
