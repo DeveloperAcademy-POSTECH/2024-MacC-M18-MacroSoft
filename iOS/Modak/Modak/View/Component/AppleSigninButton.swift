@@ -36,7 +36,8 @@ struct AppleSigninButton: View {
                         print("Encrypted User Identifier: \(encryptedUserIdentifier)")
                         
                         // 서버에 값 전송
-                                        
+                        sendCredentialsToServer(authorizationCode: authorizationCode ?? "", identityToken: identityToken ?? "", encryptedUserIdentifier: encryptedUserIdentifier)
+
                     default:
                         break
                 }
@@ -46,6 +47,51 @@ struct AppleSigninButton: View {
             }
           }
         )
+    }
+    
+    // 서버로 데이터를 전송하는 함수
+    func sendCredentialsToServer(authorizationCode: String, identityToken: String, encryptedUserIdentifier: String) {
+        // 서버의 URL
+        guard let url = Bundle.main.object(forInfoDictionaryKey: "ServerURL") as? URL else {
+            print("Invalid URL")
+            return
+        }
+        
+        // 전송할 데이터
+        let parameters: [String: Any] = [
+            "authorizationCode": authorizationCode,
+            "identityToken": identityToken,
+            "encryptedUserIdentifier": encryptedUserIdentifier
+        ]
+
+        // JSON 데이터로 변환
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
+            print("Error encoding parameters")
+            return
+        }
+
+        // URLRequest 설정
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = httpBody
+
+        // 네트워크 요청
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error sending request: \(error.localizedDescription)")
+                return
+            }
+
+            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+                print("Data sent successfully")
+            } else {
+                print("Failed with response: \(String(describing: response))")
+            }
+        }
+
+        // 요청 시작
+        task.resume()
     }
 }
 
