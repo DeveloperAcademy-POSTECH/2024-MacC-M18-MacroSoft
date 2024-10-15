@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AuthenticationServices
 
 struct RegisterView: View {
     @AppStorage("isSkipRegister") var isSkipRegister: Bool = false
@@ -51,16 +52,26 @@ struct RegisterView: View {
                 
                 Spacer(minLength: 0)
                 
-                HStack(spacing: 12) {
-                    Image(systemName: "apple.logo")
-                        .resizable()
-                        .frame(width: 11.20, height: 14)
-                    Text("Apple로 시작하기")
-                }
-                .font(.custom("Pretendard-Bold", size: 16))
-                .frame(width: 345, height: 58)
-                .background(.white)
-                .cornerRadius(76)
+                SignInWithAppleButton(
+                    .signIn,
+                    onRequest: { request in
+                      // 요청 구성 (필요한 범위 설정 등)
+                      request.requestedScopes = [.fullName, .email]
+                    },
+                  onCompletion: { result in
+                    // 인증 결과 처리
+                    switch result {
+                        case .success(let authorization):
+                            print("Authorization successful: \(authorization)")
+                      case .failure(let error):
+                        print("Authorization failed: \(error.localizedDescription)")
+                    }
+                  }
+                )
+                .signInWithAppleButtonStyle(.white)
+                .frame(height: 58)
+                .cornerRadius(100)
+                .padding(.horizontal, 24)
                 
                 Button(action: {
                     isSkipRegister = true
