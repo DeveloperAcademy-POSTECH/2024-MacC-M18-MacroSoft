@@ -10,9 +10,10 @@ import AuthenticationServices
 import CryptoKit
 
 class AppleSigninViewModel: ObservableObject {
+    @Published var isLoggedIn: Bool = false
     @Published var shouldReLogin = false // 로그인을 다시 해야 하는지 여부를 저장
     
-    let url = URL(string: "https://주소 입력해야 됨") // 소셜 로그인
+    let loginURL = URL(string: "https://주소 입력해야 됨") // 소셜 로그인
     let refreshTokenURL = URL(string: "https://주소 입력해야 됨") // Access Token 재발급
     
     func handleAppleSignIn(result: Result<ASAuthorization, Error>) {
@@ -35,6 +36,10 @@ class AppleSigninViewModel: ObservableObject {
                     
                     // 서버에 값 전송
                     sendCredentialsToServer(authorizationCode: authorizationCode ?? "", identityToken: identityToken ?? "", encryptedUserIdentifier: encryptedUserIdentifier)
+                
+                    // 로그인 성공
+                    self.isLoggedIn = true
+                    self.shouldReLogin = false
 
                 default:
                     break
@@ -42,13 +47,17 @@ class AppleSigninViewModel: ObservableObject {
         case .failure(let error):
             print(error.localizedDescription)
             print("error")
+            
+            // 로그인 실패 시 다시 로그인 필요
+            self.isLoggedIn = false
+            self.shouldReLogin = true
         }
     }
     
     // 서버로 데이터를 전송하는 함수
     func sendCredentialsToServer(authorizationCode: String, identityToken: String, encryptedUserIdentifier: String) {
         // 서버의 URL
-        guard let url = url else {
+        guard let url = loginURL else {
             print("Invalid URL")
             return
         }
@@ -83,14 +92,15 @@ class AppleSigninViewModel: ObservableObject {
 
             // 서버 응답 처리
             if let response = response as? HTTPURLResponse {
-                if response.statusCode == 200 {
+                switch response.statusCode {
+                case 200:
                     // 성공적으로 처리됨
                     self.handleServerResponse(data: data)
-                } else if response.statusCode == 403 {
-                    // refreshToken 만료, 새로 발급받기
-                    self.refreshAccessToken()
-                } else {
-                    print("Failed with response: \(String(describing: response))")
+                case 401, 403:
+                    // 토큰이 만료됨
+                    self.promptUserToReLogin()
+                default:
+                    print("Unexpected response code: \(response.statusCode)")
                 }
             }
         }
@@ -123,6 +133,7 @@ class AppleSigninViewModel: ObservableObject {
     func refreshAccessToken() {
         guard let refreshToken = getRefreshToken(), let url = refreshTokenURL else {
             print("No valid refreshToken or invalid URL")
+            self.shouldReLogin = true
             return
         }
         
@@ -151,15 +162,34 @@ class AppleSigninViewModel: ObservableObject {
             guard let data = data else { return }
             
             // 새 accessToken을 발급받아 처리
-            self.handleServerResponse(data: data)
+            if let response = response as? HTTPURLResponse {
+                switch response.statusCode {
+                case 200:
+                    self.handleServerResponse(data: data)
+                case 401, 403:
+                    self.promptUserToReLogin() // refresh토큰도 만료됨
+                default:
+                    print("Unexpected response code: \(response.statusCode)")
+                }
+            }
         }
         task.resume()
+    }
+    
+    // 사용자가 다시 로그인하도록 알림을 주는 함수
+    func promptUserToReLogin() {
+        DispatchQueue.main.async {
+            self.shouldReLogin = true // 로그인 필요 상태로 전환
+            print("Session expired. Please log in again.")
+        }
     }
     
     // 앱 시작 시 자동 로그인 처리
     func attemptAutoLogin() {
         if getRefreshToken() != nil {
-            refreshAccessToken()
+            refreshAccessToken() // refreshToken이 있으면 자동으로 accessToken을 재발급 시도
+        } else {
+            shouldReLogin = true // refreshToken이 없으면 다시 로그인 필요
         }
     }
 
