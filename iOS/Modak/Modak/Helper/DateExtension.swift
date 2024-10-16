@@ -9,9 +9,21 @@ import Foundation
 
 extension Date {
     
+    var compareYYMMFormat: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy월 M월"
+        return formatter.string(from: self)
+    }
+    
+    var YYYYMdFormat: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy월 M월 d일"
+        return formatter.string(from: self)
+    }
+    
     var logPileRowTitleDayFormat: String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM월 dd일"
+        formatter.dateFormat = "M월 d일"
         return formatter.string(from: self)
     }
     

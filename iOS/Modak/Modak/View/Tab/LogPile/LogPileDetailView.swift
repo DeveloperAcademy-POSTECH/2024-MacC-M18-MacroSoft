@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import Photos
 
 struct LogPileDetailView:View {
-    // TODO: 네비게이션 연결하기
+    private(set) var selectedLog: Log
+    
     var body: some View {
         ScrollView {
-            LogPileDetailViewGrid()
+            LogPileDetailViewGrid(selectedLog: selectedLog)
             // TODO: 현재 Figma의 패딩과 다름
                 .padding(.top, UIScreen.main.bounds.size.width / 5)
         }
@@ -22,7 +24,7 @@ struct LogPileDetailView:View {
                 .allowsHitTesting(false)
         }
         .overlay {
-            LogPileDetailViewTitle()
+            LogPileDetailViewTitle(selectedLog: selectedLog)
                 .padding(.leading, 20)
         }
         .toolbar {
@@ -39,14 +41,15 @@ struct LogPileDetailView:View {
 }
 
 private struct LogPileDetailViewTitle: View {
+    private(set) var selectedLog: Log
+    
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
             Image(.log3D)
                 .aspectRatio(1, contentMode: .fill)
             VStack(alignment: .leading) {
                 HStack {
-                    // TODO: 역지오 코딩 적용
-                    Text("포항시 남구")
+                    Text(selectedLog.address == "위치 정보 없음" ? "지구" : selectedLog.address ?? "지구")
                         .font(
                             Font.custom("Pretendard-Bold", size: 18)
                         )
@@ -57,8 +60,7 @@ private struct LogPileDetailViewTitle: View {
                             Font.custom("Pretendard-regular", size: 18)
                         )
                 }
-                // TODO: 날짜 데이터 적용
-                Text("2024년 10월 12일")
+                Text(selectedLog.endAt.YYYYMdFormat)
                     .font(
                         Font.custom("Pretendard-Medium", size: 14)
                     )
@@ -71,17 +73,22 @@ private struct LogPileDetailViewTitle: View {
     }
 }
 
+// MARK: - LogPileDetailViewGrid
+
 private struct LogPileDetailViewGrid: View {
-    private var gridItems: [GridItem] = Array(repeating: GridItem(.fixed(UIScreen.main.bounds.size.width / 3), spacing: 1.5), count: 3)
+    private(set) var selectedLog: Log
+    
+    private(set) var gridItems: [GridItem] = Array(repeating: GridItem(.fixed(UIScreen.main.bounds.size.width / 3), spacing: 1.5), count: 3)
     
     var body: some View {
         LazyVGrid(columns: gridItems, spacing: 1.5) {
-            ForEach(0..<20) { _ in
-                Button {
-                    // TODO: 네비게이션 연결하기
+            ForEach(selectedLog.images, id: \.id) { metadata in
+                // 원래 여기서 @Bindable로 PhotoGridView에 metadata를 넘겨줬었는데 그랬더니 데이터가 엉켜서 같은 사진만 2장 보이는 경우가 생김
+                NavigationLink {
+                    SelectedPhotoView(selectedLog: selectedLog, selectedPhotoMetadata: metadata)
                 } label: {
                     // TODO: 실제 사진 받아와서 적용시키기
-                    Rectangle()
+                    LogPileDetailViewImage(photoMetadata: metadata)
                         .aspectRatio(1, contentMode: .fill)
                         .foregroundStyle(.accent)
                 }
@@ -90,6 +97,44 @@ private struct LogPileDetailViewGrid: View {
     }
 }
 
-#Preview {
-    LogPileDetailView()
+// MARK: - LogPileViewRowImage
+
+private struct LogPileDetailViewImage: View {
+    let photoMetadata: PhotoMetadata
+    @State private var image: UIImage?
+    
+    var body: some View {
+        if let image = image {
+            Image(uiImage: image)
+                .resizable()
+        } else {
+            Color.gray
+                .onAppear {
+                    fetchImage(for: photoMetadata)
+                }
+        }
+    }
+    
+    private func fetchImage(for metadata: PhotoMetadata) {
+        let fetchResult = PHAsset.fetchAssets(withLocalIdentifiers: [metadata.localIdentifier], options: nil)
+        
+        guard let asset = fetchResult.firstObject else {
+            return
+        }
+        
+        let imageManager = PHImageManager.default()
+        let options = PHImageRequestOptions()
+        options.isSynchronous = false
+        options.deliveryMode = .highQualityFormat
+        
+        imageManager.requestImage(for: asset, targetSize: CGSize(width: UIScreen.main.bounds.size.width / 3, height: UIScreen.main.bounds.size.width / 3), contentMode: .aspectFill, options: options) { image, _ in
+            DispatchQueue.main.async {
+                self.image = image
+            }
+        }
+    }
 }
+
+//#Preview {
+//    LogPileDetailView()
+//}
