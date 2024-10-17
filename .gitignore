@@ -7,3 +7,5 @@ xcuserdata/
 /xcshareddata
 *.xscheme
 *.xcscheme
+*.xcconfig
+Debug.xcconfig

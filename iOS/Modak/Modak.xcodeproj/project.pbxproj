@@ -42,7 +42,7 @@
 		10C0E8082CB5593E00C7F3DE /* OrganizePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E8072CB5593E00C7F3DE /* OrganizePhotoView.swift */; };
 		10F58DB72CBFC81B00BF9D34 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 10F58DB62CBFC81B00BF9D34 /* Release.xcconfig */; };
 		10F58DBB2CC09D9300BF9D34 /* BundleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F58DBA2CC09D9300BF9D34 /* BundleExtension.swift */; };
-		10F58DBD2CC0A3BC00BF9D34 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 10F58DBC2CC0A3BC00BF9D34 /* Debug.xcconfig */; };
+		10F58DC52CC0A8E400BF9D34 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 10F58DC42CC0A8E400BF9D34 /* Debug.xcconfig */; };
 		CA2B5D052CBA6FDB0070DEBF /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D042CBA6FBD0070DEBF /* DateExtension.swift */; };
 		CA2B5D072CBA70280070DEBF /* LinearGradientExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D062CBA70210070DEBF /* LinearGradientExtension.swift */; };
 		CA2B5D0B2CBA70C40070DEBF /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D0A2CBA70C00070DEBF /* ColorExtension.swift */; };
@@ -92,7 +92,7 @@
 		10C0E8072CB5593E00C7F3DE /* OrganizePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizePhotoView.swift; sourceTree = "<group>"; };
 		10F58DB62CBFC81B00BF9D34 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		10F58DBA2CC09D9300BF9D34 /* BundleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtension.swift; sourceTree = "<group>"; };
-		10F58DBC2CC0A3BC00BF9D34 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		10F58DC42CC0A8E400BF9D34 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		CA2B5D042CBA6FBD0070DEBF /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		CA2B5D062CBA70210070DEBF /* LinearGradientExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGradientExtension.swift; sourceTree = "<group>"; };
 		CA2B5D0A2CBA70C00070DEBF /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
@@ -117,8 +117,8 @@
 		10AB91682CACCE4F00BFA2EC = {
 			isa = PBXGroup;
 			children = (
-				10F58DBC2CC0A3BC00BF9D34 /* Debug.xcconfig */,
 				10F58DB62CBFC81B00BF9D34 /* Release.xcconfig */,
+				10F58DC42CC0A8E400BF9D34 /* Debug.xcconfig */,
 				10AB91722CACCE4F00BFA2EC /* Products */,
 				10AB91A92CACD29A00BFA2EC /* Modak */,
 			);
@@ -336,7 +336,7 @@
 				CAA76CD02CB3BF0200533C96 /* Images.xcassets in Resources */,
 				10AB91AA2CACD29A00BFA2EC /* Preview Assets.xcassets in Resources */,
 				10BE376A2CB30743008D1DA1 /* Pretendard-Regular.otf in Resources */,
-				10F58DBD2CC0A3BC00BF9D34 /* Debug.xcconfig in Resources */,
+				10F58DC52CC0A8E400BF9D34 /* Debug.xcconfig in Resources */,
 				10BE376B2CB30743008D1DA1 /* Pretendard-SemiBold.otf in Resources */,
 				10BE376C2CB30743008D1DA1 /* Pretendard-ExtraLight.otf in Resources */,
 				10BE376D2CB30743008D1DA1 /* Pretendard-Bold.otf in Resources */,
@@ -394,6 +394,7 @@
 /* Begin XCBuildConfiguration section */
 		10AB917D2CACCE5000BFA2EC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10F58DC42CC0A8E400BF9D34 /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -515,6 +516,7 @@
 		};
 		10AB91802CACCE5000BFA2EC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10F58DC42CC0A8E400BF9D34 /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
