@@ -232,7 +232,7 @@ private struct LogPileViewRow: View {
                                                 // clipShape 때문에 Group을 못 썼는데 이 로직으로 들어오는 경우가 없어서 일단 Group 사용함
                                                     .clipShape(.rect(bottomTrailingRadius: 20, topTrailingRadius: 20))
                                             } else {
-                                                LogPileViewRowImage(photoMetadata: log.images[index])
+                                                DrawPhoto(photoMetadata: log.images[index])
                                             }
                                         }
                                         .aspectRatio(1, contentMode: .fill)

@@ -41,12 +41,14 @@
 		CA2B5D052CBA6FDB0070DEBF /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D042CBA6FBD0070DEBF /* DateExtension.swift */; };
 		CA2B5D072CBA70280070DEBF /* LinearGradientExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D062CBA70210070DEBF /* LinearGradientExtension.swift */; };
 		CA2B5D0B2CBA70C40070DEBF /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D0A2CBA70C00070DEBF /* ColorExtension.swift */; };
-		CA2B5D0D2CBA81200070DEBF /* LogPileViewTestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D0C2CBA81130070DEBF /* LogPileViewTestModel.swift */; };
 		CA2B5D0F2CBAAE5C0070DEBF /* LogPileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D0E2CBAAE5C0070DEBF /* LogPileDetailView.swift */; };
 		CAA76CB52CB38DEE00533C96 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAA76CB42CB38DEE00533C96 /* Colors.xcassets */; };
 		CAA76CD02CB3BF0200533C96 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAA76CCF2CB3BF0200533C96 /* Images.xcassets */; };
 		CAB2BE2F2CBD49BC0030C1F1 /* CoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2BE2E2CBD49AB0030C1F1 /* CoordinatorView.swift */; };
 		CAB2BE322CBD55BB0030C1F1 /* SelectedPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2BE312CBD55B50030C1F1 /* SelectedPhotoView.swift */; };
+		CAB2BE362CBF527B0030C1F1 /* DrawPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2BE352CBF520A0030C1F1 /* DrawPhoto.swift */; };
+		CAB2BE402CC0A9850030C1F1 /* MonthlyLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2BE3F2CC0A9720030C1F1 /* MonthlyLogs.swift */; };
+		CAB2BE422CC0A9D10030C1F1 /* DailyLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2BE412CC0A9BD0030C1F1 /* DailyLogs.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,12 +88,14 @@
 		CA2B5D042CBA6FBD0070DEBF /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		CA2B5D062CBA70210070DEBF /* LinearGradientExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGradientExtension.swift; sourceTree = "<group>"; };
 		CA2B5D0A2CBA70C00070DEBF /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
-		CA2B5D0C2CBA81130070DEBF /* LogPileViewTestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPileViewTestModel.swift; sourceTree = "<group>"; };
 		CA2B5D0E2CBAAE5C0070DEBF /* LogPileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPileDetailView.swift; sourceTree = "<group>"; };
 		CAA76CB42CB38DEE00533C96 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		CAA76CCF2CB3BF0200533C96 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CAB2BE2E2CBD49AB0030C1F1 /* CoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorView.swift; sourceTree = "<group>"; };
 		CAB2BE312CBD55B50030C1F1 /* SelectedPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedPhotoView.swift; sourceTree = "<group>"; };
+		CAB2BE352CBF520A0030C1F1 /* DrawPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawPhoto.swift; sourceTree = "<group>"; };
+		CAB2BE3F2CC0A9720030C1F1 /* MonthlyLogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyLogs.swift; sourceTree = "<group>"; };
+		CAB2BE412CC0A9BD0030C1F1 /* DailyLogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyLogs.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,7 +151,8 @@
 		10AB91AE2CACD2AC00BFA2EC /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CA2B5D0C2CBA81130070DEBF /* LogPileViewTestModel.swift */,
+				CAB2BE412CC0A9BD0030C1F1 /* DailyLogs.swift */,
+				CAB2BE3F2CC0A9720030C1F1 /* MonthlyLogs.swift */,
 				10BCB0DD2CB81F2D0013E227 /* PhotoMetadata.swift */,
 				10BCB0F32CBCB58B0013E227 /* Log.swift */,
 				10BCB0DF2CB8206C0013E227 /* DBSCAN.swift */,
@@ -201,6 +206,7 @@
 		10AB91D92CACDCD000BFA2EC /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				CAB2BE352CBF520A0030C1F1 /* DrawPhoto.swift */,
 				10BCB0E12CB825520013E227 /* BackButton.swift */,
 				10BCB0E22CB825520013E227 /* BottomSheet.swift */,
 				10BCB0E32CB825520013E227 /* CircularProgressBar.swift */,
@@ -361,12 +367,15 @@
 				10BCB0E92CB825520013E227 /* CircularProgressPhoto.swift in Sources */,
 				10BCB0EA2CB825520013E227 /* CircularProgressBar.swift in Sources */,
 				10BCB0EB2CB825520013E227 /* ProgressNumber.swift in Sources */,
+				CAB2BE402CC0A9850030C1F1 /* MonthlyLogs.swift in Sources */,
 				10BCB0EC2CB825520013E227 /* BottomSheet.swift in Sources */,
 				10BCB0E02CB8206C0013E227 /* DBSCAN.swift in Sources */,
 				10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */,
+				CAB2BE422CC0A9D10030C1F1 /* DailyLogs.swift in Sources */,
 				CA2B5D0F2CBAAE5C0070DEBF /* LogPileDetailView.swift in Sources */,
 				10BE37772CB30CF9008D1DA1 /* RegisterView.swift in Sources */,
 				CAB2BE322CBD55BB0030C1F1 /* SelectedPhotoView.swift in Sources */,
+				CAB2BE362CBF527B0030C1F1 /* DrawPhoto.swift in Sources */,
 				10AB91AD2CACD29A00BFA2EC /* ModakApp.swift in Sources */,
 				10AB91D62CACD7A100BFA2EC /* CampfireView.swift in Sources */,
 				10C0E7FE2CB4B88E00C7F3DE /* AuthorizationView.swift in Sources */,
@@ -374,7 +383,6 @@
 				10AB91D82CACD7AC00BFA2EC /* LogPileView.swift in Sources */,
 				10BCB0DE2CB81F2D0013E227 /* PhotoMetadata.swift in Sources */,
 				10C0E8082CB5593E00C7F3DE /* OrganizePhotoView.swift in Sources */,
-				CA2B5D0D2CBA81200070DEBF /* LogPileViewTestModel.swift in Sources */,
 				CA2B5D0B2CBA70C40070DEBF /* ColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
