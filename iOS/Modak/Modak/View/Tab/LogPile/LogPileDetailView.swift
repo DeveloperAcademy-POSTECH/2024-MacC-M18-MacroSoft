@@ -88,48 +88,10 @@ private struct LogPileDetailViewGrid: View {
                     SelectedPhotoView(selectedLog: selectedLog, selectedPhotoMetadata: metadata)
                 } label: {
                     // TODO: 실제 사진 받아와서 적용시키기
-                    LogPileDetailViewImage(photoMetadata: metadata)
+                    DrawPhoto(photoMetadata: metadata)
                         .aspectRatio(1, contentMode: .fill)
                         .foregroundStyle(.accent)
                 }
-            }
-        }
-    }
-}
-
-// MARK: - LogPileViewRowImage
-
-private struct LogPileDetailViewImage: View {
-    let photoMetadata: PhotoMetadata
-    @State private var image: UIImage?
-    
-    var body: some View {
-        if let image = image {
-            Image(uiImage: image)
-                .resizable()
-        } else {
-            Color.gray
-                .onAppear {
-                    fetchImage(for: photoMetadata)
-                }
-        }
-    }
-    
-    private func fetchImage(for metadata: PhotoMetadata) {
-        let fetchResult = PHAsset.fetchAssets(withLocalIdentifiers: [metadata.localIdentifier], options: nil)
-        
-        guard let asset = fetchResult.firstObject else {
-            return
-        }
-        
-        let imageManager = PHImageManager.default()
-        let options = PHImageRequestOptions()
-        options.isSynchronous = false
-        options.deliveryMode = .highQualityFormat
-        
-        imageManager.requestImage(for: asset, targetSize: CGSize(width: UIScreen.main.bounds.size.width / 3, height: UIScreen.main.bounds.size.width / 3), contentMode: .aspectFill, options: options) { image, _ in
-            DispatchQueue.main.async {
-                self.image = image
             }
         }
     }
