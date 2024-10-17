@@ -8,26 +8,29 @@
 import SwiftUI
 import SwiftData
 import Photos
+import Firebase
 
 struct LogPileView: View {
     @Environment(\.modelContext) private var modelContext
     
-    @State private var groupedByLogs: [(date: Date, logs: [Log])] = []
+    @State private var yearlyLogs: [(MonthlyLogs)] = []
     
     var body: some View {
         Group {
-            if groupedByLogs.count > 0 {
+            if yearlyLogs.count > 0 {
                 ScrollView {
                     LazyVStack(alignment: .leading, pinnedViews: [.sectionHeaders]) {
-                        ForEach($groupedByLogs, id: \.date) { groupedByLog in
+                        ForEach($yearlyLogs, id: \.date){ monthlyLog in
                             Section {
-                                LogPileViewRow(groupedByLog: groupedByLog)
-                                    .background(LinearGradient.logPileRowBackground)
-                                    .clipShape(RoundedRectangle(cornerRadius: 20))
-                                    .padding([.horizontal, .bottom], 10)
-                                    .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 3)
+                                ForEach(monthlyLog.dailyLogs, id: \.date) { dailyLog in
+                                    LogPileViewRow(dailyLog: dailyLog)
+                                        .background(LinearGradient.logPileRowBackground)
+                                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                                        .padding([.horizontal, .bottom], 10)
+                                        .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 3)
+                                }
                             } header: {
-                                LogPileViewSubTitle(date: groupedByLog.date.wrappedValue)
+                                LogPileViewSubTitle(date: monthlyLog.date.wrappedValue)
                             }
                         }
                     }
@@ -40,6 +43,11 @@ struct LogPileView: View {
         .onAppear {
             fetchLogsWithGroupBy()
         }
+        .onAppear{
+            Analytics.logEvent(AnalyticsEventScreenView,
+                parameters: [AnalyticsParameterScreenName: "LogPileView",
+                AnalyticsParameterScreenClass: "LogPileView"])
+        }
     }
     
     // MARK: - fetchLogsWithGroupBy
@@ -48,19 +56,28 @@ struct LogPileView: View {
         do {
             let logs = try modelContext.fetch(FetchDescriptor<Log>())
             
-            // logs: [Log]를, groupedByYM: [Date : [Log]] 형태로 그룹화
-            let groupedByYM = Dictionary(grouping: logs) { log in
+            // logs: [Log]를, monthlyLogs(MonthlyLogs Model과는 다름): [Date : [Log]] 형태로 (년, 월 기준으로)
+            let monthlyLogs = Dictionary(grouping: logs) { log in
                 let components = Calendar.current.dateComponents([.year, .month], from: log.startAt)
                 return Calendar.current.date(from: components)!
             }
             
-            // groupedByYM를 최신 순으로 정렬 및 같은 월이면 하나의 그룹으로 로그 묶기
-            groupedByLogs = groupedByYM.sorted { $0.key > $1.key } // 최신 순으로 정렬
+            // YearlyLogs를 최신 순으로 정렬하고, 각 월 안에서 다시 일별로 그룹화
+            yearlyLogs = monthlyLogs.sorted { $0.key > $1.key } // 최신 월 순으로 정렬
                 .map { (month, logsInMonth) in
-                    // 같은 월이면 하나의 그룹으로 로그 묶기
-                    let mergedLogs = logsInMonth // 하나의 그룹으로 묶인 로그들 최신 순으로 정렬
-                        .sorted { $0.startAt > $1.startAt }
-                    return (date: month, logs: mergedLogs)
+                    // 같은 월 안에서 다시 일별로 그룹화
+                    let dailyLogs = Dictionary(grouping: logsInMonth) { log in
+                        Calendar.current.startOfDay(for: log.startAt) // 일 단위로 그룹화
+                    }
+                    
+                    // 날짜별 로그들을 최신 날짜 순으로 정렬
+                    let sortedDailyLogs = dailyLogs.sorted { $0.key > $1.key }
+                        .map { (day, logsInDay) in
+                            DailyLogs(date: day, logs: logsInDay.sorted { $0.startAt > $1.startAt }) // 시간순으로 정렬
+                        }
+                    
+                    // 월 단위로 묶고, 그 안에 일별로 묶인 로그들 포함
+                    return MonthlyLogs(date: month, dailyLogs: sortedDailyLogs)
                 }
         } catch {
             print("fetchLogsWithGroupBy failed: \(error)")
@@ -160,68 +177,29 @@ private struct LogPileViewRowFrame: View {
     }
 }
 
-// MARK: - LogPileViewRowImage
-
-private struct LogPileViewRowImage: View {
-    let photoMetadata: PhotoMetadata
-    @State private var image: UIImage?
-    
-    var body: some View {
-        if let image = image {
-            Image(uiImage: image)
-                .resizable()
-        } else {
-            Color.gray
-                .onAppear {
-                    fetchImage(for: photoMetadata)
-                }
-        }
-    }
-    
-    private func fetchImage(for metadata: PhotoMetadata) {
-        let fetchResult = PHAsset.fetchAssets(withLocalIdentifiers: [metadata.localIdentifier], options: nil)
-        
-        guard let asset = fetchResult.firstObject else {
-            return
-        }
-        
-        let imageManager = PHImageManager.default()
-        let options = PHImageRequestOptions()
-        options.isSynchronous = false
-        options.deliveryMode = .highQualityFormat
-        
-        imageManager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFill, options: options) { image, _ in
-            DispatchQueue.main.async {
-                self.image = image
-            }
-        }
-    }
-}
-
 // MARK: - LogPileViewRow
 
 private struct LogPileViewRow: View {
-    @Binding private(set) var groupedByLog: (date: Date, logs: [Log])
+    @Binding private(set) var dailyLog: DailyLogs
     
     private(set) var gridItems: [GridItem] = Array(repeating: GridItem(.flexible(minimum: 80, maximum: 87), spacing: 1), count: 4)
     
     var body: some View {
         // TODO: 옵셔널 언래핑 실패 시 로직 구현
-        if let groupedByLogFirst = groupedByLog.logs.first, let groupedByLogLast = groupedByLog.logs.last {
+        if let dailyLogFirst = dailyLog.logs.first, let dailyLogLast = dailyLog.logs.last {
             VStack(spacing: 0) {
-                ForEach(groupedByLog.logs, id: \.id) { log in
-                    
+                ForEach(dailyLog.logs, id: \.id) { log in
                     NavigationLink {
                         LogPileDetailView(selectedLog: log)
                     } label: {
-                        VStack(spacing: groupedByLogFirst.id == groupedByLogLast.id ? 14 : 12) {
-                            if log.id == groupedByLogFirst.id || groupedByLogFirst.id == groupedByLogLast.id {
+                        VStack(spacing: dailyLogFirst.id == dailyLogLast.id ? 14 : 12) {
+                            if log.id == dailyLogFirst.id || dailyLogFirst.id == dailyLogLast.id {
                                 LogPileViewRowTitle(date: log.endAt, location: log.address, isLeaf: false)
                             } else {
                                 LogPileViewRowTitle(date: log.endAt, location: log.address, isLeaf: true)
                             }
                             HStack(spacing: 14) {
-                                if log.id != groupedByLogLast.id {
+                                if log.id != dailyLogLast.id {
                                     Divider()
                                         .frame(width: 1)
                                         .background(.pagenationDisable)
@@ -231,11 +209,11 @@ private struct LogPileViewRow: View {
                                     ForEach(0..<((4...7).contains(log.images.count) ? 4 : 8), id: \.self) { index in
                                         Group {
                                             if (log.images.count == 3 && index == 2) || (log.images.count == 2 && index == 1) || (log.images.count == 1 && index == 0) {
-                                                LogPileViewRowImage(photoMetadata: log.images[index])
+                                                DrawPhoto(photoMetadata: log.images[index])
                                                 // clipShape 때문에 Group을 못 썼는데 이 로직으로 들어오는 경우가 없어서 일단 Group 사용함
                                                     .clipShape(.rect(bottomTrailingRadius: 20, topTrailingRadius: 20))
                                             } else {
-                                                LogPileViewRowImage(photoMetadata: log.images[index])
+                                                DrawPhoto(photoMetadata: log.images[index])
                                             }
                                         }
                                         .aspectRatio(1, contentMode: .fill)
@@ -245,7 +223,7 @@ private struct LogPileViewRow: View {
                                 .background(.backgroundLogPile)
                                 .clipShape(RoundedRectangle(cornerRadius: 20))
                             }
-                            .padding(.bottom, log.id == groupedByLogLast.id ? 0 : 20)
+                            .padding(.bottom, log.id == dailyLogLast.id ? 0 : 20)
                         }
                     }
                 }

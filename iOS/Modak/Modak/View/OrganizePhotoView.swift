@@ -8,6 +8,7 @@
 import SwiftUI
 import Photos
 import SwiftData
+import Firebase
 
 struct OrganizePhotoView: View {
     @Environment(\.modelContext) private var modelContext
@@ -102,6 +103,12 @@ struct OrganizePhotoView: View {
                 }
             }
         }
+        .onAppear{
+            Analytics.logEvent(AnalyticsEventScreenView,
+                parameters: [AnalyticsParameterScreenName: "OrganizePhotoView",
+                AnalyticsParameterScreenClass: "OrganizePhotoView"])
+        }
+        
     }
     
     private var progressSection: some View {
