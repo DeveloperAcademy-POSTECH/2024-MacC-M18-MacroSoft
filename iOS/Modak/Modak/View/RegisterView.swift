@@ -51,16 +51,11 @@ struct RegisterView: View {
                 
                 Spacer(minLength: 0)
                 
-                HStack(spacing: 12) {
-                    Image(systemName: "apple.logo")
-                        .resizable()
-                        .frame(width: 11.20, height: 14)
-                    Text("Apple로 시작하기")
-                }
-                .font(.custom("Pretendard-Bold", size: 16))
-                .frame(width: 345, height: 58)
-                .background(.white)
-                .cornerRadius(76)
+                AppleSigninButton()
+                .signInWithAppleButtonStyle(.white)
+                .frame(height: 58)
+                .cornerRadius(100)
+                .padding(.horizontal, 24)
                 
                 Button(action: {
                     isSkipRegister = true
