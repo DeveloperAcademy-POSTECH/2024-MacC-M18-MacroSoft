@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Photos
+import Firebase
 
 struct SelectedPhotoView: View {
     private(set) var selectedLog: Log
@@ -89,6 +90,11 @@ struct SelectedPhotoView: View {
              }
              }
              */
+        }
+        .onAppear{
+            Analytics.logEvent(AnalyticsEventScreenView,
+                parameters: [AnalyticsParameterScreenName: "SelectedPhotoView",
+                AnalyticsParameterScreenClass: "SelectedPhotoView"])
         }
     }
 }
