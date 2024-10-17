@@ -9,3 +9,6 @@ xcuserdata/
 *.xcscheme
 *.xcconfig
 Debug.xcconfig
+*.xcuserdatad
+GoogleService-Info.plist
+*.xcuserdatad/

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Photos
+import Firebase
 
 struct LogPileDetailView:View {
     private(set) var selectedLog: Log
@@ -37,6 +38,11 @@ struct LogPileDetailView:View {
         }
         .toolbarBackground(.hidden, for: .navigationBar)
         .navigationBarBackButtonHidden(true)
+        .onAppear{
+            Analytics.logEvent(AnalyticsEventScreenView,
+                parameters: [AnalyticsParameterScreenName: "LogPileDetailView",
+                AnalyticsParameterScreenClass: "LogPileDetailView"])
+        }
     }
 }
 

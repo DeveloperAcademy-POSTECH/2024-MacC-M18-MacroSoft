@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import Photos
+import Firebase
 
 struct LogPileView: View {
     @Environment(\.modelContext) private var modelContext
@@ -41,6 +42,11 @@ struct LogPileView: View {
         .background(.backgroundLogPile)
         .onAppear {
             fetchLogsWithGroupBy()
+        }
+        .onAppear{
+            Analytics.logEvent(AnalyticsEventScreenView,
+                parameters: [AnalyticsParameterScreenName: "LogPileView",
+                AnalyticsParameterScreenClass: "LogPileView"])
         }
     }
     

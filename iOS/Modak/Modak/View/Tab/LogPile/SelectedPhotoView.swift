@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Photos
+import Firebase
 
 struct SelectedPhotoView: View {
     private(set) var selectedLog: Log
@@ -30,6 +31,11 @@ struct SelectedPhotoView: View {
         .tabViewStyle(.page(indexDisplayMode: .never))
         .onAppear {
             tabSelection = selectedPhotoMetadata.localIdentifier
+        }
+        .onAppear{
+            Analytics.logEvent(AnalyticsEventScreenView,
+                parameters: [AnalyticsParameterScreenName: "SelectedPhotoView",
+                AnalyticsParameterScreenClass: "SelectedPhotoView"])
         }
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
