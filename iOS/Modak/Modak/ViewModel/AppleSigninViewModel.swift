@@ -13,9 +13,9 @@ class AppleSigninViewModel: ObservableObject {
     @Published var isLoggedIn: Bool = false
     @Published var shouldReLogin = false // 로그인을 다시 해야 하는지 여부를 저장
     
-    let loginURL = URL(string: "https://주소 입력해야 됨") // 소셜 로그인
-    let refreshTokenURL = URL(string: "https://주소 입력해야 됨") // Access Token 재발급
-    
+    let loginURL = URL(string: Bundle.main.environmentVariable(forKey: "SocialLoginURL")!)
+    let refreshTokenURL = URL(string: Bundle.main.environmentVariable(forKey: "RefreshTokenURL")!)
+        
     func handleAppleSignIn(result: Result<ASAuthorization, Error>) {
         // 인증 결과 처리
         switch result {
@@ -56,6 +56,9 @@ class AppleSigninViewModel: ObservableObject {
     
     // 서버로 데이터를 전송하는 함수
     func sendCredentialsToServer(authorizationCode: String, identityToken: String, encryptedUserIdentifier: String) {
+        print("Login URL: \(String(describing: loginURL))")
+        print("Refresh Token URL: \(String(describing: refreshTokenURL))")
+        
         // 서버의 URL
         guard let url = loginURL else {
             print("Invalid URL")
