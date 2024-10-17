@@ -26,7 +26,7 @@ public func onboardingCard(title: String, titleHighlightRanges: [ClosedRange<Int
         highlightedText
             .font(.custom("Pretendard-Bold", size: 22))
             .lineSpacing(22 * 0.45)
-            .padding(.top, 14) //total 68
+            .padding(.top, 10)
             .padding(.bottom, 10)
         
         Text(context)
@@ -40,6 +40,7 @@ public func onboardingCard(title: String, titleHighlightRanges: [ClosedRange<Int
                 Image(image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                    .padding(8)
                     .frame(width: geometry.size.width)
             }
         }

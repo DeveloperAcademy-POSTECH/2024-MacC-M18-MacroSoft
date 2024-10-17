@@ -69,6 +69,7 @@ struct AuthorizationView: View {
                             .foregroundStyle(Color.textColorGray2)
                     }
             }
+            .padding(.top, 30)
             .padding(.bottom, 80)
             
             

@@ -29,21 +29,21 @@ struct RegisterView: View {
                         titleHighlightRanges: [0...7],
                         context: "여행, 소풍, 즐거운 순간들,\n시공간에 따른 추억을 하나의 이야기로 모아드려요",
                         image: "onboarding_image1",
-                        imagePadding: 12
+                        imagePadding: 0
                     ).tag(0)
                     onboardingCard(
                         title: "추억의 순간 속 사람들과\n모닥불에서 모이세요",
                         titleHighlightRanges: [14...16],
                         context: "함께한 사람들과 그룹을 만들고 추억을 모아보세요\n잊혀진 순간이 있더라도 모닥불이 찾아드릴게요",
                         image: "onboarding_image2",
-                        imagePadding: 12
+                        imagePadding: 0
                     ).tag(1)
                     onboardingCard(
                         title: "같이 만든 추억을\n함께 나누세요",
                         titleHighlightRanges: [9...16],
                         context: "추억으로 피워낸 모닥불 앞에 모여 함께 감상하세요\n",
                         image: "onboarding_image3",
-                        imagePadding: 12
+                        imagePadding: 0
                     ).tag(2)
                 }
                 .padding(.top, 58)
@@ -67,7 +67,7 @@ struct RegisterView: View {
                 }
                 .padding(.top, 14)
                 
-                Spacer(minLength: 12)
+                Spacer(minLength: 5)
             }
             .multilineTextAlignment(.center)
         }

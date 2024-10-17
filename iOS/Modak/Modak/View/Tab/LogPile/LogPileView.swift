@@ -82,19 +82,22 @@ private struct LogPileViewSubTitle: View {
             if let year = calendar.dateComponents([.year], from: date).year, let month = calendar.dateComponents([.month], from: date).month{
                 Text("\(year.description)년 ")
                     .foregroundStyle(.textColor4)
+                    .font(Font.custom("Pretendard-Bold", size: 21))
                 +
                 Text("\(month)월")
                     .foregroundStyle(.textColor2)
+                    .font(Font.custom("Pretendard-Medium", size: 21))
             } else {
                 Text("년 ")
                     .foregroundStyle(.textColor4)
+                    .font(Font.custom("Pretendard-Bold", size: 21))
                 +
                 Text("월")
                     .foregroundStyle(.textColor2)
+                    .font(Font.custom("Pretendard-Medium", size: 21))
             }
             
         }
-        .font(Font.custom("Pretendard-Medium", size: 21))
         .padding(.leading, 24)
     }
 }
@@ -293,6 +296,7 @@ private struct NoLogView: View {
             .frame(height: 51)
             Spacer()
         }
+        .padding(.top, -30)
         .padding(.horizontal, 90)
     }
 }
