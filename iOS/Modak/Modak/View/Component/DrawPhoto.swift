@@ -9,18 +9,27 @@ import SwiftUI
 import Photos
 
 struct DrawPhoto: View {
-    let photoMetadata: PhotoMetadata
     @State private var image: UIImage?
+    
+    let photoMetadata: PhotoMetadata
+    var isClip: Bool = false
     
     var body: some View {
         GeometryReader { geometry in
             if let image = image {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: geometry.size.width, height: geometry.size.width)
-                    .clipShape(Rectangle())
-                    .clipped()
+                if isClip {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: geometry.size.width, height: geometry.size.width)
+                        .clipShape(Rectangle())
+                        .clipped()
+                } else {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: geometry.size.width, height: geometry.size.width)
+                }
             } else {
                 Color.gray
                     .frame(width: geometry.size.width, height: geometry.size.width)

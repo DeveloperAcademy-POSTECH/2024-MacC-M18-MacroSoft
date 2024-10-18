@@ -209,11 +209,11 @@ private struct LogPileViewRow: View {
                                     ForEach(0..<((4...7).contains(log.images.count) ? 4 : 8), id: \.self) { index in
                                         Group {
                                             if (log.images.count == 3 && index == 2) || (log.images.count == 2 && index == 1) || (log.images.count == 1 && index == 0) {
-                                                DrawPhoto(photoMetadata: log.images[index])
+                                                DrawPhoto(photoMetadata: log.images[index], isClip: true)
                                                 // clipShape 때문에 Group을 못 썼는데 이 로직으로 들어오는 경우가 없어서 일단 Group 사용함
                                                     .clipShape(.rect(bottomTrailingRadius: 20, topTrailingRadius: 20))
                                             } else {
-                                                DrawPhoto(photoMetadata: log.images[index])
+                                                DrawPhoto(photoMetadata: log.images[index], isClip: true)
                                             }
                                         }
                                         .aspectRatio(1, contentMode: .fill)
