@@ -30,18 +30,6 @@ struct CampfireView: View {
                 Spacer()
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink {
-                    AuthorizationView()
-                } label: {
-                    Image(systemName: "plus")
-                        .foregroundStyle(.textColorTitleView)
-                }
-
-                
-            }
-        }
     }
 }
 

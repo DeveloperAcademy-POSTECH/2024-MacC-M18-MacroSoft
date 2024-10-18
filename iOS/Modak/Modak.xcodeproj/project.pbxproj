@@ -58,6 +58,7 @@
 		CAB2BE362CBF527B0030C1F1 /* DrawPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2BE352CBF520A0030C1F1 /* DrawPhoto.swift */; };
 		CAB2BE402CC0A9850030C1F1 /* MonthlyLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2BE3F2CC0A9720030C1F1 /* MonthlyLogs.swift */; };
 		CAB2BE422CC0A9D10030C1F1 /* DailyLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2BE412CC0A9BD0030C1F1 /* DailyLogs.swift */; };
+		CAB2BE4C2CC1ED1D0030C1F1 /* UINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2BE4B2CC1ECD00030C1F1 /* UINavigationControllerExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +113,7 @@
 		CAB2BE352CBF520A0030C1F1 /* DrawPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawPhoto.swift; sourceTree = "<group>"; };
 		CAB2BE3F2CC0A9720030C1F1 /* MonthlyLogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyLogs.swift; sourceTree = "<group>"; };
 		CAB2BE412CC0A9BD0030C1F1 /* DailyLogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyLogs.swift; sourceTree = "<group>"; };
+		CAB2BE4B2CC1ECD00030C1F1 /* UINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +263,7 @@
 		CA2B5D032CBA6F4C0070DEBF /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				CAB2BE4B2CC1ECD00030C1F1 /* UINavigationControllerExtension.swift */,
 				CA2B5D0A2CBA70C00070DEBF /* ColorExtension.swift */,
 				CA2B5D062CBA70210070DEBF /* LinearGradientExtension.swift */,
 				CA2B5D042CBA6FBD0070DEBF /* DateExtension.swift */,
@@ -419,6 +422,7 @@
 				CAB2BE2F2CBD49BC0030C1F1 /* CoordinatorView.swift in Sources */,
 				10AB91D82CACD7AC00BFA2EC /* LogPileView.swift in Sources */,
 				10BCB0DE2CB81F2D0013E227 /* PhotoMetadata.swift in Sources */,
+				CAB2BE4C2CC1ED1D0030C1F1 /* UINavigationControllerExtension.swift in Sources */,
 				10C0E8082CB5593E00C7F3DE /* OrganizePhotoView.swift in Sources */,
 				10F58DBB2CC09D9300BF9D34 /* BundleExtension.swift in Sources */,
 				CA2B5D0B2CBA70C40070DEBF /* ColorExtension.swift in Sources */,
@@ -569,9 +573,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -580,6 +583,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.macrosoft.Modak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -605,9 +612,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -617,6 +623,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.macrosoft.Modak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
