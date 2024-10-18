@@ -93,8 +93,7 @@ private struct LogPileDetailViewGrid: View {
                 NavigationLink {
                     SelectedPhotoView(selectedLog: selectedLog, selectedPhotoMetadata: metadata)
                 } label: {
-                    // TODO: 실제 사진 받아와서 적용시키기
-                    DrawPhoto(photoMetadata: metadata)
+                    DrawPhoto(photoMetadata: metadata, isClip: true)
                         .aspectRatio(1, contentMode: .fill)
                         .foregroundStyle(.accent)
                 }
