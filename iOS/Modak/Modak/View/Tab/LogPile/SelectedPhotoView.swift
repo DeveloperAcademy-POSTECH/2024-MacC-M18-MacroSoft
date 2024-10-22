@@ -18,7 +18,7 @@ struct SelectedPhotoView: View {
             ForEach(selectedLog.images, id: \.id) { metadata in
                 VStack {
                     Spacer()
-                    DrawPhoto(photoMetadata: metadata, isClip: true)
+                    DrawPhoto(photoMetadata: metadata, isClip: false)
                         .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: .infinity)
                     Spacer()
