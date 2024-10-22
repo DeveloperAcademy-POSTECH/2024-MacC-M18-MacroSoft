@@ -24,12 +24,18 @@ class OrganizePhotoViewModel: ObservableObject {
     private let statusMessages = ["장작을 모으는 중", "기억에서 장작 선별중..", "장작의 원산지를 파악중"]
 
     init() {
-        fetchPhotoTotalCount()
+        fetchPhotos(fromLast: 6, unit: .month) // 6개월 설정
     }
     
-    private func fetchPhotoTotalCount() {
+    private func fetchPhotos(fromLast value: Int, unit: Calendar.Component) {
+        // FetchOptions 생성
         let fetchOptions = PHFetchOptions()
-        fetchOptions.predicate = NSPredicate(format: "mediaType == %d", PHAssetMediaType.image.rawValue)
+        let startDate = Calendar.current.date(byAdding: unit, value: -value, to: Date())!
+        
+        // 특정 기간 이내에 촬영된 사진만 가져오도록 필터를 설정
+        fetchOptions.predicate = NSPredicate(format: "creationDate > %@ AND mediaType == %d", startDate as NSDate, PHAssetMediaType.image.rawValue)
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)] // 최신순 정렬
+        
         let fetchResult = PHAsset.fetchAssets(with: fetchOptions)
         self.totalCount = fetchResult.count
         
