@@ -32,8 +32,11 @@ class OrganizePhotoViewModel: ObservableObject {
         let fetchOptions = PHFetchOptions()
         let startDate = Calendar.current.date(byAdding: unit, value: -value, to: Date())!
         
-        // 특정 기간 이내에 촬영된 사진만 가져오도록 필터를 설정
-        fetchOptions.predicate = NSPredicate(format: "creationDate > %@ AND mediaType == %d", startDate as NSDate, PHAssetMediaType.image.rawValue)
+        // 특정 기간 이내에 촬영된 사진만 가져오고 스크린샷을 제외하는 필터를 설정
+        fetchOptions.predicate = NSPredicate(format: "creationDate > %@ AND mediaType == %d AND NOT (mediaSubtypes & %d != 0)",
+                                             startDate as NSDate,
+                                             PHAssetMediaType.image.rawValue,
+                                             PHAssetMediaSubtype.photoScreenshot.rawValue)
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)] // 최신순 정렬
         
         let fetchResult = PHAsset.fetchAssets(with: fetchOptions)
