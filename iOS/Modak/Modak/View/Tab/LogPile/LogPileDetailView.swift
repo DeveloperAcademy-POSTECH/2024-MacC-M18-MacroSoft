@@ -88,7 +88,7 @@ private struct LogPileDetailViewGrid: View {
     
     var body: some View {
         LazyVGrid(columns: gridItems, spacing: 1.5) {
-            ForEach(selectedLog.images, id: \.id) { metadata in
+            ForEach(selectedLog.sortedImages, id: \.id) { metadata in
                 // 원래 여기서 @Bindable로 PhotoGridView에 metadata를 넘겨줬었는데 그랬더니 데이터가 엉켜서 같은 사진만 2장 보이는 경우가 생김
                 NavigationLink {
                     SelectedPhotoView(selectedLog: selectedLog, selectedPhotoMetadata: metadata)
