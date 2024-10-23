@@ -255,6 +255,7 @@ private struct NoLogView: View {
                 .multilineTextAlignment(.center)
                 .foregroundColor(.textColorGray2)
                 .padding(.bottom, 27)
+                .lineSpacing(16 * 0.5)
             
             NavigationLink {
                 AuthorizationView()
@@ -272,10 +273,10 @@ private struct NoLogView: View {
                     }
             }
             .frame(height: 51)
+            .padding(.horizontal, UIScreen.main.bounds.size.width / 5)
             Spacer()
         }
         .padding(.top, -30)
-        .padding(.horizontal, 90)
     }
 }
 
