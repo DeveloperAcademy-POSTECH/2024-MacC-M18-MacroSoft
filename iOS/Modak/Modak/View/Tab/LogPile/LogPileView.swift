@@ -273,10 +273,10 @@ private struct NoLogView: View {
                     }
             }
             .frame(height: 51)
+            .padding(.horizontal, UIScreen.main.bounds.size.width / 5)
             Spacer()
         }
         .padding(.top, -30)
-        .padding(.horizontal, 90)
     }
 }
 
