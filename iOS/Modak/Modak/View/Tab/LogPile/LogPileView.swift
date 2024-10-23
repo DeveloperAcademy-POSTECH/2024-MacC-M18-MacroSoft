@@ -255,6 +255,7 @@ private struct NoLogView: View {
                 .multilineTextAlignment(.center)
                 .foregroundColor(.textColorGray2)
                 .padding(.bottom, 27)
+                .lineSpacing(16 * 0.5)
             
             NavigationLink {
                 AuthorizationView()
