@@ -569,7 +569,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Modak/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "원활한 사용을 위해서 사진첩 접근 권한이 필요합니다. 사진을 정리할 때 사진 정보는 서버에 공유되지 않아요.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "최근 6개월 이내의 사진을 자동으로 정리하려면 사진 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -609,7 +609,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Modak/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "원활한 사용을 위해서 사진첩 접근 권한이 필요합니다. 사진을 정리할 때 사진 정보는 서버에 공유되지 않아요.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "최근 6개월 이내의 사진을 자동으로 정리하려면 사진 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

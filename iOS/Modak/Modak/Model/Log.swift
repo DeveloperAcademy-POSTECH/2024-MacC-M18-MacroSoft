@@ -33,3 +33,8 @@ class Log {
     }
 }
 
+extension Log {
+    var sortedImages: [PhotoMetadata] {
+        return images.sorted { ($0.creationDate ?? Date()) < ($1.creationDate ?? Date()) }
+    }
+}
