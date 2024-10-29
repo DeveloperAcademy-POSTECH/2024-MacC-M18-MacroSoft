@@ -10,6 +10,7 @@ import SwiftUI
 struct JoinCampfire: View {
     @State var roomName:  String = ""
     @State var roomPassword: String = ""
+    @State private var isCameraMode: Bool = true
     
     var body: some View {
         ZStack(alignment: .leading) {
@@ -63,6 +64,34 @@ struct JoinCampfire: View {
                     Spacer()
                 }
             }
+            
+            // 모드 선택 토글 버튼
+            VStack {
+                Spacer()
+                
+                HStack {
+                    Spacer()
+                    
+                    Button(action: {
+                        isCameraMode.toggle() // 모드 전환
+                    }) {
+                        Text(isCameraMode ? "촬영해서 입력" : "직접 입력하기")
+                            .font(.custom("Pretendard-Regular", size: 16))
+                            .foregroundColor(.white)
+                            .padding(EdgeInsets(top: 14, leading: 20, bottom: 14, trailing: 20))
+                            .background(Color.textBackgroundRedGray.opacity(0.1))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 100)
+                                    .stroke(Color.mainColor1, lineWidth: 1.8) // 라인선 추가
+                            )
+                            .clipShape(RoundedRectangle(cornerRadius: 100))
+                            .animation(.easeInOut, value: isCameraMode)
+                    }
+                    .padding(.trailing, 20)
+                }
+                .padding(.bottom, 14)
+            }
+            
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {
