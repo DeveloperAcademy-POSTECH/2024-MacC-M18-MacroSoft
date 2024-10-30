@@ -18,25 +18,27 @@ struct SignTextFieldModifier: ViewModifier {
         HStack {
             content
                 .focused($isFocused) // 포커스 상태 관리
-                .padding(.leading, 10)
+                .padding(.leading, !isFocused && !text.isEmpty ? 0 : 10)
+                .padding(.trailing, !isFocused && !text.isEmpty && placeholder == "km" ? 20 : 0)
                 .frame(height: 30)
                 .foregroundStyle(Color.white)
                 .font(.custom("Pretendard-Bold", size: 18))
                 .kerning(18 * 0.01)
+                .multilineTextAlignment(!isFocused && !text.isEmpty ? .center : .leading)
                 .background(alignment: alignment) {
                     if text.isEmpty {
                         Text(placeholder)
                             .font(.custom("Pretendard-Bold", size: 18))
                             .kerning(18 * 0.01)
                             .foregroundColor(isFocused ? Color.clear : Color.init(hex: "B07E6E").opacity(0.5))
-                            .padding(.horizontal, 7)
+                            .padding(EdgeInsets(top: 0, leading: 3, bottom: 0, trailing: 7))
                     } else {
                         if placeholder == "km" {
                             Text(placeholder)
                                 .font(.custom("Pretendard-Bold", size: 18))
                                 .kerning(18 * 0.01)
                                 .foregroundColor(Color.white)
-                                .padding(.horizontal, 7)
+                                .padding(EdgeInsets(top: 0, leading: 3, bottom: 0, trailing: 7))
                         }
                     }
                 }
@@ -51,7 +53,7 @@ struct SignTextFieldModifier: ViewModifier {
                         .foregroundColor(Color.textColor3)
                         .font(.custom("Pretendard-SemiBold", size: 17))
                 }
-                .padding(EdgeInsets(top: 0, leading: -6, bottom: 0, trailing: 8))
+                .padding(EdgeInsets(top: 0, leading: -10, bottom: 0, trailing: 8))
             }
         }
         .background(

@@ -98,7 +98,7 @@ struct JoinCampfire: View {
                                         .font(.custom("Pretendard-Bold", size: 16))
                                         .kerning(16 * 0.01)
                                         .fixedSize(horizontal: true, vertical: false) // 가로 크기 고정
-                                        .transition(.opacity) // 페이드 아웃 애니메이션
+                                        .transition(.opacity)
                                         .animation(.easeInOut, value: roomName.count)
                                 }
                                 .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: (roomName.count < 5 ? 214 : 84)))
@@ -112,10 +112,10 @@ struct JoinCampfire: View {
                                         .foregroundStyle(Color.init(hex: "795945"))
                                         .font(.custom("Pretendard-Bold", size: 16))
                                         .kerning(16 * 0.01)
-                                        .transition(.opacity) // 페이드 아웃 애니메이션
+                                        .transition(.opacity)
                                         .animation(.easeInOut, value: roomPassword.count)
                                 }
-                                .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: (roomPassword.count < 3 ? 198 : 148)))
+                                .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: (roomPassword.count < 6 ? 196 : 176)))
                             }
                             .padding(.top, -90)
                         }
