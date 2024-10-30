@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1093968B2CD2879B004C4EBD /* JoinCampfireViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093968A2CD2879B004C4EBD /* JoinCampfireViewModel.swift */; };
 		10AB91AA2CACD29A00BFA2EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10AB91A42CACD29A00BFA2EC /* Preview Assets.xcassets */; };
 		10AB91AB2CACD29A00BFA2EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10AB91A62CACD29A00BFA2EC /* Assets.xcassets */; };
 		10AB91AC2CACD29A00BFA2EC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91A72CACD29A00BFA2EC /* ContentView.swift */; };
@@ -64,6 +65,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1093968A2CD2879B004C4EBD /* JoinCampfireViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCampfireViewModel.swift; sourceTree = "<group>"; };
 		10AB91712CACCE4F00BFA2EC /* Modak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Modak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10AB91A42CACD29A00BFA2EC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		10AB91A62CACD29A00BFA2EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				10BCB0ED2CB84BCB0013E227 /* AuthorizationViewModel.swift */,
 				10BCB0DB2CB81D410013E227 /* OrganizePhotoViewModel.swift */,
 				10B0A66F2CBE6F820048C313 /* AppleSigninViewModel.swift */,
+				1093968A2CD2879B004C4EBD /* JoinCampfireViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				10BCB0FD2CBE14BC0013E227 /* AppleSigninButton.swift in Sources */,
 				10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */,
 				CAB2BE422CC0A9D10030C1F1 /* DailyLogs.swift in Sources */,
+				1093968B2CD2879B004C4EBD /* JoinCampfireViewModel.swift in Sources */,
 				CA2B5D0F2CBAAE5C0070DEBF /* LogPileDetailView.swift in Sources */,
 				10BE37772CB30CF9008D1DA1 /* RegisterView.swift in Sources */,
 				CAB2BE322CBD55BB0030C1F1 /* SelectedPhotoView.swift in Sources */,
