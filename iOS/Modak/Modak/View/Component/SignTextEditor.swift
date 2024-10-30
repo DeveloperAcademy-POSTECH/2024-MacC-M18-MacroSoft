@@ -51,7 +51,7 @@ struct SignTextFieldModifier: ViewModifier {
                 }) {
                     Image(systemName: "x.circle.fill")
                         .foregroundColor(Color.textColor3)
-                        .font(.custom("Pretendard-SemiBold", size: 17))
+                        .font(.custom("Pretendard-SemiBold", size: 15))
                 }
                 .padding(EdgeInsets(top: 0, leading: -10, bottom: 0, trailing: 8))
             }

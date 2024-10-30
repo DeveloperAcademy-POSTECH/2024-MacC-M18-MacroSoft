@@ -50,6 +50,19 @@ struct JoinCampfire: View {
             ToolbarItem(placement: .topBarLeading) {
                 BackButton()
             }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    print("완료 버튼 누름")
+                }) {
+                    Text("완료")
+                        .font(.custom("Pretendard-Regular", size: 18))
+                        .foregroundColor((!roomName.isEmpty || !roomPassword.isEmpty) ? Color.mainColor1 : Color.disable)
+                        .disabled(roomName.isEmpty && roomPassword.isEmpty)
+                    
+                    Spacer(minLength: 2)
+                }
+            }
         }
     }
     
@@ -91,7 +104,12 @@ struct JoinCampfire: View {
                                 HStack {
                                     TextField("", text: $roomName)
                                         .customTextFieldStyle(placeholder: "모닥불 이름", text: $roomName, alignment: .center)
-                                        .animation(roomName.count == 5 ? .easeInOut : nil, value: roomName.count)
+                                        .animation(roomName.count == 5 ? .easeOut : nil, value: roomName.count)
+                                        .onChange(of: roomName) { _, newValue in
+                                            if newValue.count > 12 {
+                                                roomName = String(newValue.prefix(12))
+                                            }
+                                        }
                                     
                                     Text("까지 ,")
                                         .foregroundStyle(Color.init(hex: "795945"))
@@ -99,21 +117,30 @@ struct JoinCampfire: View {
                                         .kerning(16 * 0.01)
                                         .fixedSize(horizontal: true, vertical: false) // 가로 크기 고정
                                         .transition(.opacity)
-                                        .animation(roomName.count == 5 ? .easeInOut : nil, value: roomName.count)
+                                        .animation(roomName.count == 5 ? .easeOut : nil, value: roomName.count)
                                 }
                                 .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: (roomName.count < 5 ? 214 : 84)))
                                 
                                 HStack {
                                     TextField("", text: $roomPassword)
                                         .customTextFieldStyle(placeholder: "km", text: $roomPassword, alignment: .trailing)
-                                        .animation(roomPassword.count == 6 ? .easeInOut : nil, value: roomPassword.count)
+                                        .animation(roomPassword.count == 6 ? .easeOut : nil, value: roomPassword.count)
+                                        .onChange(of: roomPassword) { _, newValue in
+                                            let filtered = newValue.filter { $0.isNumber || $0 == "." }
+                                            if filtered != newValue {
+                                                roomPassword = filtered
+                                            }
+                                            if newValue.count > 7 {
+                                                roomPassword = String(newValue.prefix(7))
+                                            }
+                                        }
                                     
                                     Text("남음")
                                         .foregroundStyle(Color.init(hex: "795945"))
                                         .font(.custom("Pretendard-Bold", size: 16))
                                         .kerning(16 * 0.01)
                                         .transition(.opacity)
-                                        .animation(roomPassword.count == 6 ? .easeInOut : nil, value: roomPassword.count)
+                                        .animation(roomPassword.count == 6 ? .easeOut : nil, value: roomPassword.count)
                                 }
                                 .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: (roomPassword.count < 6 ? 196 : 176)))
                             }
