@@ -11,6 +11,8 @@ struct JoinCampfire: View {
     @State var roomName:  String = ""
     @State var roomPassword: String = ""
     @State private var isCameraMode: Bool = false
+    @State private var showError: Bool = false
+    @State private var showSuccess: Bool = false
     
     var body: some View {
         ZStack {
@@ -44,6 +46,11 @@ struct JoinCampfire: View {
                 .padding(.bottom, 14)
             }
             
+            if showSuccess {
+                BottomSheet(isPresented: $showSuccess, viewName: "JoinCampfireView")
+                    .transition(.move(edge: .bottom))
+            }
+            
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -53,15 +60,16 @@ struct JoinCampfire: View {
             
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
-                    print("완료 버튼 누름")
+                    showSuccess = true
+//                    sendRoomCredentialsToServer() //TODO: 서버 api 연결
                 }) {
                     Text("완료")
                         .font(.custom("Pretendard-Regular", size: 18))
-                        .foregroundColor((!roomName.isEmpty || !roomPassword.isEmpty) ? Color.mainColor1 : Color.disable)
-                        .disabled(roomName.isEmpty && roomPassword.isEmpty)
+                        .foregroundColor((!roomName.isEmpty || !roomPassword.isEmpty) ? (!showSuccess ? Color.mainColor1 : Color.clear) : Color.disable)
                     
                     Spacer(minLength: 2)
                 }
+                .disabled(roomName.isEmpty && roomPassword.isEmpty)
             }
         }
     }
@@ -83,12 +91,27 @@ struct JoinCampfire: View {
     
     private var manualEntryView: some View {
         VStack(alignment: .leading) {
-            Text("모닥불로 가는 길을 알려주세요")
-                .foregroundStyle(Color.white)
-                .font(.custom("Pretendard-Bold", size: 18))
-                .lineSpacing(18 * 0.45)
-                .padding(EdgeInsets(top: 8, leading: 22, bottom: 0, trailing: 0))
-            
+            VStack {
+                if showError {
+                    Text("캠핑장 이름과 거리가 맞는지 확인해주세요")
+                        .foregroundStyle(Color.init(hex: "FF6464"))
+                        .font(.custom("Pretendard-Regular", size: 18))
+                        .padding(EdgeInsets(top: 8, leading: 22, bottom: 0, trailing: 0))
+                } else if showSuccess {
+                    Text("모닥불 도착")
+                        .foregroundStyle(Color.textColor1)
+                        .font(.custom("Pretendard-Bold", size: 23))
+                        .padding(EdgeInsets(top: 30, leading: 18, bottom: -28, trailing: 0))
+                } else {
+                    Text("모닥불로 가는 길을 알려주세요")
+                        .foregroundStyle(Color.white)
+                        .font(.custom("Pretendard-Bold", size: 18))
+                        .padding(EdgeInsets(top: 8, leading: 22, bottom: 0, trailing: 0))
+                }
+            }
+            .transition(.opacity) // 애니메이션 전환 효과
+            .animation(.easeOut(duration: 0.2), value: showError || showSuccess)
+                            
             Spacer()
             
             GeometryReader { geometry in
@@ -146,12 +169,52 @@ struct JoinCampfire: View {
                             }
                             .padding(.top, -90)
                         }
-                        .padding(.top, -80)
+                        .padding(.top, -128)
                     
                     Spacer()
                 }
             }
         }
+    }
+    
+    // 예시 함수 (아직 api 안나옴)
+    private func sendRoomCredentialsToServer() {
+        // 서버의 URL
+        guard let url = URL(string: "not yet") else { return }
+        
+        // 전송할 데이터
+        let parameters: [String: Any] = [
+            "roomName": roomName,
+            "roomPassword": roomPassword
+        ]
+        
+        // JSON 데이터로 변환
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = httpBody
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error sending request: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let data = data else { return }
+            
+            // 서버 응답 처리
+            if let response = response as? HTTPURLResponse {
+                switch response.statusCode {
+                case 200:
+                    self.showSuccess = true
+                default:
+                    self.showError = true
+                }
+            }
+        }
+        task.resume()
     }
 }
 
