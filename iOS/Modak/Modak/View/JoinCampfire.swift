@@ -91,7 +91,7 @@ struct JoinCampfire: View {
                                 HStack {
                                     TextField("", text: $roomName)
                                         .customTextFieldStyle(placeholder: "모닥불 이름", text: $roomName, alignment: .center)
-                                        .animation(.easeInOut, value: roomName.count)
+                                        .animation(roomName.count == 5 ? .easeInOut : nil, value: roomName.count)
                                     
                                     Text("까지 ,")
                                         .foregroundStyle(Color.init(hex: "795945"))
@@ -99,21 +99,21 @@ struct JoinCampfire: View {
                                         .kerning(16 * 0.01)
                                         .fixedSize(horizontal: true, vertical: false) // 가로 크기 고정
                                         .transition(.opacity)
-                                        .animation(.easeInOut, value: roomName.count)
+                                        .animation(roomName.count == 5 ? .easeInOut : nil, value: roomName.count)
                                 }
                                 .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: (roomName.count < 5 ? 214 : 84)))
                                 
                                 HStack {
                                     TextField("", text: $roomPassword)
                                         .customTextFieldStyle(placeholder: "km", text: $roomPassword, alignment: .trailing)
-                                        .animation(.easeInOut, value: roomPassword.count)
+                                        .animation(roomPassword.count == 6 ? .easeInOut : nil, value: roomPassword.count)
                                     
                                     Text("남음")
                                         .foregroundStyle(Color.init(hex: "795945"))
                                         .font(.custom("Pretendard-Bold", size: 16))
                                         .kerning(16 * 0.01)
                                         .transition(.opacity)
-                                        .animation(.easeInOut, value: roomPassword.count)
+                                        .animation(roomPassword.count == 6 ? .easeInOut : nil, value: roomPassword.count)
                                 }
                                 .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: (roomPassword.count < 6 ? 196 : 176)))
                             }

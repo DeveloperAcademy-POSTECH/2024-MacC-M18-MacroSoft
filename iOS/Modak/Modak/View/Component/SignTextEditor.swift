@@ -17,7 +17,7 @@ struct SignTextFieldModifier: ViewModifier {
     func body(content: Content) -> some View {
         HStack {
             content
-                .focused($isFocused) // 포커스 상태 관리
+                .focused($isFocused, equals: true) // 포커스 상태 관리
                 .padding(.leading, !isFocused && !text.isEmpty ? 0 : 10)
                 .padding(.trailing, !isFocused && !text.isEmpty && placeholder == "km" ? 20 : 0)
                 .frame(height: 30)
