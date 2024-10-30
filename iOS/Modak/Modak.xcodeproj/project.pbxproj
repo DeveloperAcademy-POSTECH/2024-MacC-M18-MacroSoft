@@ -48,7 +48,7 @@
 		10F58DD12CC0BE0C00BF9D34 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 10F58DD02CC0BE0C00BF9D34 /* FirebaseAnalyticsOnDeviceConversion */; };
 		10F58DD32CC0BE0C00BF9D34 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 10F58DD22CC0BE0C00BF9D34 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		10F58DD72CC0D7F700BF9D34 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10F58DD62CC0D7F700BF9D34 /* GoogleService-Info.plist */; };
-		10F58EE52CD06C0D00BF9D34 /* JoinCampfire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F58EE42CD06C0D00BF9D34 /* JoinCampfire.swift */; };
+		10F58EE52CD06C0D00BF9D34 /* JoinCampfireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F58EE42CD06C0D00BF9D34 /* JoinCampfireView.swift */; };
 		10F58EE72CD0891300BF9D34 /* SignTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F58EE62CD0891300BF9D34 /* SignTextEditor.swift */; };
 		CA2B5D052CBA6FDB0070DEBF /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D042CBA6FBD0070DEBF /* DateExtension.swift */; };
 		CA2B5D072CBA70280070DEBF /* LinearGradientExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D062CBA70210070DEBF /* LinearGradientExtension.swift */; };
@@ -106,7 +106,7 @@
 		10F58DBA2CC09D9300BF9D34 /* BundleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtension.swift; sourceTree = "<group>"; };
 		10F58DC42CC0A8E400BF9D34 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		10F58DD62CC0D7F700BF9D34 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		10F58EE42CD06C0D00BF9D34 /* JoinCampfire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCampfire.swift; sourceTree = "<group>"; };
+		10F58EE42CD06C0D00BF9D34 /* JoinCampfireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCampfireView.swift; sourceTree = "<group>"; };
 		10F58EE62CD0891300BF9D34 /* SignTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignTextEditor.swift; sourceTree = "<group>"; };
 		CA2B5D042CBA6FBD0070DEBF /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		CA2B5D062CBA70210070DEBF /* LinearGradientExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGradientExtension.swift; sourceTree = "<group>"; };
@@ -201,7 +201,7 @@
 				10C0E7FD2CB4B88E00C7F3DE /* AuthorizationView.swift */,
 				10C0E8072CB5593E00C7F3DE /* OrganizePhotoView.swift */,
 				10BCB0F72CBCCABB0013E227 /* ExampleLogPileView.swift */,
-				10F58EE42CD06C0D00BF9D34 /* JoinCampfire.swift */,
+				10F58EE42CD06C0D00BF9D34 /* JoinCampfireView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -417,7 +417,7 @@
 				10BCB0EA2CB825520013E227 /* CircularProgressBar.swift in Sources */,
 				10BCB0EB2CB825520013E227 /* ProgressNumber.swift in Sources */,
 				CAB2BE402CC0A9850030C1F1 /* MonthlyLogs.swift in Sources */,
-				10F58EE52CD06C0D00BF9D34 /* JoinCampfire.swift in Sources */,
+				10F58EE52CD06C0D00BF9D34 /* JoinCampfireView.swift in Sources */,
 				10BCB0EC2CB825520013E227 /* BottomSheet.swift in Sources */,
 				10BCB0E02CB8206C0013E227 /* DBSCAN.swift in Sources */,
 				10BCB0FD2CBE14BC0013E227 /* AppleSigninButton.swift in Sources */,
