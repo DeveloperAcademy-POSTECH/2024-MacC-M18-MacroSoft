@@ -28,7 +28,7 @@ struct JoinCampfire: View {
                     Button(action: {
                         isCameraMode.toggle() // 모드 전환
                     }) {
-                        Text(isCameraMode ? "촬영해서 입력" : "직접 입력하기")
+                        Text(isCameraMode ? "직접 입력하기" : "촬영해서 입력")
                             .font(.custom("Pretendard-Regular", size: 16))
                             .foregroundColor(.white)
                             .padding(EdgeInsets(top: 14, leading: 20, bottom: 14, trailing: 20))
@@ -91,25 +91,33 @@ struct JoinCampfire: View {
                                 HStack {
                                     TextField("", text: $roomName)
                                         .customTextFieldStyle(placeholder: "모닥불 이름", text: $roomName, alignment: .center)
-                                    Text("(으)로 가는 길")
+                                        .animation(.easeInOut, value: roomName.count)
+                                    
+                                    Text("까지 ,")
                                         .foregroundStyle(Color.init(hex: "795945"))
-                                        .font(.custom("Pretendard-Bold", size: 23))
-                                        .kerning(23 * 0.01)
+                                        .font(.custom("Pretendard-Bold", size: 16))
+                                        .kerning(16 * 0.01)
                                         .fixedSize(horizontal: true, vertical: false) // 가로 크기 고정
+                                        .transition(.opacity) // 페이드 아웃 애니메이션
+                                        .animation(.easeInOut, value: roomName.count)
                                 }
-                                .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: 96))
+                                .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: (roomName.count < 5 ? 214 : 84)))
                                 
                                 HStack {
                                     TextField("", text: $roomPassword)
                                         .customTextFieldStyle(placeholder: "km", text: $roomPassword, alignment: .trailing)
+                                        .animation(.easeInOut, value: roomPassword.count)
+                                    
                                     Text("남음")
                                         .foregroundStyle(Color.init(hex: "795945"))
-                                        .font(.custom("Pretendard-Bold", size: 23))
-                                        .kerning(23 * 0.01)
+                                        .font(.custom("Pretendard-Bold", size: 16))
+                                        .kerning(16 * 0.01)
+                                        .transition(.opacity) // 페이드 아웃 애니메이션
+                                        .animation(.easeInOut, value: roomPassword.count)
                                 }
-                                .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: 182))
+                                .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: (roomPassword.count < 3 ? 198 : 148)))
                             }
-                            .padding(.top, -98)
+                            .padding(.top, -90)
                         }
                         .padding(.top, -80)
                     

@@ -15,27 +15,54 @@ struct SignTextFieldModifier: ViewModifier {
     var alignment: Alignment = .center
     
     func body(content: Content) -> some View {
-        content
-            .focused($isFocused) // 포커스 상태 관리
-            .padding(10)
-            .frame(height: 39)
-            .background(isFocused ? Color.init(hex: "C28C7B").opacity(0.5) : Color.init(hex: "C28C7B").opacity(0.25))
-            .background(alignment: alignment) {
-                if text.isEmpty {
-                    Text(placeholder)
-                        .font(.custom("Pretendard-Bold", size: 23))
-                        .kerning(23 * 0.01)
-                        .foregroundColor(isFocused ? Color.init(hex: "B07E6E").opacity(0) : Color.init(hex: "B07E6E").opacity(0.5))
-                        .padding(.horizontal, 7)
+        HStack {
+            content
+                .focused($isFocused) // 포커스 상태 관리
+                .padding(.leading, 10)
+                .frame(height: 30)
+                .foregroundStyle(Color.white)
+                .font(.custom("Pretendard-Bold", size: 18))
+                .kerning(18 * 0.01)
+                .background(alignment: alignment) {
+                    if text.isEmpty {
+                        Text(placeholder)
+                            .font(.custom("Pretendard-Bold", size: 18))
+                            .kerning(18 * 0.01)
+                            .foregroundColor(isFocused ? Color.clear : Color.init(hex: "B07E6E").opacity(0.5))
+                            .padding(.horizontal, 7)
+                    } else {
+                        if placeholder == "km" {
+                            Text(placeholder)
+                                .font(.custom("Pretendard-Bold", size: 18))
+                                .kerning(18 * 0.01)
+                                .foregroundColor(Color.white)
+                                .padding(.horizontal, 7)
+                        }
+                    }
                 }
+                .font(.custom("Pretendard-Bold", size: 18))
+                .tint(Color.init(hex: "B07E6E"))
+            
+            if isFocused && !text.isEmpty {
+                Button(action: {
+                    text = "" // 텍스트를 초기화
+                }) {
+                    Image(systemName: "x.circle.fill")
+                        .foregroundColor(Color.textColor3)
+                        .font(.custom("Pretendard-SemiBold", size: 17))
+                }
+                .padding(EdgeInsets(top: 0, leading: -6, bottom: 0, trailing: 8))
             }
-            .clipShape(RoundedRectangle(cornerRadius: 4))
-            .overlay(
-                RoundedRectangle(cornerRadius: 4)
-                    .stroke(isFocused ? Color.white : Color.clear, lineWidth: 1)
-            )
-            .font(.custom("Pretendard-Bold", size: 23))
-            .padding(.trailing, -4)
+        }
+        .background(
+            RoundedRectangle(cornerRadius: 4) // 배경에 모서리 둥글게 적용
+                .fill(isFocused ? Color.init(hex: "C28C7B") : Color.init(hex: "C28C7B").opacity(0.25))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 4)
+                .stroke(isFocused ? Color.white : Color.clear, lineWidth: 1)
+        )
+        .padding(.trailing, -4)
     }
 }
 
@@ -46,7 +73,7 @@ extension TextField {
 }
 
 #Preview {
-    @Previewable @State var userInput: String = ""
+    @Previewable @State var userInput: String = "반갑티비"
 
     TextField("", text: $userInput)
         .customTextFieldStyle(placeholder: "모닥불 이름", text: $userInput)
