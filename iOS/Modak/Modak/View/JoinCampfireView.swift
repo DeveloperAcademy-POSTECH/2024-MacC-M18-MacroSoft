@@ -14,7 +14,7 @@ struct JoinCampfireView: View {
         ZStack {
             Color.backgroundDefault.ignoresSafeArea(.all)
             
-            contentView
+            contentView.ignoresSafeArea()
             cameraModeToggleButton
             
             if viewModel.showSuccess {
@@ -32,7 +32,7 @@ struct JoinCampfireView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
                     viewModel.showSuccess = true //테스트 전용
-//                    viewModel.validateAndSendCredentials() //TODO: 서버 api 연결
+//                    viewModel.validateAndSendCredentials() // TODO: 서버 api 연결
                 }) {
                     Text("완료")
                         .font(.custom("Pretendard-Regular", size: 18))
@@ -48,15 +48,9 @@ struct JoinCampfireView: View {
     @ViewBuilder
     private var contentView: some View {
         if viewModel.isCameraMode {
-            cameraModeView
+            JoinCampfireByCameraView()
         } else {
             manualEntryView
-        }
-    }
-    
-    private var cameraModeView: some View {
-        VStack {
-            Text("카메라뷰")
         }
     }
     
@@ -65,7 +59,7 @@ struct JoinCampfireView: View {
             VStack {
                 if viewModel.showError {
                     Text("캠핑장 이름과 거리가 맞는지 확인해주세요")
-                        .foregroundStyle(Color.init(hex: "FF6464"))
+                        .foregroundStyle(Color.errorRed)
                         .font(.custom("Pretendard-Regular", size: 18))
                         .padding(EdgeInsets(top: 8, leading: 22, bottom: 0, trailing: 0))
                 } else if viewModel.showSuccess {

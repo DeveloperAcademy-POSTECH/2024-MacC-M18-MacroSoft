@@ -13,6 +13,7 @@ class JoinCampfireViewModel: ObservableObject {
     @Published var isCameraMode: Bool = false
     @Published var showError: Bool = false
     @Published var showSuccess: Bool = false
+    @Published var cameraViewModel = CameraViewModel()
 
     // 유효성 검사 및 서버 통신을 관리
     func validateAndSendCredentials() {
@@ -51,7 +52,7 @@ class JoinCampfireViewModel: ObservableObject {
                     return
                 }
                 
-                guard let data = data else { return }
+//                guard let data = data else { return }
                 
                 // 서버 응답 처리
                 if let response = response as? HTTPURLResponse {
