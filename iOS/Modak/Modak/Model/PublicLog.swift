@@ -9,13 +9,13 @@ import SwiftData
 
 @Model
 class PublicLog {
-    @Attribute(.unique) var id: UUID
-    var campfireId: Int
-    var locationId: Int
+    @Attribute(.unique) var id: Int64
+    var campfireId: Int64
+    var locationId: Int64
     var startAt: Date
     var endAt: Date
     
-    init(id: UUID, campfireId: Int, locationId: Int, startAt: Date, endAt: Date) {
+    init(id: Int64, campfireId: Int64, locationId: Int64, startAt: Date, endAt: Date) {
         self.id = id
         self.campfireId = campfireId
         self.locationId = locationId
