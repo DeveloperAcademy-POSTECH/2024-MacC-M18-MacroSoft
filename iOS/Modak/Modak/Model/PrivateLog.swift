@@ -1,5 +1,5 @@
 //
-//  Log.swift
+//  PrivateLog.swift
 //  Modak
 //
 //  Created by kimjihee on 10/14/24.
