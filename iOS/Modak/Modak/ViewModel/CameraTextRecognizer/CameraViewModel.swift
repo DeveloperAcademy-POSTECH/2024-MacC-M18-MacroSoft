@@ -17,8 +17,16 @@ class CameraViewModel: NSObject, ObservableObject, AVCaptureVideoDataOutputSampl
     let cameraPreview: AnyView
     
     @Published var recentImage: UIImage?
-    @Published var isCapturing: Bool = false
+    @Published var isCapturing: Bool = false {
+        didSet {
+            if !isCapturing, let image = recentImage {
+                textRecognizeHandler?(image)
+            }
+        }
+    }
     @Published var cameraPermissionAlert = false
+    
+    var textRecognizeHandler: ((UIImage) -> Void)?
     
     override init() {
         cameraPreview = AnyView(CameraGuidePreview(session: session))
@@ -100,55 +108,9 @@ class CameraViewModel: NSObject, ObservableObject, AVCaptureVideoDataOutputSampl
             DispatchQueue.main.async { [weak self] in
                 self?.recentImage = image
                 self?.isCapturing = false  // 캡처 완료 후 카메라 정지
-                self?.recognizeText(from: image)
             }
         }
     }
-    
-    func recognizeText(from image: UIImage) {
-        Task {
-            let textRecognizer = TextRecognizer()
-            do {
-                let recognizedText = try await textRecognizer.recognizeText(in: image)
-                print("Recognized Text: \(recognizedText)")
-                
-                // recognizedText를 줄 단위로 나눔
-                let lines = recognizedText.components(separatedBy: .newlines)
-                
-                // "모닥불 참여하기를 눌러 하단 이정표를 스캔해 주세요."를 찾은 후, 다음 줄을 roomName으로 설정
-                if let startIndex = lines.firstIndex(where: { $0.contains("모닥불 참여하기를 눌러 하단 이정표를 스캔해 주세요.") }),
-                   startIndex + 1 < lines.count {
-                    
-                    var roomName = lines[startIndex + 1]
-                    
-                    // "까지" 또는 " 까지"가 포함되어 있으면 이를 제거
-                    if let range = roomName.range(of: "까지") {
-                        roomName.removeSubrange(range)
-                    } else if let range = roomName.range(of: " 까지") {
-                        roomName.removeSubrange(range)
-                    }
-                    
-                    print("Room Name: \(roomName)")
-                }
-                
-                // "km 남음" 또는 " km 남음"이 포함된 줄에서 점을 제외한 숫자만 추출하여 roomPassword로 설정
-                if let distanceTextLine = lines.first(where: { $0.contains("km 남음") || $0.contains(" km 남음") }) {
-                    
-                    // "km 남음" 또는 " km 남음"을 제거
-                    var distanceText = distanceTextLine.replacingOccurrences(of: "km 남음", with: "")
-                    distanceText = distanceText.replacingOccurrences(of: " km 남음", with: "")
-                    
-                    // 숫자만 추출하여 roomPassword로 설정
-                    let roomPassword = distanceText.compactMap { $0.isNumber ? String($0) : nil }.joined()
-                    print("Room Password: \(roomPassword)")
-                }
-                
-            } catch {
-                print("Text recognition failed: \(error)")
-            }
-        }
-    }
-
     
     // 카메라가 새로운 프레임을 캡처할 때마다 자동으로 호출됨
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
