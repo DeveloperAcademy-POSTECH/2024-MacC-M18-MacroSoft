@@ -10,8 +10,8 @@ import Photos
 import Firebase
 
 struct SelectedPhotoView: View {
-    private(set) var selectedLog: Log
-    private(set) var selectedPhotoMetadata: PhotoMetadata
+    private(set) var selectedLog: PrivateLog
+    private(set) var selectedPhotoMetadata: PrivateLogImage
     @State private var tabSelection: String = ""
     var body: some View {
         TabView(selection: $tabSelection) {

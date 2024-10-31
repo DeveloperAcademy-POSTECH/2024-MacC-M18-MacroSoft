@@ -11,7 +11,7 @@ import Photos
 struct DrawPhoto: View {
     @State private var image: UIImage?
     
-    let photoMetadata: PhotoMetadata
+    let photoMetadata: PrivateLogImage
     var isClip: Bool = false
     
     var body: some View {
@@ -40,7 +40,7 @@ struct DrawPhoto: View {
         }
     }
     
-    private func fetchImage(for metadata: PhotoMetadata, size: CGSize) {
+    private func fetchImage(for metadata: PrivateLogImage, size: CGSize) {
         let fetchResult = PHAsset.fetchAssets(withLocalIdentifiers: [metadata.localIdentifier], options: nil)
         let geometrySize : CGSize = size
         

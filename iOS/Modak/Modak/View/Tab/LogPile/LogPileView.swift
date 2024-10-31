@@ -54,7 +54,7 @@ struct LogPileView: View {
     
     private func fetchLogsWithGroupBy() {
         do {
-            let logs = try modelContext.fetch(FetchDescriptor<Log>())
+            let logs = try modelContext.fetch(FetchDescriptor<PrivateLog>())
             
             // logs: [Log]를, monthlyLogs(MonthlyLogs Model과는 다름): [Date : [Log]] 형태로 (년, 월 기준으로)
             let monthlyLogs = Dictionary(grouping: logs) { log in
