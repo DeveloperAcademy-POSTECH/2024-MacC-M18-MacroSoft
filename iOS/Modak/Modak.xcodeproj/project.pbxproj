@@ -50,10 +50,11 @@
         CA22A7A32CD31B6E002195A2 /* Campfire.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA22A7A22CD31B6A002195A2 /* Campfire.swift */; };
 		CA22A7A52CD32086002195A2 /* PublicLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA22A7A42CD32064002195A2 /* PublicLog.swift */; };
 		CA2B5D052CBA6FDB0070DEBF /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D042CBA6FBD0070DEBF /* DateExtension.swift */; };
-		CA2B5D072CBA70280070DEBF /* LinearGradientExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D062CBA70210070DEBF /* LinearGradientExtension.swift */; };
+		CA2B5D072CBA70280070DEBF /* GradientColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D062CBA70210070DEBF /* GradientColorExtension.swift */; };
 		CA2B5D0B2CBA70C40070DEBF /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D0A2CBA70C00070DEBF /* ColorExtension.swift */; };
 		CA2B5D0F2CBAAE5C0070DEBF /* LogPileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D0E2CBAAE5C0070DEBF /* LogPileDetailView.swift */; };
 		CAA0B7B22CD3228D0093AEA7 /* PublicLogImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B7B12CD322880093AEA7 /* PublicLogImage.swift */; };
+		CAA0B7B62CD329BE0093AEA7 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B7B52CD329BC0093AEA7 /* ViewExtension.swift */; };
 		CAA76CB52CB38DEE00533C96 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAA76CB42CB38DEE00533C96 /* Colors.xcassets */; };
 		CAA76CD02CB3BF0200533C96 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAA76CCF2CB3BF0200533C96 /* Images.xcassets */; };
 		CAB2BE2F2CBD49BC0030C1F1 /* CoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2BE2E2CBD49AB0030C1F1 /* CoordinatorView.swift */; };
@@ -108,10 +109,11 @@
         CA22A7A22CD31B6A002195A2 /* Campfire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Campfire.swift; sourceTree = "<group>"; };
 		CA22A7A42CD32064002195A2 /* PublicLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicLog.swift; sourceTree = "<group>"; };
 		CA2B5D042CBA6FBD0070DEBF /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
-		CA2B5D062CBA70210070DEBF /* LinearGradientExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGradientExtension.swift; sourceTree = "<group>"; };
+		CA2B5D062CBA70210070DEBF /* GradientColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientColorExtension.swift; sourceTree = "<group>"; };
 		CA2B5D0A2CBA70C00070DEBF /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		CA2B5D0E2CBAAE5C0070DEBF /* LogPileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPileDetailView.swift; sourceTree = "<group>"; };
 		CAA0B7B12CD322880093AEA7 /* PublicLogImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicLogImage.swift; sourceTree = "<group>"; };
+		CAA0B7B52CD329BC0093AEA7 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		CAA76CB42CB38DEE00533C96 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		CAA76CCF2CB3BF0200533C96 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CAB2BE2E2CBD49AB0030C1F1 /* CoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorView.swift; sourceTree = "<group>"; };
@@ -272,9 +274,10 @@
 		CA2B5D032CBA6F4C0070DEBF /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				CAA0B7B52CD329BC0093AEA7 /* ViewExtension.swift */,
 				CAB2BE4B2CC1ECD00030C1F1 /* UINavigationControllerExtension.swift */,
 				CA2B5D0A2CBA70C00070DEBF /* ColorExtension.swift */,
-				CA2B5D062CBA70210070DEBF /* LinearGradientExtension.swift */,
+				CA2B5D062CBA70210070DEBF /* GradientColorExtension.swift */,
 				CA2B5D042CBA6FBD0070DEBF /* DateExtension.swift */,
 				10F58DBA2CC09D9300BF9D34 /* BundleExtension.swift */,
 			);
@@ -403,7 +406,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA2B5D052CBA6FDB0070DEBF /* DateExtension.swift in Sources */,
-				CA2B5D072CBA70280070DEBF /* LinearGradientExtension.swift in Sources */,
+				CA2B5D072CBA70280070DEBF /* GradientColorExtension.swift in Sources */,
 				10BCB0EE2CB84BCB0013E227 /* AuthorizationViewModel.swift in Sources */,
 				10BCB0DC2CB81D410013E227 /* OrganizePhotoViewModel.swift in Sources */,
 				10AB91AC2CACD29A00BFA2EC /* ContentView.swift in Sources */,
@@ -428,6 +431,7 @@
 				CAB2BE362CBF527B0030C1F1 /* DrawPhoto.swift in Sources */,
 				CA22A7A32CD31B6E002195A2 /* Campfire.swift in Sources */,
 				10AB91AD2CACD29A00BFA2EC /* ModakApp.swift in Sources */,
+				CAA0B7B62CD329BE0093AEA7 /* ViewExtension.swift in Sources */,
 				10AB91D62CACD7A100BFA2EC /* CampfireView.swift in Sources */,
 				10C0E7FE2CB4B88E00C7F3DE /* AuthorizationView.swift in Sources */,
 				CAB2BE2F2CBD49BC0030C1F1 /* CoordinatorView.swift in Sources */,
