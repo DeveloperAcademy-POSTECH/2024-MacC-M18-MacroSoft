@@ -97,6 +97,7 @@ private struct CampfireViewTodayPhoto: View {
             Button {
                 isTodayPhotoFullSheet = true
             } label: {
+                // TODO: 오늘의 이미지 넣는 로직 추가
                 Image(.photosIcon)
                     .resizable()
                     .scaledToFit()
@@ -119,37 +120,9 @@ private struct CampfireViewTodayPhoto: View {
         .frame(width: 320, height: isTodayPhotoHeightOver320 ? 320 : .infinity)
         .rotationEffect(.degrees(randomRotation ? 2 : -2))
         .fullScreenCover(isPresented: $isTodayPhotoFullSheet) {
-            TodayPhotoFullSheet()
+            // TODO: 선택한 이미지가 보이도록 로직 추가
+            ExpandedPhoto(photo: .progressDefault)
         }
-    }
-}
-
-// MARK: - TodayPhotoFullSheet
-
-private struct TodayPhotoFullSheet: View {
-    @Environment(\.dismiss) private var dismiss
-    
-    var body: some View {
-        VStack {
-            HStack {
-                Spacer()
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark")
-                        .resizable()
-                        .frame(width: 21, height: 21)
-                        .foregroundStyle(.textColorGray1)
-                }
-                .padding(.trailing, 20)
-            }
-            Spacer()
-            Image(.photosIcon)
-                .resizable()
-                .scaledToFit()
-            Spacer()
-        }
-        .presentationBackground(Color.black.opacity(0.8))
     }
 }
 
