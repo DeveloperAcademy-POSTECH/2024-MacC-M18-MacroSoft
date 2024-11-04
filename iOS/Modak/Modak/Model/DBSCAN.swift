@@ -16,17 +16,17 @@ class DBSCAN {
         self.minPts = minPts
     }
 
-    func applyAlgorithm(points: [PhotoMetadata], progressUpdate: (Int) -> Void) -> [[PhotoMetadata]] {
-        var clusters: [[PhotoMetadata]] = []
-        var visited = Set<PhotoMetadata>()
-        var noise: [PhotoMetadata] = []
+    func applyAlgorithm(points: [PrivateLogImage], progressUpdate: (Int) -> Void) -> [[PrivateLogImage]] {
+        var clusters: [[PrivateLogImage]] = []
+        var visited = Set<PrivateLogImage>()
+        var noise: [PrivateLogImage] = []
         var processedPoints = 0
         
-        func regionQuery(point: PhotoMetadata) -> [PhotoMetadata] {
+        func regionQuery(point: PrivateLogImage) -> [PrivateLogImage] {
             return points.filter { timeDifference($0.creationDate, point.creationDate) < eps }
         }
         
-        func expandCluster(point: PhotoMetadata, neighbors: [PhotoMetadata], cluster: inout [PhotoMetadata]) {
+        func expandCluster(point: PrivateLogImage, neighbors: [PrivateLogImage], cluster: inout [PrivateLogImage]) {
             cluster.append(point)
             var queue = neighbors
             while !queue.isEmpty {
@@ -52,7 +52,7 @@ class DBSCAN {
                 if neighbors.count < minPts {
                     noise.append(point)  // 클러스터링 되지 않는 포인트는 노이즈로 추가
                 } else {
-                    var cluster: [PhotoMetadata] = []
+                    var cluster: [PrivateLogImage] = []
                     expandCluster(point: point, neighbors: neighbors, cluster: &cluster)
                     clusters.append(cluster)
                 }
