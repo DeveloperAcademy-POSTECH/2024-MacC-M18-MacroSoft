@@ -12,6 +12,7 @@
 		1093968F2CD2950A004C4EBD /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093968E2CD2950A004C4EBD /* CameraViewModel.swift */; };
 		109396912CD29615004C4EBD /* TextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109396902CD29615004C4EBD /* TextRecognizer.swift */; };
 		109396932CD29680004C4EBD /* CameraGuidePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109396922CD29680004C4EBD /* CameraGuidePreview.swift */; };
+		109396982CD8DB9A004C4EBD /* JoinCampfireByTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109396972CD8DB9A004C4EBD /* JoinCampfireByTextView.swift */; };
 		10AB91AA2CACD29A00BFA2EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10AB91A42CACD29A00BFA2EC /* Preview Assets.xcassets */; };
 		10AB91AB2CACD29A00BFA2EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10AB91A62CACD29A00BFA2EC /* Assets.xcassets */; };
 		10AB91AC2CACD29A00BFA2EC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91A72CACD29A00BFA2EC /* ContentView.swift */; };
@@ -74,6 +75,7 @@
 		1093968E2CD2950A004C4EBD /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		109396902CD29615004C4EBD /* TextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizer.swift; sourceTree = "<group>"; };
 		109396922CD29680004C4EBD /* CameraGuidePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraGuidePreview.swift; sourceTree = "<group>"; };
+		109396972CD8DB9A004C4EBD /* JoinCampfireByTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCampfireByTextView.swift; sourceTree = "<group>"; };
 		10AB91712CACCE4F00BFA2EC /* Modak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Modak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10AB91A42CACD29A00BFA2EC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		10AB91A62CACD29A00BFA2EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				10C0E8072CB5593E00C7F3DE /* OrganizePhotoView.swift */,
 				10BCB0F72CBCCABB0013E227 /* ExampleLogPileView.swift */,
 				10F58EE42CD06C0D00BF9D34 /* JoinCampfireView.swift */,
+				109396972CD8DB9A004C4EBD /* JoinCampfireByTextView.swift */,
 				1093968C2CD294A9004C4EBD /* JoinCampfireByCameraView.swift */,
 			);
 			path = View;
@@ -452,6 +455,7 @@
 				10BE37772CB30CF9008D1DA1 /* RegisterView.swift in Sources */,
 				CAB2BE322CBD55BB0030C1F1 /* SelectedPhotoView.swift in Sources */,
 				CAB2BE362CBF527B0030C1F1 /* DrawPhoto.swift in Sources */,
+				109396982CD8DB9A004C4EBD /* JoinCampfireByTextView.swift in Sources */,
 				10AB91AD2CACD29A00BFA2EC /* ModakApp.swift in Sources */,
 				10AB91D62CACD7A100BFA2EC /* CampfireView.swift in Sources */,
 				10C0E7FE2CB4B88E00C7F3DE /* AuthorizationView.swift in Sources */,

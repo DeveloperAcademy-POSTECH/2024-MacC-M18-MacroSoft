@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct JoinCampfireByCameraView: View {
-    @StateObject private var viewModel = JoinCampfireViewModel()
+    @EnvironmentObject var viewModel: JoinCampfireViewModel
     
     var body: some View {
         ZStack {
