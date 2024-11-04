@@ -10,6 +10,8 @@
 		<string>$(REFRESH_TOKEN_URL)</string>
 		<key>SocialLoginURL</key>
 		<string>$(SOCIAL_LOGIN_URL)</string>
+		<key>CampfireURL</key>
+		<string>$(CAMPFIRE_URL)</string>
 	</dict>
 	<key>UIAppFonts</key>
 	<array>

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1093968B2CD2879B004C4EBD /* JoinCampfireViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093968A2CD2879B004C4EBD /* JoinCampfireViewModel.swift */; };
+		1093968D2CD294A9004C4EBD /* JoinCampfireByCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093968C2CD294A9004C4EBD /* JoinCampfireByCameraView.swift */; };
+		1093968F2CD2950A004C4EBD /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093968E2CD2950A004C4EBD /* CameraViewModel.swift */; };
+		109396912CD29615004C4EBD /* TextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109396902CD29615004C4EBD /* TextRecognizer.swift */; };
+		109396932CD29680004C4EBD /* CameraGuidePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109396922CD29680004C4EBD /* CameraGuidePreview.swift */; };
+		109396982CD8DB9A004C4EBD /* JoinCampfireByTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109396972CD8DB9A004C4EBD /* JoinCampfireByTextView.swift */; };
 		10AB91AA2CACD29A00BFA2EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10AB91A42CACD29A00BFA2EC /* Preview Assets.xcassets */; };
 		10AB91AB2CACD29A00BFA2EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10AB91A62CACD29A00BFA2EC /* Assets.xcassets */; };
 		10AB91AC2CACD29A00BFA2EC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91A72CACD29A00BFA2EC /* ContentView.swift */; };
@@ -47,6 +53,8 @@
 		10F58DD12CC0BE0C00BF9D34 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 10F58DD02CC0BE0C00BF9D34 /* FirebaseAnalyticsOnDeviceConversion */; };
 		10F58DD32CC0BE0C00BF9D34 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 10F58DD22CC0BE0C00BF9D34 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		10F58DD72CC0D7F700BF9D34 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10F58DD62CC0D7F700BF9D34 /* GoogleService-Info.plist */; };
+		10F58EE52CD06C0D00BF9D34 /* JoinCampfireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F58EE42CD06C0D00BF9D34 /* JoinCampfireView.swift */; };
+		10F58EE72CD0891300BF9D34 /* SignTextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F58EE62CD0891300BF9D34 /* SignTextFieldModifier.swift */; };
 		CA22A7A12CD28D2A002195A2 /* CampfireNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA22A7A02CD28D22002195A2 /* CampfireNameView.swift */; };
 		CA22A7A32CD31B6E002195A2 /* Campfire.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA22A7A22CD31B6A002195A2 /* Campfire.swift */; };
 		CA22A7A52CD32086002195A2 /* PublicLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA22A7A42CD32064002195A2 /* PublicLog.swift */; };
@@ -71,6 +79,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1093968A2CD2879B004C4EBD /* JoinCampfireViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCampfireViewModel.swift; sourceTree = "<group>"; };
+		1093968C2CD294A9004C4EBD /* JoinCampfireByCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCampfireByCameraView.swift; sourceTree = "<group>"; };
+		1093968E2CD2950A004C4EBD /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
+		109396902CD29615004C4EBD /* TextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizer.swift; sourceTree = "<group>"; };
+		109396922CD29680004C4EBD /* CameraGuidePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraGuidePreview.swift; sourceTree = "<group>"; };
+		109396972CD8DB9A004C4EBD /* JoinCampfireByTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCampfireByTextView.swift; sourceTree = "<group>"; };
 		10AB91712CACCE4F00BFA2EC /* Modak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Modak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10AB91A42CACD29A00BFA2EC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		10AB91A62CACD29A00BFA2EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -111,6 +125,8 @@
 		10F58DBA2CC09D9300BF9D34 /* BundleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtension.swift; sourceTree = "<group>"; };
 		10F58DC42CC0A8E400BF9D34 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		10F58DD62CC0D7F700BF9D34 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		10F58EE42CD06C0D00BF9D34 /* JoinCampfireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCampfireView.swift; sourceTree = "<group>"; };
+		10F58EE62CD0891300BF9D34 /* SignTextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignTextFieldModifier.swift; sourceTree = "<group>"; };
 		CA22A7A02CD28D22002195A2 /* CampfireNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireNameView.swift; sourceTree = "<group>"; };
 		CA22A7A22CD31B6A002195A2 /* Campfire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Campfire.swift; sourceTree = "<group>"; };
 		CA22A7A42CD32064002195A2 /* PublicLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicLog.swift; sourceTree = "<group>"; };
@@ -148,6 +164,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		109396942CD29693004C4EBD /* CameraTextRecognizer */ = {
+			isa = PBXGroup;
+			children = (
+				109396922CD29680004C4EBD /* CameraGuidePreview.swift */,
+				109396902CD29615004C4EBD /* TextRecognizer.swift */,
+				1093968E2CD2950A004C4EBD /* CameraViewModel.swift */,
+			);
+			path = CameraTextRecognizer;
+			sourceTree = "<group>";
+		};
 		10AB91682CACCE4F00BFA2EC = {
 			isa = PBXGroup;
 			children = (
@@ -216,6 +242,9 @@
 				10C0E7FD2CB4B88E00C7F3DE /* AuthorizationView.swift */,
 				10C0E8072CB5593E00C7F3DE /* OrganizePhotoView.swift */,
 				10BCB0F72CBCCABB0013E227 /* ExampleLogPileView.swift */,
+				10F58EE42CD06C0D00BF9D34 /* JoinCampfireView.swift */,
+				109396972CD8DB9A004C4EBD /* JoinCampfireByTextView.swift */,
+				1093968C2CD294A9004C4EBD /* JoinCampfireByCameraView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -223,9 +252,11 @@
 		10AB91B02CACD2C700BFA2EC /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				109396942CD29693004C4EBD /* CameraTextRecognizer */,
 				10BCB0ED2CB84BCB0013E227 /* AuthorizationViewModel.swift */,
 				10BCB0DB2CB81D410013E227 /* OrganizePhotoViewModel.swift */,
 				10B0A66F2CBE6F820048C313 /* AppleSigninViewModel.swift */,
+				1093968A2CD2879B004C4EBD /* JoinCampfireViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -263,6 +294,7 @@
 				10BCB0E52CB825520013E227 /* OnboardingCard.swift */,
 				10BCB0E62CB825520013E227 /* ProgressNumber.swift */,
 				10BCB0FC2CBE14BC0013E227 /* AppleSigninButton.swift */,
+				10F58EE62CD0891300BF9D34 /* SignTextFieldModifier.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -428,6 +460,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10F58EE72CD0891300BF9D34 /* SignTextFieldModifier.swift in Sources */,
+				1093968F2CD2950A004C4EBD /* CameraViewModel.swift in Sources */,
 				CAA0B7BE2CD8DC160093AEA7 /* ExpandedPhoto.swift in Sources */,
 				CA2B5D052CBA6FDB0070DEBF /* DateExtension.swift in Sources */,
 				CA2B5D072CBA70280070DEBF /* GradientColorExtension.swift in Sources */,
@@ -443,18 +477,24 @@
 				10BCB0E92CB825520013E227 /* CircularProgressPhoto.swift in Sources */,
 				10BCB0EA2CB825520013E227 /* CircularProgressBar.swift in Sources */,
 				10BCB0EB2CB825520013E227 /* ProgressNumber.swift in Sources */,
+				1093968D2CD294A9004C4EBD /* JoinCampfireByCameraView.swift in Sources */,
+				109396912CD29615004C4EBD /* TextRecognizer.swift in Sources */,
 				CAB2BE402CC0A9850030C1F1 /* MonthlyLogs.swift in Sources */,
+				10F58EE52CD06C0D00BF9D34 /* JoinCampfireView.swift in Sources */,
 				CAA0B7C02CD8E0860093AEA7 /* ExpandableEmoji.swift in Sources */,
 				10BCB0EC2CB825520013E227 /* BottomSheet.swift in Sources */,
+				109396932CD29680004C4EBD /* CameraGuidePreview.swift in Sources */,
 				10BCB0E02CB8206C0013E227 /* DBSCAN.swift in Sources */,
 				10BCB0FD2CBE14BC0013E227 /* AppleSigninButton.swift in Sources */,
 				10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */,
 				CAB2BE422CC0A9D10030C1F1 /* DailyLogs.swift in Sources */,
+				1093968B2CD2879B004C4EBD /* JoinCampfireViewModel.swift in Sources */,
 				CAA0B7B22CD3228D0093AEA7 /* PublicLogImage.swift in Sources */,
 				CA2B5D0F2CBAAE5C0070DEBF /* LogPileDetailView.swift in Sources */,
 				10BE37772CB30CF9008D1DA1 /* RegisterView.swift in Sources */,
 				CAB2BE322CBD55BB0030C1F1 /* SelectedPhotoView.swift in Sources */,
 				CAB2BE362CBF527B0030C1F1 /* DrawPhoto.swift in Sources */,
+				109396982CD8DB9A004C4EBD /* JoinCampfireByTextView.swift in Sources */,
 				CA22A7A32CD31B6E002195A2 /* Campfire.swift in Sources */,
 				10AB91AD2CACD29A00BFA2EC /* ModakApp.swift in Sources */,
 				CAA0B7B62CD329BE0093AEA7 /* ViewExtension.swift in Sources */,
@@ -613,6 +653,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Modak/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라를 사용합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "최근 6개월 이내의 사진을 자동으로 정리하려면 사진 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -653,6 +694,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Modak/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라를 사용합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "최근 6개월 이내의 사진을 자동으로 정리하려면 사진 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
