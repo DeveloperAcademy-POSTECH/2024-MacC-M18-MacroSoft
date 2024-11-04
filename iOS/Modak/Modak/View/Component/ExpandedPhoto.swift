@@ -36,6 +36,5 @@ struct ExpandedPhoto: View {
             
             Spacer()
         }
-        .presentationBackground(Color.black.opacity(0.8))
     }
 }

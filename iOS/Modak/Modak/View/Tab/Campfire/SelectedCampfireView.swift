@@ -24,8 +24,10 @@ struct SelectedCampfireView: View {
             CampfireViewTodayPhoto()
             
             Spacer()
-            
-            CampfireViewEmoji()
+             
+            ExpandableEmoji(emojiList: ["laugh", "embarrassed", "panic", "cry", "heart", "death"])
+                .padding(.trailing, 24)
+                .padding(.bottom)
         }
     }
 }
@@ -122,63 +124,8 @@ private struct CampfireViewTodayPhoto: View {
         .fullScreenCover(isPresented: $isTodayPhotoFullSheet) {
             // TODO: 선택한 이미지가 보이도록 로직 추가
             ExpandedPhoto(photo: .progressDefault)
+                .presentationBackground(Color.black.opacity(0.8))
         }
-    }
-}
-
-// MARK: - CampfireViewEmoji
-
-private struct CampfireViewEmoji: View {
-    @State private var isShowEmojiPicker: Bool = true
-    @State private var currentEmoji: String = "death"
-    
-    private var emojiList: [String] = ["laugh", "embarrassed", "panic", "cry", "heart", "death"]
-    
-    var body: some View {
-        HStack {
-            Spacer()
-            if isShowEmojiPicker {
-                HStack(spacing: 16) {
-                    ForEach(emojiList, id: \.self) { emoji in
-                        Button {
-                            currentEmoji = emoji
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                isShowEmojiPicker = false
-                            }
-                        } label: {
-                            Image(emoji)
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                        }
-                    }
-                }
-                .padding(.vertical, 8)
-                .padding(.horizontal, 12)
-                .background {
-                    RoundedRectangle(cornerRadius: 30)
-                        .fill(Color(hex: "221F20"))
-                }
-                .animation(.easeInOut(duration: 0.3), value: isShowEmojiPicker)
-            } else {
-                Button {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        isShowEmojiPicker = true
-                    }
-                } label: {
-                    Image(currentEmoji)
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .padding(.vertical, 8)
-                        .padding(.horizontal, 12)
-                }
-                .background(
-                    RoundedRectangle(cornerRadius: 30)
-                        .stroke(Color.disable, lineWidth: 1)
-                )
-            }
-        }
-        .padding(.trailing, 24)
-        .padding(.bottom)
     }
 }
 
