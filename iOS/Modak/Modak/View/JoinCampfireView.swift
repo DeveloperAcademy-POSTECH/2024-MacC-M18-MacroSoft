@@ -35,11 +35,11 @@ struct JoinCampfireView: View {
                 }) {
                     Text("완료")
                         .font(.custom("Pretendard-Regular", size: 18))
-                        .foregroundColor((!viewModel.roomName.isEmpty || !viewModel.roomPassword.isEmpty) ? (!viewModel.showSuccess ? Color.mainColor1 : Color.clear) : Color.disable)
+                        .foregroundColor((!viewModel.campfireName.isEmpty || !viewModel.campfirePin.isEmpty) ? (!viewModel.showSuccess ? Color.mainColor1 : Color.clear) : Color.disable)
                     
                     Spacer(minLength: 2)
                 }
-                .disabled(viewModel.roomName.isEmpty && viewModel.roomPassword.isEmpty)
+                .disabled(viewModel.campfireName.isEmpty && viewModel.campfirePin.isEmpty)
             }
             ToolbarItem(placement: .bottomBar) {
                 cameraModeToggleButton
@@ -92,12 +92,12 @@ struct JoinCampfireView: View {
                         .overlay {
                             VStack(alignment: .leading, spacing: 14) {
                                 HStack {
-                                    TextField("", text: $viewModel.roomName)
-                                        .customTextFieldStyle(placeholder: "모닥불 이름", text: $viewModel.roomName, alignment: .center)
-                                        .animation(.easeOut, value: viewModel.roomName.count)
-                                        .onChange(of: viewModel.roomName) { _, newValue in
+                                    TextField("", text: $viewModel.campfireName)
+                                        .customTextFieldStyle(placeholder: "모닥불 이름", text: $viewModel.campfireName, alignment: .center)
+                                        .animation(.easeOut, value: viewModel.campfireName.count)
+                                        .onChange(of: viewModel.campfireName) { _, newValue in
                                             if newValue.count > 12 {
-                                                viewModel.roomName = String(newValue.prefix(12))
+                                                viewModel.campfireName = String(newValue.prefix(12))
                                             }
                                         }
                                     
@@ -107,21 +107,21 @@ struct JoinCampfireView: View {
                                         .kerning(16 * 0.01)
                                         .fixedSize(horizontal: true, vertical: false) // 가로 크기 고정
                                         .transition(.opacity)
-                                        .animation(.easeOut, value: viewModel.roomName.count)
+                                        .animation(.easeOut, value: viewModel.campfireName.count)
                                 }
-                                .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: (viewModel.roomName.count < 5 ? 214 : 84)))
+                                .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: (viewModel.campfireName.count < 5 ? 214 : 84)))
                                 
                                 HStack {
-                                    TextField("", text: $viewModel.roomPassword)
-                                        .customTextFieldStyle(placeholder: "km", text: $viewModel.roomPassword, alignment: .trailing)
-                                        .animation(.easeOut, value: viewModel.roomPassword.count)
-                                        .onChange(of: viewModel.roomPassword) { _, newValue in
+                                    TextField("", text: $viewModel.campfirePin)
+                                        .customTextFieldStyle(placeholder: "km", text: $viewModel.campfirePin, alignment: .trailing)
+                                        .animation(.easeOut, value: viewModel.campfirePin.count)
+                                        .onChange(of: viewModel.campfirePin) { _, newValue in
                                             let filtered = newValue.filter { $0.isNumber || $0 == "." }
                                             if filtered != newValue {
-                                                viewModel.roomPassword = filtered
+                                                viewModel.campfirePin = filtered
                                             }
                                             if newValue.count > 7 {
-                                                viewModel.roomPassword = String(newValue.prefix(7))
+                                                viewModel.campfirePin = String(newValue.prefix(7))
                                             }
                                         }
                                     
@@ -130,9 +130,9 @@ struct JoinCampfireView: View {
                                         .font(.custom("Pretendard-Bold", size: 16))
                                         .kerning(16 * 0.01)
                                         .transition(.opacity)
-                                        .animation(.easeOut, value: viewModel.roomPassword.count)
+                                        .animation(.easeOut, value: viewModel.campfirePin.count)
                                 }
-                                .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: (viewModel.roomPassword.count < 6 ? 196 : 176)))
+                                .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: (viewModel.campfirePin.count < 6 ? 196 : 176)))
                             }
                             .padding(.top, -90)
                         }

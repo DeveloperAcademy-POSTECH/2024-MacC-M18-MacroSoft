@@ -8,8 +8,8 @@
 import SwiftUI
 
 class JoinCampfireViewModel: ObservableObject {
-    @Published var roomName: String = ""
-    @Published var roomPassword: String = ""
+    @Published var campfireName: String = ""
+    @Published var campfirePin: String = ""
     @Published var isCameraMode: Bool = true
     @Published var showError: Bool = false
     @Published var showSuccess: Bool = false
@@ -24,23 +24,23 @@ class JoinCampfireViewModel: ObservableObject {
 
     // 유효성 검사 및 서버 통신을 관리
     func validateAndSendCredentials() {
-        guard !roomName.isEmpty, !roomPassword.isEmpty else {
+        guard !campfireName.isEmpty, !campfirePin.isEmpty else {
             showError = true
             return
         }
 
-        sendRoomCredentialsToServer()
+        sendCampfireCredentialsToServer()
     }
     
     // 서버에 요청 전송 -> 예시 함수 (아직 api 안나옴)
-    private func sendRoomCredentialsToServer() {
+    private func sendCampfireCredentialsToServer() {
         // 서버의 URL
         guard let url = URL(string: "not yet") else { return }
         
         // 전송할 데이터
         let parameters: [String: Any] = [
-            "roomName": roomName,
-            "roomPassword": roomPassword
+            "campfireName": campfireName,
+            "campfirePin": campfirePin
         ]
         
         // JSON 데이터로 변환
@@ -86,33 +86,33 @@ class JoinCampfireViewModel: ObservableObject {
                     // recognizedText를 줄 단위로 나눔
                     let lines = recognizedText.components(separatedBy: .newlines)
                     
-                    // "모닥불 참여하기를 눌러 하단 이정표를 스캔해 주세요."를 찾은 후, 다음 줄을 roomName으로 설정
+                    // "모닥불 참여하기를 눌러 하단 이정표를 스캔해 주세요."를 찾은 후, 다음 줄을 campfireName으로 설정
                     if let startIndex = lines.firstIndex(where: { $0.contains("모닥불 참여하기를 눌러 하단 이정표를 스캔해 주세요.") }),
                        startIndex + 1 < lines.count {
                         
-                        var extractedRoomName = lines[startIndex + 1]
+                        var extractedCampfireName = lines[startIndex + 1]
                         
                         // "까지" 또는 " 까지"가 포함되어 있으면 그 뒤의 텍스트를 모두 제거
-                        if let range = extractedRoomName.range(of: "까지") {
-                            extractedRoomName = String(extractedRoomName[..<range.lowerBound])
-                        } else if let range = extractedRoomName.range(of: " 까지") {
-                            extractedRoomName = String(extractedRoomName[..<range.lowerBound])
+                        if let range = extractedCampfireName.range(of: "까지") {
+                            extractedCampfireName = String(extractedCampfireName[..<range.lowerBound])
+                        } else if let range = extractedCampfireName.range(of: " 까지") {
+                            extractedCampfireName = String(extractedCampfireName[..<range.lowerBound])
                         }
                         
                         
-                        self.roomName = extractedRoomName
+                        self.campfireName = extractedCampfireName
                     }
                     
-                    // "km" 이 포함된 줄에서 점을 제외한 숫자만 추출하여 roomPassword로 설정
-                    if let roomPasswordLine = lines.first(where: { $0.contains("km")}) {
-                        let extractedRoomPassword = roomPasswordLine.replacingOccurrences(of: "km", with: "")
+                    // "km" 이 포함된 줄에서 점을 제외한 숫자만 추출하여 campfirePin로 설정
+                    if let campfirePinLine = lines.first(where: { $0.contains("km")}) {
+                        let extractedCampfirePin = campfirePinLine.replacingOccurrences(of: "km", with: "")
                                                                     .compactMap { $0.isNumber ? String($0) : nil }.joined()
                         
-                        self.roomPassword = extractedRoomPassword
+                        self.campfirePin = extractedCampfirePin
                     }
                     
-                    print("Room Name: \(self.roomName)")
-                    print("Room Password: \(self.roomPassword)")
+                    print("Campfire Name: \(self.campfireName)")
+                    print("Campfire Pin: \(self.campfirePin)")
                 }
                 
             } catch {
