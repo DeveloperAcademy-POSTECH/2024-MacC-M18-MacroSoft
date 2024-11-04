@@ -10,7 +10,7 @@ import SwiftUI
 class JoinCampfireViewModel: ObservableObject {
     @Published var roomName: String = ""
     @Published var roomPassword: String = ""
-    @Published var isCameraMode: Bool = false
+    @Published var isCameraMode: Bool = true
     @Published var showError: Bool = false
     @Published var showSuccess: Bool = false
     @Published var cameraViewModel = CameraViewModel()
@@ -103,10 +103,9 @@ class JoinCampfireViewModel: ObservableObject {
                         self.roomName = extractedRoomName
                     }
                     
-                    // "km 남음" 또는 " km 남음"이 포함된 줄에서 점을 제외한 숫자만 추출하여 roomPassword로 설정
-                    if let roomPasswordLine = lines.first(where: { $0.contains("km 남음") || $0.contains(" km 남음") }) {
-                        let extractedRoomPassword = roomPasswordLine.replacingOccurrences(of: "km 남음", with: "")
-                                                                    .replacingOccurrences(of: " km 남음", with: "")
+                    // "km" 이 포함된 줄에서 점을 제외한 숫자만 추출하여 roomPassword로 설정
+                    if let roomPasswordLine = lines.first(where: { $0.contains("km")}) {
+                        let extractedRoomPassword = roomPasswordLine.replacingOccurrences(of: "km", with: "")
                                                                     .compactMap { $0.isNumber ? String($0) : nil }.joined()
                         
                         self.roomPassword = extractedRoomPassword
