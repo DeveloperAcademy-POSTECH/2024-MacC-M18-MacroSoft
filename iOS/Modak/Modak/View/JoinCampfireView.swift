@@ -14,8 +14,7 @@ struct JoinCampfireView: View {
         ZStack {
             Color.backgroundDefault.ignoresSafeArea(.all)
             
-            contentView.ignoresSafeArea()
-            cameraModeToggleButton
+            contentView
             
             if viewModel.showSuccess {
                 BottomSheet(isPresented: $viewModel.showSuccess, viewName: "JoinCampfireView")
@@ -42,13 +41,16 @@ struct JoinCampfireView: View {
                 }
                 .disabled(viewModel.roomName.isEmpty && viewModel.roomPassword.isEmpty)
             }
+            ToolbarItem(placement: .bottomBar) {
+                cameraModeToggleButton
+            }
         }
     }
     
     @ViewBuilder
     private var contentView: some View {
         if viewModel.isCameraMode {
-            JoinCampfireByCameraView()
+            JoinCampfireByCameraView().ignoresSafeArea()
         } else {
             manualEntryView
         }
@@ -134,7 +136,7 @@ struct JoinCampfireView: View {
                             }
                             .padding(.top, -90)
                         }
-                        .padding(.top, -128)
+                        .padding(.top, -110)
                     
                     Spacer()
                 }
@@ -143,30 +145,25 @@ struct JoinCampfireView: View {
     }
     
     private var cameraModeToggleButton: some View {
-        VStack {
+        HStack {
             Spacer()
             
-            HStack {
-                Spacer()
-                
-                Button(action: {
-                    viewModel.isCameraMode.toggle()
-                }) {
-                    Text(viewModel.isCameraMode ? "직접 입력하기" : "촬영해서 입력")
-                        .font(.custom("Pretendard-Regular", size: 16))
-                        .foregroundColor(.white)
-                        .padding(EdgeInsets(top: 14, leading: 20, bottom: 14, trailing: 20))
-                        .background(Color.textBackgroundRedGray.opacity(0.1))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 100)
-                                .stroke(Color.mainColor1, lineWidth: 1.8)
-                        )
-                        .clipShape(RoundedRectangle(cornerRadius: 100))
-                }
-                .padding(.trailing, 20)
+            Button(action: {
+                viewModel.isCameraMode.toggle()
+            }) {
+                Text(viewModel.isCameraMode ? "직접 입력하기" : "촬영해서 입력")
+                    .font(.custom("Pretendard-Regular", size: 16))
+                    .foregroundColor(.white)
+                    .padding(EdgeInsets(top: 14, leading: 20, bottom: 14, trailing: 20))
+                    .background(Color.textBackgroundRedGray.opacity(0.1))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 100)
+                            .stroke(Color.mainColor1, lineWidth: 1.8)
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 100))
             }
-            .padding(.bottom, 14)
         }
+        .padding(.bottom, 34)
     }
     
 }
