@@ -30,8 +30,8 @@ struct JoinCampfireView: View {
             
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
-                    viewModel.showSuccess = true //테스트 전용
-//                    viewModel.validateAndSendCredentials() // TODO: 서버 api 연결
+//                    viewModel.showSuccess = true //테스트 전용
+                    viewModel.validateAndSendCredentials() // TODO: 서버 api 연결
                 }) {
                     Text("완료")
                         .font(.custom("Pretendard-Regular", size: 18))

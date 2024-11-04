@@ -15,6 +15,8 @@ class JoinCampfireViewModel: ObservableObject {
     @Published var showSuccess: Bool = false
     @Published var cameraViewModel = CameraViewModel()
     
+    var campfireURL = Bundle.main.environmentVariable(forKey: "CampfireURL")!
+    
     init() {
         // 캡처된 이미지가 있을 때 자동으로 텍스트 인식을 수행하도록 설정
         cameraViewModel.textRecognizeHandler = { [weak self] image in
@@ -35,12 +37,15 @@ class JoinCampfireViewModel: ObservableObject {
     // 서버에 요청 전송 -> 예시 함수 (아직 api 안나옴)
     private func sendCampfireCredentialsToServer() {
         // 서버의 URL
-        guard let url = URL(string: "not yet") else { return }
-        
+        guard let url = URL(string: campfireURL + "/\(campfirePin)/join") else {
+            print("Invalid URL")
+            return
+        }
+        print("Campfire Join URL: \(String(describing: url))")
+
         // 전송할 데이터
         let parameters: [String: Any] = [
-            "campfireName": campfireName,
-            "campfirePin": campfirePin
+            "campfireName": "Macrosoft"
         ]
         
         // JSON 데이터로 변환
@@ -59,14 +64,24 @@ class JoinCampfireViewModel: ObservableObject {
                     return
                 }
                 
-//                guard let data = data else { return }
-                
                 // 서버 응답 처리
-                if let response = response as? HTTPURLResponse {
+                if let response = response as? HTTPURLResponse, let data = data {
                     switch response.statusCode {
                     case 200:
-                        self?.showSuccess = true
+                        // JSON 응답 파싱
+                        do {
+                            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                               let result = json["result"] as? [String: Any],
+                               let campfirePin = result["campfirePin"] as? Int {
+                                print("Successfully joined campfire with PIN: \(campfirePin)")
+                                self?.showSuccess = true
+                            }
+                        } catch {
+                            print("Failed to parse response: \(error.localizedDescription)")
+                            self?.showError = true
+                        }
                     default:
+                        print("Failed with status code: \(response.statusCode)")
                         self?.showError = true
                     }
                 }
