@@ -20,7 +20,7 @@ struct ModakApp: App {
     var body: some Scene {
         WindowGroup {
             CoordinatorView()
-                .modelContainer(for: [Log.self, PhotoMetadata.self])
+                .modelContainer(for: [PrivateLog.self, PrivateLogImage.self])
         }
     }
 }

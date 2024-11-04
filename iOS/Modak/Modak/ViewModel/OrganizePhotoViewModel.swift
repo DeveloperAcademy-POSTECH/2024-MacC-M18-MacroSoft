@@ -12,8 +12,8 @@ class OrganizePhotoViewModel: ObservableObject {
     @Published var currentCount: Int = 0
     @Published var totalCount: Int = 0
     @Published var displayedCount: Int = 0
-    @Published var clusters: [[PhotoMetadata]] = []
-    @Published var photoMetadataList: [PhotoMetadata] = []
+    @Published var clusters: [[PrivateLogImage]] = []
+    @Published var photoMetadataList: [PrivateLogImage] = []
     @Published var statusMessage: String = "장작을 모으는 중"
     @Published var currentCircularProgressPhoto: UIImage? = nil
     
@@ -45,7 +45,7 @@ class OrganizePhotoViewModel: ObservableObject {
         fetchResult.enumerateObjects { (asset, _, _) in
             let latitude = asset.location?.coordinate.latitude
             let longitude = asset.location?.coordinate.longitude
-            let metadata = PhotoMetadata(localIdentifier: asset.localIdentifier, latitude: latitude, longitude: longitude, creationDate: asset.creationDate)
+            let metadata = PrivateLogImage(localIdentifier: asset.localIdentifier, latitude: latitude, longitude: longitude, creationDate: asset.creationDate)
             self.photoMetadataList.append(metadata)
         }
     }
@@ -118,7 +118,7 @@ class OrganizePhotoViewModel: ObservableObject {
     }
 
     // localIdentifier를 통해 PHAsset을 불러오는 함수
-    func fetchPhoto(for metadata: PhotoMetadata, completion: @escaping (UIImage?) -> Void) {
+    func fetchPhoto(for metadata: PrivateLogImage, completion: @escaping (UIImage?) -> Void) {
         let fetchResult = PHAsset.fetchAssets(withLocalIdentifiers: [metadata.localIdentifier], options: nil)
         
         guard let asset = fetchResult.firstObject else {

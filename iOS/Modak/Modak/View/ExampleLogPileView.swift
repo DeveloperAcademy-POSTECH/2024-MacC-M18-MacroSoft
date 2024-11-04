@@ -11,8 +11,8 @@ import SwiftData
 
 struct ExampleLogPileView: View {
     @Environment(\.modelContext) private var modelContext
-    @State private var logs: [Log] = []
-    @State private var groupedLogs: [(date: Date, logs: [Log])] = []
+    @State private var logs: [PrivateLog] = []
+    @State private var groupedLogs: [(date: Date, logs: [PrivateLog])] = []
 
     var body: some View {
         NavigationView {
@@ -64,7 +64,7 @@ struct ExampleLogPileView: View {
 
     private func fetchLogs() {
         do {
-            logs = try modelContext.fetch(FetchDescriptor<Log>())
+            logs = try modelContext.fetch(FetchDescriptor<PrivateLog>())
             print("불러온 로그 개수: \(logs.count)")
 
             let grouped = Dictionary(grouping: logs) { log in
@@ -84,7 +84,7 @@ struct ExampleLogPileView: View {
     }
     
     // 첫 사진과 마지막 사진의 시간의 평균값 계산 함수
-    private func calculateAverageDate(log: Log) -> Date? {
+    private func calculateAverageDate(log: PrivateLog) -> Date? {
         guard let firstImage = log.images.first?.creationDate,
                 let lastImage = log.images.last?.creationDate else {
             return nil
@@ -104,7 +104,7 @@ struct ExampleLogPileView: View {
 
 // 사진을 표시하는 이미지 뷰
 struct LogImageView: View {
-    let photoMetadata: PhotoMetadata
+    let photoMetadata: PrivateLogImage
     @State private var image: UIImage?
 
     var body: some View {
@@ -121,7 +121,7 @@ struct LogImageView: View {
         }
     }
 
-    private func fetchImage(for metadata: PhotoMetadata) {
+    private func fetchImage(for metadata: PrivateLogImage) {
         let fetchResult = PHAsset.fetchAssets(withLocalIdentifiers: [metadata.localIdentifier], options: nil)
 
         guard let asset = fetchResult.firstObject else {

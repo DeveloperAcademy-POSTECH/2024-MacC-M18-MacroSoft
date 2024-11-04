@@ -197,7 +197,7 @@ struct OrganizePhotoView: View {
                 }
             }
 
-            let newLog = Log(
+            let newLog = PrivateLog(
                 minLatitude: minLatitude,
                 maxLatitude: maxLatitude,
                 minLongitude: minLongitude,

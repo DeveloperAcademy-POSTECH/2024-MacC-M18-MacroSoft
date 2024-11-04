@@ -36,7 +36,7 @@ struct ContentView: View {
                             CampfireView()
                         } label: {
                             Image(.tabCampfire)
-                            Text("캠프파이어")
+                            Text("모닥불")
                         }
                         
                         Tab(value: 2) {
@@ -56,7 +56,7 @@ struct ContentView: View {
                         
                         CampfireView()
                             .tabItem {
-                                Label("캠프파이어", image: .tabCampfire)
+                                Label("모닥불", image: .tabCampfire)
                             }
                             .tag(1)
                         
@@ -83,15 +83,10 @@ private struct NavigationCustomTitle: View {
     
     var body: some View {
         Group {
-            switch tabSelection {
-            case 0:
+            if tabSelection == 0 {
                 Text("내 장작 창고")
-            case 1:
-                Text("캠프파이어")
-            case 2:
+            } else if tabSelection == 2 {
                 Text("프로필")
-            default:
-                Text("")
             }
         }
         .foregroundStyle(.textColorTitleView)

@@ -10,7 +10,7 @@ import Photos
 import Firebase
 
 struct LogPileDetailView:View {
-    private(set) var selectedLog: Log
+    private(set) var selectedLog: PrivateLog
     
     var body: some View {
         ScrollView {
@@ -47,7 +47,7 @@ struct LogPileDetailView:View {
 }
 
 private struct LogPileDetailViewTitle: View {
-    private(set) var selectedLog: Log
+    private(set) var selectedLog: PrivateLog
     
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
@@ -82,7 +82,7 @@ private struct LogPileDetailViewTitle: View {
 // MARK: - LogPileDetailViewGrid
 
 private struct LogPileDetailViewGrid: View {
-    private(set) var selectedLog: Log
+    private(set) var selectedLog: PrivateLog
     
     private(set) var gridItems: [GridItem] = Array(repeating: GridItem(.fixed(UIScreen.main.bounds.size.width / 3), spacing: 1.5), count: 3)
     
