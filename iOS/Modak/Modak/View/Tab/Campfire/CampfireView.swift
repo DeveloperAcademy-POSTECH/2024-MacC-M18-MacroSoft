@@ -10,6 +10,7 @@ import SwiftUI
 struct CampfireView: View {
     // TODO: 참여한 모닥불이 없는지 체크하는 로직 추가
     @State private var isEmptyCampfire: Bool = false
+    @Binding private(set) var isShowSideMenu: Bool
     
     var body: some View {
         VStack {
@@ -17,18 +18,21 @@ struct CampfireView: View {
             if isEmptyCampfire {
                 EmptyCampfireView()
             } else {
-                SelectedCampfireView()
+                SelectedCampfireView(isShowSideMenu: $isShowSideMenu)
             }
         }
         .background {
-            Color.backgroundDefault.ignoresSafeArea()
-            LinearGradient.campfireViewBackground.ignoresSafeArea()
-            EllipticalGradient.campfireViewBackground.rotationEffect(.degrees(90), anchor: UnitPoint(x: 0.5, y: 0.75))
-                .ignoresSafeArea()
+            Group {
+                Color.backgroundDefault
+                LinearGradient.campfireViewBackground
+                EllipticalGradient.campfireViewBackground
+                    .rotationEffect(.degrees(90), anchor: UnitPoint(x: 0.5, y: 0.75))
+            }
+            .ignoresSafeArea()
         }
     }
 }
 
 #Preview {
-    CampfireView()
+    CampfireView(isShowSideMenu: .constant(false))
 }
