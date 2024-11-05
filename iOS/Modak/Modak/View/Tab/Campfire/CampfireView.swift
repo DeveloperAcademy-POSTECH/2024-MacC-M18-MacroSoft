@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CampfireView: View {
     // TODO: 참여한 모닥불이 없는지 체크하는 로직 추가
-    @State private var isEmptyCampfire: Bool = false
+    @State private var isEmptyCampfire: Bool = true
     
     var body: some View {
         VStack {
