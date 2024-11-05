@@ -87,7 +87,7 @@ struct ContentView: View {
                             }
                     }
                     
-                    SelectCampfiresView()
+                    SelectCampfiresView(isShowSideMenu: $isShowSideMenu)
                         .frame(width: UIScreen.main.bounds.width * 0.9)
                         .background {
                             LinearGradient.SelectCampfiresViewBackground

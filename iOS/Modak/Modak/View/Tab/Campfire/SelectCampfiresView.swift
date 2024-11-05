@@ -27,6 +27,7 @@ struct SelectCampfiresView: View {
     @State private var campfires: [TestCampfire] = [TestCampfire(id: 1, title: "매크로소프트", pin: 1), TestCampfire(id: 2, title: "매크로소프트", pin: 2)]
     // TODO: 테스트용 변수 추후 DB 데이터와 연결
     @State private var currentCampfireID: Int = 1
+    @Binding private(set) var isShowSideMenu: Bool
     
     var body: some View {
         HStack {
@@ -45,7 +46,7 @@ struct SelectCampfiresView: View {
                 .padding(.init(top: 16, leading: 16, bottom: 10, trailing: 16))
                 
                 List($campfires, id: \.id) { campfire in
-                    SelectCampfiresViewCampfireButton(campfire: campfire, currentCampfireId: $currentCampfireID)
+                    SelectCampfiresViewCampfireButton(campfire: campfire, currentCampfireId: $currentCampfireID, isShowSideMenu: $isShowSideMenu)
                         .listRowSeparator(.hidden)
                         .listRowInsets(.init(top: 0, leading: 0, bottom: 10, trailing: 0))
                         .listRowBackground(Color.clear)
@@ -94,47 +95,57 @@ private struct SelectCampfiresViewTopButton: View {
 private struct SelectCampfiresViewCampfireButton: View {
     @Binding private(set) var campfire: TestCampfire
     @Binding private(set) var currentCampfireId: Int
+    @Binding private(set) var isShowSideMenu: Bool
     
     // TODO: 테스트용 변수 추후 DB 데이터와 연결
     private(set) var people = ["아서아서서", "온브", "조이", "에이스", "라무네라무네"]
     
     var body: some View {
         if campfire.id == currentCampfireId {
-            UnevenRoundedRectangle(cornerRadii: .init(bottomTrailing: 20, topTrailing: 20))
-                .fill(Color(hex: "464141"))
-                .overlay(
-                    UnevenRoundedRectangle(cornerRadii: .init(bottomTrailing: 20, topTrailing: 20))
-                        .strokeBorder(.mainColor2, lineWidth: 1)
-                        .clipShape(
-                            UnevenRoundedRectangle(cornerRadii: .init(bottomTrailing: 20, topTrailing: 20))
-                        )
-                        .mask(
-                            Rectangle()
-                                .padding(.leading, 1)
-                        )
-                )
-                .overlay {
-                    HStack(spacing: 12) {
-                        Image(.progressDefault)
-                            .resizable()
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                            .aspectRatio(1, contentMode: .fit)
-                        
-                        VStack {
-                            Text(campfire.title)
-                                .font(Font.custom("Pretendard-SemiBold", size: 14))
-                                .foregroundStyle(.white)
-                        }
-                        
-                        Spacer()
-                    }
-                    .padding(12)
+            Button {
+                withAnimation {
+                    isShowSideMenu = false
                 }
-                .frame(height: 72)
-                .padding(.trailing)
+            } label: {
+                UnevenRoundedRectangle(cornerRadii: .init(bottomTrailing: 20, topTrailing: 20))
+                    .fill(Color(hex: "464141"))
+                    .overlay(
+                        UnevenRoundedRectangle(cornerRadii: .init(bottomTrailing: 20, topTrailing: 20))
+                            .strokeBorder(.mainColor2, lineWidth: 1)
+                            .clipShape(
+                                UnevenRoundedRectangle(cornerRadii: .init(bottomTrailing: 20, topTrailing: 20))
+                            )
+                            .mask(
+                                Rectangle()
+                                    .padding(.leading, 1)
+                            )
+                    )
+                    .overlay {
+                        HStack(spacing: 12) {
+                            Image(.progressDefault)
+                                .resizable()
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                .aspectRatio(1, contentMode: .fit)
+                            
+                            VStack {
+                                Text(campfire.title)
+                                    .font(Font.custom("Pretendard-SemiBold", size: 14))
+                                    .foregroundStyle(.white)
+                            }
+                            
+                            Spacer()
+                        }
+                        .padding(12)
+                    }
+            }
+            .frame(height: 72)
+            .padding(.trailing)
         } else {
             Button {
                 currentCampfireId = campfire.id
+                withAnimation {
+                    isShowSideMenu = false
+                }
             } label: {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.init(hex: "443D41"))
@@ -188,5 +199,5 @@ private struct SelectCampfiresViewCampfireButton: View {
 }
 
 #Preview {
-    SelectCampfiresView()
+    SelectCampfiresView(isShowSideMenu: .constant(true))
 }
