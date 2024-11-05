@@ -13,6 +13,8 @@
 		109396912CD29615004C4EBD /* TextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109396902CD29615004C4EBD /* TextRecognizer.swift */; };
 		109396932CD29680004C4EBD /* CameraGuidePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109396922CD29680004C4EBD /* CameraGuidePreview.swift */; };
 		109396982CD8DB9A004C4EBD /* JoinCampfireByTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109396972CD8DB9A004C4EBD /* JoinCampfireByTextView.swift */; };
+		1093969C2CD99F57004C4EBD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093969B2CD99F57004C4EBD /* NetworkManager.swift */; };
+		1093969F2CD9A0E7004C4EBD /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093969E2CD9A0E7004C4EBD /* APIRouter.swift */; };
 		10AB91AA2CACD29A00BFA2EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10AB91A42CACD29A00BFA2EC /* Preview Assets.xcassets */; };
 		10AB91AB2CACD29A00BFA2EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10AB91A62CACD29A00BFA2EC /* Assets.xcassets */; };
 		10AB91AC2CACD29A00BFA2EC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91A72CACD29A00BFA2EC /* ContentView.swift */; };
@@ -85,6 +87,8 @@
 		109396902CD29615004C4EBD /* TextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizer.swift; sourceTree = "<group>"; };
 		109396922CD29680004C4EBD /* CameraGuidePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraGuidePreview.swift; sourceTree = "<group>"; };
 		109396972CD8DB9A004C4EBD /* JoinCampfireByTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCampfireByTextView.swift; sourceTree = "<group>"; };
+		1093969B2CD99F57004C4EBD /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		1093969E2CD9A0E7004C4EBD /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
 		10AB91712CACCE4F00BFA2EC /* Modak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Modak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10AB91A42CACD29A00BFA2EC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		10AB91A62CACD29A00BFA2EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -174,6 +178,15 @@
 			path = CameraTextRecognizer;
 			sourceTree = "<group>";
 		};
+		1093969D2CD99FBA004C4EBD /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				1093969B2CD99F57004C4EBD /* NetworkManager.swift */,
+				1093969E2CD9A0E7004C4EBD /* APIRouter.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		10AB91682CACCE4F00BFA2EC = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +219,7 @@
 			children = (
 				10BCB0FB2CBE13510013E227 /* Modak.entitlements */,
 				10BE37732CB3085A008D1DA1 /* Info.plist */,
+				1093969D2CD99FBA004C4EBD /* Network */,
 				10AB91B22CACD2E000BFA2EC /* App */,
 				10AB91AE2CACD2AC00BFA2EC /* Model */,
 				10AB91AF2CACD2B400BFA2EC /* View */,
@@ -481,12 +495,14 @@
 				109396912CD29615004C4EBD /* TextRecognizer.swift in Sources */,
 				CAB2BE402CC0A9850030C1F1 /* MonthlyLogs.swift in Sources */,
 				10F58EE52CD06C0D00BF9D34 /* JoinCampfireView.swift in Sources */,
+				1093969F2CD9A0E7004C4EBD /* APIRouter.swift in Sources */,
 				CAA0B7C02CD8E0860093AEA7 /* ExpandableEmoji.swift in Sources */,
 				10BCB0EC2CB825520013E227 /* BottomSheet.swift in Sources */,
 				109396932CD29680004C4EBD /* CameraGuidePreview.swift in Sources */,
 				10BCB0E02CB8206C0013E227 /* DBSCAN.swift in Sources */,
 				10BCB0FD2CBE14BC0013E227 /* AppleSigninButton.swift in Sources */,
 				10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */,
+				1093969C2CD99F57004C4EBD /* NetworkManager.swift in Sources */,
 				CAB2BE422CC0A9D10030C1F1 /* DailyLogs.swift in Sources */,
 				1093968B2CD2879B004C4EBD /* JoinCampfireViewModel.swift in Sources */,
 				CAA0B7B22CD3228D0093AEA7 /* PublicLogImage.swift in Sources */,

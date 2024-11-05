@@ -12,9 +12,6 @@ import CryptoKit
 class AppleSigninViewModel: ObservableObject {
     @Published var isLoggedIn: Bool = false
     @Published var shouldReLogin = false // 로그인을 다시 해야 하는지 여부를 저장
-    
-    let loginURL = URL(string: Bundle.main.environmentVariable(forKey: "SocialLoginURL")!)
-    let refreshTokenURL = URL(string: Bundle.main.environmentVariable(forKey: "RefreshTokenURL")!)
         
     func handleAppleSignIn(result: Result<ASAuthorization, Error>) {
         // 인증 결과 처리
@@ -24,18 +21,18 @@ class AppleSigninViewModel: ObservableObject {
             switch authResults.credential{
                 case let appleIDCredential as ASAuthorizationAppleIDCredential:
                     // 계정 정보 가져오기
-                    let authorizationCode = String(data: appleIDCredential.authorizationCode!, encoding: .utf8)
-                    let identityToken = String(data: appleIDCredential.identityToken!, encoding: .utf8)
+                    let authorizationCode = String(data: appleIDCredential.authorizationCode!, encoding: .utf8) ?? ""
+                    let identityToken = String(data: appleIDCredential.identityToken!, encoding: .utf8) ?? ""
                     let userIdentifier = appleIDCredential.user
                     let encryptedUserIdentifier = SHA256.hash(data: Data(userIdentifier.utf8)).compactMap { String(format: "%02x", $0) }.joined()
                     
                     // 값 확인
-                    print("Authorization Code: \(authorizationCode ?? "")")
-                    print("Identity Token: \(identityToken ?? "")")
+                    print("Authorization Code: \(authorizationCode)")
+                    print("Identity Token: \(identityToken)")
                     print("Encrypted User Identifier: \(encryptedUserIdentifier)")
                     
                     // 서버에 값 전송
-                    sendCredentialsToServer(authorizationCode: authorizationCode ?? "", identityToken: identityToken ?? "", encryptedUserIdentifier: encryptedUserIdentifier)
+                    sendCredentialsToServer(authorizationCode: authorizationCode, identityToken: identityToken, encryptedUserIdentifier: encryptedUserIdentifier)
                 
                     // 로그인 성공
                     self.isLoggedIn = true
@@ -56,64 +53,24 @@ class AppleSigninViewModel: ObservableObject {
     
     // 서버로 데이터를 전송하는 함수
     func sendCredentialsToServer(authorizationCode: String, identityToken: String, encryptedUserIdentifier: String) {
-        print("Login URL: \(String(describing: loginURL))")
-        print("Refresh Token URL: \(String(describing: refreshTokenURL))")
-        
-        // 서버의 URL
-        guard let url = loginURL else {
-            print("Invalid URL")
-            return
-        }
-        
-        // 전송할 데이터
         let parameters: [String: Any] = [
             "authorizationCode": authorizationCode,
             "identityToken": identityToken,
             "encryptedUserIdentifier": encryptedUserIdentifier
         ]
-
-        // JSON 데이터로 변환
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
-            print("Error encoding parameters")
-            return
-        }
-
-        // URLRequest 설정
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = httpBody
-
-        // 네트워크 요청
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error sending request: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let data = data else { return }
-
-            // 서버 응답 처리
-            if let response = response as? HTTPURLResponse {
-                switch response.statusCode {
-                case 200:
-                    // 성공적으로 처리됨
-                    self.handleServerResponse(data: data)
-                case 401, 403:
-                    // 토큰이 만료됨
-                    self.promptUserToReLogin()
-                default:
-                    print("Unexpected response code: \(response.statusCode)")
-                }
+        
+        Task {
+            do {
+                let data = try await NetworkManager.shared.requestRawData(router: .socialLogin(socialType: "APPLE", parameters: parameters))
+                handleLoginResponse(data)
+            } catch {
+                promptUserToReLogin()
             }
         }
-
-        // 요청 시작
-        task.resume()
     }
     
-    // 서버 응답 처리 함수
-    private func handleServerResponse(data: Data) {
+    // 서버 응답 처리
+    private func handleLoginResponse(_ data: Data) {
         do {
             if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                let result = jsonResponse["result"] as? [String: Any] {
@@ -126,58 +83,54 @@ class AppleSigninViewModel: ObservableObject {
                     setAccessToken(accessToken)
                     setRefreshToken(refreshToken)
                 }
+            } else {
+                print("promptUserToReLogin Error: Missing tokens in response.")
+                promptUserToReLogin()
             }
         } catch {
-            print("Error parsing response: \(error.localizedDescription)")
+            print("Error parsing login response:", error)
+            promptUserToReLogin()
         }
     }
     
-    // refreshToken으로 accessToken을 새로 발급받는 함수
+    // refreshToken으로 accessToken 갱신
     func refreshAccessToken() {
-        guard let refreshToken = getRefreshToken(), let url = refreshTokenURL else {
-            print("No valid refreshToken or invalid URL")
+        guard let refreshToken = getRefreshToken() else {
             self.shouldReLogin = true
             return
         }
         
-        // 전송할 데이터 (refreshToken을 사용하여 accessToken 재발급 요청)
-        let parameters: [String: Any] = [
-            "refreshToken": refreshToken
-        ]
-        
-        // JSON 데이터로 변환
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
-            print("Error encoding parameters")
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = httpBody
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error refreshing access token: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let data = data else { return }
-            
-            // 새 accessToken을 발급받아 처리
-            if let response = response as? HTTPURLResponse {
-                switch response.statusCode {
-                case 200:
-                    self.handleServerResponse(data: data)
-                case 401, 403:
-                    self.promptUserToReLogin() // refresh토큰도 만료됨
-                default:
-                    print("Unexpected response code: \(response.statusCode)")
-                }
+        Task {
+            do {
+                let data = try await NetworkManager.shared.requestRawData(router: .refreshAccessToken(refreshToken: refreshToken))
+                handleTokenRefreshResponse(data)
+            } catch {
+                print("Error refreshing access token:", error)
+                promptUserToReLogin()
             }
         }
-        task.resume()
     }
+    
+    // 토큰 갱신 응답 처리
+    private func handleTokenRefreshResponse(_ data: Data) {
+        do {
+            if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+               let result = jsonResponse["result"] as? [String: Any] { // 'result' 딕셔너리 추출
+                if let accessToken = result["accessToken"] as? String {
+                    // 토큰 저장
+                    setAccessToken(accessToken)
+                    print("Token refreshed successfully.")
+                }
+            } else {
+                print("promptUserToReLogin Error: Missing access token in response.")
+                promptUserToReLogin()
+            }
+        } catch {
+            print("Error parsing token refresh response:", error)
+            promptUserToReLogin()
+        }
+    }
+
     
     // 사용자가 다시 로그인하도록 알림을 주는 함수
     func promptUserToReLogin() {
