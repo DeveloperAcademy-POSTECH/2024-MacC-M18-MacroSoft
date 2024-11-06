@@ -15,6 +15,7 @@
 		109396982CD8DB9A004C4EBD /* JoinCampfireByTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109396972CD8DB9A004C4EBD /* JoinCampfireByTextView.swift */; };
 		1093969C2CD99F57004C4EBD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093969B2CD99F57004C4EBD /* NetworkManager.swift */; };
 		1093969F2CD9A0E7004C4EBD /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093969E2CD9A0E7004C4EBD /* APIRouter.swift */; };
+		109396A32CDAFCE6004C4EBD /* CampfireViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109396A22CDAFCE6004C4EBD /* CampfireViewModel.swift */; };
 		10AB91AA2CACD29A00BFA2EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10AB91A42CACD29A00BFA2EC /* Preview Assets.xcassets */; };
 		10AB91AB2CACD29A00BFA2EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10AB91A62CACD29A00BFA2EC /* Assets.xcassets */; };
 		10AB91AC2CACD29A00BFA2EC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91A72CACD29A00BFA2EC /* ContentView.swift */; };
@@ -89,6 +90,7 @@
 		109396972CD8DB9A004C4EBD /* JoinCampfireByTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCampfireByTextView.swift; sourceTree = "<group>"; };
 		1093969B2CD99F57004C4EBD /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		1093969E2CD9A0E7004C4EBD /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
+		109396A22CDAFCE6004C4EBD /* CampfireViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireViewModel.swift; sourceTree = "<group>"; };
 		10AB91712CACCE4F00BFA2EC /* Modak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Modak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10AB91A42CACD29A00BFA2EC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		10AB91A62CACD29A00BFA2EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 				10BCB0DB2CB81D410013E227 /* OrganizePhotoViewModel.swift */,
 				10B0A66F2CBE6F820048C313 /* AppleSigninViewModel.swift */,
 				1093968A2CD2879B004C4EBD /* JoinCampfireViewModel.swift */,
+				109396A22CDAFCE6004C4EBD /* CampfireViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -526,6 +529,7 @@
 				CAA0B7BC2CD471290093AEA7 /* SelectedCampfireView.swift in Sources */,
 				10F58DBB2CC09D9300BF9D34 /* BundleExtension.swift in Sources */,
 				CA2B5D0B2CBA70C40070DEBF /* ColorExtension.swift in Sources */,
+				109396A32CDAFCE6004C4EBD /* CampfireViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

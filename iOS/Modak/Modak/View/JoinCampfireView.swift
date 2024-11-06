@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct JoinCampfireView: View {
+    @Environment(\.modelContext) private var modelContext
     @StateObject private var viewModel = JoinCampfireViewModel()
     
     var body: some View {
@@ -33,6 +34,9 @@ struct JoinCampfireView: View {
                 Button(action: {
 //                    viewModel.showSuccess = true //테스트 전용
                     viewModel.validateAndSendCredentials() // TODO: 서버 api 연결
+                    let newCampfire = Campfire(name: viewModel.campfireName, pin: Int(viewModel.campfirePin)!)
+                    modelContext.insert(newCampfire)
+                    try? modelContext.save()
                 }) {
                     Text("완료")
                         .font(.custom("Pretendard-Regular", size: 18))

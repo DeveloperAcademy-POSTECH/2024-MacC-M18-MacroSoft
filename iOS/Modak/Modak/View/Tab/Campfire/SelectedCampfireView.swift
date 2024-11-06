@@ -8,26 +8,41 @@
 import SwiftUI
 
 struct SelectedCampfireView: View {
+    @EnvironmentObject private var viewModel: CampfireViewModel
     // TODO: 참여한 모닥불의 로그가 없는지 체크하는 로직 추가
     @State private var isEmptyCampfireLog: Bool = true
-    // TODO: 참여한 모닥불의 이름 가져오는 로직 추가
-    @State private var campfireName: String = "MacroSoft"
     
     var body: some View {
-        CampfireViewTopButton(campfireName: $campfireName)
-        // TODO: 참여한 모닥불의 로그가 없는지 체크하는 로직 추가
-        if isEmptyCampfireLog {
-            CampfireViewEmptyLogView(campfireName: $campfireName)
-            
-            Spacer()
-        } else {
-            CampfireViewTodayPhoto()
-            
-            Spacer()
-             
-            ExpandableEmoji(emojiList: ["laugh", "embarrassed", "panic", "cry", "heart", "death"])
-                .padding(.trailing, 24)
-                .padding(.bottom)
+        VStack {
+            if let campfire = viewModel.campfire {
+                CampfireViewTopButton(campfireName: campfire.name)
+                
+                // TODO: 참여한 모닥불의 로그가 없는지 체크하는 로직 추가
+                if isEmptyCampfireLog {
+                    CampfireViewEmptyLogView(campfireName: campfire.name)
+                    
+                    Spacer()
+                } else {
+                    CampfireViewTodayPhoto(image: "photosIcon")
+                    
+                    Spacer()
+                    
+                    ExpandableEmoji(emojiList: ["laugh", "embarrassed", "panic", "cry", "heart", "death"])
+                        .padding(.trailing, 24)
+                        .padding(.bottom)
+                }
+                
+                // 추가 콘텐츠
+            } else {
+                Text("캠프파이어 정보를 불러오는 중")
+                    .foregroundStyle(.textColorGray2)
+                    .font(Font.custom("Pretendard-Regular", size: 18))
+                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                    .ignoresSafeArea()
+            }
+        }
+        .onAppear {
+            viewModel.fetchCampfireMainInfo()
         }
     }
 }
@@ -36,8 +51,7 @@ struct SelectedCampfireView: View {
 
 private struct CampfireViewTopButton: View {
     @State private var isShowSideMenu: Bool = false
-    
-    @Binding private(set) var campfireName: String
+    var campfireName: String
     
     var body: some View {
         HStack(spacing: 0) {
@@ -90,9 +104,14 @@ private struct CampfireViewTopButton: View {
 private struct CampfireViewTodayPhoto: View {
     @State private var randomRotation: Bool = Bool.random()
     @State private var isTodayPhotoFullSheet: Bool = false
+    var image: String = "photosIcon"
     
     // TODO: 오늘의 사진 높이가 320 넘는지 판별하는 로직 추가하기
     private var isTodayPhotoHeightOver320: Bool = false
+    
+    init(image: String) {
+        self.image = image
+    }
     
     var body: some View {
         VStack(spacing: 8) {
@@ -100,7 +119,7 @@ private struct CampfireViewTodayPhoto: View {
                 isTodayPhotoFullSheet = true
             } label: {
                 // TODO: 오늘의 이미지 넣는 로직 추가
-                Image(.photosIcon)
+                Image(image)
                     .resizable()
                     .scaledToFit()
                     .clipShape(RoundedRectangle(cornerRadius: 14))
@@ -132,7 +151,7 @@ private struct CampfireViewTodayPhoto: View {
 // MARK: - CampfireViewEmptyLogView
 
 private struct CampfireViewEmptyLogView: View {
-    @Binding private(set) var campfireName: String
+    var campfireName: String
     
     var body: some View {
         VStack {

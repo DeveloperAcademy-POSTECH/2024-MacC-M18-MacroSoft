@@ -6,20 +6,21 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CampfireView: View {
-    // TODO: 참여한 모닥불이 없는지 체크하는 로직 추가
-    @State private var isEmptyCampfire: Bool = true
+    @StateObject private var viewModel = CampfireViewModel()
+    @Query var campfires: [Campfire]
     
     var body: some View {
         VStack {
-            // TODO: 참여한 모닥불이 없는지 체크하는 로직 추가
-            if isEmptyCampfire {
+            if viewModel.isEmptyCampfire || campfires.isEmpty {
                 EmptyCampfireView()
             } else {
                 SelectedCampfireView()
             }
         }
+        .environmentObject(viewModel)
         .background {
             Color.backgroundDefault.ignoresSafeArea()
             LinearGradient.campfireViewBackground.ignoresSafeArea()

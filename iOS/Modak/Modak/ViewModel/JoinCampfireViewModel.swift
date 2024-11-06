@@ -15,6 +15,8 @@ class JoinCampfireViewModel: ObservableObject {
     @Published var showSuccess: Bool = false
     @Published var cameraViewModel = CameraViewModel()
     
+    @AppStorage("recentVisitedCampfirePin") private var recentVisitedCampfirePin: Int = 0
+    
     init() {
         // 캡처된 이미지가 있을 때 자동으로 텍스트 인식을 수행하도록 설정
         cameraViewModel.textRecognizeHandler = { [weak self] image in
@@ -44,11 +46,13 @@ class JoinCampfireViewModel: ObservableObject {
                 
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                    let result = json["result"] as? [String: Any],
-                   let campfirePin = result["campfirePin"] as? Int {
-                    print("Successfully joined campfire with PIN: \(campfirePin)")
+                   let joinedCampfirePin = result["campfirePin"] as? Int {
+                    
                     DispatchQueue.main.async {
+                        self.recentVisitedCampfirePin = joinedCampfirePin
                         self.showSuccess = true
                     }
+                    print("Successfully joined campfire with PIN: \(joinedCampfirePin)")
                 } else {
                     DispatchQueue.main.async {
                         self.showError = true

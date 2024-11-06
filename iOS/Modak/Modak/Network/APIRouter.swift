@@ -100,7 +100,6 @@ enum APIRouter: URLRequestConvertible {
         // 인증 토큰이 필요한 경우 추가
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
             headers["Authorization"] = "Bearer \(accessToken)"
-            print("Authorization Header: Bearer \(accessToken)")
         } else {
             print("No access token found in UserDefaults")
         }
