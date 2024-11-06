@@ -119,16 +119,18 @@ private struct CampfireViewTextField: View {
 // MARK: - CampfireViewNextButton
 
 private struct CampfireViewNextButton: View {
+    @EnvironmentObject private var viewModel: CampfireViewModel
     @Environment(\.dismiss) private var dismiss
-    
     @Binding private(set) var campfireName: String
-    
     private(set) var isCreate: Bool
     
     var body: some View {
         Button {
             // TODO: API 통신 추가
-            dismiss()
+            if isCreate {
+                viewModel.createCampfire(campfireName: campfireName)
+                dismiss()
+            }
         } label: {
             HStack {
                 Spacer()

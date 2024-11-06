@@ -95,6 +95,29 @@ class CampfireViewModel: ObservableObject {
         }
     }
     
+    func createCampfire(campfireName: String) {
+        Task {
+            do {
+                let data = try await NetworkManager.shared.requestRawData(router: .createCampfire(campfireName: campfireName))
+                
+                if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let result = jsonResponse["result"] as? [String: Any],
+                   let campfirePin = result["campfirePin"] as? Int {
+                    
+                    DispatchQueue.main.async {
+                        self.recentVisitedCampfirePin = campfirePin
+                        self.fetchCampfireMainInfo(for: campfirePin)
+                    }
+                    print("Successfully created campfire with PIN: \(campfirePin)")
+                } else {
+                    print("Failed to parse response for campfire creation.")
+                }
+            } catch {
+                print("Error creating campfire: \(error)")
+            }
+        }
+    }
+    
     func showTemporaryNetworkAlert() {
         withAnimation {
             self.showNetworkAlert = true

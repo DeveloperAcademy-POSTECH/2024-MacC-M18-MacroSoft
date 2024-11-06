@@ -19,8 +19,14 @@ struct JoinCampfireView: View {
                 .environmentObject(viewModel)
             
             if viewModel.showSuccess {
-                BottomSheet(isPresented: $viewModel.showSuccess, viewName: "JoinCampfireView")
-                    .transition(.move(edge: .bottom))
+                BottomSheet(
+                    isPresented: $viewModel.showSuccess,
+                    viewName: "JoinCampfireView",
+                    campfireName: .constant(viewModel.campfireName),
+                    createdAt: .constant(viewModel.createdAt),
+                    membersNames: .constant(viewModel.membersNames)
+                )
+                .transition(.move(edge: .bottom))
             }
             
         }
@@ -86,7 +92,9 @@ struct JoinCampfireView: View {
     }
     
     private func saveCampfireToLocalStorage() {
-        let newCampfire = Campfire(name: viewModel.campfireName, pin: Int(viewModel.campfirePin)!)
+        let extractedCampfirePin = viewModel.campfirePin.compactMap { $0.isNumber ? String($0) : nil }.joined()
+
+        let newCampfire = Campfire(name: viewModel.campfireName, pin: Int(extractedCampfirePin) ?? 0)
         modelContext.insert(newCampfire)
         do {
             try modelContext.save()

@@ -8,9 +8,14 @@
 import SwiftUI
 
 struct BottomSheet: View {
+    @Environment(\.dismiss) private var dismiss
     @Binding var isPresented: Bool
     @State private var offset: CGFloat = UIScreen.main.bounds.height
     let viewName: String
+    
+    @Binding var campfireName: String?
+    @Binding var createdAt: String?
+    @Binding var membersNames: [String]?
     
     var body: some View {
         GeometryReader { geometry in
@@ -145,7 +150,7 @@ extension BottomSheet {
         case "JoinCampfireView":
             VStack(alignment: .leading) {
                 HStack {
-                    Text("000 모닥불") //TODO: 서버 통신 필요
+                    Text("\(campfireName ?? "000") 모닥불")
                         .foregroundStyle(Color.textColor2)
                         .font(.custom("Pretendard-Bold", size: 21))
                         .padding(.bottom, 14)
@@ -157,7 +162,7 @@ extension BottomSheet {
                     .foregroundStyle(Color.textColorGray1)
                     .font(.custom("Pretendard-Light", size: 15))
                     .padding(.bottom, 2)
-                Text("2025.00.00") //TODO: 서버 통신 필요
+                Text(createdAt ?? "2024.00.00")
                     .foregroundStyle(Color.textColor1)
                     .font(.custom("Pretendard-SemiBold", size: 18))
                     .padding(.bottom, 10)
@@ -166,7 +171,7 @@ extension BottomSheet {
                     .foregroundStyle(Color.textColorGray1)
                     .font(.custom("Pretendard-Light", size: 15))
                     .padding(.bottom, 2)
-                Text("000 외 4명") //TODO: 서버 통신 필요
+                Text("\(membersNames?.first ?? "000") 외 \((membersNames?.count ?? 1) - 1)명")
                     .foregroundStyle(Color.textColor1)
                     .font(.custom("Pretendard-SemiBold", size: 18))
                     .padding(.bottom, 14)
@@ -180,6 +185,8 @@ extension BottomSheet {
             
             Button(action: {
                 //TODO: 다음 페이지 전환
+                dismiss()
+                dismiss()
             }) {
                 Text("모닥불 참여하기")
                     .font(.custom("Pretendard-Bold", size: 16))
@@ -202,5 +209,5 @@ extension BottomSheet {
 }
 
 #Preview {
-    BottomSheet(isPresented: .constant(true), viewName: "JoinCampfireView")
+//    BottomSheet(isPresented: .constant(true), viewName: "JoinCampfireView")
 }

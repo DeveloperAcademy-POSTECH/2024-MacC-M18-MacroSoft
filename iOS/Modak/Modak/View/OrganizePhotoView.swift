@@ -89,8 +89,14 @@ struct OrganizePhotoView: View {
             .multilineTextAlignment(.center)
             
             if showBottomSheet {
-                BottomSheet(isPresented: $showBottomSheet, viewName: "OrganizePhotoView")
-                    .transition(.move(edge: .bottom))
+                BottomSheet(
+                    isPresented: $showBottomSheet,
+                    viewName: "OrganizePhotoView",
+                    campfireName: .constant(nil),
+                    createdAt: .constant(nil),
+                    membersNames: .constant(nil)
+                )
+                .transition(.move(edge: .bottom))
             }
         }
         .onAppear {

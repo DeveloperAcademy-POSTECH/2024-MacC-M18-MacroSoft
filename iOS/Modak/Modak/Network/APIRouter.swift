@@ -11,8 +11,9 @@ import Foundation
 
 enum APIRouter: URLRequestConvertible {
     // Campfire API
-    case createCampfire(parameters: [String: Any])
-    case joinCampfire(campfirePin: Int, parameters: [String: Any])
+    case createCampfire(campfireName: String)
+    case joinCampfire(campfirePin: Int, campfireName: String)
+    case joinCampfireInfo(campfirePin: Int, campfireName: String)
     case getCampfireName(campfirePin: Int)
     case updateCampfireName(campfirePin: Int, parameters: [String: Any])
     case getCampfireMainInfo(campfirePin: Int)
@@ -46,6 +47,8 @@ enum APIRouter: URLRequestConvertible {
             return "/api/campfires"
         case .joinCampfire(let campfirePin, _):
             return "/api/campfires/\(campfirePin)/join"
+        case .joinCampfireInfo(let campfirePin, _):
+            return "/api/campfires/\(campfirePin)/join/info"
         case .getCampfireName(let campfirePin):
             return "/api/campfires/\(campfirePin)/name"
         case .updateCampfireName(let campfirePin, _):
@@ -83,7 +86,7 @@ enum APIRouter: URLRequestConvertible {
 
     private var method: HTTPMethod {
         switch self {
-        case .createCampfire, .joinCampfire, .socialLogin, .refreshAccessToken, .logout, .uploadImage:
+        case .createCampfire, .joinCampfire, .joinCampfireInfo, .socialLogin, .refreshAccessToken, .logout, .uploadImage:
             return .POST
         case .getCampfireName, .getCampfireMainInfo, .getMyCampfires, .getMembersNicknames:
             return .GET
@@ -109,10 +112,12 @@ enum APIRouter: URLRequestConvertible {
 
     private var parameters: [String: Any]? {
         switch self {
-        case .createCampfire(let parameters), .updateCampfireName(_, let parameters),
-             .socialLogin(_, let parameters), .updateNickname(let parameters),
-             .joinCampfire(_, let parameters):
+        case .updateCampfireName(_, let parameters),
+             .socialLogin(_, let parameters), .updateNickname(let parameters) :
             return parameters
+        case .createCampfire(let campfireName), .joinCampfire(_, let campfireName),
+             .joinCampfireInfo(_, let campfireName) :
+            return ["campfireName": campfireName]
         case .refreshAccessToken(let refreshToken):
             return ["refreshToken": refreshToken]
         default:

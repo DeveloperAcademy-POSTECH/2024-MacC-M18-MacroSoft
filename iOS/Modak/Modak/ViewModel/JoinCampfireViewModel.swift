@@ -10,6 +10,8 @@ import SwiftUI
 class JoinCampfireViewModel: ObservableObject {
     @Published var campfireName: String = ""
     @Published var campfirePin: String = ""
+    @Published var createdAt: String = ""
+    @Published var membersNames: [String] = []
     @Published var isCameraMode: Bool = true
     @Published var showError: Bool = false
     @Published var showSuccess: Bool = false
@@ -38,11 +40,9 @@ class JoinCampfireViewModel: ObservableObject {
     private func sendCampfireCredentialsToServer() {
         Task {
             do {
-                let parameters: [String: Any] = [
-                    "campfireName": campfireName
-                ]
+                let extractedCampfirePin = campfirePin.compactMap { $0.isNumber ? String($0) : nil }.joined()
                 
-                let data = try await NetworkManager.shared.requestRawData(router: .joinCampfire(campfirePin: Int(campfirePin) ?? 0, parameters: parameters))
+                let data = try await NetworkManager.shared.requestRawData(router: .joinCampfire(campfirePin: Int(extractedCampfirePin) ?? 0, campfireName: campfireName))
                 
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                    let result = json["result"] as? [String: Any],
@@ -50,7 +50,7 @@ class JoinCampfireViewModel: ObservableObject {
                     
                     DispatchQueue.main.async {
                         self.recentVisitedCampfirePin = joinedCampfirePin
-                        self.showSuccess = true
+                        self.fetchCampfireInfo(campfirePin: joinedCampfirePin)
                     }
                     print("Successfully joined campfire with PIN: \(joinedCampfirePin)")
                 } else {
@@ -110,6 +110,52 @@ class JoinCampfireViewModel: ObservableObject {
                 
             } catch {
                 print("Text recognition failed: \(error)")
+            }
+        }
+    }
+    
+    private func fetchCampfireInfo(campfirePin: Int) {
+        Task {
+            do {
+                let data = try await NetworkManager.shared.requestRawData(router: .joinCampfireInfo(campfirePin: campfirePin, campfireName: campfireName))
+                
+                if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let result = jsonResponse["result"] as? [String: Any] {
+                    
+                    DispatchQueue.main.async {
+                        self.campfireName = result["campfireName"] as? String ?? ""
+                        
+                        if let createdAtString = result["createdAt"] as? String {
+                            // 옵셔널 언래핑 및 날짜 변환
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                            dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+                            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
+
+                            if let createdAtDate = dateFormatter.date(from: createdAtString) {
+                                dateFormatter.dateFormat = "yyyy.MM.dd"
+                                self.createdAt = dateFormatter.string(from: createdAtDate)
+                            } else {
+                                self.createdAt = "2024.00.00"
+                            }
+                        } else {
+                            self.createdAt = "2024.00.00"
+                        }
+                        
+                        self.membersNames = result["membersNames"] as? [String] ?? []
+                        self.showSuccess = true // BottomSheet 표시
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.showError = true
+                    }
+                    print("Failed to parse campfire info.")
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.showError = true
+                }
+                print("Error fetching campfire info: \(error)")
             }
         }
     }
