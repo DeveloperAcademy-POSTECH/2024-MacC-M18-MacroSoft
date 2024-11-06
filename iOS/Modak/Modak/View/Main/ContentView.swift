@@ -10,6 +10,7 @@ import SwiftUI
 // MARK: - ContentView
 
 struct ContentView: View {
+    @StateObject private var viewModel = CampfireViewModel()
     @State private var tabSelection: Int = 0
     @State private var isShowSideMenu: Bool = false
     
@@ -35,6 +36,7 @@ struct ContentView: View {
                         
                         Tab(value: 1) {
                             CampfireView(isShowSideMenu: $isShowSideMenu)
+                                .environmentObject(viewModel)
                         } label: {
                             Image(.tabCampfire)
                             Text("모닥불")
@@ -56,6 +58,7 @@ struct ContentView: View {
                             .tag(0)
                         
                         CampfireView(isShowSideMenu: $isShowSideMenu)
+                            .environmentObject(viewModel)
                             .tabItem {
                                 Label("모닥불", image: .tabCampfire)
                             }
@@ -88,6 +91,7 @@ struct ContentView: View {
                     }
                     
                     SelectCampfiresView(isShowSideMenu: $isShowSideMenu)
+                        .environmentObject(viewModel)
                         .frame(width: UIScreen.main.bounds.width * 0.9)
                         .background {
                             LinearGradient.SelectCampfiresViewBackground

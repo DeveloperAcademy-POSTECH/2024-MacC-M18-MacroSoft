@@ -63,12 +63,22 @@ struct SelectCampfiresView: View {
 // MARK: - SelectCampfiresViewTopButton
 
 private struct SelectCampfiresViewTopButton: View {
+    @EnvironmentObject private var viewModel: CampfireViewModel
     private(set) var buttonImage: ImageResource
     private(set) var buttonText: String
     
     var body: some View {
-        Button {
-            
+        NavigationLink {
+            switch buttonImage {
+            case .milestone:
+                JoinCampfireView()
+            case .tent:
+                CampfireNameView(isCreate: true)
+                    .environmentObject(viewModel)
+            default:
+                CampfireNameView(isCreate: true)
+                    .environmentObject(viewModel)
+            }
         } label: {
             RoundedRectangle(cornerRadius: 43)
                 .fill(Color.init(hex: "464141"))
