@@ -12,7 +12,7 @@ import Foundation
 enum APIRouter: URLRequestConvertible {
     // Campfire API
     case createCampfire(parameters: [String: Any])
-    case joinCampfire(campfirePin: Int)
+    case joinCampfire(campfirePin: Int, parameters: [String: Any])
     case getCampfireName(campfirePin: Int)
     case updateCampfireName(campfirePin: Int, parameters: [String: Any])
     case getCampfireMainInfo(campfirePin: Int)
@@ -44,7 +44,7 @@ enum APIRouter: URLRequestConvertible {
         // Campfire API
         case .createCampfire:
             return "/api/campfires"
-        case .joinCampfire(let campfirePin):
+        case .joinCampfire(let campfirePin, _):
             return "/api/campfires/\(campfirePin)/join"
         case .getCampfireName(let campfirePin):
             return "/api/campfires/\(campfirePin)/name"
@@ -111,7 +111,8 @@ enum APIRouter: URLRequestConvertible {
     private var parameters: [String: Any]? {
         switch self {
         case .createCampfire(let parameters), .updateCampfireName(_, let parameters),
-             .socialLogin(_, let parameters), .updateNickname(let parameters):
+             .socialLogin(_, let parameters), .updateNickname(let parameters),
+             .joinCampfire(_, let parameters):
             return parameters
         case .refreshAccessToken(let refreshToken):
             return ["refreshToken": refreshToken]
