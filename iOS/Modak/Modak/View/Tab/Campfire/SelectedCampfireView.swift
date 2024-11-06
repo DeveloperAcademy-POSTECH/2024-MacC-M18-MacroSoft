@@ -6,15 +6,21 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SelectedCampfireView: View {
+    @EnvironmentObject private var networkMonitor: NetworkMonitor
     @EnvironmentObject private var viewModel: CampfireViewModel
+    @Environment(\.modelContext) private var modelContext
+    @Query var campfiresLocalData: [Campfire]
     // TODO: 참여한 모닥불의 로그가 없는지 체크하는 로직 추가
     @State private var isEmptyCampfireLog: Bool = true
+    @AppStorage("isInitialDataLoad") private var isInitialDataLoad: Bool = true
     
     var body: some View {
         VStack {
-            if let campfire = viewModel.campfire {
+            // 네트워크가 연결되지 않은 경우 로컬 데이터를 사용
+            if let campfire = (networkMonitor.isConnected ? viewModel.campfire : campfiresLocalData.first) {
                 CampfireViewTopButton(campfireName: campfire.name)
                 
                 // TODO: 참여한 모닥불의 로그가 없는지 체크하는 로직 추가
@@ -34,7 +40,7 @@ struct SelectedCampfireView: View {
                 
                 // 추가 콘텐츠
             } else {
-                Text("캠프파이어 정보를 불러오는 중")
+                Text(networkMonitor.isConnected ? "캠프파이어 정보를 불러오는 중" : "캠프파이어 정보가 없습니다.\n인터넷 연결 후 다시 시도해 주세요.")
                     .foregroundStyle(.textColorGray2)
                     .font(Font.custom("Pretendard-Regular", size: 18))
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -42,7 +48,37 @@ struct SelectedCampfireView: View {
             }
         }
         .onAppear {
-            viewModel.fetchCampfireMainInfo()
+            if isInitialDataLoad {
+                fetchAndSaveCampfireToLocalStorage()
+            } else {
+                viewModel.fetchCampfireMainInfo()
+            }
+        }
+    }
+
+    private func fetchAndSaveCampfireToLocalStorage() {
+        Task {
+            do {
+                // 서버에서 Campfire 데이터를 가져오기
+                let data = try await NetworkManager.shared.requestRawData(router: .getMyCampfires)
+                
+                if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let result = jsonResponse["result"] as? [String: Any],
+                   let campfireInfos = result["campfireInfos"] as? [[String: Any]] {
+                    
+                    for campfireInfo in campfireInfos {
+                        // Campfire 모델에 대한 JSON 응답 디코딩
+                        let jsonData = try JSONSerialization.data(withJSONObject: campfireInfo, options: [])
+                        let campfire = try JSONDecoder().decode(Campfire.self, from: jsonData)
+                        modelContext.insert(campfire)
+                    }
+                }
+                // 저장 완료 후 플래그 설정
+                isInitialDataLoad = false
+                print("Campfire 데이터 - 로컬 데이터베이스 저장")
+            } catch {
+                print("Error fetching or saving Campfire data: \(error)")
+            }
         }
     }
 }
@@ -151,6 +187,8 @@ private struct CampfireViewTodayPhoto: View {
 // MARK: - CampfireViewEmptyLogView
 
 private struct CampfireViewEmptyLogView: View {
+    @EnvironmentObject private var networkMonitor: NetworkMonitor
+    @EnvironmentObject private var viewModel: CampfireViewModel
     var campfireName: String
     
     var body: some View {
@@ -198,6 +236,12 @@ private struct CampfireViewEmptyLogView: View {
                     .stroke(Color.disable, lineWidth: 1)
             }
             .padding(.horizontal, 70)
+            .disabled(!networkMonitor.isConnected)
+            .simultaneousGesture(TapGesture().onEnded {
+                if !networkMonitor.isConnected {
+                    viewModel.showTemporaryNetworkAlert()
+                }
+            })
             
             Spacer()
         }

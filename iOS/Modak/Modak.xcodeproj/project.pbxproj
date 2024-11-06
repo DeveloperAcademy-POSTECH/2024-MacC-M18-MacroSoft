@@ -16,6 +16,8 @@
 		1093969C2CD99F57004C4EBD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093969B2CD99F57004C4EBD /* NetworkManager.swift */; };
 		1093969F2CD9A0E7004C4EBD /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093969E2CD9A0E7004C4EBD /* APIRouter.swift */; };
 		109396A32CDAFCE6004C4EBD /* CampfireViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109396A22CDAFCE6004C4EBD /* CampfireViewModel.swift */; };
+		109396A52CDB7999004C4EBD /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109396A42CDB7999004C4EBD /* NetworkMonitor.swift */; };
+		109396A72CDB81C7004C4EBD /* NetworkMonitorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109396A62CDB81C7004C4EBD /* NetworkMonitorAlert.swift */; };
 		10AB91AA2CACD29A00BFA2EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10AB91A42CACD29A00BFA2EC /* Preview Assets.xcassets */; };
 		10AB91AB2CACD29A00BFA2EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10AB91A62CACD29A00BFA2EC /* Assets.xcassets */; };
 		10AB91AC2CACD29A00BFA2EC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91A72CACD29A00BFA2EC /* ContentView.swift */; };
@@ -91,6 +93,8 @@
 		1093969B2CD99F57004C4EBD /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		1093969E2CD9A0E7004C4EBD /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
 		109396A22CDAFCE6004C4EBD /* CampfireViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireViewModel.swift; sourceTree = "<group>"; };
+		109396A42CDB7999004C4EBD /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		109396A62CDB81C7004C4EBD /* NetworkMonitorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitorAlert.swift; sourceTree = "<group>"; };
 		10AB91712CACCE4F00BFA2EC /* Modak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Modak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10AB91A42CACD29A00BFA2EC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		10AB91A62CACD29A00BFA2EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -185,6 +189,7 @@
 			children = (
 				1093969B2CD99F57004C4EBD /* NetworkManager.swift */,
 				1093969E2CD9A0E7004C4EBD /* APIRouter.swift */,
+				109396A42CDB7999004C4EBD /* NetworkMonitor.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -312,6 +317,7 @@
 				10BCB0E62CB825520013E227 /* ProgressNumber.swift */,
 				10BCB0FC2CBE14BC0013E227 /* AppleSigninButton.swift */,
 				10F58EE62CD0891300BF9D34 /* SignTextFieldModifier.swift */,
+				109396A62CDB81C7004C4EBD /* NetworkMonitorAlert.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -484,7 +490,9 @@
 				CA2B5D072CBA70280070DEBF /* GradientColorExtension.swift in Sources */,
 				10BCB0EE2CB84BCB0013E227 /* AuthorizationViewModel.swift in Sources */,
 				10BCB0DC2CB81D410013E227 /* OrganizePhotoViewModel.swift in Sources */,
+				109396A52CDB7999004C4EBD /* NetworkMonitor.swift in Sources */,
 				10AB91AC2CACD29A00BFA2EC /* ContentView.swift in Sources */,
+				109396A72CDB81C7004C4EBD /* NetworkMonitorAlert.swift in Sources */,
 				10BCB0F82CBCCABB0013E227 /* ExampleLogPileView.swift in Sources */,
 				10BCB0E72CB825520013E227 /* BackButton.swift in Sources */,
 				10B0A6702CBE6F820048C313 /* AppleSigninViewModel.swift in Sources */,

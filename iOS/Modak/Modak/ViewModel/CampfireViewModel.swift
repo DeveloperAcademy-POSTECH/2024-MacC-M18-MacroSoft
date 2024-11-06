@@ -11,8 +11,8 @@ import Combine
 class CampfireViewModel: ObservableObject {
     @Published var campfire: Campfire?
     @Published var isEmptyCampfire: Bool = true
-    
-    @AppStorage("recentVisitedCampfirePin") private var recentVisitedCampfirePin: Int = 0
+    @Published var showNetworkAlert: Bool = false
+    @AppStorage("recentVisitedCampfirePin") var recentVisitedCampfirePin: Int = 0
     
     init() {
         fetchCampfireMainInfo()
@@ -94,6 +94,19 @@ class CampfireViewModel: ObservableObject {
             }
         }
     }
+    
+    func showTemporaryNetworkAlert() {
+        withAnimation {
+            self.showNetworkAlert = true
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            withAnimation {
+                self.showNetworkAlert = false
+            }
+        }
+    }
 }
+
 
 
