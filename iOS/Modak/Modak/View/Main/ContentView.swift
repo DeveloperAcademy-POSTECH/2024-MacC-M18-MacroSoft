@@ -11,6 +11,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var tabSelection: Int = 0
+    @State private var isShowSideMenu: Bool = false
     
     init() {
         let tabBarAppearance = UITabBarAppearance()
@@ -33,7 +34,7 @@ struct ContentView: View {
                         }
                         
                         Tab(value: 1) {
-                            CampfireView()
+                            CampfireView(isShowSideMenu: $isShowSideMenu)
                         } label: {
                             Image(.tabCampfire)
                             Text("모닥불")
@@ -54,7 +55,7 @@ struct ContentView: View {
                             }
                             .tag(0)
                         
-                        CampfireView()
+                        CampfireView(isShowSideMenu: $isShowSideMenu)
                             .tabItem {
                                 Label("모닥불", image: .tabCampfire)
                             }
@@ -74,6 +75,28 @@ struct ContentView: View {
                 }
             }
             .modifier(NavigationBarModifier(tabSelection: tabSelection))
+            .overlay(alignment: .topLeading) {
+                ZStack(alignment: .topLeading) {
+                    if isShowSideMenu {
+                        Color.black.opacity(0.01)
+                            .ignoresSafeArea()
+                            .onTapGesture {
+                                withAnimation {
+                                    isShowSideMenu = false
+                                }
+                            }
+                    }
+                    
+                    SelectCampfiresView(isShowSideMenu: $isShowSideMenu)
+                        .frame(width: UIScreen.main.bounds.width * 0.9)
+                        .background {
+                            LinearGradient.SelectCampfiresViewBackground
+                                .ignoresSafeArea()
+                                .shadow(color: .black.opacity(0.25), radius: 4.9, x: 3, y: 0)
+                        }
+                        .offset(x: isShowSideMenu ? 0 : -UIScreen.main.bounds.width * 0.9)
+                }
+            }
         }
     }
 }

@@ -68,6 +68,8 @@
 		CAA0B7BC2CD471290093AEA7 /* SelectedCampfireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B7BB2CD471160093AEA7 /* SelectedCampfireView.swift */; };
 		CAA0B7BE2CD8DC160093AEA7 /* ExpandedPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B7BD2CD8DBC80093AEA7 /* ExpandedPhoto.swift */; };
 		CAA0B7C02CD8E0860093AEA7 /* ExpandableEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B7BF2CD8E06C0093AEA7 /* ExpandableEmoji.swift */; };
+		CAA0B7C42CD99FF20093AEA7 /* SelectCampfiresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B7C32CD99FE10093AEA7 /* SelectCampfiresView.swift */; };
+		CAA0B7C62CDA62D10093AEA7 /* TextExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B7C52CDA62C80093AEA7 /* TextExtension.swift */; };
 		CAA76CB52CB38DEE00533C96 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAA76CB42CB38DEE00533C96 /* Colors.xcassets */; };
 		CAA76CD02CB3BF0200533C96 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAA76CCF2CB3BF0200533C96 /* Images.xcassets */; };
 		CAB2BE2F2CBD49BC0030C1F1 /* CoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2BE2E2CBD49AB0030C1F1 /* CoordinatorView.swift */; };
@@ -140,6 +142,8 @@
 		CAA0B7BB2CD471160093AEA7 /* SelectedCampfireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedCampfireView.swift; sourceTree = "<group>"; };
 		CAA0B7BD2CD8DBC80093AEA7 /* ExpandedPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedPhoto.swift; sourceTree = "<group>"; };
 		CAA0B7BF2CD8E06C0093AEA7 /* ExpandableEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableEmoji.swift; sourceTree = "<group>"; };
+		CAA0B7C32CD99FE10093AEA7 /* SelectCampfiresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCampfiresView.swift; sourceTree = "<group>"; };
+		CAA0B7C52CDA62C80093AEA7 /* TextExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtension.swift; sourceTree = "<group>"; };
 		CAA76CB42CB38DEE00533C96 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		CAA76CCF2CB3BF0200533C96 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CAB2BE2E2CBD49AB0030C1F1 /* CoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorView.swift; sourceTree = "<group>"; };
@@ -318,6 +322,7 @@
 		CA2B5D032CBA6F4C0070DEBF /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				CAA0B7C52CDA62C80093AEA7 /* TextExtension.swift */,
 				CAA0B7B52CD329BC0093AEA7 /* ViewExtension.swift */,
 				CAB2BE4B2CC1ECD00030C1F1 /* UINavigationControllerExtension.swift */,
 				CA2B5D0A2CBA70C00070DEBF /* ColorExtension.swift */,
@@ -359,6 +364,7 @@
 		CAC461812CD06BF700E0E366 /* Campfire */ = {
 			isa = PBXGroup;
 			children = (
+				CAA0B7C32CD99FE10093AEA7 /* SelectCampfiresView.swift */,
 				CAA0B7BB2CD471160093AEA7 /* SelectedCampfireView.swift */,
 				CAA0B7B92CD470470093AEA7 /* EmptyCampfireView.swift */,
 				CA22A7A02CD28D22002195A2 /* CampfireNameView.swift */,
@@ -484,12 +490,14 @@
 				CAA0B7C02CD8E0860093AEA7 /* ExpandableEmoji.swift in Sources */,
 				10BCB0EC2CB825520013E227 /* BottomSheet.swift in Sources */,
 				109396932CD29680004C4EBD /* CameraGuidePreview.swift in Sources */,
+				CAA0B7C62CDA62D10093AEA7 /* TextExtension.swift in Sources */,
 				10BCB0E02CB8206C0013E227 /* DBSCAN.swift in Sources */,
 				10BCB0FD2CBE14BC0013E227 /* AppleSigninButton.swift in Sources */,
 				10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */,
 				CAB2BE422CC0A9D10030C1F1 /* DailyLogs.swift in Sources */,
 				1093968B2CD2879B004C4EBD /* JoinCampfireViewModel.swift in Sources */,
 				CAA0B7B22CD3228D0093AEA7 /* PublicLogImage.swift in Sources */,
+				CAA0B7C42CD99FF20093AEA7 /* SelectCampfiresView.swift in Sources */,
 				CA2B5D0F2CBAAE5C0070DEBF /* LogPileDetailView.swift in Sources */,
 				10BE37772CB30CF9008D1DA1 /* RegisterView.swift in Sources */,
 				CAB2BE322CBD55BB0030C1F1 /* SelectedPhotoView.swift in Sources */,
