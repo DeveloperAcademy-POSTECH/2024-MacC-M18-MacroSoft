@@ -34,9 +34,7 @@ struct JoinCampfireView: View {
                 Button(action: {
 //                    viewModel.showSuccess = true //테스트 전용
                     viewModel.validateAndSendCredentials() // TODO: 서버 api 연결
-                    let newCampfire = Campfire(name: viewModel.campfireName, pin: Int(viewModel.campfirePin)!)
-                    modelContext.insert(newCampfire)
-                    try? modelContext.save()
+                    saveCampfireToLocalStorage()
                 }) {
                     Text("완료")
                         .font(.custom("Pretendard-Regular", size: 18))
@@ -87,6 +85,16 @@ struct JoinCampfireView: View {
         .padding(.bottom, 34)
     }
     
+    private func saveCampfireToLocalStorage() {
+        let newCampfire = Campfire(name: viewModel.campfireName, pin: Int(viewModel.campfirePin)!)
+        modelContext.insert(newCampfire)
+        do {
+            try modelContext.save()
+            print("Campfire 데이터 - 로컬 데이터베이스 저장")
+        } catch {
+            print("Error saving Campfire data: \(error)")
+        }
+    }
 }
 
 #Preview {
