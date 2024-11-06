@@ -15,6 +15,7 @@ struct SelectedCampfireView: View {
     @Query var campfiresLocalData: [Campfire]
     // TODO: 참여한 모닥불의 로그가 없는지 체크하는 로직 추가
     @State private var isEmptyCampfireLog: Bool = true
+    @Binding private(set) var isShowSideMenu: Bool
     @AppStorage("isInitialDataLoad") private var isInitialDataLoad: Bool = true
     
     var body: some View {
@@ -86,13 +87,15 @@ struct SelectedCampfireView: View {
 // MARK: - CampfireViewTopButton
 
 private struct CampfireViewTopButton: View {
-    @State private var isShowSideMenu: Bool = false
+    @@Binding private(set) var isShowSideMenu: Bool
     var campfireName: String
     
     var body: some View {
         HStack(spacing: 0) {
             Button {
-                // TODO: Side Menu 열기 로직 추가
+                withAnimation {
+                    isShowSideMenu = true
+                }
             } label: {
                 HStack(spacing: 8) {
                     // TODO: 모닥불 이미지 적용하는 로직 추가
@@ -248,7 +251,6 @@ private struct CampfireViewEmptyLogView: View {
     }
 }
 
-
 #Preview {
-    SelectedCampfireView()
+    SelectedCampfireView(isShowSideMenu: .constant(false))
 }

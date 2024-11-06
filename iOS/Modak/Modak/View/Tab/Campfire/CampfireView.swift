@@ -12,22 +12,26 @@ struct CampfireView: View {
     @StateObject private var networkMonitor = NetworkMonitor() // 네트워크 모니터링 객체
     @StateObject private var viewModel = CampfireViewModel()
     @Query var campfires: [Campfire]
+    @Binding private(set) var isShowSideMenu: Bool
     
     var body: some View {
         VStack {
             if viewModel.isEmptyCampfire && campfires.isEmpty {
                 EmptyCampfireView()
             } else {
-                SelectedCampfireView()
+                SelectedCampfireView(isShowSideMenu: $isShowSideMenu)
             }
         }
         .environmentObject(viewModel)
         .environmentObject(networkMonitor)
         .background {
-            Color.backgroundDefault.ignoresSafeArea()
-            LinearGradient.campfireViewBackground.ignoresSafeArea()
-            EllipticalGradient.campfireViewBackground.rotationEffect(.degrees(90), anchor: UnitPoint(x: 0.5, y: 0.75))
-                .ignoresSafeArea()
+            Group {
+                Color.backgroundDefault
+                LinearGradient.campfireViewBackground
+                EllipticalGradient.campfireViewBackground
+                    .rotationEffect(.degrees(90), anchor: UnitPoint(x: 0.5, y: 0.75))
+            }
+            .ignoresSafeArea()
         }
         .overlay(
             VStack {
@@ -42,5 +46,5 @@ struct CampfireView: View {
 }
 
 #Preview {
-    CampfireView()
+    CampfireView(isShowSideMenu: .constant(false))
 }
