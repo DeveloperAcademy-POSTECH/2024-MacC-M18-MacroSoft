@@ -9,16 +9,46 @@ import Foundation
 import SwiftData
 
 @Model
-class Campfire {
-    @Attribute(.unique) var id: Int64
-    var title: String
-    var todayImage: PublicLogImage?
+class Campfire: Codable {
+    @Attribute(.unique) var id: UUID = UUID()
+    var name: String
     var pin: Int
+    var image: String? // TODO: PublicLogImage 모델로 교체, codable 준수.
+    var memberIds: [Int]
     
-    init(id: Int64, title: String, todayImage: PublicLogImage? = nil, pin: Int) {
-        self.id = id
-        self.title = title
-        self.todayImage = todayImage
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name = "campfireName"
+        case pin = "campfirePin"
+        case image // 현재 실제 DB값과 다르게 설정해놔서, 연결 안되어있음.
+        case memberIds = "memberIds"
+    }
+
+    init(name: String, pin: Int, image: String? = "", memberIds: [Int] = []) {
+        self.name = name
         self.pin = pin
+        self.image = image
+        self.memberIds = memberIds
+    }
+    
+    // Decodable
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        self.name = try container.decode(String.self, forKey: .name)
+        self.pin = try container.decode(Int.self, forKey: .pin)
+        self.image = try container.decodeIfPresent(String.self, forKey: .image) ?? ""
+        self.memberIds = try container.decodeIfPresent([Int].self, forKey: .memberIds) ?? []
+    }
+    
+    // Encodable
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        try container.encode(pin, forKey: .pin)
+        try container.encodeIfPresent(image, forKey: .image)
+        try container.encode(memberIds, forKey: .memberIds)
     }
 }
+
