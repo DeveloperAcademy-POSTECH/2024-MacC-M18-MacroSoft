@@ -44,7 +44,7 @@ struct JoinCampfireView: View {
             }
             
             ToolbarItem(placement: .bottomBar) {
-                if viewModel.showSuccess {
+                if !viewModel.showSuccess {
                     cameraModeToggleButton
                 }
             }
