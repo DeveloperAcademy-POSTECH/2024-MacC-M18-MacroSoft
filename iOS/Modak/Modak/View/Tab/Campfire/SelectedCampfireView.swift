@@ -160,17 +160,9 @@ private struct CampfireViewEmptyLogView: View {
             } label: {
                 HStack(spacing: 8) {
                     Spacer()
-                    Image(.log3D)
-                        .overlay {
-                            HStack {
-                                Spacer()
-                                VStack {
-                                    Spacer()
-                                    Image(systemName: "plus.circle.fill")
-                                        .foregroundStyle(Color.init(hex: "F1DCD1"))
-                                }
-                            }
-                        }
+                    
+                    AddCampfireLogImage()
+                    
                     Text("모닥불에 장작 넣기")
                         .foregroundStyle(.white)
                         .font(Font.custom("Pretendard-Bold", size: 16))
