@@ -19,7 +19,7 @@ struct LogPileView: View {
             if logPileViewModel.yearlyLogs.count > 0 {
                 ScrollView {
                     LazyVStack(alignment: .leading, pinnedViews: [.sectionHeaders]) {
-                        ForEach($logPileViewModel.yearlyLogs, id: \.date) { monthlyLog in
+                        ForEach($logPileViewModel.yearlyLogs, id: \.id) { monthlyLog in
                             Section {
                                 ForEach(monthlyLog.dailyLogs, id: \.date) { dailyLog in
                                     LogPileViewRow(dailyLog: dailyLog)
