@@ -1,5 +1,5 @@
 //
-//  LogPileSectionTitle.swift
+//  LogPileHeader.swift
 //  Modak
 //
 //  Created by Park Junwoo on 11/8/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LogPileSectionTitle: View {
+struct LogPileHeader: View {
     private(set) var date: Date
     // TODO: calendar는 초기값을 넣어주는 형태라서 private만 줬는데 오류가 발생해서 private(set)으로 변경...왜...?
     private(set) var calendar: Calendar = .current

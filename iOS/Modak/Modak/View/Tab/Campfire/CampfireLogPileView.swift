@@ -56,15 +56,9 @@ struct CampfireLogPileView: View {
                     LazyVStack(alignment: .leading, pinnedViews: [.sectionHeaders]) {
                         ForEach($yearlyLogs, id: \.date){ monthlyLog in
                             Section {
-                                ForEach(monthlyLog.dailyLogs, id: \.date) { dailyLog in
-                                    LogPileRow(dailyLog: dailyLog)
-                                        .background(LinearGradient.logPileRowBackground)
-                                        .clipShape(RoundedRectangle(cornerRadius: 20))
-                                        .padding([.horizontal, .bottom], 10)
-                                        .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 3)
-                                }
+                                LogPileSection(monthlyLog: monthlyLog.dailyLogs.wrappedValue)
                             } header: {
-                                LogPileSectionTitle(date: monthlyLog.date.wrappedValue)
+                                LogPileHeader(date: monthlyLog.date.wrappedValue)
                             }
                         }
                     }

@@ -1,5 +1,5 @@
 //
-//  LogPileRow.swift
+//  LogPileSection.swift
 //  Modak
 //
 //  Created by Park Junwoo on 11/8/24.
@@ -7,8 +7,23 @@
 
 import SwiftUI
 
-struct LogPileRow: View {
-    @Binding private(set) var dailyLog: DailyLogs
+struct LogPileSection: View {
+    private(set) var monthlyLog: [DailyLogs]
+    
+    var body: some View {
+        ForEach(monthlyLog, id: \.date) { dailyLog in
+            LogPileSectionRow(dailyLog: dailyLog)
+                .background(LinearGradient.logPileRowBackground)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .padding([.horizontal, .bottom], 10)
+                .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 3)
+        }
+    }
+}
+
+
+private struct LogPileSectionRow: View {
+    private(set) var dailyLog: DailyLogs
     
     private(set) var gridItems: [GridItem] = Array(repeating: GridItem(.flexible(minimum: 80, maximum: 87), spacing: 1), count: 4)
     
