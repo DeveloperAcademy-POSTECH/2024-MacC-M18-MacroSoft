@@ -12,22 +12,26 @@ struct SelectedCampfireView: View {
     @State private var isEmptyCampfireLog: Bool = true
     // TODO: 참여한 모닥불의 이름 가져오는 로직 추가
     @State private var campfireName: String = "MacroSoft"
+    @Binding private(set) var isShowSideMenu: Bool
     
     var body: some View {
-        CampfireViewTopButton(campfireName: $campfireName)
-        // TODO: 참여한 모닥불의 로그가 없는지 체크하는 로직 추가
-        if isEmptyCampfireLog {
-            CampfireViewEmptyLogView(campfireName: $campfireName)
+        VStack {
+            CampfireViewTopButton(isShowSideMenu: $isShowSideMenu, campfireName: $campfireName)
             
-            Spacer()
-        } else {
-            CampfireViewTodayPhoto()
-            
-            Spacer()
-             
-            ExpandableEmoji(emojiList: ["laugh", "embarrassed", "panic", "cry", "heart", "death"])
-                .padding(.trailing, 24)
-                .padding(.bottom)
+            // TODO: 참여한 모닥불의 로그가 없는지 체크하는 로직 추가
+            if isEmptyCampfireLog {
+                CampfireViewEmptyLogView(campfireName: $campfireName)
+                
+                Spacer()
+            } else {
+                CampfireViewTodayPhoto()
+                
+                Spacer()
+                
+                ExpandableEmoji(emojiList: ["laugh", "embarrassed", "panic", "cry", "heart", "death"])
+                    .padding(.trailing, 24)
+                    .padding(.bottom)
+            }
         }
     }
 }
@@ -35,14 +39,15 @@ struct SelectedCampfireView: View {
 // MARK: - CampfireViewTopButton
 
 private struct CampfireViewTopButton: View {
-    @State private var isShowSideMenu: Bool = false
-    
+    @Binding private(set) var isShowSideMenu: Bool
     @Binding private(set) var campfireName: String
     
     var body: some View {
         HStack(spacing: 0) {
             Button {
-                // TODO: Side Menu 열기 로직 추가
+                withAnimation {
+                    isShowSideMenu = true
+                }
             } label: {
                 HStack(spacing: 8) {
                     // TODO: 모닥불 이미지 적용하는 로직 추가
@@ -185,7 +190,6 @@ private struct CampfireViewEmptyLogView: View {
     }
 }
 
-
 #Preview {
-    SelectedCampfireView()
+    SelectedCampfireView(isShowSideMenu: .constant(false))
 }

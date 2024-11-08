@@ -45,6 +45,17 @@ extension LinearGradient {
             endPoint: UnitPoint(x: 0.5, y: 0.2)
         )
     }
+    
+    static var SelectCampfiresViewBackground: LinearGradient {
+        return LinearGradient(
+            stops: [
+            Gradient.Stop(color: Color(red: 0.24, green: 0.22, blue: 0.23), location: 0.00),
+            Gradient.Stop(color: Color(red: 0.23, green: 0.22, blue: 0.24), location: 1.00),
+            ],
+            startPoint: UnitPoint(x: 0.5, y: 0),
+            endPoint: UnitPoint(x: 0.5, y: 1)
+            )
+    }
 }
 
 extension EllipticalGradient {
