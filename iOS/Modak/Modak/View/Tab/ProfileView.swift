@@ -46,8 +46,10 @@ struct ProfileView: View {
         .foregroundStyle(.textColor1)
         .padding(.top, 18)
         .padding(.horizontal, 13)
-        .background(LinearGradient.profileViewBackground)
-        .background(Color.backgroundLogPile)
+        .background {
+            ProfileBackground()
+                .ignoresSafeArea()
+        }
     }
 }
 

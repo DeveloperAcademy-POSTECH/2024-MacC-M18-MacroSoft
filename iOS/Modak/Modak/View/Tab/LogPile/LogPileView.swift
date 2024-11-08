@@ -39,7 +39,10 @@ struct LogPileView: View {
                 NoLogView()
             }
         }
-        .background(.backgroundLogPile)
+        .background {
+            LogPileBackground()
+                .ignoresSafeArea()
+        }
         .onAppear {
             fetchLogsWithGroupBy()
         }
