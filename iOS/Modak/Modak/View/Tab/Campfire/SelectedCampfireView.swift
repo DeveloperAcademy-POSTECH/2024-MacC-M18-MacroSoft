@@ -72,6 +72,7 @@ private struct CampfireViewTopButton: View {
             
             NavigationLink {
                 // TODO: 해당 모닥불의 장작 창고로 이동하는 로직 추가
+                CampfireLogPileView()
             } label: {
                 RoundedRectangle(cornerRadius: 14)
                     .fill(Color.init(hex: "221F20"))
