@@ -15,7 +15,7 @@ struct ContentView: View {
     
     init() {
         let tabBarAppearance = UITabBarAppearance()
-        tabBarAppearance.backgroundColor = .backgroundLogPile
+        tabBarAppearance.backgroundColor = UIColor(.backgroundLogPile.opacity(0.73))
         tabBarAppearance.shadowColor = UIColor(.white.opacity(0.15))
         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         UITabBar.appearance().standardAppearance = tabBarAppearance
@@ -69,6 +69,7 @@ struct ContentView: View {
                     }
                 }
             }
+            .preferredColorScheme(.dark)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     NavigationCustomTitle(tabSelection: tabSelection)
@@ -125,7 +126,6 @@ private struct NavigationBarModifier: ViewModifier {
         if tabSelection == 0 {
             content
                 .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
-                .preferredColorScheme(.dark)
         }
         else {
             content
