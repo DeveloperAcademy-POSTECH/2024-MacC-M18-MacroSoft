@@ -12,6 +12,7 @@ struct CampfireLogPileView: View {
     @State private var isEmpty: Bool = false
     @State private var campfireName: String = "Macro"
     @State private var campfireMemberCount: Int = 6
+    @State private var yearlyLogs: [(MonthlyLogs)] = []
     
     init() {
         let appearanceWhenNotScrolled = UINavigationBarAppearance()
@@ -50,6 +51,23 @@ struct CampfireLogPileView: View {
                 ScrollView {
                     CampfireLogPileViewTitle(campfireName: $campfireName, campfireMemberCount: $campfireMemberCount)
                         .padding(.leading, 24)
+                        .padding(.bottom, 12)
+                    
+                    LazyVStack(alignment: .leading, pinnedViews: [.sectionHeaders]) {
+                        ForEach($yearlyLogs, id: \.date){ monthlyLog in
+                            Section {
+                                ForEach(monthlyLog.dailyLogs, id: \.date) { dailyLog in
+                                    LogPileRow(dailyLog: dailyLog)
+                                        .background(LinearGradient.logPileRowBackground)
+                                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                                        .padding([.horizontal, .bottom], 10)
+                                        .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 3)
+                                }
+                            } header: {
+                                LogPileSectionTitle(date: monthlyLog.date.wrappedValue)
+                            }
+                        }
+                    }
                 }
             }
             
