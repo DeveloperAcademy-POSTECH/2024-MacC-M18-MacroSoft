@@ -79,6 +79,7 @@
 		CAB2BE402CC0A9850030C1F1 /* MonthlyLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2BE3F2CC0A9720030C1F1 /* MonthlyLogs.swift */; };
 		CAB2BE422CC0A9D10030C1F1 /* DailyLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2BE412CC0A9BD0030C1F1 /* DailyLogs.swift */; };
 		CAB2BE4C2CC1ED1D0030C1F1 /* UINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2BE4B2CC1ECD00030C1F1 /* UINavigationControllerExtension.swift */; };
+		CAB310932CDFA5E8002BBB1D /* SelectMergeLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB310922CDFA5E0002BBB1D /* SelectMergeLogsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -154,6 +155,7 @@
 		CAB2BE3F2CC0A9720030C1F1 /* MonthlyLogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyLogs.swift; sourceTree = "<group>"; };
 		CAB2BE412CC0A9BD0030C1F1 /* DailyLogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyLogs.swift; sourceTree = "<group>"; };
 		CAB2BE4B2CC1ECD00030C1F1 /* UINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtension.swift; sourceTree = "<group>"; };
+		CAB310922CDFA5E0002BBB1D /* SelectMergeLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMergeLogsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -367,6 +369,7 @@
 		CAC461812CD06BF700E0E366 /* Campfire */ = {
 			isa = PBXGroup;
 			children = (
+				CAB310922CDFA5E0002BBB1D /* SelectMergeLogsView.swift */,
 				CAA0B7C32CD99FE10093AEA7 /* SelectCampfiresView.swift */,
 				CAA0B7BB2CD471160093AEA7 /* SelectedCampfireView.swift */,
 				CAA0B7B92CD470470093AEA7 /* EmptyCampfireView.swift */,
@@ -499,6 +502,7 @@
 				10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */,
 				CAB2BE422CC0A9D10030C1F1 /* DailyLogs.swift in Sources */,
 				1093968B2CD2879B004C4EBD /* JoinCampfireViewModel.swift in Sources */,
+				CAB310932CDFA5E8002BBB1D /* SelectMergeLogsView.swift in Sources */,
 				CAA0B7B22CD3228D0093AEA7 /* PublicLogImage.swift in Sources */,
 				CAA0B7CA2CDB00B70093AEA7 /* LogPileViewModel.swift in Sources */,
 				CAA0B7C42CD99FF20093AEA7 /* SelectCampfiresView.swift in Sources */,
