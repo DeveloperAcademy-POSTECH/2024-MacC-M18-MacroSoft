@@ -97,11 +97,20 @@ enum APIRouter: URLRequestConvertible {
         }
     }
 
+    private var requiresAuthToken: Bool {
+        switch self {
+        case .socialLogin, .refreshAccessToken:
+            return false
+        default:
+            return true
+        }
+    }
+    
     private var headers: [String: String] {
         var headers = ["Content-Type": "application/json"]
         
         // 인증 토큰이 필요한 경우 추가
-        if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
+        if requiresAuthToken, let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
             headers["Authorization"] = "Bearer \(accessToken)"
         } else {
             print("No access token found in UserDefaults")

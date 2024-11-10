@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 // TODO: 테스트용 추후 제거
 private class TestCampfire {
@@ -23,11 +24,10 @@ private class TestCampfire {
 }
 
 struct SelectCampfiresView: View {
-    // TODO: 테스트용 변수 추후 DB 데이터와 연결
-    @State private var campfires: [TestCampfire] = [TestCampfire(id: 1, title: "매크로소프트", pin: 1), TestCampfire(id: 2, title: "매크로소프트", pin: 2)]
-    // TODO: 테스트용 변수 추후 DB 데이터와 연결
-    @State private var currentCampfireID: Int = 1
+    @EnvironmentObject private var viewModel: CampfireViewModel
+    @EnvironmentObject private var networkMonitor: NetworkMonitor
     @Binding private(set) var isShowSideMenu: Bool
+    @Query var campfiresLocalData: [Campfire]
     
     var body: some View {
         HStack {
@@ -40,22 +40,28 @@ struct SelectCampfiresView: View {
                 
                 HStack(spacing: 8) {
                     SelectCampfiresViewTopButton(buttonImage: .milestone, buttonText: "모닥불 참여")
-                    
                     SelectCampfiresViewTopButton(buttonImage: .tent, buttonText: "모닥불 생성")
                 }
+                .environmentObject(networkMonitor)
                 .padding(.init(top: 16, leading: 16, bottom: 10, trailing: 16))
                 
-                List($campfires, id: \.id) { campfire in
-                    SelectCampfiresViewCampfireButton(campfire: campfire, currentCampfireId: $currentCampfireID, isShowSideMenu: $isShowSideMenu)
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(.init(top: 0, leading: 0, bottom: 10, trailing: 0))
-                        .listRowBackground(Color.clear)
+                List(networkMonitor.isConnected ? viewModel.campfires : campfiresLocalData, id: \.pin) { campfire in
+                    SelectCampfiresViewCampfireButton(
+                        campfire: campfire,
+                        isShowSideMenu: $isShowSideMenu
+                    )
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(.init(top: 0, leading: 0, bottom: 10, trailing: 0))
+                    .listRowBackground(Color.clear)
                 }
                 .contentMargins(.all, 0)
                 .scrollContentBackground(.hidden)
             }
             
             Spacer()
+        }
+        .onAppear {
+            viewModel.fetchUserCampfireInfos { _ in }
         }
     }
 }
@@ -64,6 +70,7 @@ struct SelectCampfiresView: View {
 
 private struct SelectCampfiresViewTopButton: View {
     @EnvironmentObject private var viewModel: CampfireViewModel
+    @EnvironmentObject private var networkMonitor: NetworkMonitor
     private(set) var buttonImage: ImageResource
     private(set) var buttonText: String
     
@@ -97,22 +104,28 @@ private struct SelectCampfiresViewTopButton: View {
                 }
         }
         .frame(height: 70)
+        .disabled(!networkMonitor.isConnected)
+        .simultaneousGesture(TapGesture().onEnded {
+            if !networkMonitor.isConnected {
+                viewModel.showTemporaryNetworkAlert()
+            }
+        })
     }
 }
 
 // MARK: - SelectCampfiresViewCampfireButton
 
 private struct SelectCampfiresViewCampfireButton: View {
-    @Binding private(set) var campfire: TestCampfire
-    @Binding private(set) var currentCampfireId: Int
+    @EnvironmentObject private var viewModel: CampfireViewModel
+    var campfire: Campfire
     @Binding private(set) var isShowSideMenu: Bool
     
-    // TODO: 테스트용 변수 추후 DB 데이터와 연결
-    private(set) var people = ["아서아서서", "온브", "조이", "에이스", "라무네라무네"]
-    
     var body: some View {
-        if campfire.id == currentCampfireId {
+        if campfire.pin == viewModel.recentVisitedCampfirePin {
             Button {
+                viewModel.updateRecentVisitedCampfirePin(to: campfire.pin)
+                print("Updated recentVisitedCampfirePin to: \(viewModel.recentVisitedCampfirePin)")
+
                 withAnimation {
                     isShowSideMenu = false
                 }
@@ -132,13 +145,13 @@ private struct SelectCampfiresViewCampfireButton: View {
                     )
                     .overlay {
                         HStack(spacing: 12) {
-                            Image(.progressDefault)
+                            Image(((campfire.image == nil || campfire.image == "") ? "progress_defaultImage" : campfire.image)!)
                                 .resizable()
                                 .clipShape(RoundedRectangle(cornerRadius: 12))
                                 .aspectRatio(1, contentMode: .fit)
                             
                             VStack {
-                                Text(campfire.title)
+                                Text(campfire.name)
                                     .font(Font.custom("Pretendard-SemiBold", size: 14))
                                     .foregroundStyle(.white)
                             }
@@ -152,7 +165,9 @@ private struct SelectCampfiresViewCampfireButton: View {
             .padding(.trailing)
         } else {
             Button {
-                currentCampfireId = campfire.id
+                viewModel.updateRecentVisitedCampfirePin(to: campfire.pin)
+                print("Updated recentVisitedCampfirePin to: \(viewModel.recentVisitedCampfirePin)")
+
                 withAnimation {
                     isShowSideMenu = false
                 }
@@ -161,20 +176,20 @@ private struct SelectCampfiresViewCampfireButton: View {
                     .fill(Color.init(hex: "443D41"))
                     .overlay {
                         HStack(spacing: 12) {
-                            Image(.progressDefault)
+                            Image(((campfire.image == nil || campfire.image == "") ? "progress_defaultImage" : campfire.image)!)
                                 .resizable()
                                 .clipShape(RoundedRectangle(cornerRadius: 12))
                                 .aspectRatio(1, contentMode: .fit)
                             
                             VStack(alignment: .leading, spacing: 2) {
-                                Text(campfire.title)
+                                Text(campfire.name)
                                     .font(Font.custom("Pretendard-SemiBold", size: 14))
                                     .foregroundStyle(.textColorGray2)
                                 
                                 HStack(spacing: 2){
-                                    ForEach(Array(zip(people.indices, people)), id: \.0) { index ,person in
+                                    ForEach(Array(campfire.membersNames.prefix(3).enumerated()), id: \.0) { index ,member in
                                         if index < 3{
-                                            Text(person, textLimit: 4)
+                                            Text(member, textLimit: 4)
                                                 .foregroundStyle(Color.init(hex: "B58580"))
                                                 .padding(6)
                                                 .background {
@@ -183,8 +198,8 @@ private struct SelectCampfiresViewCampfireButton: View {
                                                 }
                                         }
                                     }
-                                    if people.count > 3 {
-                                        Text("+\(people.count - 3)")
+                                    if campfire.membersNames.count > 3 {
+                                        Text("+\(campfire.membersNames.count - 3)")
                                             .padding(6)
                                             .foregroundStyle(.textColor2)
                                             .background {

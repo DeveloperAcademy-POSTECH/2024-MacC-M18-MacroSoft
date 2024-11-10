@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct CampfireView: View {
-    @StateObject private var networkMonitor = NetworkMonitor() // 네트워크 모니터링 객체
+    @EnvironmentObject private var networkMonitor: NetworkMonitor
     @EnvironmentObject private var viewModel: CampfireViewModel
     @Query var campfires: [Campfire]
     @Binding private(set) var isShowSideMenu: Bool
@@ -33,15 +33,6 @@ struct CampfireView: View {
             }
             .ignoresSafeArea()
         }
-        .overlay(
-            VStack {
-                if viewModel.showNetworkAlert {
-                    NetworkMonitorAlert()
-                }
-                Spacer()
-            }
-            .padding(.top, 50)
-        )
     }
 }
 

@@ -33,10 +33,6 @@ class AppleSigninViewModel: ObservableObject {
                     
                     // 서버에 값 전송
                     sendCredentialsToServer(authorizationCode: authorizationCode, identityToken: identityToken, encryptedUserIdentifier: encryptedUserIdentifier)
-                
-                    // 로그인 성공
-                    self.isLoggedIn = true
-                    self.shouldReLogin = false
 
                 default:
                     break
@@ -64,6 +60,9 @@ class AppleSigninViewModel: ObservableObject {
                 let data = try await NetworkManager.shared.requestRawData(router: .socialLogin(socialType: "APPLE", parameters: parameters))
                 handleLoginResponse(data)
             } catch {
+                // 다시 로그인 필요
+                self.isLoggedIn = false
+                self.shouldReLogin = true
                 promptUserToReLogin()
             }
         }
@@ -82,14 +81,22 @@ class AppleSigninViewModel: ObservableObject {
                     print("refreshToken: \(refreshToken)")
                     setAccessToken(accessToken)
                     setRefreshToken(refreshToken)
+                    
+                    DispatchQueue.main.async {
+                        self.isLoggedIn = true
+                    }
                 }
             } else {
-                print("promptUserToReLogin Error: Missing tokens in response.")
                 promptUserToReLogin()
+                DispatchQueue.main.async {
+                    self.isLoggedIn = false
+                }
             }
         } catch {
-            print("Error parsing login response:", error)
             promptUserToReLogin()
+            DispatchQueue.main.async {
+                self.isLoggedIn = false
+            }
         }
     }
     

@@ -9,7 +9,8 @@ import SwiftUI
 import Combine
 
 class CampfireViewModel: ObservableObject {
-    @Published var campfire: Campfire?
+    @Published var campfire: Campfire? // 단일 데이터
+    @Published var campfires: [Campfire] = [] // 데이터 묶음
     @Published var isEmptyCampfire: Bool = true
     @Published var showNetworkAlert: Bool = false
     @AppStorage("recentVisitedCampfirePin") var recentVisitedCampfirePin: Int = 0
@@ -22,7 +23,7 @@ class CampfireViewModel: ObservableObject {
         if recentVisitedCampfirePin != 0 {
             fetchCampfireMainInfo(for: recentVisitedCampfirePin)
         } else {
-            fetchUserCampfireInfos()
+            fetchUserCampfireInfos { _ in }
         }
     }
     
@@ -42,6 +43,7 @@ class CampfireViewModel: ObservableObject {
                     DispatchQueue.main.async {
                         self.campfire = campfire
                         self.isEmptyCampfire = false
+                        self.recentVisitedCampfirePin = campfire.pin
                     }
                 } else {
                     print("Failed to parse campfire info.")
@@ -59,7 +61,7 @@ class CampfireViewModel: ObservableObject {
     }
     
     // 사용자가 참여한 모든 캠프파이어 목록에서 첫 번째 캠프파이어 정보를 가져옴
-    private func fetchUserCampfireInfos() {
+    func fetchUserCampfireInfos(completion: @escaping ([Campfire]?) -> Void) {
         Task {
             do {
                 let data = try await NetworkManager.shared.requestRawData(router: .getMyCampfires)
@@ -67,29 +69,34 @@ class CampfireViewModel: ObservableObject {
                 if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                    let result = jsonResponse["result"] as? [String: Any],
                    let campfireInfos = result["campfireInfos"] as? [[String: Any]],
-                   let firstCampfireInfo = campfireInfos.first {
+                   let _ = campfireInfos.first {
                     
                     // Campfire 모델에 대한 JSON 응답 디코딩
-                    let jsonData = try JSONSerialization.data(withJSONObject: firstCampfireInfo, options: [])
-                    let campfire = try JSONDecoder().decode(Campfire.self, from: jsonData)
+                    let fetchedCampfires = try campfireInfos.map { campfireInfo -> Campfire in
+                        let jsonData = try JSONSerialization.data(withJSONObject: campfireInfo, options: [])
+                        return try JSONDecoder().decode(Campfire.self, from: jsonData)
+                    }
                     
                     DispatchQueue.main.async {
-                        self.campfire = campfire
-                        self.isEmptyCampfire = false
-                        // 첫 번째 캠프파이어 핀을 recentVisitedCampfirePin으로 저장
-                        self.recentVisitedCampfirePin = campfire.pin
-
+                        self.campfires = fetchedCampfires
+                        self.campfire = fetchedCampfires.first
+                        self.isEmptyCampfire = fetchedCampfires.isEmpty
+                        
+                        // 콜백으로 데이터를 반환
+                        completion(fetchedCampfires)
                     }
                 } else {
                     print("User has no campfire.")
                     DispatchQueue.main.async {
                         self.isEmptyCampfire = true
+                        completion(nil)
                     }
                 }
             } catch {
                 print("Error fetching user campfire infos: \(error)")
                 DispatchQueue.main.async {
                     self.isEmptyCampfire = true
+                    completion(nil)
                 }
             }
         }
@@ -128,6 +135,11 @@ class CampfireViewModel: ObservableObject {
                 self.showNetworkAlert = false
             }
         }
+    }
+    
+    func updateRecentVisitedCampfirePin(to pin: Int) {
+        recentVisitedCampfirePin = pin
+        fetchCampfireMainInfo()  // 새로운 pin에 맞는 캠프파이어 정보 가져오기
     }
 }
 

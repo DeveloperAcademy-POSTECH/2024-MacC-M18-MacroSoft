@@ -11,7 +11,7 @@ import CryptoKit
 
 struct AppleSigninButton: View {
     @StateObject private var viewModel = AppleSigninViewModel()
-    @AppStorage("isSkipRegister") var isSkipRegister: Bool = false
+    @Binding var isSkipRegister: Bool
     
     var body: some View {
         SignInWithAppleButton(
@@ -28,10 +28,20 @@ struct AppleSigninButton: View {
               }
           }
         )
+        .signInWithAppleButtonStyle(.white)
+        .frame(height: 58)
+        .cornerRadius(100)
+        .padding(.horizontal, 24)
+        .onChange(of: viewModel.isLoggedIn) { _, newValue in
+            if newValue {
+                isSkipRegister = true
+            }
+        }
     }
 }
 
 
 #Preview {
-    AppleSigninButton()
+    @Previewable @AppStorage("isSkipRegister") var isSkipRegister: Bool = false
+    AppleSigninButton(isSkipRegister: $isSkipRegister)
 }

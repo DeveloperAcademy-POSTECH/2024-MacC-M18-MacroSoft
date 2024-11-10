@@ -10,6 +10,7 @@ import SwiftUI
 // MARK: - ContentView
 
 struct ContentView: View {
+    @StateObject private var networkMonitor = NetworkMonitor() // 네트워크 모니터링 객체
     @StateObject private var viewModel = CampfireViewModel()
     @State private var tabSelection: Int = 0
     @State private var isShowSideMenu: Bool = false
@@ -37,6 +38,7 @@ struct ContentView: View {
                         Tab(value: 1) {
                             CampfireView(isShowSideMenu: $isShowSideMenu)
                                 .environmentObject(viewModel)
+                                .environmentObject(networkMonitor)
                         } label: {
                             Image(.tabCampfire)
                             Text("모닥불")
@@ -59,6 +61,7 @@ struct ContentView: View {
                         
                         CampfireView(isShowSideMenu: $isShowSideMenu)
                             .environmentObject(viewModel)
+                            .environmentObject(networkMonitor)
                             .tabItem {
                                 Label("모닥불", image: .tabCampfire)
                             }
@@ -92,6 +95,7 @@ struct ContentView: View {
                     
                     SelectCampfiresView(isShowSideMenu: $isShowSideMenu)
                         .environmentObject(viewModel)
+                        .environmentObject(networkMonitor)
                         .frame(width: UIScreen.main.bounds.width * 0.9)
                         .background {
                             LinearGradient.SelectCampfiresViewBackground
@@ -102,6 +106,15 @@ struct ContentView: View {
                 }
             }
         }
+        .overlay(
+            VStack {
+                if viewModel.showNetworkAlert {
+                    NetworkMonitorAlert()
+                }
+                Spacer()
+            }
+            .padding(.top, 50)
+        )
     }
 }
 

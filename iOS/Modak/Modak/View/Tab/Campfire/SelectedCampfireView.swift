@@ -21,7 +21,7 @@ struct SelectedCampfireView: View {
     var body: some View {
         VStack {
             // 네트워크가 연결되지 않은 경우 로컬 데이터를 사용
-            if let campfire = (networkMonitor.isConnected ? viewModel.campfire : campfiresLocalData.first) {
+            if let campfire = (networkMonitor.isConnected ? viewModel.campfire : campfiresLocalData.first(where: { $0.pin == viewModel.recentVisitedCampfirePin })) {
                 CampfireViewTopButton(isShowSideMenu: $isShowSideMenu, campfireName: campfire.name)
                 
                 // TODO: 참여한 모닥불의 로그가 없는지 체크하는 로직 추가
@@ -58,27 +58,19 @@ struct SelectedCampfireView: View {
     }
 
     private func fetchAndSaveCampfireToLocalStorage() {
-        Task {
-            do {
-                // 서버에서 Campfire 데이터를 가져오기
-                let data = try await NetworkManager.shared.requestRawData(router: .getMyCampfires)
-                
-                if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                   let result = jsonResponse["result"] as? [String: Any],
-                   let campfireInfos = result["campfireInfos"] as? [[String: Any]] {
-                    
-                    for campfireInfo in campfireInfos {
-                        // Campfire 모델에 대한 JSON 응답 디코딩
-                        let jsonData = try JSONSerialization.data(withJSONObject: campfireInfo, options: [])
-                        let campfire = try JSONDecoder().decode(Campfire.self, from: jsonData)
-                        modelContext.insert(campfire)
-                    }
+        viewModel.fetchUserCampfireInfos { campfires in
+            if let campfires = campfires {
+                for campfire in campfires {
+                    self.modelContext.insert(campfire)
                 }
-                // 저장 완료 후 플래그 설정
-                isInitialDataLoad = false
-                print("Campfire 데이터 - 로컬 데이터베이스 저장")
-            } catch {
-                print("Error fetching or saving Campfire data: \(error)")
+                viewModel.recentVisitedCampfirePin = campfires.first!.pin
+                self.isInitialDataLoad = false
+                do {
+                    try modelContext.save()
+                    print("Campfire 데이터 - 로컬 데이터베이스 저장")
+                } catch {
+                    print("Error saving Campfire data: \(error)")
+                }
             }
         }
     }
