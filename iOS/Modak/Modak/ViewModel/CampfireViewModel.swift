@@ -102,7 +102,7 @@ class CampfireViewModel: ObservableObject {
         }
     }
     
-    func createCampfire(campfireName: String) {
+    func createCampfire(campfireName: String, completion: @escaping () -> Void) {
         Task {
             do {
                 let data = try await NetworkManager.shared.requestRawData(router: .createCampfire(campfireName: campfireName))
@@ -114,6 +114,7 @@ class CampfireViewModel: ObservableObject {
                     DispatchQueue.main.async {
                         self.recentVisitedCampfirePin = campfirePin
                         self.fetchCampfireMainInfo(for: campfirePin)
+                        completion()
                     }
                     print("Successfully created campfire with PIN: \(campfirePin)")
                 } else {
