@@ -17,6 +17,15 @@ class PublicLogImage {
     var creationDate: Date
     var userEmotions: [UserEmotion]
     
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name = "imageName"
+        case latitude
+        case longitude
+        case creationDate
+        case userEmotions = "ImageEmotions"
+    }
+    
     init(id: Int64, name: String, latitude: Double, longitude: Double, creationDate: Date, userEmotions: [UserEmotion]) {
         self.id = id
         self.name = name
@@ -28,6 +37,6 @@ class PublicLogImage {
 }
 
 struct UserEmotion: Codable {
-    var userName: String
+    var userName: String //memebername
     var emotion: String
 }

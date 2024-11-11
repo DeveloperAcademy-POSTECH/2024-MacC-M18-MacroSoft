@@ -12,15 +12,14 @@ import Firebase
 
 struct LogPileView: View {
     @Environment(\.modelContext) private var modelContext
-    
-    @State private var yearlyLogs: [(MonthlyLogs)] = []
+    @EnvironmentObject private var logPileViewModel: LogPileViewModel
     
     var body: some View {
         Group {
-            if yearlyLogs.count > 0 {
+            if logPileViewModel.yearlyLogs.count > 0 {
                 ScrollView {
                     LazyVStack(alignment: .leading, pinnedViews: [.sectionHeaders]) {
-                        ForEach($yearlyLogs, id: \.date){ monthlyLog in
+                        ForEach($logPileViewModel.yearlyLogs, id: \.id) { monthlyLog in
                             Section {
                                 LogPileSection(monthlyLog: monthlyLog.dailyLogs.wrappedValue)
                             } header: {
@@ -31,6 +30,9 @@ struct LogPileView: View {
                 }
             } else {
                 NoLogView()
+                    .onAppear {
+                        logPileViewModel.fetchLogsWithGroupBy(modelContext: modelContext)
+                    }
             }
         }
         .background {
@@ -44,40 +46,6 @@ struct LogPileView: View {
             Analytics.logEvent(AnalyticsEventScreenView,
                 parameters: [AnalyticsParameterScreenName: "LogPileView",
                 AnalyticsParameterScreenClass: "LogPileView"])
-        }
-    }
-    
-    // MARK: - fetchLogsWithGroupBy
-    
-    private func fetchLogsWithGroupBy() {
-        do {
-            let logs = try modelContext.fetch(FetchDescriptor<PrivateLog>())
-            
-            // logs: [Log]를, monthlyLogs(MonthlyLogs Model과는 다름): [Date : [Log]] 형태로 (년, 월 기준으로)
-            let monthlyLogs = Dictionary(grouping: logs) { log in
-                let components = Calendar.current.dateComponents([.year, .month], from: log.startAt)
-                return Calendar.current.date(from: components)!
-            }
-            
-            // YearlyLogs를 최신 순으로 정렬하고, 각 월 안에서 다시 일별로 그룹화
-            yearlyLogs = monthlyLogs.sorted { $0.key > $1.key } // 최신 월 순으로 정렬
-                .map { (month, logsInMonth) in
-                    // 같은 월 안에서 다시 일별로 그룹화
-                    let dailyLogs = Dictionary(grouping: logsInMonth) { log in
-                        Calendar.current.startOfDay(for: log.startAt) // 일 단위로 그룹화
-                    }
-                    
-                    // 날짜별 로그들을 최신 날짜 순으로 정렬
-                    let sortedDailyLogs = dailyLogs.sorted { $0.key > $1.key }
-                        .map { (day, logsInDay) in
-                            DailyLogs(date: day, logs: logsInDay.sorted { $0.startAt > $1.startAt }) // 시간순으로 정렬
-                        }
-                    
-                    // 월 단위로 묶고, 그 안에 일별로 묶인 로그들 포함
-                    return MonthlyLogs(date: month, dailyLogs: sortedDailyLogs)
-                }
-        } catch {
-            print("fetchLogsWithGroupBy failed: \(error)")
         }
     }
 }

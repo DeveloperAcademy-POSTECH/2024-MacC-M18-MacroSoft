@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct JoinCampfireView: View {
+    @Environment(\.modelContext) private var modelContext
     @StateObject private var viewModel = JoinCampfireViewModel()
+    var i = 0
     
     var body: some View {
         ZStack {
@@ -18,8 +20,14 @@ struct JoinCampfireView: View {
                 .environmentObject(viewModel)
             
             if viewModel.showSuccess {
-                BottomSheet(isPresented: $viewModel.showSuccess, viewName: "JoinCampfireView")
-                    .transition(.move(edge: .bottom))
+                BottomSheet(
+                    isPresented: $viewModel.showSuccess,
+                    viewName: "JoinCampfireView",
+                    campfireName: .constant(viewModel.campfireName),
+                    createdAt: .constant(viewModel.createdAt),
+                    membersNames: .constant(viewModel.membersNames)
+                )
+                .transition(.move(edge: .bottom))
             }
             
         }
@@ -33,6 +41,7 @@ struct JoinCampfireView: View {
                 Button(action: {
 //                    viewModel.showSuccess = true //테스트 전용
                     viewModel.validateAndSendCredentials() // TODO: 서버 api 연결
+                    saveCampfireToLocalStorage()
                 }) {
                     Text("완료")
                         .font(.custom("Pretendard-Regular", size: 18))
@@ -44,7 +53,7 @@ struct JoinCampfireView: View {
             }
             
             ToolbarItem(placement: .bottomBar) {
-                if viewModel.showSuccess {
+                if !viewModel.showSuccess {
                     cameraModeToggleButton
                 }
             }
@@ -83,6 +92,18 @@ struct JoinCampfireView: View {
         .padding(.bottom, 34)
     }
     
+    private func saveCampfireToLocalStorage() {
+        let extractedCampfirePin = viewModel.campfirePin.compactMap { $0.isNumber ? String($0) : nil }.joined()
+
+        let newCampfire = Campfire(name: viewModel.campfireName, pin: Int(extractedCampfirePin) ?? 0)
+        modelContext.insert(newCampfire)
+        do {
+            try modelContext.save()
+            print("Campfire 데이터 - 로컬 데이터베이스 저장")
+        } catch {
+            print("Error saving Campfire data: \(error)")
+        }
+    }
 }
 
 #Preview {

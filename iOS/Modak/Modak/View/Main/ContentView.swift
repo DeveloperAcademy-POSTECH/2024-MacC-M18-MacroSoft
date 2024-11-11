@@ -10,6 +10,8 @@ import SwiftUI
 // MARK: - ContentView
 
 struct ContentView: View {
+    @StateObject private var networkMonitor = NetworkMonitor() // 네트워크 모니터링 객체
+    @StateObject private var viewModel = CampfireViewModel()
     @State private var tabSelection: Int = 0
     @State private var isShowSideMenu: Bool = false
     
@@ -99,6 +101,17 @@ struct ContentView: View {
                 }
             }
         }
+        .environmentObject(viewModel)
+        .environmentObject(networkMonitor)
+        .overlay(
+            VStack {
+                if viewModel.showNetworkAlert {
+                    NetworkMonitorAlert()
+                }
+                Spacer()
+            }
+            .padding(.top, 50)
+        )
     }
 }
 
