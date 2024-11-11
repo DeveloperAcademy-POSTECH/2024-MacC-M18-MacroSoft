@@ -37,8 +37,6 @@ struct ContentView: View {
                         
                         Tab(value: 1) {
                             CampfireView(isShowSideMenu: $isShowSideMenu)
-                                .environmentObject(viewModel)
-                                .environmentObject(networkMonitor)
                         } label: {
                             Image(.tabCampfire)
                             Text("모닥불")
@@ -60,8 +58,6 @@ struct ContentView: View {
                             .tag(0)
                         
                         CampfireView(isShowSideMenu: $isShowSideMenu)
-                            .environmentObject(viewModel)
-                            .environmentObject(networkMonitor)
                             .tabItem {
                                 Label("모닥불", image: .tabCampfire)
                             }
@@ -94,8 +90,6 @@ struct ContentView: View {
                     }
                     
                     SelectCampfiresView(isShowSideMenu: $isShowSideMenu)
-                        .environmentObject(viewModel)
-                        .environmentObject(networkMonitor)
                         .frame(width: UIScreen.main.bounds.width * 0.9)
                         .background {
                             LinearGradient.SelectCampfiresViewBackground
@@ -106,6 +100,8 @@ struct ContentView: View {
                 }
             }
         }
+        .environmentObject(viewModel)
+        .environmentObject(networkMonitor)
         .overlay(
             VStack {
                 if viewModel.showNetworkAlert {

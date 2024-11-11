@@ -154,7 +154,6 @@ private struct CampfireViewNextButton: View {
     }
     
     private func saveCampfireToLocalStorage() {
-        
         let newCampfire = Campfire(name: campfireName, pin: viewModel.recentVisitedCampfirePin)
         modelContext.insert(newCampfire)
         do {

@@ -10,6 +10,7 @@ import SwiftUI
 struct JoinCampfireView: View {
     @Environment(\.modelContext) private var modelContext
     @StateObject private var viewModel = JoinCampfireViewModel()
+    var i = 0
     
     var body: some View {
         ZStack {

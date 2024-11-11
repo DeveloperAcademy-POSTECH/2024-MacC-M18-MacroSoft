@@ -42,7 +42,6 @@ struct SelectCampfiresView: View {
                     SelectCampfiresViewTopButton(buttonImage: .milestone, buttonText: "모닥불 참여")
                     SelectCampfiresViewTopButton(buttonImage: .tent, buttonText: "모닥불 생성")
                 }
-                .environmentObject(networkMonitor)
                 .padding(.init(top: 16, leading: 16, bottom: 10, trailing: 16))
                 
                 List(networkMonitor.isConnected ? viewModel.campfires : campfiresLocalData, id: \.pin) { campfire in
@@ -81,10 +80,8 @@ private struct SelectCampfiresViewTopButton: View {
                 JoinCampfireView()
             case .tent:
                 CampfireNameView(isCreate: true)
-                    .environmentObject(viewModel)
             default:
                 CampfireNameView(isCreate: true)
-                    .environmentObject(viewModel)
             }
         } label: {
             RoundedRectangle(cornerRadius: 43)

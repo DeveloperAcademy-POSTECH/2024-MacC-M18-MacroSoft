@@ -40,7 +40,6 @@ struct EmptyCampfireView: View {
 // MARK: - EmptyCampfireViewButton
 
 private struct EmptyCampfireViewButton: View {
-    @EnvironmentObject private var viewModel: CampfireViewModel
     private(set) var buttonImage: ImageResource
     private(set) var buttonText: String
     var body: some View {
@@ -50,10 +49,8 @@ private struct EmptyCampfireViewButton: View {
                 JoinCampfireView()
             case .tent:
                 CampfireNameView(isCreate: true)
-                    .environmentObject(viewModel)
             default:
                 CampfireNameView(isCreate: true)
-                    .environmentObject(viewModel)
             }
         } label: {
             VStack(spacing: 16) {

@@ -9,7 +9,6 @@ import SwiftUI
 import SwiftData
 
 struct CampfireView: View {
-    @EnvironmentObject private var networkMonitor: NetworkMonitor
     @EnvironmentObject private var viewModel: CampfireViewModel
     @Query var campfires: [Campfire]
     @Binding private(set) var isShowSideMenu: Bool
@@ -22,8 +21,6 @@ struct CampfireView: View {
                 SelectedCampfireView(isShowSideMenu: $isShowSideMenu)
             }
         }
-        .environmentObject(viewModel)
-        .environmentObject(networkMonitor)
         .background {
             Group {
                 Color.backgroundDefault
