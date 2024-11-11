@@ -6,16 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CampfireView: View {
-    // TODO: 참여한 모닥불이 없는지 체크하는 로직 추가
-    @State private var isEmptyCampfire: Bool = false
+    @EnvironmentObject private var viewModel: CampfireViewModel
+    @Query var campfires: [Campfire]
     @Binding private(set) var isShowSideMenu: Bool
     
     var body: some View {
         VStack {
-            // TODO: 참여한 모닥불이 없는지 체크하는 로직 추가
-            if isEmptyCampfire {
+            if viewModel.isEmptyCampfire && campfires.isEmpty {
                 EmptyCampfireView()
             } else {
                 SelectedCampfireView(isShowSideMenu: $isShowSideMenu)

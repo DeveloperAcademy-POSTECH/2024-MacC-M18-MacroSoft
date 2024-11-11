@@ -22,7 +22,7 @@ struct ModakApp: App {
     var body: some Scene {
         WindowGroup {
             CoordinatorView()
-                .modelContainer(for: [PrivateLog.self, PrivateLogImage.self])
+                .modelContainer(for: [PrivateLog.self, PrivateLogImage.self, Campfire.self])
                 .environmentObject(logPileViewModel)
         }
     }

@@ -10,12 +10,14 @@ import SwiftUI
 class JoinCampfireViewModel: ObservableObject {
     @Published var campfireName: String = ""
     @Published var campfirePin: String = ""
+    @Published var createdAt: String = ""
+    @Published var membersNames: [String] = []
     @Published var isCameraMode: Bool = true
     @Published var showError: Bool = false
     @Published var showSuccess: Bool = false
     @Published var cameraViewModel = CameraViewModel()
     
-    var campfireURL = Bundle.main.environmentVariable(forKey: "CampfireURL")!
+    @AppStorage("recentVisitedCampfirePin") private var recentVisitedCampfirePin: Int = 0
     
     init() {
         // 캡처된 이미지가 있을 때 자동으로 텍스트 인식을 수행하도록 설정
@@ -34,60 +36,36 @@ class JoinCampfireViewModel: ObservableObject {
         sendCampfireCredentialsToServer()
     }
     
-    // 서버에 요청 전송 -> 예시 함수 (아직 api 안나옴)
+    // 서버에 요청 전송
     private func sendCampfireCredentialsToServer() {
-        // 서버의 URL
-        guard let url = URL(string: campfireURL + "/\(campfirePin)/join") else {
-            print("Invalid URL")
-            return
-        }
-        print("Campfire Join URL: \(String(describing: url))")
-
-        // 전송할 데이터
-        let parameters: [String: Any] = [
-            "campfireName": "Macrosoft"
-        ]
-        
-        // JSON 데이터로 변환
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = httpBody
-        
-        let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
-            DispatchQueue.main.async {
-                if let error = error {
-                    print("Error sending request: \(error.localizedDescription)")
-                    self?.showError = true
-                    return
-                }
+        Task {
+            do {
+                let extractedCampfirePin = campfirePin.compactMap { $0.isNumber ? String($0) : nil }.joined()
                 
-                // 서버 응답 처리
-                if let response = response as? HTTPURLResponse, let data = data {
-                    switch response.statusCode {
-                    case 200:
-                        // JSON 응답 파싱
-                        do {
-                            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                               let result = json["result"] as? [String: Any],
-                               let campfirePin = result["campfirePin"] as? Int {
-                                print("Successfully joined campfire with PIN: \(campfirePin)")
-                                self?.showSuccess = true
-                            }
-                        } catch {
-                            print("Failed to parse response: \(error.localizedDescription)")
-                            self?.showError = true
-                        }
-                    default:
-                        print("Failed with status code: \(response.statusCode)")
-                        self?.showError = true
+                let data = try await NetworkManager.shared.requestRawData(router: .joinCampfire(campfirePin: Int(extractedCampfirePin) ?? 0, campfireName: campfireName))
+                
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let result = json["result"] as? [String: Any],
+                   let joinedCampfirePin = result["campfirePin"] as? Int {
+                    
+                    DispatchQueue.main.async {
+                        self.recentVisitedCampfirePin = joinedCampfirePin
+                        self.fetchCampfireInfo(campfirePin: joinedCampfirePin)
                     }
+                    print("Successfully joined campfire with PIN: \(joinedCampfirePin)")
+                } else {
+                    DispatchQueue.main.async {
+                        self.showError = true
+                    }
+                    print("Failed to parse response")
                 }
+            } catch {
+                DispatchQueue.main.async {
+                    self.showError = true
+                }
+                print("Error sending campfire credentials: \(error)")
             }
         }
-        task.resume()
     }
     
     public func recognizeText(from image: UIImage) {
@@ -132,6 +110,52 @@ class JoinCampfireViewModel: ObservableObject {
                 
             } catch {
                 print("Text recognition failed: \(error)")
+            }
+        }
+    }
+    
+    private func fetchCampfireInfo(campfirePin: Int) {
+        Task {
+            do {
+                let data = try await NetworkManager.shared.requestRawData(router: .joinCampfireInfo(campfirePin: campfirePin, campfireName: campfireName))
+                
+                if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let result = jsonResponse["result"] as? [String: Any] {
+                    
+                    DispatchQueue.main.async {
+                        self.campfireName = result["campfireName"] as? String ?? ""
+                        
+                        if let createdAtString = result["createdAt"] as? String {
+                            // 옵셔널 언래핑 및 날짜 변환
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                            dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+                            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
+
+                            if let createdAtDate = dateFormatter.date(from: createdAtString) {
+                                dateFormatter.dateFormat = "yyyy.MM.dd"
+                                self.createdAt = dateFormatter.string(from: createdAtDate)
+                            } else {
+                                self.createdAt = "2024.00.00"
+                            }
+                        } else {
+                            self.createdAt = "2024.00.00"
+                        }
+                        
+                        self.membersNames = result["membersNames"] as? [String] ?? []
+                        self.showSuccess = true // BottomSheet 표시
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.showError = true
+                    }
+                    print("Failed to parse campfire info.")
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.showError = true
+                }
+                print("Error fetching campfire info: \(error)")
             }
         }
     }

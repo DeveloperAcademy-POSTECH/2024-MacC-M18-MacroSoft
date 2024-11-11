@@ -25,6 +25,7 @@ class CameraViewModel: NSObject, ObservableObject, AVCaptureVideoDataOutputSampl
         }
     }
     @Published var cameraPermissionAlert = false
+    @Published var isSessionStarted = false
     
     var textRecognizeHandler: ((UIImage) -> Void)?
     
@@ -53,7 +54,7 @@ class CameraViewModel: NSObject, ObservableObject, AVCaptureVideoDataOutputSampl
         $isCapturing
             .sink { [weak self] isCapturing in
                 if isCapturing {
-                    self?.startSession()
+                    self?.startSessionIfNeeded()
                 } else {
                     self?.stopSession()
                 }
@@ -65,11 +66,13 @@ class CameraViewModel: NSObject, ObservableObject, AVCaptureVideoDataOutputSampl
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
             setupSession()
+            startSessionIfNeeded()
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
                 DispatchQueue.main.async {
                     if granted {
                         self?.setupSession()
+                        self?.startSessionIfNeeded()
                     } else {
                         self?.cameraPermissionAlert = true
                     }
@@ -82,10 +85,13 @@ class CameraViewModel: NSObject, ObservableObject, AVCaptureVideoDataOutputSampl
         }
     }
     
-    func startSession() {
+    func startSessionIfNeeded() {
         if !session.isRunning && AVCaptureDevice.authorizationStatus(for: .video) == .authorized {
             DispatchQueue.global().async { [weak self] in
                 self?.session.startRunning()
+                DispatchQueue.main.async {
+                    self?.isSessionStarted = true
+                }
             }
         }
     }
@@ -94,6 +100,9 @@ class CameraViewModel: NSObject, ObservableObject, AVCaptureVideoDataOutputSampl
         if session.isRunning {
             DispatchQueue.global().async { [weak self] in
                 self?.session.stopRunning()
+                DispatchQueue.main.async {
+                    self?.isSessionStarted = false
+                }
             }
         }
     }

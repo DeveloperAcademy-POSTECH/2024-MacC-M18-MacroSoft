@@ -51,11 +51,7 @@ struct RegisterView: View {
                 
                 Spacer(minLength: 0)
                 
-                AppleSigninButton()
-                .signInWithAppleButtonStyle(.white)
-                .frame(height: 58)
-                .cornerRadius(100)
-                .padding(.horizontal, 24)
+                AppleSigninButton(isSkipRegister: $isSkipRegister)
                 
                 Button(action: {
                     isSkipRegister = true

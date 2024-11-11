@@ -119,16 +119,21 @@ private struct CampfireViewTextField: View {
 // MARK: - CampfireViewNextButton
 
 private struct CampfireViewNextButton: View {
+    @EnvironmentObject private var viewModel: CampfireViewModel
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    
     @Binding private(set) var campfireName: String
-    
     private(set) var isCreate: Bool
     
     var body: some View {
         Button {
             // TODO: API 통신 추가
-            dismiss()
+            if isCreate {
+                viewModel.createCampfire(campfireName: campfireName) {
+                    saveCampfireToLocalStorage()
+                }
+                dismiss()
+            }
         } label: {
             HStack {
                 Spacer()
@@ -146,6 +151,17 @@ private struct CampfireViewNextButton: View {
                 .fill((campfireName == "" || campfireName.count > 12) ? .disable : .mainColor1)
         }
         .disabled((campfireName == "" || campfireName.count > 12))
+    }
+    
+    private func saveCampfireToLocalStorage() {
+        let newCampfire = Campfire(name: campfireName, pin: viewModel.recentVisitedCampfirePin)
+        modelContext.insert(newCampfire)
+        do {
+            try modelContext.save()
+            print("Campfire 데이터 - 로컬 데이터베이스 저장 완료")
+        } catch {
+            print("Error saving Campfire data: \(error)")
+        }
     }
 }
 

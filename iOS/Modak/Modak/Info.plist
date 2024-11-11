@@ -6,12 +6,8 @@
 	<false/>
 	<key>LSEnvironment</key>
 	<dict>
-		<key>RefreshTokenURL</key>
-		<string>$(REFRESH_TOKEN_URL)</string>
-		<key>SocialLoginURL</key>
-		<string>$(SOCIAL_LOGIN_URL)</string>
-		<key>CampfireURL</key>
-		<string>$(CAMPFIRE_URL)</string>
+		<key>ServerURL</key>
+		<string>$(SERVER_URL)</string>
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
