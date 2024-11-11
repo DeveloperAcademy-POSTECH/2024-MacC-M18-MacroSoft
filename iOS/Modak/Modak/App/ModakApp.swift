@@ -10,6 +10,8 @@ import Firebase
 
 @main
 struct ModakApp: App {
+    @StateObject private var logPileViewModel: LogPileViewModel
+    = LogPileViewModel()
     
     init() {
         FirebaseApp.configure()
@@ -21,6 +23,7 @@ struct ModakApp: App {
         WindowGroup {
             CoordinatorView()
                 .modelContainer(for: [PrivateLog.self, PrivateLogImage.self, Campfire.self])
+                .environmentObject(logPileViewModel)
         }
     }
 }

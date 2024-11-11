@@ -91,7 +91,7 @@ private struct CampfireViewTopButton: View {
             } label: {
                 HStack(spacing: 8) {
                     // TODO: 모닥불 이미지 적용하는 로직 추가
-                    Image(.leaf)
+                    Image(.leaf3D)
                         .resizable()
                         .frame(width: 40, height: 40)
                         .clipShape(RoundedRectangle(cornerRadius: 10))

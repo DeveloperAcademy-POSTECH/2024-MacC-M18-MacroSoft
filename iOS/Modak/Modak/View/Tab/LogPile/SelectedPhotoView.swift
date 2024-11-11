@@ -15,7 +15,7 @@ struct SelectedPhotoView: View {
     @State private var tabSelection: String = ""
     var body: some View {
         TabView(selection: $tabSelection) {
-            ForEach(selectedLog.images, id: \.id) { metadata in
+            ForEach(selectedLog.images.sorted(by: { $0.creationDate! < $1.creationDate! }), id: \.localIdentifier) { metadata in
                 VStack {
                     Spacer()
                     DrawPhoto(photoMetadata: metadata, isClip: false)
