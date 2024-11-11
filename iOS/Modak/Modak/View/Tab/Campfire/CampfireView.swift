@@ -22,13 +22,8 @@ struct CampfireView: View {
             }
         }
         .background {
-            Group {
-                Color.backgroundDefault
-                LinearGradient.campfireViewBackground
-                EllipticalGradient.campfireViewBackground
-                    .rotationEffect(.degrees(90), anchor: UnitPoint(x: 0.5, y: 0.75))
-            }
-            .ignoresSafeArea()
+            CampfireBackground()
+                .ignoresSafeArea()
         }
     }
 }
