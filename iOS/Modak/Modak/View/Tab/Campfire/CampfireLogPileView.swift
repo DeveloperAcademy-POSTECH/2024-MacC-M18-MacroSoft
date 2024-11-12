@@ -105,9 +105,8 @@ private struct CampfireLogPileViewTitle: View {
             }
             .padding(.trailing, 12)
             
-            // TODO: CampfireMemberDetail 화면으로 연결
             NavigationLink {
-                
+                CampfireMemberDetailView()
             } label: {
                 HStack(spacing: 4) {
                     Text("멤버")
