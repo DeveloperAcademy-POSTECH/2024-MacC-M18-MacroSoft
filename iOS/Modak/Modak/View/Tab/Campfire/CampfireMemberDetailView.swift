@@ -36,7 +36,7 @@ struct CampfireMemberDetailView: View {
                 Spacer()
                 
                 NavigationLink {
-                    
+                    InviteMemberView()
                 } label: {
                     Image("milestone_invitebutton")
                         .resizable()

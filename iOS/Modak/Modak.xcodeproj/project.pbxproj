@@ -292,7 +292,6 @@
 				10F58EE42CD06C0D00BF9D34 /* JoinCampfireView.swift */,
 				109396972CD8DB9A004C4EBD /* JoinCampfireByTextView.swift */,
 				1093968C2CD294A9004C4EBD /* JoinCampfireByCameraView.swift */,
-				109399162CE3A56D004C4EBD /* InviteMemberView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -420,6 +419,7 @@
 			children = (
 				CA64DBEF2CDC5EF700262E95 /* CampfireLogPileView.swift */,
 				109399182CE3A7AE004C4EBD /* CampfireMemberDetailView.swift */,
+				109399162CE3A56D004C4EBD /* InviteMemberView.swift */,
 				CAA0B7C32CD99FE10093AEA7 /* SelectCampfiresView.swift */,
 				CAA0B7BB2CD471160093AEA7 /* SelectedCampfireView.swift */,
 				CAA0B7B92CD470470093AEA7 /* EmptyCampfireView.swift */,
