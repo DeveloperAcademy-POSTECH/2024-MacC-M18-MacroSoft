@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct CampfireLogPileView: View {
+    @EnvironmentObject private var viewModel: CampfireViewModel
     // TODO: 테스트용 변수들 추후 제거
     @State private var isEmpty: Bool = false
-    @State private var campfireName: String = "Macro"
-    @State private var campfireMemberCount: Int = 6
     @State private var yearlyLogs: [(MonthlyLogs)] = []
     
     init() {
@@ -38,18 +37,18 @@ struct CampfireLogPileView: View {
             // TODO: 캠프파이어 로그가 없는지 체크하는 로직 추가
             if isEmpty {
                 VStack {
-                    CampfireLogPileViewTitle(campfireName: $campfireName, campfireMemberCount: $campfireMemberCount)
+                    CampfireLogPileViewTitle(campfireName: viewModel.campfire!.name, campfireMemberCount: viewModel.campfire!.membersNames.count)
                         .padding(.leading, 24)
                     
                     Spacer()
                     
-                    CampfireEmptyLog(campfireName: $campfireName)
+                    CampfireEmptyLog(campfireName: viewModel.campfire!.name)
                     
                     Spacer()
                 }
             } else {
                 ScrollView {
-                    CampfireLogPileViewTitle(campfireName: $campfireName, campfireMemberCount: $campfireMemberCount)
+                    CampfireLogPileViewTitle(campfireName: viewModel.campfire!.name, campfireMemberCount: viewModel.campfire!.membersNames.count)
                         .padding(.leading, 24)
                         .padding(.bottom, 12)
                     
@@ -72,7 +71,7 @@ struct CampfireLogPileView: View {
             LogPileBackground()
                 .ignoresSafeArea()
         }
-        .navigationTitle("\(campfireName) 모닥불")
+        .navigationTitle("\(viewModel.campfire!.name) 모닥불")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -84,8 +83,8 @@ struct CampfireLogPileView: View {
 }
 
 private struct CampfireLogPileViewTitle: View {
-    @Binding private(set) var campfireName: String
-    @Binding private(set) var campfireMemberCount: Int
+    private(set) var campfireName: String
+    private(set) var campfireMemberCount: Int
     
     var body: some View {
         HStack {
@@ -116,7 +115,6 @@ private struct CampfireLogPileViewTitle: View {
                         .font(.custom("Pretendard_Medium", size: 12))
                         .padding(.init(top: 6, leading: 8, bottom: 6, trailing: 0))
                     
-                    // TODO: 캠프파이어 멤버 숫자 로직 추가
                     Text("\(campfireMemberCount)명")
                         .foregroundStyle(.textColorGray2)
                         .font(.custom("Pretendard_Medium", size: 14))
@@ -160,5 +158,7 @@ private struct CampfireLogPileViewFloatingButton: View {
 }
 
 #Preview{
-    CampfireLogPileView()
+    NavigationStack {
+        CampfireLogPileView()
+    }
 }
