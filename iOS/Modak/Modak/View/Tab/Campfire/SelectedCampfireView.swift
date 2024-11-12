@@ -156,7 +156,7 @@ private struct CampfireViewEmptyLogView: View {
             
             // TODO: 내 추억 장작 개수가 1개 미만인 경우 disable 시키는 로직 추가
             NavigationLink {
-                // TODO: 화면 전환 로직 추가
+                SelectMergeLogsView()
             } label: {
                 HStack(spacing: 8) {
                     Spacer()
