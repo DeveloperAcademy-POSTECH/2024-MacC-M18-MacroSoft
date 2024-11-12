@@ -49,12 +49,34 @@ extension LinearGradient {
     static var SelectCampfiresViewBackground: LinearGradient {
         return LinearGradient(
             stops: [
-            Gradient.Stop(color: Color(red: 0.24, green: 0.22, blue: 0.23), location: 0.00),
-            Gradient.Stop(color: Color(red: 0.23, green: 0.22, blue: 0.24), location: 1.00),
+                Gradient.Stop(color: Color(red: 0.24, green: 0.22, blue: 0.23), location: 0.00),
+                Gradient.Stop(color: Color(red: 0.23, green: 0.22, blue: 0.24), location: 1.00),
             ],
             startPoint: UnitPoint(x: 0.5, y: 0),
             endPoint: UnitPoint(x: 0.5, y: 1)
-            )
+        )
+    }
+    
+    static var SelectMergeLogsViewBackground: LinearGradient {
+        return LinearGradient(
+            stops: [
+                Gradient.Stop(color: Color.backgroundPhoto, location: 0.00),
+                Gradient.Stop(color: Color.init(hex: "302C36"), location: 1.00),
+            ],
+            startPoint: UnitPoint(x: 0.5, y: 0),
+            endPoint: UnitPoint(x: 0.5, y: 1)
+        )
+    }
+    
+    static var selectMergeLogsViewHeaderBackground: LinearGradient {
+        return LinearGradient(
+            stops: [
+                Gradient.Stop(color: Color.init(hex: "424144"), location: 1),
+                Gradient.Stop(color: Color.init(hex: "3F383D"), location: 0)
+            ],
+            startPoint: .top,
+            endPoint: .bottom
+        )
     }
 }
 

@@ -62,6 +62,10 @@
 		CA2B5D072CBA70280070DEBF /* GradientColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D062CBA70210070DEBF /* GradientColorExtension.swift */; };
 		CA2B5D0B2CBA70C40070DEBF /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D0A2CBA70C00070DEBF /* ColorExtension.swift */; };
 		CA2B5D0F2CBAAE5C0070DEBF /* LogPileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D0E2CBAAE5C0070DEBF /* LogPileDetailView.swift */; };
+		CA92B3772CE38442004EFE1C /* MergeableLogPile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA92B3762CE3843A004EFE1C /* MergeableLogPile.swift */; };
+		CA92B3792CE3BAC8004EFE1C /* MergeableLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA92B3782CE3BAC5004EFE1C /* MergeableLog.swift */; };
+		CA92B37B2CE3BB02004EFE1C /* MergeableLogImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA92B37A2CE3BB01004EFE1C /* MergeableLogImage.swift */; };
+		CA92B37F2CE3BCE8004EFE1C /* MaterialEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA92B37E2CE3BCE6004EFE1C /* MaterialEffectView.swift */; };
 		CAA0B7B22CD3228D0093AEA7 /* PublicLogImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B7B12CD322880093AEA7 /* PublicLogImage.swift */; };
 		CAA0B7B62CD329BE0093AEA7 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B7B52CD329BC0093AEA7 /* ViewExtension.swift */; };
 		CAA0B7BA2CD470550093AEA7 /* EmptyCampfireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B7B92CD470470093AEA7 /* EmptyCampfireView.swift */; };
@@ -138,6 +142,10 @@
 		CA2B5D062CBA70210070DEBF /* GradientColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientColorExtension.swift; sourceTree = "<group>"; };
 		CA2B5D0A2CBA70C00070DEBF /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		CA2B5D0E2CBAAE5C0070DEBF /* LogPileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPileDetailView.swift; sourceTree = "<group>"; };
+		CA92B3762CE3843A004EFE1C /* MergeableLogPile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergeableLogPile.swift; sourceTree = "<group>"; };
+		CA92B3782CE3BAC5004EFE1C /* MergeableLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergeableLog.swift; sourceTree = "<group>"; };
+		CA92B37A2CE3BB01004EFE1C /* MergeableLogImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergeableLogImage.swift; sourceTree = "<group>"; };
+		CA92B37E2CE3BCE6004EFE1C /* MaterialEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialEffectView.swift; sourceTree = "<group>"; };
 		CAA0B7B12CD322880093AEA7 /* PublicLogImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicLogImage.swift; sourceTree = "<group>"; };
 		CAA0B7B52CD329BC0093AEA7 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		CAA0B7B92CD470470093AEA7 /* EmptyCampfireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCampfireView.swift; sourceTree = "<group>"; };
@@ -228,6 +236,9 @@
 		10AB91AE2CACD2AC00BFA2EC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CA92B37A2CE3BB01004EFE1C /* MergeableLogImage.swift */,
+				CA92B3782CE3BAC5004EFE1C /* MergeableLog.swift */,
+				CA92B3762CE3843A004EFE1C /* MergeableLogPile.swift */,
 				CAA0B7B12CD322880093AEA7 /* PublicLogImage.swift */,
 				CA22A7A42CD32064002195A2 /* PublicLog.swift */,
 				CA22A7A22CD31B6A002195A2 /* Campfire.swift */,
@@ -293,6 +304,7 @@
 		10AB91D92CACDCD000BFA2EC /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				CA92B37E2CE3BCE6004EFE1C /* MaterialEffectView.swift */,
 				CAA0B7BF2CD8E06C0093AEA7 /* ExpandableEmoji.swift */,
 				CAA0B7BD2CD8DBC80093AEA7 /* ExpandedPhoto.swift */,
 				CAB2BE352CBF520A0030C1F1 /* DrawPhoto.swift */,
@@ -474,6 +486,7 @@
 			files = (
 				10F58EE72CD0891300BF9D34 /* SignTextFieldModifier.swift in Sources */,
 				1093968F2CD2950A004C4EBD /* CameraViewModel.swift in Sources */,
+				CA92B3792CE3BAC8004EFE1C /* MergeableLog.swift in Sources */,
 				CAA0B7BE2CD8DC160093AEA7 /* ExpandedPhoto.swift in Sources */,
 				CA2B5D052CBA6FDB0070DEBF /* DateExtension.swift in Sources */,
 				CA2B5D072CBA70280070DEBF /* GradientColorExtension.swift in Sources */,
@@ -481,6 +494,7 @@
 				10BCB0DC2CB81D410013E227 /* OrganizePhotoViewModel.swift in Sources */,
 				10AB91AC2CACD29A00BFA2EC /* ContentView.swift in Sources */,
 				10BCB0F82CBCCABB0013E227 /* ExampleLogPileView.swift in Sources */,
+				CA92B37F2CE3BCE8004EFE1C /* MaterialEffectView.swift in Sources */,
 				10BCB0E72CB825520013E227 /* BackButton.swift in Sources */,
 				10B0A6702CBE6F820048C313 /* AppleSigninViewModel.swift in Sources */,
 				10BCB0E82CB825520013E227 /* OnboardingCard.swift in Sources */,
@@ -510,6 +524,8 @@
 				10BE37772CB30CF9008D1DA1 /* RegisterView.swift in Sources */,
 				CAB2BE322CBD55BB0030C1F1 /* SelectedPhotoView.swift in Sources */,
 				CAB2BE362CBF527B0030C1F1 /* DrawPhoto.swift in Sources */,
+				CA92B3772CE38442004EFE1C /* MergeableLogPile.swift in Sources */,
+				CA92B37B2CE3BB02004EFE1C /* MergeableLogImage.swift in Sources */,
 				109396982CD8DB9A004C4EBD /* JoinCampfireByTextView.swift in Sources */,
 				CA22A7A32CD31B6E002195A2 /* Campfire.swift in Sources */,
 				10AB91AD2CACD29A00BFA2EC /* ModakApp.swift in Sources */,
