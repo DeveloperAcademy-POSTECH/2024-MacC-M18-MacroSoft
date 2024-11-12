@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CampfireEmptyLog: View {
-    @Binding private(set) var campfireName: String
+    private(set) var campfireName: String
     
     var body: some View {
         VStack {
