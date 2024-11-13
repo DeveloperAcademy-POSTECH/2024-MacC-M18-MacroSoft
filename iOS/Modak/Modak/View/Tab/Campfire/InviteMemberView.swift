@@ -56,7 +56,7 @@ struct InviteMemberView: View {
                                 .fill(Color.init(hex: "C28C7B").opacity(0.25))
                                 .frame(height: 30)
                                 .overlay {
-                                    Text("\(viewModel.campfire!.pin)  km")
+                                    Text("\(formattedPin())  km")
                                         .foregroundStyle(Color.white)
                                         .font(.custom("Pretendard-Bold", size: 18))
                                         .kerning(18 * 0.01)
@@ -109,6 +109,12 @@ struct InviteMemberView: View {
                 }
             }
         }
+    }
+    
+    private func formattedPin() -> String {
+        let pinString = String(viewModel.campfire!.pin)
+        let formatted = pinString.prefix(3) + "." + pinString.suffix(3)
+        return String(formatted)
     }
 }
 
