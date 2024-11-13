@@ -14,7 +14,9 @@ struct JoinCampfireByCameraView: View {
         ZStack {
             viewModel.cameraViewModel.cameraPreview
                 .onAppear {
-                    viewModel.cameraViewModel.startSession()
+                    if !viewModel.cameraViewModel.cameraPermissionAlert {
+                        viewModel.cameraViewModel.startSessionIfNeeded()
+                    }
                 }
                 .onDisappear {
                     viewModel.cameraViewModel.stopSession()

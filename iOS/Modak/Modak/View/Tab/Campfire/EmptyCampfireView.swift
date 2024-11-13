@@ -46,8 +46,7 @@ private struct EmptyCampfireViewButton: View {
         NavigationLink {
             switch buttonImage {
             case .milestone:
-                // TODO: 모닥불 참여뷰 연결
-                CampfireNameView(isCreate: false)
+                JoinCampfireView()
             case .tent:
                 CampfireNameView(isCreate: true)
             default:

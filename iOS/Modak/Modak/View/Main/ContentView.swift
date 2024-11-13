@@ -10,12 +10,14 @@ import SwiftUI
 // MARK: - ContentView
 
 struct ContentView: View {
+    @StateObject private var networkMonitor = NetworkMonitor() // 네트워크 모니터링 객체
+    @StateObject private var viewModel = CampfireViewModel()
     @State private var tabSelection: Int = 0
     @State private var isShowSideMenu: Bool = false
     
     init() {
         let tabBarAppearance = UITabBarAppearance()
-        tabBarAppearance.backgroundColor = .backgroundLogPile
+        tabBarAppearance.backgroundColor = UIColor(.backgroundLogPile.opacity(0.73))
         tabBarAppearance.shadowColor = UIColor(.white.opacity(0.15))
         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         UITabBar.appearance().standardAppearance = tabBarAppearance
@@ -69,6 +71,7 @@ struct ContentView: View {
                     }
                 }
             }
+            .preferredColorScheme(.dark)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     NavigationCustomTitle(tabSelection: tabSelection)
@@ -98,6 +101,17 @@ struct ContentView: View {
                 }
             }
         }
+        .environmentObject(viewModel)
+        .environmentObject(networkMonitor)
+        .overlay(
+            VStack {
+                if viewModel.showNetworkAlert {
+                    NetworkMonitorAlert()
+                }
+                Spacer()
+            }
+            .padding(.top, 50)
+        )
     }
 }
 
@@ -125,7 +139,6 @@ private struct NavigationBarModifier: ViewModifier {
         if tabSelection == 0 {
             content
                 .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
-                .preferredColorScheme(.dark)
         }
         else {
             content
