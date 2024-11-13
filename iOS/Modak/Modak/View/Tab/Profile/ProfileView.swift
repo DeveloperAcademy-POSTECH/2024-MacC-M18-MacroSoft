@@ -47,8 +47,6 @@ struct ProfileView: View {
             }
             Spacer()
         }
-        .font(Font.custom("Pretendard-regular", size: 16))
-        .foregroundStyle(.textColor1)
         .padding(.top, 18)
         .padding(.horizontal, 13)
         .background {
@@ -80,41 +78,6 @@ struct ProfileView: View {
                 print("Error fetching nickname: \(error)")
             }
         }
-    }
-}
-
-private struct ProfileViewButton: View {
-    private(set) var title: String
-    private(set) var function: () -> Void
-    var body: some View {
-        Button {
-            function()
-        } label: {
-            HStack {
-                Text(title)
-                Spacer()
-                Image(systemName: "chevron.right")
-            }
-        }
-        .padding(.vertical, 16)
-        .padding(.horizontal, 20)
-    }
-}
-
-// TODO: stroke 색 바꾸기
-private struct ProfileViewButtonFrame: View {
-    var body: some View {
-        RoundedRectangle(cornerRadius: 20).fill(Color.profileButtonBackground.opacity(0.45)).stroke(.gray, lineWidth: 0.3)
-    }
-}
-
-private struct ProfileViewGroupBox: GroupBoxStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        VStack {
-            configuration.label
-            configuration.content
-        }
-        .background(ProfileViewButtonFrame())
     }
 }
 
