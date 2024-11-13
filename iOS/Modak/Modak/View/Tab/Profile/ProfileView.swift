@@ -15,7 +15,7 @@ struct ProfileView: View {
             
             Text("닉네임 : \(nickname)")
             
-            ProfileViewButton(title: "프로필 정보 편집", destination: EmptyView())
+            ProfileViewButton(title: "프로필 정보 편집", destination: EditProfileView())
             .background { ProfileViewButtonFrame() }
             
             GroupBox {
