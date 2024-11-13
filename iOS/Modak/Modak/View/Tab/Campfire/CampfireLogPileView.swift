@@ -90,7 +90,7 @@ private struct CampfireLogPileViewTitle: View {
         HStack {
             Text("\(campfireName) 모닥불")
                 .foregroundStyle(.textColor1)
-                .font(.custom("Pretendard-Bold", size: 23))
+                .font(.custom("Pretendard-Bold", size: 18))
                 .padding(.trailing, 4)
             
             // TODO: CampfireNameView 화면 데이터 연결
