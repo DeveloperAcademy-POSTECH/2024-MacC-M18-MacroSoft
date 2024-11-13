@@ -10,7 +10,7 @@ import SwiftUI
 struct EditProfileView: View {
     var body: some View {
         VStack {
-            ProfileViewButton(title: "닉네임 변경", destination: EmptyView())
+            ProfileViewButton(title: "닉네임 변경", destination: EditNicknameView())
             .background { ProfileViewButtonFrame() }
             ProfileViewButton(title: "회원 탈퇴", destination: EmptyView())
             .background { ProfileViewButtonFrame() }

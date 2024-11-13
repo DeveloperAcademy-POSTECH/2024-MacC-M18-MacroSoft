@@ -55,6 +55,8 @@
 		10C4F4492CE51B4E00FFDBDD /* ProfileViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4F4482CE51B4E00FFDBDD /* ProfileViewButton.swift */; };
 		10C4F44B2CE51C6C00FFDBDD /* ProfileViewGroupBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4F44A2CE51C6C00FFDBDD /* ProfileViewGroupBox.swift */; };
 		10C4F44D2CE51CDD00FFDBDD /* ProfileViewButtonFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4F44C2CE51CDD00FFDBDD /* ProfileViewButtonFrame.swift */; };
+		10C4F4512CE52F5300FFDBDD /* EditNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4F4502CE52F5300FFDBDD /* EditNicknameView.swift */; };
+		10C4F4532CE536F600FFDBDD /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4F4522CE536F600FFDBDD /* ProfileViewModel.swift */; };
 		10F58DB72CBFC81B00BF9D34 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 10F58DB62CBFC81B00BF9D34 /* Release.xcconfig */; };
 		10F58DBB2CC09D9300BF9D34 /* BundleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F58DBA2CC09D9300BF9D34 /* BundleExtension.swift */; };
 		10F58DC52CC0A8E400BF9D34 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 10F58DC42CC0A8E400BF9D34 /* Debug.xcconfig */; };
@@ -156,6 +158,8 @@
 		10C4F4482CE51B4E00FFDBDD /* ProfileViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewButton.swift; sourceTree = "<group>"; };
 		10C4F44A2CE51C6C00FFDBDD /* ProfileViewGroupBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewGroupBox.swift; sourceTree = "<group>"; };
 		10C4F44C2CE51CDD00FFDBDD /* ProfileViewButtonFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewButtonFrame.swift; sourceTree = "<group>"; };
+		10C4F4502CE52F5300FFDBDD /* EditNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNicknameView.swift; sourceTree = "<group>"; };
+		10C4F4522CE536F600FFDBDD /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		10F58DB62CBFC81B00BF9D34 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		10F58DBA2CC09D9300BF9D34 /* BundleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtension.swift; sourceTree = "<group>"; };
 		10F58DC42CC0A8E400BF9D34 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
@@ -325,6 +329,7 @@
 				10B0A66F2CBE6F820048C313 /* AppleSigninViewModel.swift */,
 				1093968A2CD2879B004C4EBD /* JoinCampfireViewModel.swift */,
 				109396A22CDAFCE6004C4EBD /* CampfireViewModel.swift */,
+				10C4F4522CE536F600FFDBDD /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -400,6 +405,7 @@
 			children = (
 				10AB91D32CACD79300BFA2EC /* ProfileView.swift */,
 				10C4F4462CE519AA00FFDBDD /* EditProfileView.swift */,
+				10C4F4502CE52F5300FFDBDD /* EditNicknameView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -576,6 +582,7 @@
 				CAA0B7BA2CD470550093AEA7 /* EmptyCampfireView.swift in Sources */,
 				10BCB0E92CB825520013E227 /* CircularProgressPhoto.swift in Sources */,
 				10BCB0EA2CB825520013E227 /* CircularProgressBar.swift in Sources */,
+				10C4F4512CE52F5300FFDBDD /* EditNicknameView.swift in Sources */,
 				10BCB0EB2CB825520013E227 /* ProgressNumber.swift in Sources */,
 				1093968D2CD294A9004C4EBD /* JoinCampfireByCameraView.swift in Sources */,
 				109396912CD29615004C4EBD /* TextRecognizer.swift in Sources */,
@@ -589,6 +596,7 @@
 				10BCB0E02CB8206C0013E227 /* DBSCAN.swift in Sources */,
 				10BCB0FD2CBE14BC0013E227 /* AppleSigninButton.swift in Sources */,
 				10C4F44D2CE51CDD00FFDBDD /* ProfileViewButtonFrame.swift in Sources */,
+				10C4F4532CE536F600FFDBDD /* ProfileViewModel.swift in Sources */,
 				10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */,
 				1093969C2CD99F57004C4EBD /* NetworkManager.swift in Sources */,
 				CAB2BE422CC0A9D10030C1F1 /* DailyLogs.swift in Sources */,
