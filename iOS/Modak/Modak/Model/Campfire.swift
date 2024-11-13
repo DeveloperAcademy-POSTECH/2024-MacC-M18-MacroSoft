@@ -15,6 +15,7 @@ class Campfire: Codable {
     var pin: Int
     var image: String? // TODO: PublicLogImage 모델로 교체, codable 준수.
     var membersNames: [String]
+    var memberIds: [Int]
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -22,13 +23,15 @@ class Campfire: Codable {
         case pin = "campfirePin"
         case image // 현재 실제 DB값과 다르게 설정해놔서, 연결 안되어있음.
         case membersNames
+        case memberIds
     }
 
-    init(name: String, pin: Int, image: String? = "", membersNames: [String] = []) {
+    init(name: String, pin: Int, image: String? = "", membersNames: [String] = [], memberIds: [Int] = []) {
         self.name = name
         self.pin = pin
         self.image = image
         self.membersNames = membersNames
+        self.memberIds = memberIds
     }
     
     // Decodable
@@ -39,6 +42,7 @@ class Campfire: Codable {
         self.pin = try container.decode(Int.self, forKey: .pin)
         self.image = try container.decodeIfPresent(String.self, forKey: .image) ?? ""
         self.membersNames = try container.decodeIfPresent([String].self, forKey: .membersNames) ?? []
+        self.memberIds = try container.decodeIfPresent([Int].self, forKey: .memberIds) ?? []
     }
     
     // Encodable

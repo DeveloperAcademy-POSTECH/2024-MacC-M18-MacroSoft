@@ -37,7 +37,7 @@ struct CampfireLogPileView: View {
             // TODO: 캠프파이어 로그가 없는지 체크하는 로직 추가
             if isEmpty {
                 VStack {
-                    CampfireLogPileViewTitle(campfireName: viewModel.campfire!.name, campfireMemberCount: viewModel.campfire!.membersNames.count)
+                    CampfireLogPileViewTitle(campfireName: viewModel.campfire!.name, campfireMemberCount: (viewModel.campfire!.membersNames.isEmpty ? viewModel.campfire!.memberIds.count : viewModel.campfire!.membersNames.count))
                         .padding(.leading, 24)
                     
                     Spacer()
@@ -48,7 +48,7 @@ struct CampfireLogPileView: View {
                 }
             } else {
                 ScrollView {
-                    CampfireLogPileViewTitle(campfireName: viewModel.campfire!.name, campfireMemberCount: viewModel.campfire!.membersNames.count)
+                    CampfireLogPileViewTitle(campfireName: viewModel.campfire!.name, campfireMemberCount: (viewModel.campfire!.membersNames.isEmpty ? viewModel.campfire!.memberIds.count : viewModel.campfire!.membersNames.count))
                         .padding(.leading, 24)
                         .padding(.bottom, 12)
                     

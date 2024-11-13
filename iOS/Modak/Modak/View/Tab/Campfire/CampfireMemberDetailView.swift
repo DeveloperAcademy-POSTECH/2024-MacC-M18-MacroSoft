@@ -23,7 +23,7 @@ struct CampfireMemberDetailView: View {
                         .foregroundStyle(.textColorTitleView)
                         .font(.custom("Pretendard_Medium", size: 12))
                         .padding(.init(top: 6, leading: 8, bottom: 6, trailing: 0))
-                    Text("\(viewModel.campfire!.membersNames.count)명")
+                    Text("\(viewModel.campfire!.membersNames.isEmpty ? viewModel.campfire!.memberIds.count : viewModel.campfire!.membersNames.count)명")
                         .foregroundStyle(.textColor3)
                         .font(.custom("Pretendard_Medium", size: 14))
                         .padding(.init(top: 6, leading: 0, bottom: 6, trailing: 8))
