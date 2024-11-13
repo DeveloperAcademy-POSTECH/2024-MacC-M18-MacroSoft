@@ -26,10 +26,6 @@ struct ProfileView: View {
                 ProfileViewButton(title: "모닥불 정보") {
                     // TODO: 모닥불 정보 네비게이션
                 }
-                
-                ProfileViewButton(title: "버전 정보") {
-                    // TODO: 버전 정보 네비게이션
-                }
                 ProfileViewButton(title: "개인정보 처리방침") {
                     // TODO: 개인정보 처리방침 네비게이션
                 }

@@ -21,15 +21,9 @@ struct ProfileViewGroupBox: GroupBoxStyle {
 
 #Preview {
     GroupBox {
-        ProfileViewButton(title: "모닥불 정보") {
-
-        }
-        ProfileViewButton(title: "개인정보 처리방침") {
-
-        }
-        ProfileViewButton(title: "이용약관") {
-
-        }
+        ProfileViewButton(title: "모닥불 정보") { }
+        ProfileViewButton(title: "개인정보 처리방침") { }
+        ProfileViewButton(title: "이용약관") { }
     }
     .groupBoxStyle(ProfileViewGroupBox())
 }
