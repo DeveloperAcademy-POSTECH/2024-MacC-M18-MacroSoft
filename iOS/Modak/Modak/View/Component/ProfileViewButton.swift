@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct ProfileViewButton: View {
+struct ProfileViewButton<Destination: View>: View {
     private(set) var title: String
-    private(set) var function: () -> Void
+    private(set) var destination: Destination?
     
     var body: some View {
-        Button {
-            function()
+        NavigationLink {
+            destination
         } label: {
             HStack {
                 Text(title)
@@ -46,8 +46,8 @@ struct ProfileViewButton: View {
 }
 
 #Preview {
-    ProfileViewButton(title: "프로필 정보 편집") { }
+    ProfileViewButton(title: "프로필 정보 편집", destination: EmptyView())
     .background { ProfileViewButtonFrame() }
-    ProfileViewButton(title: "회원 탈퇴") { }
+    ProfileViewButton(title: "회원 탈퇴", destination: EmptyView())
     .background { ProfileViewButtonFrame() }
 }

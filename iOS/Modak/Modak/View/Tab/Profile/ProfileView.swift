@@ -15,32 +15,19 @@ struct ProfileView: View {
             
             Text("닉네임 : \(nickname)")
             
-            ProfileViewButton(title: "프로필 정보 편집") {
-                // TODO: 프로필 정보 편집 네비게이션
-            }
-            .background {
-                ProfileViewButtonFrame()
-            }
+            ProfileViewButton(title: "프로필 정보 편집", destination: EmptyView())
+            .background { ProfileViewButtonFrame() }
             
             GroupBox {
-                ProfileViewButton(title: "모닥불 정보") {
-                    // TODO: 모닥불 정보 네비게이션
-                }
-                ProfileViewButton(title: "개인정보 처리방침") {
-                    // TODO: 개인정보 처리방침 네비게이션
-                }
-                ProfileViewButton(title: "이용약관") {
-                    // TODO: 이용약관 네비게이션
-                }
+                ProfileViewButton(title: "모닥불 정보", destination: EmptyView())
+                ProfileViewButton(title: "개인정보 처리방침", destination: EmptyView())
+                ProfileViewButton(title: "이용약관", destination: EmptyView())
             }
             .groupBoxStyle(ProfileViewGroupBox())
             
-            ProfileViewButton(title: "로그아웃") {
-                // TODO: 로그아웃 네비게이션
-            }
-            .background {
-                ProfileViewButtonFrame()
-            }
+            ProfileViewButton(title: "로그아웃", destination: EmptyView())
+            .background { ProfileViewButtonFrame() }
+            
             Spacer()
         }
         .padding(.top, 18)
