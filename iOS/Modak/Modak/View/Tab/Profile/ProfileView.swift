@@ -19,7 +19,7 @@ struct ProfileView: View {
             .background { ProfileViewButtonFrame() }
             
             GroupBox {
-                ProfileViewButton(title: "모닥불 정보", destination: EmptyView())
+                ProfileViewButton(title: "모닥불 정보", destination: AppDetailsView())
                 ProfileViewButton(title: "개인정보 처리방침", destination: EmptyView())
                 ProfileViewButton(title: "이용약관", destination: EmptyView())
             }
