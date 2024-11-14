@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct ProfileViewButton<Destination: View>: View {
+    @EnvironmentObject var viewModel: ProfileViewModel
     private(set) var title: String
     private(set) var destination: Destination?
     
     var body: some View {
         NavigationLink {
             destination
+                .environmentObject(viewModel)
         } label: {
             HStack {
                 Text(title)

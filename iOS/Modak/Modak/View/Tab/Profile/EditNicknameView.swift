@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EditNicknameView: View {
-    @EnvironmentObject private var viewModel: ProfileViewModel
+    @EnvironmentObject var viewModel: ProfileViewModel
     @Environment(\.dismiss) private var dismiss
     @State private var editedNickname: String = ""
     
@@ -26,7 +26,7 @@ struct EditNicknameView: View {
             }
             .padding(.init(top: 36, leading: 20, bottom: 44, trailing: 0))
             
-            CampfireViewTextField(editedNickname: $editedNickname)
+            EditNicknameViewTextField(editedNickname: $editedNickname)
                 .padding(.horizontal, 20)
             
             Spacer()
@@ -47,15 +47,15 @@ struct EditNicknameView: View {
         }
         .tapDismissesKeyboard()
         .onAppear {
-            editedNickname = viewModel.originalNickname
             viewModel.fetchNickname()
+            editedNickname = viewModel.originalNickname
         }
     }
 }
 
 // MARK: - CampfireViewTextField
 
-private struct CampfireViewTextField: View {
+private struct EditNicknameViewTextField: View {
     @EnvironmentObject private var viewModel: ProfileViewModel
     @Binding var editedNickname: String
     @FocusState private var isFocusedTextField: Bool
@@ -77,7 +77,7 @@ private struct CampfireViewTextField: View {
                         .stroke(Color.textColor2, lineWidth: isFocusedTextField ? 1 : 0)
                 }
                 .overlay {
-                    if editedNickname != viewModel.originalNickname && !editedNickname.isEmpty {
+                    if !editedNickname.isEmpty {
                         HStack {
                             Spacer()
                             
