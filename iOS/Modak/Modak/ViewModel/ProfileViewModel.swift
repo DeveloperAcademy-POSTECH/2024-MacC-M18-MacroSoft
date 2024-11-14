@@ -34,12 +34,32 @@ class ProfileViewModel: ObservableObject {
     
     func saveNickname(newNickname: String, completion: (() -> Void)? = nil) {
         Task {
-            // TODO: API 통신을 통해 닉네임을 변경하고 저장하는 로직 추가
-            DispatchQueue.main.async {
-                self.originalNickname = newNickname
-                print("Nickname changed to: \(self.originalNickname)")
-                completion?()
+            do {
+                // APIRouter를 통해 URLRequest 생성
+                let request = try APIRouter.updateNickname(nickname: newNickname).asURLRequest()
+                print("Request URL:", request.url?.absoluteString ?? "No URL")
+                print("Request Headers:", request.allHTTPHeaderFields ?? "No headers")
+                print("Request Body:", String(data: request.httpBody ?? Data(), encoding: .utf8) ?? "No body")
+                
+                // 서버로 요청
+                let data = try await NetworkManager.shared.requestRawData(router: .updateNickname(nickname: newNickname))
+                
+                if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let result = jsonResponse["result"] as? [String: Any],
+                   let nickname = result["nickname"] as? String {
+                    
+                    DispatchQueue.main.async {
+                        self.originalNickname = nickname
+                        print("Nickname successfully changed to: \(self.originalNickname)")
+                        completion?()
+                    }
+                } else {
+                    print("Failed to update nickname on server")
+                }
+            } catch {
+                print("Error updating nickname: \(error)")
             }
         }
     }
+
 }

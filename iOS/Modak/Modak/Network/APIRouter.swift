@@ -29,7 +29,7 @@ enum APIRouter: URLRequestConvertible {
 
     // Member API
     case getMembersNicknames
-    case updateNickname(parameters: [String: Any])
+    case updateNickname(nickname: String)
     
     // Image API
     case uploadImage(imageData: Data)
@@ -119,13 +119,12 @@ enum APIRouter: URLRequestConvertible {
         return headers
     }
 
-    private var parameters: [String: Any]? {
+    // bodyParameters와 queryParameters로 구분
+    private var bodyParameters: [String: Any]? {
         switch self {
-        case .updateCampfireName(_, let parameters),
-             .socialLogin(_, let parameters), .updateNickname(let parameters) :
+        case .updateCampfireName(_, let parameters), .socialLogin(_, let parameters):
             return parameters
-        case .createCampfire(let campfireName), .joinCampfire(_, let campfireName),
-             .joinCampfireInfo(_, let campfireName) :
+        case .createCampfire(let campfireName), .joinCampfire(_, let campfireName), .joinCampfireInfo(_, let campfireName):
             return ["campfireName": campfireName]
         case .refreshAccessToken(let refreshToken):
             return ["refreshToken": refreshToken]
@@ -133,10 +132,26 @@ enum APIRouter: URLRequestConvertible {
             return nil
         }
     }
+    
+    private var queryParameters: [String: Any]? {
+        switch self {
+        case .updateNickname(let nickname):
+            return ["nickname": nickname]
+        default:
+            return nil
+        }
+    }
 
     func asURLRequest() throws -> URLRequest {
-        let url = URL(string: baseURL + path)!
+        var url = URL(string: baseURL + path)!
         print("URL >> \(url)")
+        
+        // 쿼리 파라미터 설정
+        if let queryParameters = queryParameters {
+            var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
+            urlComponents?.queryItems = queryParameters.map { URLQueryItem(name: $0.key, value: "\($0.value)") }
+            url = urlComponents?.url ?? url
+        }
         
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
@@ -146,9 +161,9 @@ enum APIRouter: URLRequestConvertible {
             request.setValue(value, forHTTPHeaderField: key)
         }
         
-        // 파라미터 설정
-        if let parameters = parameters {
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
+        // body 파라미터 설정
+        if let bodyParameters = bodyParameters {
+            request.httpBody = try JSONSerialization.data(withJSONObject: bodyParameters, options: [])
         }
         
         return request
