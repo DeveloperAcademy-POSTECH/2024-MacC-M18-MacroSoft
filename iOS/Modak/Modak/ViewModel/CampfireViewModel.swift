@@ -79,7 +79,7 @@ class CampfireViewModel: ObservableObject {
                     
                     DispatchQueue.main.async {
                         self.campfires = fetchedCampfires
-                        self.campfire = fetchedCampfires.first
+                        self.campfire = fetchedCampfires.first(where: { $0.pin == self.recentVisitedCampfirePin }) ?? fetchedCampfires.first
                         self.isEmptyCampfire = fetchedCampfires.isEmpty
                         
                         // 콜백으로 데이터를 반환
