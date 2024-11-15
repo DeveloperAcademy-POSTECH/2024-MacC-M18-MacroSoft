@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
+    @State private var showWebViewSheet = false
+    @State private var webViewURL: URL? = nil
     
     var body: some View {
         VStack {
@@ -20,8 +22,12 @@ struct ProfileView: View {
             
             GroupBox {
                 ProfileItem(title: "모닥불 정보", destination: AnyView(AppDetailsView()))
-                ProfileItem(title: "개인정보 처리방침") { }
-                ProfileItem(title: "이용약관") { }
+                ProfileItem(title: "개인정보 처리방침") {
+                    openWebView(url: "https://sites.google.com/view/modak-privacy/%ED%99%88")
+                }
+                ProfileItem(title: "이용약관") {
+                    openWebView(url: "https://sites.google.com/view/modak-servicepolicy/%ED%99%88")
+                }
             }
             .groupBoxStyle(ProfileGroupBox())
             
@@ -40,6 +46,17 @@ struct ProfileView: View {
         .onAppear() {
             viewModel.fetchNickname()
         }
+        .sheet(isPresented: $showWebViewSheet) {
+            if let url = webViewURL {
+                WebView(url: url)
+                    .edgesIgnoringSafeArea(.bottom)
+            }
+        }
+    }
+    
+    private func openWebView(url: String) {
+        webViewURL = URL(string: url)
+        showWebViewSheet = true
     }
 }
 
