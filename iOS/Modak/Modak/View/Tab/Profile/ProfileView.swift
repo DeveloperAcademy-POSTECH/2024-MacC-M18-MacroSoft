@@ -48,8 +48,21 @@ struct ProfileView: View {
         }
         .sheet(isPresented: $showWebViewSheet) {
             if let url = webViewURL {
-                WebView(url: url)
-                    .edgesIgnoringSafeArea(.bottom)
+                ZStack(alignment: . topTrailing) {
+                    WebView(url: url)
+                        .edgesIgnoringSafeArea(.bottom)
+                        .presentationDetents([.large])
+                        .presentationCornerRadius(34)
+                    
+                    Button(action: {
+                        showWebViewSheet = false
+                    }) {
+                        Image(systemName: "x.circle.fill")
+                            .foregroundColor(Color.textColor3)
+                            .font(.custom("Pretendard-SemiBold", size: 22))
+                    }
+                    .padding(EdgeInsets(top: 14, leading: 0, bottom: 0, trailing: 26))
+                }
             }
         }
     }
