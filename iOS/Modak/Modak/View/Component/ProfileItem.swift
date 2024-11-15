@@ -7,26 +7,44 @@
 
 import SwiftUI
 
-struct ProfileViewButton<Destination: View>: View {
+struct ProfileItem: View {
     @EnvironmentObject var viewModel: ProfileViewModel
     private(set) var title: String
-    private(set) var destination: Destination?
+    private let destination: AnyView?
+    private let action: (() -> Void)?
+    
+    init(title: String, destination: AnyView? = nil, action: (() -> Void)? = nil) {
+        self.title = title
+        self.destination = destination
+        self.action = action
+    }
     
     var body: some View {
-        NavigationLink {
-            destination
-                .environmentObject(viewModel)
-        } label: {
-            HStack {
-                Text(title)
-                Spacer()
-                icon
+        Group {
+            if let destination = destination {
+                NavigationLink(destination: destination.environmentObject(viewModel)) {
+                    content
+                }
+            } else {
+                Button(action: {
+                    action?()
+                }) {
+                    content
+                }
             }
         }
         .font(Font.custom("Pretendard-regular", size: 16))
         .foregroundStyle(title == "회원 탈퇴" ? Color.errorRed : Color.textColor1)
         .padding(.vertical, 16)
         .padding(.horizontal, 20)
+    }
+    
+    private var content: some View {
+        HStack {
+            Text(title)
+            Spacer()
+            icon
+        }
     }
     
     private var icon: some View {
@@ -48,8 +66,8 @@ struct ProfileViewButton<Destination: View>: View {
 }
 
 #Preview {
-    ProfileViewButton(title: "프로필 정보 편집", destination: EmptyView())
-    .background { ProfileViewButtonFrame() }
-    ProfileViewButton(title: "회원 탈퇴", destination: EmptyView())
-    .background { ProfileViewButtonFrame() }
+    ProfileItem(title: "프로필 정보 편집", destination: AnyView(EmptyView()))
+    .background { ProfileItemFrame() }
+    ProfileItem(title: "회원 탈퇴", destination: AnyView(EmptyView()))
+    .background { ProfileItemFrame() }
 }

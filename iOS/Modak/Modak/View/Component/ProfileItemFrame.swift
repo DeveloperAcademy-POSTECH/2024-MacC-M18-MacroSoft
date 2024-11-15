@@ -8,7 +8,7 @@
 import SwiftUI
 
 // TODO: stroke 색 바꾸기
-struct ProfileViewButtonFrame: View {
+struct ProfileItemFrame: View {
     var body: some View {
         RoundedRectangle(cornerRadius: 20).fill(Color.profileButtonBackground.opacity(0.45)).stroke(.gray, lineWidth: 0.3)
     }

@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct ProfileViewGroupBox: GroupBoxStyle {
+struct ProfileGroupBox: GroupBoxStyle {
     func makeBody(configuration: Configuration) -> some View {
         VStack {
             configuration.label
             configuration.content
         }
-        .background(ProfileViewButtonFrame())
+        .background(ProfileItemFrame())
         .font(Font.custom("Pretendard-regular", size: 16))
         .foregroundStyle(.textColor1)
     }
@@ -21,9 +21,9 @@ struct ProfileViewGroupBox: GroupBoxStyle {
 
 #Preview {
     GroupBox {
-        ProfileViewButton(title: "모닥불 정보", destination: EmptyView())
-        ProfileViewButton(title: "개인정보 처리방침", destination: EmptyView())
-        ProfileViewButton(title: "이용약관", destination: EmptyView())
+        ProfileItem(title: "모닥불 정보", destination: AnyView(EmptyView()))
+        ProfileItem(title: "개인정보 처리방침", destination: AnyView(EmptyView()))
+        ProfileItem(title: "이용약관", destination: AnyView(EmptyView()))
     }
-    .groupBoxStyle(ProfileViewGroupBox())
+    .groupBoxStyle(ProfileGroupBox())
 }

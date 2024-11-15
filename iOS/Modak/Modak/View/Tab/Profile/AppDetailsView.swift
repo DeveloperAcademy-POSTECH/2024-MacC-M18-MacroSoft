@@ -20,7 +20,7 @@ struct AppDetailsView: View {
             .font(Font.custom("Pretendard-regular", size: 16))
             .padding(.vertical, 16)
             .padding(.horizontal, 20)
-            .background { ProfileViewButtonFrame() }
+            .background { ProfileItemFrame() }
             
             Spacer()
         }

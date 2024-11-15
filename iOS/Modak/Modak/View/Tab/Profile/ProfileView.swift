@@ -15,18 +15,18 @@ struct ProfileView: View {
             
             Text("닉네임 : \(viewModel.originalNickname)")
             
-            ProfileViewButton(title: "프로필 정보 편집", destination: EditProfileView())
-            .background { ProfileViewButtonFrame() }
+            ProfileItem(title: "프로필 정보 편집", destination: AnyView(EditProfileView()))
+            .background { ProfileItemFrame() }
             
             GroupBox {
-                ProfileViewButton(title: "모닥불 정보", destination: AppDetailsView())
-                ProfileViewButton(title: "개인정보 처리방침", destination: EmptyView())
-                ProfileViewButton(title: "이용약관", destination: EmptyView())
+                ProfileItem(title: "모닥불 정보", destination: AnyView(AppDetailsView()))
+                ProfileItem(title: "개인정보 처리방침") { }
+                ProfileItem(title: "이용약관") { }
             }
-            .groupBoxStyle(ProfileViewGroupBox())
+            .groupBoxStyle(ProfileGroupBox())
             
-            ProfileViewButton(title: "로그아웃", destination: EmptyView())
-            .background { ProfileViewButtonFrame() }
+            ProfileItem(title: "로그아웃", action: { })
+            .background { ProfileItemFrame() }
             
             Spacer()
         }
