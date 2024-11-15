@@ -53,7 +53,9 @@ struct ProfileView: View {
         .onAppear() {
             viewModel.fetchNickname()
         }
-        .sheet(isPresented: $showWebViewSheet) {
+        .sheet(isPresented: Binding(get: { webViewURL != nil && showWebViewSheet }, set: { _ in }), onDismiss: {
+            showWebViewSheet = false
+        }) {
             if let url = webViewURL {
                 ZStack(alignment: . topTrailing) {
                     WebView(url: url)
