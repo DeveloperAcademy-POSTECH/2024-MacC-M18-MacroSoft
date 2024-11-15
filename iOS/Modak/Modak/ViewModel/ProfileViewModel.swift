@@ -61,5 +61,29 @@ class ProfileViewModel: ObservableObject {
             }
         }
     }
-
+    
+    func logout(completion: @escaping (Bool) -> Void) {
+        Task {
+            do {
+                let data = try await NetworkManager.shared.requestRawData(router: .logout)
+                
+                if try JSONSerialization.jsonObject(with: data, options: []) is [String: Any] {
+                    print("Logout successful")
+                    DispatchQueue.main.async {
+                        completion(true)
+                    }
+                } else {
+                    print("Failed to logout")
+                    DispatchQueue.main.async {
+                        completion(false)
+                    }
+                }
+            } catch {
+                print("Error logging out: \(error)")
+                DispatchQueue.main.async {
+                    completion(false)
+                }
+            }
+        }
+    }
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @AppStorage("isSkipRegister") var isSkipRegister: Bool = false
     @StateObject private var viewModel = ProfileViewModel()
     @State private var showWebViewSheet = false
     @State private var webViewURL: URL? = nil
@@ -31,7 +32,13 @@ struct ProfileView: View {
             }
             .groupBoxStyle(ProfileGroupBox())
             
-            ProfileItem(title: "로그아웃", action: { })
+            ProfileItem(title: "로그아웃") {
+                viewModel.logout { success in
+                    if success {
+                        isSkipRegister = false
+                    }
+                }
+            }
             .background { ProfileItemFrame() }
             
             Spacer()
