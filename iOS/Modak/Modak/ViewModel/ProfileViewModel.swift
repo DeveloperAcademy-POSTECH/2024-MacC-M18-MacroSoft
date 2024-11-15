@@ -86,4 +86,29 @@ class ProfileViewModel: ObservableObject {
             }
         }
     }
+    
+    func deactivate(completion: @escaping (Bool) -> Void) {
+        Task {
+            do {
+                let data = try await NetworkManager.shared.requestRawData(router: .deactivate)
+                
+                if try JSONSerialization.jsonObject(with: data, options: []) is [String: Any] {
+                    print("Deactivation successful")
+                    DispatchQueue.main.async {
+                        completion(true)
+                    }
+                } else {
+                    print("Failed to deactivate account")
+                    DispatchQueue.main.async {
+                        completion(false)
+                    }
+                }
+            } catch {
+                print("Error deactivating account: \(error)")
+                DispatchQueue.main.async {
+                    completion(false)
+                }
+            }
+        }
+    }
 }
