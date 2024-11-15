@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1087067B2CE5A838006DD903 /* AppDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1087067A2CE5A838006DD903 /* AppDetailsView.swift */; };
+		1087067D2CE6D455006DD903 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1087067C2CE6D455006DD903 /* WebView.swift */; };
+		1087067F2CE6DBDE006DD903 /* ProfileItemFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1087067E2CE6DBDE006DD903 /* ProfileItemFrame.swift */; };
 		1093968B2CD2879B004C4EBD /* JoinCampfireViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093968A2CD2879B004C4EBD /* JoinCampfireViewModel.swift */; };
 		1093968D2CD294A9004C4EBD /* JoinCampfireByCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093968C2CD294A9004C4EBD /* JoinCampfireByCameraView.swift */; };
 		1093968F2CD2950A004C4EBD /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093968E2CD2950A004C4EBD /* CameraViewModel.swift */; };
@@ -53,9 +55,8 @@
 		10C0E7FE2CB4B88E00C7F3DE /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E7FD2CB4B88E00C7F3DE /* AuthorizationView.swift */; };
 		10C0E8082CB5593E00C7F3DE /* OrganizePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E8072CB5593E00C7F3DE /* OrganizePhotoView.swift */; };
 		10C4F4472CE519AA00FFDBDD /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4F4462CE519AA00FFDBDD /* EditProfileView.swift */; };
-		10C4F4492CE51B4E00FFDBDD /* ProfileViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4F4482CE51B4E00FFDBDD /* ProfileViewButton.swift */; };
-		10C4F44B2CE51C6C00FFDBDD /* ProfileViewGroupBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4F44A2CE51C6C00FFDBDD /* ProfileViewGroupBox.swift */; };
-		10C4F44D2CE51CDD00FFDBDD /* ProfileViewButtonFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4F44C2CE51CDD00FFDBDD /* ProfileViewButtonFrame.swift */; };
+		10C4F4492CE51B4E00FFDBDD /* ProfileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4F4482CE51B4E00FFDBDD /* ProfileItem.swift */; };
+		10C4F44B2CE51C6C00FFDBDD /* ProfileGroupBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4F44A2CE51C6C00FFDBDD /* ProfileGroupBox.swift */; };
 		10C4F4512CE52F5300FFDBDD /* EditNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4F4502CE52F5300FFDBDD /* EditNicknameView.swift */; };
 		10C4F4532CE536F600FFDBDD /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4F4522CE536F600FFDBDD /* ProfileViewModel.swift */; };
 		10F58DB72CBFC81B00BF9D34 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 10F58DB62CBFC81B00BF9D34 /* Release.xcconfig */; };
@@ -109,6 +110,8 @@
 
 /* Begin PBXFileReference section */
 		1087067A2CE5A838006DD903 /* AppDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailsView.swift; sourceTree = "<group>"; };
+		1087067C2CE6D455006DD903 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		1087067E2CE6DBDE006DD903 /* ProfileItemFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItemFrame.swift; sourceTree = "<group>"; };
 		1093968A2CD2879B004C4EBD /* JoinCampfireViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCampfireViewModel.swift; sourceTree = "<group>"; };
 		1093968C2CD294A9004C4EBD /* JoinCampfireByCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCampfireByCameraView.swift; sourceTree = "<group>"; };
 		1093968E2CD2950A004C4EBD /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
@@ -157,9 +160,8 @@
 		10C0E7FD2CB4B88E00C7F3DE /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
 		10C0E8072CB5593E00C7F3DE /* OrganizePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizePhotoView.swift; sourceTree = "<group>"; };
 		10C4F4462CE519AA00FFDBDD /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
-		10C4F4482CE51B4E00FFDBDD /* ProfileViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewButton.swift; sourceTree = "<group>"; };
-		10C4F44A2CE51C6C00FFDBDD /* ProfileViewGroupBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewGroupBox.swift; sourceTree = "<group>"; };
-		10C4F44C2CE51CDD00FFDBDD /* ProfileViewButtonFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewButtonFrame.swift; sourceTree = "<group>"; };
+		10C4F4482CE51B4E00FFDBDD /* ProfileItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItem.swift; sourceTree = "<group>"; };
+		10C4F44A2CE51C6C00FFDBDD /* ProfileGroupBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileGroupBox.swift; sourceTree = "<group>"; };
 		10C4F4502CE52F5300FFDBDD /* EditNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNicknameView.swift; sourceTree = "<group>"; };
 		10C4F4522CE536F600FFDBDD /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		10F58DB62CBFC81B00BF9D34 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
@@ -359,9 +361,9 @@
 		10AB91D92CACDCD000BFA2EC /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				10C4F44C2CE51CDD00FFDBDD /* ProfileViewButtonFrame.swift */,
-				10C4F44A2CE51C6C00FFDBDD /* ProfileViewGroupBox.swift */,
-				10C4F4482CE51B4E00FFDBDD /* ProfileViewButton.swift */,
+				1087067E2CE6DBDE006DD903 /* ProfileItemFrame.swift */,
+				10C4F44A2CE51C6C00FFDBDD /* ProfileGroupBox.swift */,
+				10C4F4482CE51B4E00FFDBDD /* ProfileItem.swift */,
 				CA92B37E2CE3BCE6004EFE1C /* MaterialEffectView.swift */,
 				CA64CD102CDE22DA003EFB69 /* CampfireBackground.swift */,
 				CA64CD0E2CDE154C003EFB69 /* ProfileBackground.swift */,
@@ -382,6 +384,7 @@
 				10BCB0FC2CBE14BC0013E227 /* AppleSigninButton.swift */,
 				10F58EE62CD0891300BF9D34 /* SignTextFieldModifier.swift */,
 				109396A62CDB81C7004C4EBD /* NetworkMonitorAlert.swift */,
+				1087067C2CE6D455006DD903 /* WebView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -597,8 +600,8 @@
 				109396932CD29680004C4EBD /* CameraGuidePreview.swift in Sources */,
 				CAA0B7C62CDA62D10093AEA7 /* TextExtension.swift in Sources */,
 				10BCB0E02CB8206C0013E227 /* DBSCAN.swift in Sources */,
+				1087067D2CE6D455006DD903 /* WebView.swift in Sources */,
 				10BCB0FD2CBE14BC0013E227 /* AppleSigninButton.swift in Sources */,
-				10C4F44D2CE51CDD00FFDBDD /* ProfileViewButtonFrame.swift in Sources */,
 				10C4F4532CE536F600FFDBDD /* ProfileViewModel.swift in Sources */,
 				10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */,
 				1093969C2CD99F57004C4EBD /* NetworkManager.swift in Sources */,
@@ -609,13 +612,14 @@
 				CAA0B7CA2CDB00B70093AEA7 /* LogPileViewModel.swift in Sources */,
 				CAA0B7C42CD99FF20093AEA7 /* SelectCampfiresView.swift in Sources */,
 				CA2B5D0F2CBAAE5C0070DEBF /* LogPileDetailView.swift in Sources */,
+				1087067F2CE6DBDE006DD903 /* ProfileItemFrame.swift in Sources */,
 				CA70AD862CDC9DE800AA15B5 /* AddCampfireLogImage.swift in Sources */,
 				10BE37772CB30CF9008D1DA1 /* RegisterView.swift in Sources */,
 				CAB2BE322CBD55BB0030C1F1 /* SelectedPhotoView.swift in Sources */,
 				CAB2BE362CBF527B0030C1F1 /* DrawPhoto.swift in Sources */,
 				CA92B3772CE38442004EFE1C /* MergeableLogPile.swift in Sources */,
 				CA92B37B2CE3BB02004EFE1C /* MergeableLogImage.swift in Sources */,
-				10C4F44B2CE51C6C00FFDBDD /* ProfileViewGroupBox.swift in Sources */,
+				10C4F44B2CE51C6C00FFDBDD /* ProfileGroupBox.swift in Sources */,
 				109396982CD8DB9A004C4EBD /* JoinCampfireByTextView.swift in Sources */,
 				CA22A7A32CD31B6E002195A2 /* Campfire.swift in Sources */,
 				10AB91AD2CACD29A00BFA2EC /* ModakApp.swift in Sources */,
@@ -632,7 +636,7 @@
 				10BCB0DE2CB81F2D0013E227 /* PrivateLogImage.swift in Sources */,
 				CAB2BE4C2CC1ED1D0030C1F1 /* UINavigationControllerExtension.swift in Sources */,
 				10C0E8082CB5593E00C7F3DE /* OrganizePhotoView.swift in Sources */,
-				10C4F4492CE51B4E00FFDBDD /* ProfileViewButton.swift in Sources */,
+				10C4F4492CE51B4E00FFDBDD /* ProfileItem.swift in Sources */,
 				CAA0B7BC2CD471290093AEA7 /* SelectedCampfireView.swift in Sources */,
 				CA64CD0F2CDE155B003EFB69 /* ProfileBackground.swift in Sources */,
 				10F58DBB2CC09D9300BF9D34 /* BundleExtension.swift in Sources */,
