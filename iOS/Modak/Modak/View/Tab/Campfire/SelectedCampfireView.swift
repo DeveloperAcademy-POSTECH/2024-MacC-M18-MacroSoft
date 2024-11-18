@@ -21,7 +21,7 @@ struct SelectedCampfireView: View {
     var body: some View {
         VStack {
             // 네트워크가 연결되지 않은 경우 로컬 데이터를 사용
-            if let campfire = (networkMonitor.isConnected ? viewModel.campfire! : campfiresLocalData.first(where: { $0.pin == viewModel.recentVisitedCampfirePin })) {
+            if let campfire = (networkMonitor.isConnected ? viewModel.campfire : campfiresLocalData.first(where: { $0.pin == viewModel.recentVisitedCampfirePin })) {
                 CampfireViewTopButton(isShowSideMenu: $isShowSideMenu, campfireName: campfire.name)
                 
                 // TODO: 참여한 모닥불의 로그가 없는지 체크하는 로직 추가
