@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct EditProfileView: View {
     @EnvironmentObject var viewModel: ProfileViewModel
     @AppStorage("isSkipRegister") var isSkipRegister: Bool = false
+    @AppStorage("recentVisitedCampfirePin") private var recentVisitedCampfirePin: Int = 0
+    @AppStorage("isInitialDataLoad") private var isInitialDataLoad: Bool = true
+    @Environment(\.modelContext) private var modelContext
     @State private var showDeactivationAlert = false
 
     var body: some View {
@@ -44,6 +48,9 @@ struct EditProfileView: View {
                 primaryButton: .destructive(Text("탈퇴")) {
                     viewModel.deactivate { success in
                         if success {
+                            recentVisitedCampfirePin = 0
+                            clearAllLocalData()
+                            isInitialDataLoad = true
                             isSkipRegister = false
                         } else {
                             print("탈퇴 실패")
@@ -52,6 +59,30 @@ struct EditProfileView: View {
                 },
                 secondaryButton: .cancel(Text("취소"))
             )
+        }
+    }
+    
+    private func clearAllLocalData() {
+        do {
+            // 각 엔티티에 대해 데이터 삭제
+            deleteAllEntities(ofType: Campfire.self)
+            deleteAllEntities(ofType: PrivateLog.self)
+            deleteAllEntities(ofType: PrivateLogImage.self)
+            
+            // 데이터 저장
+            try modelContext.save()
+            print("All local data cleared successfully.")
+        } catch {
+            print("Failed to clear all local data: \(error)")
+        }
+    }
+    
+    private func deleteAllEntities<T: PersistentModel>(ofType entityType: T.Type) {
+        let fetchRequest = FetchDescriptor<T>() // SwiftData에서 데이터 가져오기
+        if let entities = try? modelContext.fetch(fetchRequest) {
+            for entity in entities {
+                modelContext.delete(entity)
+            }
         }
     }
 }
