@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SelectMergeLogsView: View {
-    // TODO: 임시 데이터 적용 -> 추천 장작 로직 적용된 장작으로 바꾸기
-    @State private var mergeableLogPiles: [MergeableLogPile] = [MergeableLogPile.recommendedMergeableLogPile, MergeableLogPile.notRecommendedMergeableLogPile]
+    @EnvironmentObject private var campfireViewModel: CampfireViewModel
+    @EnvironmentObject private var selectMergeLogsViewModel: SelectMergeLogsViewModel
+    
+    @Environment(\.modelContext) private var modelContext
     
     var body: some View {
         ZStack {
@@ -19,7 +22,7 @@ struct SelectMergeLogsView: View {
                 
                 ScrollView {
                     LazyVStack(spacing: 12, pinnedViews: [.sectionHeaders]) {
-                        ForEach($mergeableLogPiles, id: \.id) { mergeableLogPile in
+                        ForEach($selectMergeLogsViewModel.mergeableLogPiles, id: \.id) { mergeableLogPile in
                             Section {
                                 SelectMergeLogsViewLowSection(mergeableLogPile: mergeableLogPile.mergeableLogs)
                             } header: {
@@ -33,7 +36,7 @@ struct SelectMergeLogsView: View {
             VStack {
                 Spacer()
                 
-                SelectMergeLogsButton(hasSelectedMergeableLogs: mergeableLogPiles.hasSelectedMergeableLogInLogPiles())
+                SelectMergeLogsButton(hasSelectedMergeableLogs: selectMergeLogsViewModel.mergeableLogPiles.hasSelectedMergeableLogInLogPiles())
                     .background {
                         MaterialEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
                             .opacity(0.98)
@@ -54,6 +57,12 @@ struct SelectMergeLogsView: View {
             LinearGradient.SelectMergeLogsViewBackground
                 .ignoresSafeArea()
         )
+        .onAppear {
+            Task {
+                await selectMergeLogsViewModel.getCampfireLogsMetadata(campfirePin: campfireViewModel.campfire!.pin)
+                selectMergeLogsViewModel.fetchMergeableLogPiles(modelContext: modelContext)
+            }
+        }
     }
 }
 
@@ -116,7 +125,6 @@ private struct SelectMergeLogsViewLowSection: View {
             .frame(height: 126)
             .padding(.horizontal)
         }
-        
     }
 }
 
@@ -140,14 +148,14 @@ private struct SelectMergeLogsViewLowSectionTitle: View {
                     .foregroundStyle(mergeableLog.isSelectedLog ? .textColor1 : .textColorGray2)
                     .font(.custom("Pretendard-Light", size: 15))
                 
-                Text(Date().logPileRowTitleDayFormat)
+                Text(mergeableLog.startAt.logPileRowTitleDayFormat)
                     .foregroundStyle(.textColorGray2)
                     .font(.custom("Pretendard-Medium", size: 12))
                 +
                 Text(" ")
                     .font(.custom("Pretendard-Medium", size: 12))
                 +
-                Text(Date().logPileRowTitleTimeFormat)
+                Text(mergeableLog.startAt.logPileRowTitleTimeFormat)
                     .foregroundStyle(.disable)
                     .font(.custom("Pretendard-Medium", size: 12))
             }
