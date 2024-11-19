@@ -64,6 +64,9 @@ struct SelectMergeLogsView: View {
                 selectMergeLogsViewModel.fetchMergeableLogPiles(modelContext: modelContext)
             }
         }
+        .onDisappear {
+            selectMergeLogsViewModel.resetProperties()
+        }
     }
 }
 
