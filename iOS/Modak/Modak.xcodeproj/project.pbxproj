@@ -98,6 +98,7 @@
 		CAB2BE422CC0A9D10030C1F1 /* DailyLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2BE412CC0A9BD0030C1F1 /* DailyLogs.swift */; };
 		CAB2BE4C2CC1ED1D0030C1F1 /* UINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2BE4B2CC1ECD00030C1F1 /* UINavigationControllerExtension.swift */; };
 		CAB310932CDFA5E8002BBB1D /* SelectMergeLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB310922CDFA5E0002BBB1D /* SelectMergeLogsView.swift */; };
+		CAF54EF72CE5A6B20071F798 /* CampfireLogMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF54EF62CE5A6990071F798 /* CampfireLogMetadata.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -192,6 +193,7 @@
 		CAB2BE412CC0A9BD0030C1F1 /* DailyLogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyLogs.swift; sourceTree = "<group>"; };
 		CAB2BE4B2CC1ECD00030C1F1 /* UINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtension.swift; sourceTree = "<group>"; };
 		CAB310922CDFA5E0002BBB1D /* SelectMergeLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMergeLogsView.swift; sourceTree = "<group>"; };
+		CAF54EF62CE5A6990071F798 /* CampfireLogMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireLogMetadata.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,6 +277,7 @@
 		10AB91AE2CACD2AC00BFA2EC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CAF54EF62CE5A6990071F798 /* CampfireLogMetadata.swift */,
 				CA92B37A2CE3BB01004EFE1C /* MergeableLogImage.swift */,
 				CA92B3782CE3BAC5004EFE1C /* MergeableLog.swift */,
 				CA92B3762CE3843A004EFE1C /* MergeableLogPile.swift */,
@@ -566,6 +569,7 @@
 				10BCB0EC2CB825520013E227 /* BottomSheet.swift in Sources */,
 				109396932CD29680004C4EBD /* CameraGuidePreview.swift in Sources */,
 				CAA0B7C62CDA62D10093AEA7 /* TextExtension.swift in Sources */,
+				CAF54EF72CE5A6B20071F798 /* CampfireLogMetadata.swift in Sources */,
 				10BCB0E02CB8206C0013E227 /* DBSCAN.swift in Sources */,
 				10BCB0FD2CBE14BC0013E227 /* AppleSigninButton.swift in Sources */,
 				10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */,
