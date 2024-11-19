@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct LogPileSection: View {
+    @Environment(\.modelContext) private var modelContext
+    
+    @EnvironmentObject private var logPileViewModel: LogPileViewModel
+    
     private(set) var monthlyLog: [DailyLogs]
     
     var body: some View {
@@ -17,6 +21,9 @@ struct LogPileSection: View {
                 .clipShape(RoundedRectangle(cornerRadius: 20))
                 .padding([.horizontal, .bottom], 10)
                 .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 3)
+                .onAppear {
+                    logPileViewModel.fetchMoreLogsWithGroupBy(modelContext: modelContext, currentLog: dailyLog)
+                }
         }
     }
 }
