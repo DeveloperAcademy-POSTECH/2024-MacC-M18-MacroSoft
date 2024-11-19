@@ -80,20 +80,17 @@ class JoinCampfireViewModel: ObservableObject {
                     let lines = recognizedText.components(separatedBy: .newlines)
                     
                     // "모닥불 참여하기를 눌러 하단 이정표를 스캔해 주세요."를 찾은 후, 다음 줄을 campfireName으로 설정
-                    if let startIndex = lines.firstIndex(where: { $0.contains("모닥불 참여하기를 눌러 하단 이정표를 스캔해 주세요.") }),
+                    if let startIndex = lines.firstIndex(where: { $0.contains("모닥불 참여하기를 눌러 하단 이정표를 스캔해 주세요.") || $0.contains("Modak") }),
                        startIndex + 1 < lines.count {
                         
                         var extractedCampfireName = lines[startIndex + 1]
                         
-                        // "까지" 또는 " 까지"가 포함되어 있으면 그 뒤의 텍스트를 모두 제거
-                        if let range = extractedCampfireName.range(of: "까지") {
-                            extractedCampfireName = String(extractedCampfireName[..<range.lowerBound])
-                        } else if let range = extractedCampfireName.range(of: " 까지") {
+                        // "까지" 또는 " 까지"가 포함되어 있으면 그 위치부터 뒤의 텍스트를 모두 제거
+                        if let range = extractedCampfireName.range(of: "까지") ?? extractedCampfireName.range(of: " 까지") {
                             extractedCampfireName = String(extractedCampfireName[..<range.lowerBound])
                         }
                         
-                        
-                        self.campfireName = extractedCampfireName
+                        self.campfireName = extractedCampfireName.trimmingCharacters(in: .whitespacesAndNewlines)
                     }
                     
                     // "km" 이 포함된 줄에서 점을 제외한 숫자만 추출하여 campfirePin로 설정
@@ -117,7 +114,7 @@ class JoinCampfireViewModel: ObservableObject {
     private func fetchCampfireInfo(campfirePin: Int) {
         Task {
             do {
-                let data = try await NetworkManager.shared.requestRawData(router: .joinCampfireInfo(campfirePin: campfirePin, campfireName: campfireName))
+                let data = try await NetworkManager.shared.requestRawData(router: .joinCampfireInfo(campfirePin: campfirePin))
                 
                 if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                    let result = jsonResponse["result"] as? [String: Any] {

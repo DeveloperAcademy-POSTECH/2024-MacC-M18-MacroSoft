@@ -39,7 +39,7 @@ struct JoinCampfireByTextView: View {
                 VStack {
                     Spacer()
                     
-                    Image("joincampfire_sign")
+                    Image("milestone_component")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: geometry.size.width)
