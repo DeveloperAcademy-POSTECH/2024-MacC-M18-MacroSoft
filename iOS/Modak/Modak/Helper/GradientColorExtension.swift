@@ -71,11 +71,11 @@ extension LinearGradient {
     static var selectMergeLogsViewHeaderBackground: LinearGradient {
         return LinearGradient(
             stops: [
-                Gradient.Stop(color: Color.init(hex: "424144"), location: 1),
-                Gradient.Stop(color: Color.init(hex: "3F383D"), location: 0)
+                Gradient.Stop(color: Color.init(hex: "3F383D"), location: 0.0),
+                Gradient.Stop(color: Color.init(hex: "424144"), location: 1.0)
             ],
-            startPoint: .top,
-            endPoint: .bottom
+            startPoint: UnitPoint(x: 0.5, y: 0),
+            endPoint: UnitPoint(x: 0.5, y: 1)
         )
     }
 }
