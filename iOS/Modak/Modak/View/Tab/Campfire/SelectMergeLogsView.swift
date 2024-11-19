@@ -172,12 +172,10 @@ private struct SelectMergeLogsViewLowSectionContent: View {
     
     var body: some View {
         LazyHGrid(rows: [GridItem(.fixed(53))], spacing: 1) {
-            ForEach(mergeableLog.images, id: \.localIdentifier) { image in
+            ForEach(mergeableLog.images.prefix(8), id: \.localIdentifier) { image in
                 // TODO: 실제 개인 장작 Log 보여주기
-                Image(.progressDefault)
-                    .resizable()
-                    .frame(width: (UIScreen.main.bounds.width - 54) / CGFloat(mergeableLog.images.count))
-                    .scaledToFill()
+                DrawPhoto(photoMetadata: image)
+                    .frame(width: (UIScreen.main.bounds.width - 54) / CGFloat(mergeableLog.images.count > 8 ? 8 : mergeableLog.images.count))
             }
         }
         .clipShape(RoundedRectangle(cornerRadius: 10))
