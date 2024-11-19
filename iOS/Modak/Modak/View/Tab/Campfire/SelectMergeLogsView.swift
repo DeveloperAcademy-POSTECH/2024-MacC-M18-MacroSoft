@@ -30,6 +30,7 @@ struct SelectMergeLogsView: View {
                             }
                         }
                     }
+                    .padding(.bottom, 150)
                 }
             }
             
