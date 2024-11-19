@@ -183,8 +183,10 @@ private struct CampfireViewTodayPhoto: View {
 // MARK: - CampfireViewEmptyLogView
 
 private struct CampfireViewEmptyLogView: View {
+    @EnvironmentObject private var logPileViewModel: LogPileViewModel
     @EnvironmentObject private var networkMonitor: NetworkMonitor
-    @EnvironmentObject private var viewModel: CampfireViewModel
+    @EnvironmentObject private var campfireViewModel: CampfireViewModel
+    
     var campfireName: String
     
     var body: some View {
@@ -204,7 +206,10 @@ private struct CampfireViewEmptyLogView: View {
             
             // TODO: 내 추억 장작 개수가 1개 미만인 경우 disable 시키는 로직 추가
             NavigationLink {
-                SelectMergeLogsView()
+                // TODO: 언래핑 실패 시 분기처리
+                if let _ = campfireViewModel.campfire?.pin {
+                    SelectMergeLogsView()
+                }
             } label: {
                 HStack(spacing: 8) {
                     Spacer()
@@ -228,14 +233,14 @@ private struct CampfireViewEmptyLogView: View {
             }
             .background {
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(Color.init(hex: "4C4545"))
+                    .fill(.disable)
                     .stroke(Color.disable, lineWidth: 1)
             }
             .padding(.horizontal, 70)
-            .disabled(!networkMonitor.isConnected)
+            .disabled(!networkMonitor.isConnected || logPileViewModel.yearlyLogs.isEmpty)
             .simultaneousGesture(TapGesture().onEnded {
                 if !networkMonitor.isConnected {
-                    viewModel.showTemporaryNetworkAlert()
+                    campfireViewModel.showTemporaryNetworkAlert()
                 }
             })
             
