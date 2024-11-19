@@ -26,7 +26,13 @@ enum APIRouter: URLRequestConvertible {
     case refreshAccessToken(refreshToken: String)
     case logout
     case deactivate
-
+    
+    // Log API
+    case getCampfireLogsPreview(campfirePin: Int)
+    case updateCampfireLogs(campfirePin: Int, parameters: [String: Any])
+    case getCampfireLogImages(campfirePin: Int, logId: Int)
+    case getCampfireLogsMetadata(campfirePin: Int)
+    
     // Member API
     case getMembersNicknames
     case updateNickname(nickname: String)
@@ -71,7 +77,17 @@ enum APIRouter: URLRequestConvertible {
             return "/api/auth/logout"
         case .deactivate:
             return "/api/auth/deactivate"
-
+            
+        // Log API
+        case .getCampfireLogsPreview(campfirePin: let campfirePin):
+            return "/api/campfires/\(campfirePin)/logs"
+        case .updateCampfireLogs(campfirePin: let campfirePin, parameters: let parameters):
+            return "/api/campfires/\(campfirePin)/logs"
+        case .getCampfireLogImages(campfirePin: let campfirePin, logId: let logId):
+            return "/api/campfires/\(campfirePin)/logs/\(logId)/images"
+        case .getCampfireLogsMetadata(campfirePin: let campfirePin):
+            return "/api/campfires/\(campfirePin)/logs/metadata"
+            
         // Member API
         case .getMembersNicknames:
             return "/api/members/nickname"
@@ -86,9 +102,9 @@ enum APIRouter: URLRequestConvertible {
 
     private var method: HTTPMethod {
         switch self {
-        case .createCampfire, .joinCampfire, .socialLogin, .refreshAccessToken, .logout, .uploadImage:
+        case .createCampfire, .joinCampfire, .joinCampfireInfo, .socialLogin, .refreshAccessToken, .logout, .uploadImage, .updateCampfireLogs:
             return .POST
-        case .getCampfireName, .joinCampfireInfo, .getCampfireMainInfo, .getMyCampfires, .getMembersNicknames:
+        case .getCampfireName, .getCampfireMainInfo, .getMyCampfires, .getMembersNicknames, .getCampfireLogsPreview, .getCampfireLogImages, .getCampfireLogsMetadata, .joinCampfireInfo, .getMyCampfires, .getMembersNicknames:
             return .GET
         case .updateCampfireName, .updateNickname:
             return .PATCH

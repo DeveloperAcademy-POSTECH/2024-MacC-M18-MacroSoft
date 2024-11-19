@@ -208,8 +208,8 @@ struct OrganizePhotoView: View {
                 maxLatitude: maxLatitude,
                 minLongitude: minLongitude,
                 maxLongitude: maxLongitude,
-                startAt: startAt,
-                endAt: endAt,
+                startAt: endAt,
+                endAt: startAt,
                 images: cluster,
                 address: address // 위치 정보 포함하여 저장
             )

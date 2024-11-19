@@ -40,7 +40,7 @@ struct LogPileView: View {
                 .ignoresSafeArea()
         }
         .onAppear {
-            fetchLogsWithGroupBy()
+            logPileViewModel.fetchLogsWithGroupBy(modelContext: modelContext)
         }
         .onAppear{
             Analytics.logEvent(AnalyticsEventScreenView,
