@@ -21,6 +21,8 @@
 		109396A32CDAFCE6004C4EBD /* CampfireViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109396A22CDAFCE6004C4EBD /* CampfireViewModel.swift */; };
 		109396A52CDB7999004C4EBD /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109396A42CDB7999004C4EBD /* NetworkMonitor.swift */; };
 		109396A72CDB81C7004C4EBD /* NetworkMonitorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109396A62CDB81C7004C4EBD /* NetworkMonitorAlert.swift */; };
+		109399172CE3A56D004C4EBD /* InviteMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109399162CE3A56D004C4EBD /* InviteMemberView.swift */; };
+		109399192CE3A7AE004C4EBD /* CampfireMemberDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109399182CE3A7AE004C4EBD /* CampfireMemberDetailView.swift */; };
 		10AB91AA2CACD29A00BFA2EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10AB91A42CACD29A00BFA2EC /* Preview Assets.xcassets */; };
 		10AB91AB2CACD29A00BFA2EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10AB91A62CACD29A00BFA2EC /* Assets.xcassets */; };
 		10AB91AC2CACD29A00BFA2EC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AB91A72CACD29A00BFA2EC /* ContentView.swift */; };
@@ -123,6 +125,8 @@
 		109396A22CDAFCE6004C4EBD /* CampfireViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireViewModel.swift; sourceTree = "<group>"; };
 		109396A42CDB7999004C4EBD /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		109396A62CDB81C7004C4EBD /* NetworkMonitorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitorAlert.swift; sourceTree = "<group>"; };
+		109399162CE3A56D004C4EBD /* InviteMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteMemberView.swift; sourceTree = "<group>"; };
+		109399182CE3A7AE004C4EBD /* CampfireMemberDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireMemberDetailView.swift; sourceTree = "<group>"; };
 		10AB91712CACCE4F00BFA2EC /* Modak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Modak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10AB91A42CACD29A00BFA2EC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		10AB91A62CACD29A00BFA2EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -464,6 +468,8 @@
 			children = (
 				CAB310922CDFA5E0002BBB1D /* SelectMergeLogsView.swift */,
 				CA64DBEF2CDC5EF700262E95 /* CampfireLogPileView.swift */,
+				109399182CE3A7AE004C4EBD /* CampfireMemberDetailView.swift */,
+				109399162CE3A56D004C4EBD /* InviteMemberView.swift */,
 				CAA0B7C32CD99FE10093AEA7 /* SelectCampfiresView.swift */,
 				CAA0B7BB2CD471160093AEA7 /* SelectedCampfireView.swift */,
 				CAA0B7B92CD470470093AEA7 /* EmptyCampfireView.swift */,
@@ -599,6 +605,7 @@
 				10BCB0EC2CB825520013E227 /* BottomSheet.swift in Sources */,
 				109396932CD29680004C4EBD /* CameraGuidePreview.swift in Sources */,
 				CAA0B7C62CDA62D10093AEA7 /* TextExtension.swift in Sources */,
+				109399192CE3A7AE004C4EBD /* CampfireMemberDetailView.swift in Sources */,
 				10BCB0E02CB8206C0013E227 /* DBSCAN.swift in Sources */,
 				1087067D2CE6D455006DD903 /* WebView.swift in Sources */,
 				10BCB0FD2CBE14BC0013E227 /* AppleSigninButton.swift in Sources */,
@@ -641,6 +648,7 @@
 				CA64CD0F2CDE155B003EFB69 /* ProfileBackground.swift in Sources */,
 				10F58DBB2CC09D9300BF9D34 /* BundleExtension.swift in Sources */,
 				10C4F4472CE519AA00FFDBDD /* EditProfileView.swift in Sources */,
+				109399172CE3A56D004C4EBD /* InviteMemberView.swift in Sources */,
 				CA64DBF02CDC5EFE00262E95 /* CampfireLogPileView.swift in Sources */,
 				CA2B5D0B2CBA70C40070DEBF /* ColorExtension.swift in Sources */,
 				CA92B3812CE3BEA0004EFE1C /* StringExtension.swift in Sources */,

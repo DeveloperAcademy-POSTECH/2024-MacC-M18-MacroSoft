@@ -13,7 +13,7 @@ enum APIRouter: URLRequestConvertible {
     // Campfire API
     case createCampfire(campfireName: String)
     case joinCampfire(campfirePin: Int, campfireName: String)
-    case joinCampfireInfo(campfirePin: Int, campfireName: String)
+    case joinCampfireInfo(campfirePin: Int)
     case getCampfireName(campfirePin: Int)
     case updateCampfireName(campfirePin: Int, parameters: [String: Any])
     case getCampfireMainInfo(campfirePin: Int)
@@ -47,8 +47,8 @@ enum APIRouter: URLRequestConvertible {
             return "/api/campfires"
         case .joinCampfire(let campfirePin, _):
             return "/api/campfires/\(campfirePin)/join"
-        case .joinCampfireInfo(let campfirePin, _):
-            return "/api/campfires/\(campfirePin)/join/info"
+        case .joinCampfireInfo(let campfirePin):
+            return "/api/campfires/\(campfirePin)/join"
         case .getCampfireName(let campfirePin):
             return "/api/campfires/\(campfirePin)/name"
         case .updateCampfireName(let campfirePin, _):
@@ -86,9 +86,9 @@ enum APIRouter: URLRequestConvertible {
 
     private var method: HTTPMethod {
         switch self {
-        case .createCampfire, .joinCampfire, .joinCampfireInfo, .socialLogin, .refreshAccessToken, .logout, .uploadImage:
+        case .createCampfire, .joinCampfire, .socialLogin, .refreshAccessToken, .logout, .uploadImage:
             return .POST
-        case .getCampfireName, .getCampfireMainInfo, .getMyCampfires, .getMembersNicknames:
+        case .getCampfireName, .joinCampfireInfo, .getCampfireMainInfo, .getMyCampfires, .getMembersNicknames:
             return .GET
         case .updateCampfireName, .updateNickname:
             return .PATCH
