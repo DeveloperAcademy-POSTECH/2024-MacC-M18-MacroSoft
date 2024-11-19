@@ -12,6 +12,7 @@ import Firebase
 struct ModakApp: App {
     @StateObject private var logPileViewModel: LogPileViewModel
     = LogPileViewModel()
+    @StateObject private var selectMergeLogsViewModel: SelectMergeLogsViewModel = SelectMergeLogsViewModel()
     
     init() {
         FirebaseApp.configure()
@@ -24,6 +25,7 @@ struct ModakApp: App {
             CoordinatorView()
                 .modelContainer(for: [PrivateLog.self, PrivateLogImage.self, Campfire.self])
                 .environmentObject(logPileViewModel)
+                .environmentObject(selectMergeLogsViewModel)
         }
     }
 }
