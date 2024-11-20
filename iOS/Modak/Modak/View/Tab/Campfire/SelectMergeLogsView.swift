@@ -45,6 +45,13 @@ struct SelectMergeLogsView: View {
                             .padding(.bottom, -26)
                     }
             }
+            if selectMergeLogsViewModel.isUploadCampfireLogsLoading {
+                Color.black.opacity(0.4)
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .foregroundColor(.white)
+                    .scaleEffect(1.5)
+            }
         }
         .preferredColorScheme(.dark)
         .ignoresSafeArea(edges: .bottom)
