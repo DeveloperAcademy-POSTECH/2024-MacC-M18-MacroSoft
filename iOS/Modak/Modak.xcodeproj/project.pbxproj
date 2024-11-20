@@ -109,7 +109,8 @@
 		CAB2BE422CC0A9D10030C1F1 /* DailyLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2BE412CC0A9BD0030C1F1 /* DailyLogs.swift */; };
 		CAB2BE4C2CC1ED1D0030C1F1 /* UINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2BE4B2CC1ECD00030C1F1 /* UINavigationControllerExtension.swift */; };
 		CAB310932CDFA5E8002BBB1D /* SelectMergeLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB310922CDFA5E0002BBB1D /* SelectMergeLogsView.swift */; };
-        CAF54EF52CE58E1E0071F798 /* SelectMergeLogsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF54EF42CE58E070071F798 /* SelectMergeLogsViewModel.swift */; };
+		CAF462FD2CECD56B0037F939 /* SDWebImageWebPCoder in Frameworks */ = {isa = PBXBuildFile; productRef = CAF462FC2CECD56B0037F939 /* SDWebImageWebPCoder */; };
+		CAF54EF52CE58E1E0071F798 /* SelectMergeLogsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF54EF42CE58E070071F798 /* SelectMergeLogsViewModel.swift */; };
 		CAF54EF72CE5A6B20071F798 /* CampfireLogMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF54EF62CE5A6990071F798 /* CampfireLogMetadata.swift */; };
 /* End PBXBuildFile section */
 
@@ -216,7 +217,7 @@
 		CAB2BE412CC0A9BD0030C1F1 /* DailyLogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyLogs.swift; sourceTree = "<group>"; };
 		CAB2BE4B2CC1ECD00030C1F1 /* UINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtension.swift; sourceTree = "<group>"; };
 		CAB310922CDFA5E0002BBB1D /* SelectMergeLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMergeLogsView.swift; sourceTree = "<group>"; };
-        CAF54EF42CE58E070071F798 /* SelectMergeLogsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMergeLogsViewModel.swift; sourceTree = "<group>"; };
+		CAF54EF42CE58E070071F798 /* SelectMergeLogsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMergeLogsViewModel.swift; sourceTree = "<group>"; };
 		CAF54EF62CE5A6990071F798 /* CampfireLogMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireLogMetadata.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -226,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				10F58DCF2CC0BE0C00BF9D34 /* FirebaseAnalytics in Frameworks */,
+				CAF462FD2CECD56B0037F939 /* SDWebImageWebPCoder in Frameworks */,
 				10F58DD32CC0BE0C00BF9D34 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				10F58DD12CC0BE0C00BF9D34 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 			);
@@ -508,6 +510,7 @@
 				10F58DCE2CC0BE0C00BF9D34 /* FirebaseAnalytics */,
 				10F58DD02CC0BE0C00BF9D34 /* FirebaseAnalyticsOnDeviceConversion */,
 				10F58DD22CC0BE0C00BF9D34 /* FirebaseAnalyticsWithoutAdIdSupport */,
+				CAF462FC2CECD56B0037F939 /* SDWebImageWebPCoder */,
 			);
 			productName = Modak;
 			productReference = 10AB91712CACCE4F00BFA2EC /* Modak.app */;
@@ -539,6 +542,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				10F58DCD2CC0BE0C00BF9D34 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CAF462FB2CECD56B0037F939 /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 10AB91722CACCE4F00BFA2EC /* Products */;
@@ -909,6 +913,14 @@
 				minimumVersion = 11.3.0;
 			};
 		};
+		CAF462FB2CECD56B0037F939 /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageWebPCoder.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.14.6;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -926,6 +938,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 10F58DCD2CC0BE0C00BF9D34 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		CAF462FC2CECD56B0037F939 /* SDWebImageWebPCoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CAF462FB2CECD56B0037F939 /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */;
+			productName = SDWebImageWebPCoder;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
