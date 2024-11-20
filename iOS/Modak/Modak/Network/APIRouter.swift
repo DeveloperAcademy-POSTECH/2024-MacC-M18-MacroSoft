@@ -37,8 +37,8 @@ enum APIRouter: URLRequestConvertible {
     case getMembersNicknames
     case updateNickname(nickname: String)
     
-    // Image API
-    case uploadImage(imageData: Data)
+    // File(Image) API
+    case getPresignedURL(fileExtension: String)
 
     private var baseURL: String {
         let url =  Bundle.main.environmentVariable(forKey: "ServerURL")!
@@ -94,17 +94,17 @@ enum APIRouter: URLRequestConvertible {
         case .updateNickname:
             return "/api/members/nickname"
        
-        // Image API
-        case .uploadImage:
-            return "/api/images"
+        // File(Image) API
+        case .getPresignedURL(let fileExtension):
+            return "/api/files/presigned-url/\(fileExtension)"
         }
     }
 
     private var method: HTTPMethod {
         switch self {
-        case .createCampfire, .joinCampfire, .socialLogin, .refreshAccessToken, .logout, .uploadImage, .updateCampfireLogs:
+        case .createCampfire, .joinCampfire, .socialLogin, .refreshAccessToken, .logout, .updateCampfireLogs:
             return .POST
-        case .getCampfireName, .getCampfireMainInfo, .getMyCampfires, .getMembersNicknames, .getCampfireLogsPreview, .getCampfireLogImages, .getCampfireLogsMetadata, .joinCampfireInfo:
+        case .getCampfireName, .getCampfireMainInfo, .getMyCampfires, .getMembersNicknames, .getCampfireLogsPreview, .getCampfireLogImages, .getCampfireLogsMetadata, .joinCampfireInfo, .getPresignedURL:
             return .GET
         case .updateCampfireName, .updateNickname:
             return .PATCH
