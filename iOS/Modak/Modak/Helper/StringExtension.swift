@@ -26,13 +26,8 @@ extension Optional where Wrapped == String {
 extension String {
     var iso8601ToDate: Date {
         let dateFormatter = ISO8601DateFormatter()
-        dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         
-        let trimmedDateString = self.split(separator: ".")
-            .prefix(2)
-            .joined(separator: ".") + (self.contains(".") ? "Z" : "")
-        
-        if let date = dateFormatter.date(from: trimmedDateString) {
+        if let date = dateFormatter.date(from: self) {
             return date
         } else {
             return Date()

@@ -90,6 +90,7 @@
 		CA92B37B2CE3BB02004EFE1C /* MergeableLogImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA92B37A2CE3BB01004EFE1C /* MergeableLogImage.swift */; };
 		CA92B37F2CE3BCE8004EFE1C /* MaterialEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA92B37E2CE3BCE6004EFE1C /* MaterialEffectView.swift */; };
 		CA92B3812CE3BEA0004EFE1C /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA92B3802CE3BE97004EFE1C /* StringExtension.swift */; };
+		CA9C3C102CEDB52000509897 /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9C3C0F2CEDB51600509897 /* DoubleExtension.swift */; };
 		CAA0B7B22CD3228D0093AEA7 /* PublicLogImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B7B12CD322880093AEA7 /* PublicLogImage.swift */; };
 		CAA0B7B62CD329BE0093AEA7 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B7B52CD329BC0093AEA7 /* ViewExtension.swift */; };
 		CAA0B7BA2CD470550093AEA7 /* EmptyCampfireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B7B92CD470470093AEA7 /* EmptyCampfireView.swift */; };
@@ -196,6 +197,7 @@
 		CA92B37A2CE3BB01004EFE1C /* MergeableLogImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergeableLogImage.swift; sourceTree = "<group>"; };
 		CA92B37E2CE3BCE6004EFE1C /* MaterialEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialEffectView.swift; sourceTree = "<group>"; };
 		CA92B3802CE3BE97004EFE1C /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		CA9C3C0F2CEDB51600509897 /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		CAA0B7B12CD322880093AEA7 /* PublicLogImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicLogImage.swift; sourceTree = "<group>"; };
 		CAA0B7B52CD329BC0093AEA7 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		CAA0B7B92CD470470093AEA7 /* EmptyCampfireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCampfireView.swift; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 		CA2B5D032CBA6F4C0070DEBF /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				CA9C3C0F2CEDB51600509897 /* DoubleExtension.swift */,
 				CA92B3802CE3BE97004EFE1C /* StringExtension.swift */,
 				CAA0B7C52CDA62C80093AEA7 /* TextExtension.swift */,
 				CAA0B7B52CD329BC0093AEA7 /* ViewExtension.swift */,
@@ -613,6 +616,7 @@
 				109396932CD29680004C4EBD /* CameraGuidePreview.swift in Sources */,
 				CAA0B7C62CDA62D10093AEA7 /* TextExtension.swift in Sources */,
 				CAF54EF72CE5A6B20071F798 /* CampfireLogMetadata.swift in Sources */,
+				CA9C3C102CEDB52000509897 /* DoubleExtension.swift in Sources */,
 				109399192CE3A7AE004C4EBD /* CampfireMemberDetailView.swift in Sources */,
 				10BCB0E02CB8206C0013E227 /* DBSCAN.swift in Sources */,
 				1087067D2CE6D455006DD903 /* WebView.swift in Sources */,
