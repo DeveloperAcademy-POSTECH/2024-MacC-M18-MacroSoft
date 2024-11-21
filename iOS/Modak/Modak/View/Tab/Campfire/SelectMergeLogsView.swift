@@ -45,6 +45,13 @@ struct SelectMergeLogsView: View {
                             .padding(.bottom, -26)
                     }
             }
+            if selectMergeLogsViewModel.isUploadCampfireLogsLoading {
+                Color.black.opacity(0.4)
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .foregroundColor(.white)
+                    .scaleEffect(1.5)
+            }
         }
         .preferredColorScheme(.dark)
         .ignoresSafeArea(edges: .bottom)
@@ -204,6 +211,11 @@ private struct SelectMergeLogsViewLowHeader: View {
 // MARK: - SelectMergeLogsButton
 
 private struct SelectMergeLogsButton: View {
+    @EnvironmentObject private var campfireViewModel: CampfireViewModel
+    @EnvironmentObject private var selectMergeLogsViewModel: SelectMergeLogsViewModel
+    
+    @Environment(\.dismiss) private var dismiss
+    
     private(set) var hasSelectedMergeableLogs: Bool
     
     var body: some View {
@@ -213,7 +225,11 @@ private struct SelectMergeLogsButton: View {
             VStack {
                 if hasSelectedMergeableLogs {
                     Button {
-                        // TODO: 캠프파이어에 장작 추가 API 연결
+                        Task {
+                            selectMergeLogsViewModel.isUploadCampfireLogsLoading = true
+                            await selectMergeLogsViewModel.updateCampfireLogs(campfirePin: campfireViewModel.campfire!.pin)
+                            dismiss()
+                        }
                     } label: {
                         
                         Text("장작 던져넣기")

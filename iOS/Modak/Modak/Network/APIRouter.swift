@@ -37,8 +37,8 @@ enum APIRouter: URLRequestConvertible {
     case getMembersNicknames
     case updateNickname(nickname: String)
     
-    // Image API
-    case uploadImage(imageData: Data)
+    // File(Image) API
+    case getPresignedURL(fileExtension: String)
 
     private var baseURL: String {
         let url =  Bundle.main.environmentVariable(forKey: "ServerURL")!
@@ -81,7 +81,7 @@ enum APIRouter: URLRequestConvertible {
         // Log API
         case .getCampfireLogsPreview(campfirePin: let campfirePin):
             return "/api/campfires/\(campfirePin)/logs"
-        case .updateCampfireLogs(campfirePin: let campfirePin, parameters: let parameters):
+        case .updateCampfireLogs(let campfirePin, _):
             return "/api/campfires/\(campfirePin)/logs"
         case .getCampfireLogImages(campfirePin: let campfirePin, logId: let logId):
             return "/api/campfires/\(campfirePin)/logs/\(logId)/images"
@@ -94,17 +94,17 @@ enum APIRouter: URLRequestConvertible {
         case .updateNickname:
             return "/api/members/nickname"
        
-        // Image API
-        case .uploadImage:
-            return "/api/images"
+        // File(Image) API
+        case .getPresignedURL(let fileExtension):
+            return "/api/files/presigned-url/\(fileExtension)"
         }
     }
 
     private var method: HTTPMethod {
         switch self {
-        case .createCampfire, .joinCampfire, .joinCampfireInfo, .socialLogin, .refreshAccessToken, .logout, .uploadImage, .updateCampfireLogs:
+        case .createCampfire, .joinCampfire, .socialLogin, .refreshAccessToken, .logout, .updateCampfireLogs:
             return .POST
-        case .getCampfireName, .getCampfireMainInfo, .getMyCampfires, .getMembersNicknames, .getCampfireLogsPreview, .getCampfireLogImages, .getCampfireLogsMetadata, .joinCampfireInfo, .getMyCampfires, .getMembersNicknames:
+        case .getCampfireName, .getCampfireMainInfo, .getMyCampfires, .getMembersNicknames, .getCampfireLogsPreview, .getCampfireLogImages, .getCampfireLogsMetadata, .joinCampfireInfo, .getPresignedURL:
             return .GET
         case .updateCampfireName, .updateNickname:
             return .PATCH
@@ -140,10 +140,12 @@ enum APIRouter: URLRequestConvertible {
         switch self {
         case .updateCampfireName(_, let parameters), .socialLogin(_, let parameters):
             return parameters
-        case .createCampfire(let campfireName), .joinCampfire(_, let campfireName), .joinCampfireInfo(_, let campfireName):
+        case .createCampfire(let campfireName), .joinCampfire(_, let campfireName):
             return ["campfireName": campfireName]
         case .refreshAccessToken(let refreshToken):
             return ["refreshToken": refreshToken]
+        case .updateCampfireLogs(_, let parameters):
+            return parameters
         default:
             return nil
         }

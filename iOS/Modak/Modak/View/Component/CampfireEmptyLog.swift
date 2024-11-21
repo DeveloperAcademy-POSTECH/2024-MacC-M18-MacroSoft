@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct CampfireEmptyLog: View {
+    @EnvironmentObject private var logPileViewModel: LogPileViewModel
+    @EnvironmentObject private var networkMonitor: NetworkMonitor
+    @EnvironmentObject private var campfireViewModel: CampfireViewModel
+    
     private(set) var campfireName: String
     
     var body: some View {
@@ -26,18 +30,19 @@ struct CampfireEmptyLog: View {
                 .lineSpacing(16 * 0.5)
                 .multilineTextAlignment(.center)
             
-            // TODO: 내 추억 장작 개수가 1개 미만인 경우 disable 시키는 로직 추가
             NavigationLink {
-                // TODO: 화면 전환 로직 추가
-                
+                if let _ = campfireViewModel.campfire?.pin {
+                    SelectMergeLogsView()
+                }
             } label: {
                 HStack(spacing: 8) {
                     Spacer()
                     
                     AddCampfireLogImage()
                     
+                    // TODO: 임시로 인터넷 연결 없거나 내 개인장작이 없는 경우 글자색 바꿔서 버튼 누를 수 없다는 것을 보여주도록 했음
                     Text("모닥불에 장작 넣기")
-                        .foregroundStyle(.white)
+                        .foregroundStyle(!networkMonitor.isConnected || logPileViewModel.yearlyLogs.isEmpty ? .gray : .white)
                         .font(Font.custom("Pretendard-Bold", size: 16))
                     
                     Spacer()
@@ -50,6 +55,12 @@ struct CampfireEmptyLog: View {
                     .stroke(Color.disable, lineWidth: 1)
             }
             .padding(.horizontal, 70)
+            .disabled(!networkMonitor.isConnected || logPileViewModel.yearlyLogs.isEmpty)
+            .simultaneousGesture(TapGesture().onEnded {
+                if !networkMonitor.isConnected {
+                    campfireViewModel.showTemporaryNetworkAlert()
+                }
+            })
             
             Spacer()
         }

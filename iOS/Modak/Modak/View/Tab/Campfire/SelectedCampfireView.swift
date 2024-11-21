@@ -21,12 +21,13 @@ struct SelectedCampfireView: View {
     var body: some View {
         VStack {
             // 네트워크가 연결되지 않은 경우 로컬 데이터를 사용
-            if let campfire = (networkMonitor.isConnected ? viewModel.campfire! : campfiresLocalData.first(where: { $0.pin == viewModel.recentVisitedCampfirePin })) {
+            // TODO: 참여한 캠프파이어가 없을 경우에 모닥불 참여를 눌렀을 때, 언래핑 오류가 떠서 수정하긴 했으나 확인 필요
+            if let viewModelCampfire = viewModel.campfire, let campfire = (networkMonitor.isConnected ? viewModelCampfire : campfiresLocalData.first(where: { $0.pin == viewModel.recentVisitedCampfirePin })) {
                 CampfireViewTopButton(isShowSideMenu: $isShowSideMenu, campfireName: campfire.name)
                 
                 // TODO: 참여한 모닥불의 로그가 없는지 체크하는 로직 추가
                 if isEmptyCampfireLog {
-                    CampfireViewEmptyLogView(campfireName: campfire.name)
+                    CampfireEmptyLog(campfireName: campfire.name)
                     
                     Spacer()
                 } else {
@@ -176,75 +177,6 @@ private struct CampfireViewTodayPhoto: View {
             // TODO: 선택한 이미지가 보이도록 로직 추가
             ExpandedPhoto(photo: .progressDefault)
                 .presentationBackground(Color.black.opacity(0.8))
-        }
-    }
-}
-
-// MARK: - CampfireViewEmptyLogView
-
-private struct CampfireViewEmptyLogView: View {
-    @EnvironmentObject private var logPileViewModel: LogPileViewModel
-    @EnvironmentObject private var networkMonitor: NetworkMonitor
-    @EnvironmentObject private var campfireViewModel: CampfireViewModel
-    
-    var campfireName: String
-    
-    var body: some View {
-        VStack {
-            Spacer()
-            Text("추억 장작이 필요해요")
-                .foregroundStyle(.textColorGray1)
-                .font(Font.custom("Pretendard-Bold", size: 20))
-                .padding(.bottom, 8)
-            
-            Text("\(campfireName) 모닥불에 추억 장작을 넣어\n오늘의 사진을 확인해보세요")
-                .foregroundStyle(.textColorGray2)
-                .font(Font.custom("Pretendard-Regular", size: 16))
-                .padding(.bottom, 22)
-                .lineSpacing(16 * 0.5)
-                .multilineTextAlignment(.center)
-            
-            // TODO: 내 추억 장작 개수가 1개 미만인 경우 disable 시키는 로직 추가
-            NavigationLink {
-                // TODO: 언래핑 실패 시 분기처리
-                if let _ = campfireViewModel.campfire?.pin {
-                    SelectMergeLogsView()
-                }
-            } label: {
-                HStack(spacing: 8) {
-                    Spacer()
-                    Image(.log3D)
-                        .overlay {
-                            HStack {
-                                Spacer()
-                                VStack {
-                                    Spacer()
-                                    Image(systemName: "plus.circle.fill")
-                                        .foregroundStyle(Color.init(hex: "F1DCD1"))
-                                }
-                            }
-                        }
-                    Text("모닥불에 장작 넣기")
-                        .foregroundStyle(.white)
-                        .font(Font.custom("Pretendard-Bold", size: 16))
-                    Spacer()
-                }
-                .padding(.vertical, 16)
-            }
-            .background {
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(.disable)
-                    .stroke(Color.disable, lineWidth: 1)
-            }
-            .padding(.horizontal, 70)
-            .disabled(!networkMonitor.isConnected || logPileViewModel.yearlyLogs.isEmpty)
-            .simultaneousGesture(TapGesture().onEnded {
-                if !networkMonitor.isConnected {
-                    campfireViewModel.showTemporaryNetworkAlert()
-                }
-            })
-            
-            Spacer()
         }
     }
 }
