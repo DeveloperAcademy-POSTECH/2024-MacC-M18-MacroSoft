@@ -17,6 +17,8 @@
 		103B423E2CF3ABB50009375C /* hat1.scn in Resources */ = {isa = PBXBuildFile; fileRef = 103B42342CF3ABB50009375C /* hat1.scn */; };
 		103B423F2CF3ABB50009375C /* hat2.scn in Resources */ = {isa = PBXBuildFile; fileRef = 103B42352CF3ABB50009375C /* hat2.scn */; };
 		103B42412CF3AC050009375C /* 3DPreviewImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 103B42402CF3AC050009375C /* 3DPreviewImages.xcassets */; };
+		103B42472CF3B1CA0009375C /* AvatarCustomizingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103B42462CF3B1CA0009375C /* AvatarCustomizingView.swift */; };
+		103B42492CF3B1E10009375C /* AvatarCustomizingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103B42482CF3B1E10009375C /* AvatarCustomizingViewModel.swift */; };
 		1093968B2CD2879B004C4EBD /* JoinCampfireViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093968A2CD2879B004C4EBD /* JoinCampfireViewModel.swift */; };
 		1093968D2CD294A9004C4EBD /* JoinCampfireByCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093968C2CD294A9004C4EBD /* JoinCampfireByCameraView.swift */; };
 		1093968F2CD2950A004C4EBD /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093968E2CD2950A004C4EBD /* CameraViewModel.swift */; };
@@ -123,6 +125,8 @@
 		103B42362CF3ABB50009375C /* face1.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = face1.scn; sourceTree = "<group>"; };
 		103B42372CF3ABB50009375C /* face2.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = face2.scn; sourceTree = "<group>"; };
 		103B42402CF3AC050009375C /* 3DPreviewImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = 3DPreviewImages.xcassets; sourceTree = "<group>"; };
+		103B42462CF3B1CA0009375C /* AvatarCustomizingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCustomizingView.swift; sourceTree = "<group>"; };
+		103B42482CF3B1E10009375C /* AvatarCustomizingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCustomizingViewModel.swift; sourceTree = "<group>"; };
 		1093968A2CD2879B004C4EBD /* JoinCampfireViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCampfireViewModel.swift; sourceTree = "<group>"; };
 		1093968C2CD294A9004C4EBD /* JoinCampfireByCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCampfireByCameraView.swift; sourceTree = "<group>"; };
 		1093968E2CD2950A004C4EBD /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
@@ -366,6 +370,7 @@
 				10B0A66F2CBE6F820048C313 /* AppleSigninViewModel.swift */,
 				1093968A2CD2879B004C4EBD /* JoinCampfireViewModel.swift */,
 				109396A22CDAFCE6004C4EBD /* CampfireViewModel.swift */,
+				103B42482CF3B1E10009375C /* AvatarCustomizingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -463,6 +468,7 @@
 				CAB2BE302CBD55870030C1F1 /* LogPile */,
 				CAC461812CD06BF700E0E366 /* Campfire */,
 				10AB91D32CACD79300BFA2EC /* ProfileView.swift */,
+				103B42462CF3B1CA0009375C /* AvatarCustomizingView.swift */,
 			);
 			path = Tab;
 			sourceTree = "<group>";
@@ -617,6 +623,7 @@
 				10BCB0F42CBCB58B0013E227 /* PrivateLog.swift in Sources */,
 				CAA0B7BA2CD470550093AEA7 /* EmptyCampfireView.swift in Sources */,
 				10BCB0E92CB825520013E227 /* CircularProgressPhoto.swift in Sources */,
+				103B42472CF3B1CA0009375C /* AvatarCustomizingView.swift in Sources */,
 				10BCB0EA2CB825520013E227 /* CircularProgressBar.swift in Sources */,
 				10BCB0EB2CB825520013E227 /* ProgressNumber.swift in Sources */,
 				1093968D2CD294A9004C4EBD /* JoinCampfireByCameraView.swift in Sources */,
@@ -664,6 +671,7 @@
 				CAA0B7BC2CD471290093AEA7 /* SelectedCampfireView.swift in Sources */,
 				CA64CD0F2CDE155B003EFB69 /* ProfileBackground.swift in Sources */,
 				10F58DBB2CC09D9300BF9D34 /* BundleExtension.swift in Sources */,
+				103B42492CF3B1E10009375C /* AvatarCustomizingViewModel.swift in Sources */,
 				109399172CE3A56D004C4EBD /* InviteMemberView.swift in Sources */,
 				CA64DBF02CDC5EFE00262E95 /* CampfireLogPileView.swift in Sources */,
 				CA2B5D0B2CBA70C40070DEBF /* ColorExtension.swift in Sources */,
