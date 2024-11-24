@@ -67,8 +67,6 @@ class AvatarCustomizingViewModel: ObservableObject {
         // 카메라 추가
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
-        cameraNode.camera?.wantsHDR = true
-        cameraNode.camera?.exposureOffset = 0.2
         cameraNode.camera?.contrast = 1.3
         cameraNode.position = SCNVector3(0, -4.7, 1.8)
         cameraNode.look(at: SCNVector3(0, 4.7, 1.4))
@@ -99,7 +97,7 @@ class AvatarCustomizingViewModel: ObservableObject {
         let lightNode2 = SCNNode()
         lightNode2.light = SCNLight()
         lightNode2.light?.type = .spot
-        lightNode2.light?.intensity = 350
+        lightNode2.light?.intensity = 600
         lightNode2.light?.castsShadow = true
         lightNode2.light?.shadowColor = UIColor.black.withAlphaComponent(0.4)
         lightNode2.light?.shadowRadius = 10.0
