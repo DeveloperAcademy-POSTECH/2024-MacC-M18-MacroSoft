@@ -13,7 +13,7 @@ struct AvatarCustomizingView: View {
     private var categories: [String] = ItemModel.sample.map { $0.category }
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             ZStack(alignment: .bottomTrailing) {
                 SceneView(
                     scene: viewModel.scene,
@@ -23,14 +23,24 @@ struct AvatarCustomizingView: View {
                 .onAppear {
                     viewModel.setupScene()
                 }
-                .frame(height: 460)
+                .frame(height: 480)
                 
                 saveButton
-                    .padding(20)
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 20))
             }
             
-            categorySelection
-            itemSelection
+            VStack {
+                categorySelection
+                itemSelection
+            }
+            .padding(.horizontal, 20)
+            .background {
+                Color.init(hex: "252526")
+                UnevenRoundedRectangle(cornerRadii: .init(topLeading: 20, topTrailing: 20))
+                    .fill(Color.pagenationDisable)
+                    .ignoresSafeArea()
+            }
+            .padding(.top, -10)
         }
     }
     
@@ -53,20 +63,39 @@ struct AvatarCustomizingView: View {
     
     private var categorySelection: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
+            HStack(spacing: 24) {
                 ForEach(categories, id: \.self) { category in
                     Button(action: {
                         viewModel.selectCategory(category: category)
                     }) {
-                        Text(category)
-                            .fontWeight(viewModel.selectedCategory == category ? .bold : .regular)
-                            .foregroundColor(viewModel.selectedCategory == category ? .orange : .black)
-                            .padding(.horizontal)
+                        Image(systemName: iconName(for: category))
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 28, height: 28)
+                            .foregroundColor(viewModel.selectedCategory == category ? .white : .gray)
+                            .padding(6)
+                            .background {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(viewModel.selectedCategory == category ? Color.init(hex: "524646") : .clear)
+                            }
                     }
                 }
             }
+            .padding(.vertical, 14)
         }
-        .padding()
+    }
+    
+    private func iconName(for category: String) -> String {
+        switch category {
+        case "Top":
+            return viewModel.selectedCategory == "Top" ? "tshirt.fill" : "tshirt"
+        case "Hat":
+            return viewModel.selectedCategory == "Hat" ? "hat.widebrim.fill" : "hat.widebrim"
+        case "Face":
+            return viewModel.selectedCategory == "Face" ? "sunglasses.fill" : "sunglasses"
+        default:
+            return "questionmark"
+        }
     }
     
     private var itemSelection: some View {
@@ -75,8 +104,8 @@ struct AvatarCustomizingView: View {
         
         return ScrollView {
             LazyVGrid(
-                columns: Array(repeating: GridItem(.flexible(), spacing: 28), count: 3),
-                spacing: 28
+                columns: Array(repeating: GridItem(.flexible(), spacing: 20), count: 3),
+                spacing: 20
             ) {
                 ForEach(items, id: \.self) { item in
                     Button(action: {
@@ -89,15 +118,13 @@ struct AvatarCustomizingView: View {
                                 .padding(14)
                             
                             RoundedRectangle(cornerRadius: 14)
-                                .stroke(viewModel.selectedItems[category] == item ? Color.orange : Color.clear, lineWidth: 3)
+                                .stroke(viewModel.selectedItems[category] == item ? Color.mainColor1 : Color.clear, lineWidth: 4)
                                 .foregroundStyle(Color.gray.opacity(0.1))
                         }
                         .cornerRadius(14)
                     }
                 }
             }
-            .padding(.horizontal, 28)
-            .padding(.top, 10)
         }
     }
 }
