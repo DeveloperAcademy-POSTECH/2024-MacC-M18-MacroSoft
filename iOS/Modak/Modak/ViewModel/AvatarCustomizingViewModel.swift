@@ -70,7 +70,7 @@ class AvatarCustomizingViewModel: ObservableObject {
         
         // 바닥 추가
         let floor = SCNFloor()
-        floor.reflectivity = 0.0
+        floor.reflectivity = 0.001
         floor.firstMaterial = SCNMaterial()
         floor.firstMaterial?.diffuse.contents = UIColor.darkGray
         floor.firstMaterial?.lightingModel = .constant
