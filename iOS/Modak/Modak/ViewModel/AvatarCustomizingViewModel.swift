@@ -56,7 +56,13 @@ class AvatarCustomizingViewModel: ObservableObject {
 
     func setupScene() {
         // 배경 설정
-        scene.background.contents = UIColor.darkGray
+        DispatchQueue.main.async {
+            if let backgroundImage = ProfileBackground().asUIImage(size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)) {
+                self.scene.background.contents = backgroundImage
+            } else {
+                print("Failed to convert ProfileBackground to UIImage")
+            }
+        }
         
         // 카메라 추가
         let cameraNode = SCNNode()
@@ -72,7 +78,7 @@ class AvatarCustomizingViewModel: ObservableObject {
         let floor = SCNFloor()
         floor.reflectivity = 0.001
         floor.firstMaterial = SCNMaterial()
-        floor.firstMaterial?.diffuse.contents = UIColor.darkGray
+        floor.firstMaterial?.diffuse.contents = UIColor.backgroundDefault
         floor.firstMaterial?.lightingModel = .constant
         let floorNode = SCNNode(geometry: floor)
         floorNode.position = SCNVector3(0, 0, 0)
