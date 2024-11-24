@@ -15,7 +15,6 @@ struct AvatarCustomizingView: View {
     var body: some View {
         VStack {
             ZStack(alignment: .bottomTrailing) {
-                Color.gray.ignoresSafeArea()
                 SceneView(
                     scene: viewModel.scene,
                     options: [.allowsCameraControl, .autoenablesDefaultLighting]
@@ -26,21 +25,29 @@ struct AvatarCustomizingView: View {
                 }
                 .frame(height: 460)
                 
-                Button(action: {
-                    viewModel.save()
-                }) {
-                    Text("저장하고 나가기")
-                        .font(.headline)
-                        .padding()
-                        .background(Color.orange)
-                        .foregroundColor(.white)
-                        .cornerRadius(50)
-                }
-                .padding()
+                saveButton
+                    .padding(20)
             }
             
             categorySelection
             itemSelection
+        }
+    }
+    
+    private var saveButton: some View {
+        Button(action: {
+            viewModel.save()
+        }) {
+            Text("저장하고 나가기")
+                .font(.custom("Pretendard-Regular", size: 16))
+                .foregroundColor(.white)
+                .padding(EdgeInsets(top: 14, leading: 20, bottom: 14, trailing: 20))
+                .background(Color.textBackgroundRedGray.opacity(0.1))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 100)
+                        .stroke(Color.mainColor1, lineWidth: 1.8)
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 100))
         }
     }
     
