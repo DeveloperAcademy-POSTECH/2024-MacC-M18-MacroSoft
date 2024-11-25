@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SceneKit
 
 struct ProfileView: View {
     @AppStorage("isSkipRegister") var isSkipRegister: Bool = false
@@ -16,6 +17,24 @@ struct ProfileView: View {
     
     var body: some View {
         VStack {
+            
+            VStack {
+                if let avatarInfo = viewModel.myAvatarInfo {
+                    SceneView(
+                        scene: viewModel.setupScene(from: avatarInfo.avatar),
+                        options: [.allowsCameraControl, .autoenablesDefaultLighting]
+                    )
+                    .background(Color.clear)
+                    .frame(height: 300)
+                } else {
+                    Text("아바타 정보를 불러오는 중...")
+                        .foregroundColor(.gray)
+                        .padding()
+                }
+            }
+            .onAppear {
+                viewModel.fetchMyAvatar()
+            }
             
             Button(action: {
                 showAvatarCustomizingView = true
@@ -30,8 +49,6 @@ struct ProfileView: View {
                             .stroke(.white.opacity(0.05), lineWidth: 1)
                     }
             }
-            
-            Text("닉네임 : \(viewModel.originalNickname)")
             
             ProfileItem(title: "프로필 정보 편집", destination: AnyView(EditProfileView()))
             .background { ProfileItemFrame() }
