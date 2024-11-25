@@ -9,7 +9,10 @@ import SwiftUI
 
 struct ProfileBackground: View {
     var body: some View {
-        Color.backgroundLogPile
-        LinearGradient.profileViewBackground
+        ZStack {
+            Color.backgroundLogPile
+            LinearGradient.profileViewBackground
+        }
+        .edgesIgnoringSafeArea(.all)
     }
 }
