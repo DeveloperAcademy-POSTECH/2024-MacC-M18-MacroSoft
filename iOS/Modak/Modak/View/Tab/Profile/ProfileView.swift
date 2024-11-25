@@ -10,11 +10,26 @@ import SwiftUI
 struct ProfileView: View {
     @AppStorage("isSkipRegister") var isSkipRegister: Bool = false
     @StateObject private var viewModel = ProfileViewModel()
+    @State private var showAvatarCustomizingView = false
     @State private var showWebViewSheet = false
     @State private var webViewURL: URL? = nil
     
     var body: some View {
         VStack {
+            
+            Button(action: {
+                showAvatarCustomizingView = true
+            }) {
+                Text(" 캐릭터 꾸미기 ")
+                    .font(.custom("Pretendard-Bold", size: 16))
+                    .foregroundColor(.white)
+                    .padding(16)
+                    .background {
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color.mainColor1)
+                            .stroke(.white.opacity(0.05), lineWidth: 1)
+                    }
+            }
             
             Text("닉네임 : \(viewModel.originalNickname)")
             
@@ -52,6 +67,9 @@ struct ProfileView: View {
         }
         .onAppear() {
             viewModel.fetchNickname()
+        }
+        .fullScreenCover(isPresented: $showAvatarCustomizingView) {
+            AvatarCustomizingView()
         }
         .sheet(isPresented: Binding(get: { webViewURL != nil && showWebViewSheet }, set: { _ in }), onDismiss: {
             showWebViewSheet = false

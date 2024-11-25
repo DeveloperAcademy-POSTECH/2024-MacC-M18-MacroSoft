@@ -10,11 +10,12 @@ import SceneKit
 
 struct AvatarCustomizingView: View {
     @StateObject private var viewModel = AvatarCustomizingViewModel()
+    @Environment(\.dismiss) private var dismiss
     private var categories: [String] = ItemModel.sample.map { $0.category }
 
     var body: some View {
         VStack(spacing: 0) {
-            ZStack(alignment: .bottomTrailing) {
+            ZStack(alignment: .trailing) {
                 SceneView(
                     scene: viewModel.scene,
                     options: [.allowsCameraControl, .autoenablesDefaultLighting]
@@ -25,8 +26,19 @@ struct AvatarCustomizingView: View {
                 }
                 .frame(height: 480)
                 
-                saveButton
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 20))
+                VStack(alignment: .trailing) {
+                    Button(action: {
+                        dismiss() // 이전 화면으로 이동
+                    }) {
+                        Image(systemName: "xmark")
+                            .font(.custom("Pretendard-Medium", size: 22))
+                            .foregroundColor(Color.textColorGray1)
+                            .padding()
+                    }
+                    Spacer()
+                    saveButton
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 20))
+                }
             }
             
             VStack {
