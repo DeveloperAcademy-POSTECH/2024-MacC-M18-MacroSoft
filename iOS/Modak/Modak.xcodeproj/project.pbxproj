@@ -25,6 +25,7 @@
 		109077602CF413CF00BB0B32 /* MemberAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1090775F2CF413CF00BB0B32 /* MemberAvatar.swift */; };
 		109077662CF46F1F00BB0B32 /* AvatarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109077652CF46F1F00BB0B32 /* AvatarItem.swift */; };
 		10907C252CF4767200BB0B32 /* CustomSCNView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10907C242CF4767200BB0B32 /* CustomSCNView.swift */; };
+		10907C2D2CF4C43C00BB0B32 /* CampfireMemberDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10907C2C2CF4C43C00BB0B32 /* CampfireMemberDetailViewModel.swift */; };
 		1093968B2CD2879B004C4EBD /* JoinCampfireViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093968A2CD2879B004C4EBD /* JoinCampfireViewModel.swift */; };
 		1093968D2CD294A9004C4EBD /* JoinCampfireByCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093968C2CD294A9004C4EBD /* JoinCampfireByCameraView.swift */; };
 		1093968F2CD2950A004C4EBD /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093968E2CD2950A004C4EBD /* CameraViewModel.swift */; };
@@ -148,6 +149,7 @@
 		1090775F2CF413CF00BB0B32 /* MemberAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberAvatar.swift; sourceTree = "<group>"; };
 		109077652CF46F1F00BB0B32 /* AvatarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarItem.swift; sourceTree = "<group>"; };
 		10907C242CF4767200BB0B32 /* CustomSCNView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSCNView.swift; sourceTree = "<group>"; };
+		10907C2C2CF4C43C00BB0B32 /* CampfireMemberDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireMemberDetailViewModel.swift; sourceTree = "<group>"; };
 		1093968A2CD2879B004C4EBD /* JoinCampfireViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCampfireViewModel.swift; sourceTree = "<group>"; };
 		1093968C2CD294A9004C4EBD /* JoinCampfireByCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCampfireByCameraView.swift; sourceTree = "<group>"; };
 		1093968E2CD2950A004C4EBD /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
@@ -414,6 +416,7 @@
 				109396A22CDAFCE6004C4EBD /* CampfireViewModel.swift */,
 				103B42482CF3B1E10009375C /* AvatarCustomizingViewModel.swift */,
 				10C4F4522CE536F600FFDBDD /* ProfileViewModel.swift */,
+				10907C2C2CF4C43C00BB0B32 /* CampfireMemberDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -741,6 +744,7 @@
 				CA64CD112CDE22E7003EFB69 /* CampfireBackground.swift in Sources */,
 				10BCB0DE2CB81F2D0013E227 /* PrivateLogImage.swift in Sources */,
 				CAB2BE4C2CC1ED1D0030C1F1 /* UINavigationControllerExtension.swift in Sources */,
+				10907C2D2CF4C43C00BB0B32 /* CampfireMemberDetailViewModel.swift in Sources */,
 				10C0E8082CB5593E00C7F3DE /* OrganizePhotoView.swift in Sources */,
 				10C4F4492CE51B4E00FFDBDD /* ProfileItem.swift in Sources */,
 				CAA0B7BC2CD471290093AEA7 /* SelectedCampfireView.swift in Sources */,

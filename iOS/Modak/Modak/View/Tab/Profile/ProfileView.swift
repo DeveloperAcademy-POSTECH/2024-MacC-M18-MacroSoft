@@ -28,6 +28,7 @@ struct ProfileView: View {
                     if !newValue {
                         if let loadedItems = viewModel.loadSelectedItems() {
                             viewModel.selectedItems = loadedItems
+                            viewModel.setupScene()
                         }
                     }
                 }

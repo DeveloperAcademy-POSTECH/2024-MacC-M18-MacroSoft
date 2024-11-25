@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CampfireMemberDetailView: View {
     @EnvironmentObject private var viewModel: CampfireViewModel
+    @StateObject private var avatarViewModel = CampfireMemberDetailViewModel()
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -46,8 +47,32 @@ struct CampfireMemberDetailView: View {
                 
             }
             
-            Spacer()
-            
+            ScrollView {
+                LazyVGrid(
+                    columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 3),
+                    spacing: 20
+                ) {
+                    ForEach(avatarViewModel.memberAvatars, id: \.memberId) { member in
+                        VStack {
+                            if let viewModel = avatarViewModel.memberViewModels[member.memberId] {
+                                CustomSCNView(scene: viewModel.scene) // 멤버별 Scene 사용
+                                    .frame(height: 270)
+                                    .padding(EdgeInsets.init(top: -48, leading: 0, bottom: -54, trailing: 0))
+                            }
+                            Text(member.nickname)
+                                .font(.custom("Pretendard-Medium", size: 12))
+                                .kerning(14 * 0.01)
+                                .foregroundColor(Color.pagenationAble)
+                                .lineLimit(1)
+                                .padding(EdgeInsets.init(top: 6, leading: 11, bottom: 6, trailing: 11))
+                                .background {
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .fill(Color.init(hex: "4D4343"))
+                                }
+                        }
+                    }
+                }
+            }
         }
         .padding(EdgeInsets.init(top: 10, leading: 20, bottom: 0, trailing: 20))
         .background {
@@ -64,6 +89,12 @@ struct CampfireMemberDetailView: View {
                         .font(.custom("Pretendard-Regular", size: 16))
                         .padding(.leading, -10)
                 }
+            }
+        }
+        .onAppear {
+            Task {
+                guard let memberIds = viewModel.campfire?.memberIds else { return }
+                await avatarViewModel.fetchMemberAvatars(memberIds: memberIds)
             }
         }
     }

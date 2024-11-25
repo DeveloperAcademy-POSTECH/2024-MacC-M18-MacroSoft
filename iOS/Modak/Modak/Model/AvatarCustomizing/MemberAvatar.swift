@@ -8,5 +8,5 @@
 struct MemberAvatar: Codable {
     let memberId: Int
     let nickname: String
-    let avatar: AvatarItem
+    var avatar: AvatarItem
 }
