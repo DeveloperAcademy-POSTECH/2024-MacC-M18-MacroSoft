@@ -15,7 +15,7 @@ struct CustomSCNView: UIViewRepresentable {
         let scnView = SCNView()
         scnView.scene = scene
         scnView.backgroundColor = .clear
-        scnView.allowsCameraControl = true
+        scnView.allowsCameraControl = false
         scnView.autoenablesDefaultLighting = true
         return scnView
     }

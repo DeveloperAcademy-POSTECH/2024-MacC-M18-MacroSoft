@@ -103,6 +103,19 @@ class AvatarCustomizingViewModel: ObservableObject {
         cameraNode.look(at: SCNVector3(0, 4.7, 1.4))
         scene.rootNode.addChildNode(cameraNode)
         
+        // 중심 축 노드, 카메라 회전 애니메이션 추가
+        let rotationNode = SCNNode()
+        rotationNode.position = SCNVector3(0, 0, 0)
+        rotationNode.rotation = SCNVector4(0, 0, 1, 0.15)
+        scene.rootNode.addChildNode(rotationNode)
+        rotationNode.addChildNode(cameraNode)
+        let rotateRight = SCNAction.rotateBy(x: 0, y: 0, z: 0.6, duration: 5.0)
+        let rotateLeft = SCNAction.rotateBy(x: 0, y: 0, z: -0.6, duration: 5.0)
+        let sequence = SCNAction.sequence([rotateRight, rotateLeft])
+        let repeatAction = SCNAction.repeatForever(sequence)
+        rotationNode.runAction(repeatAction)
+        
+        
         // 바닥 추가
         let floor = SCNFloor()
         floor.reflectivity = 0.001

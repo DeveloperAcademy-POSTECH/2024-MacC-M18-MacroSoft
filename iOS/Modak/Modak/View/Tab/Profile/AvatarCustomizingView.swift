@@ -16,10 +16,7 @@ struct AvatarCustomizingView: View {
     var body: some View {
         VStack(spacing: 0) {
             ZStack(alignment: .trailing) {
-                SceneView(
-                    scene: viewModel.scene,
-                    options: [.allowsCameraControl, .autoenablesDefaultLighting]
-                )
+                CustomSCNView(scene: viewModel.scene)
                 .edgesIgnoringSafeArea(.all)
                 .onAppear {
                     if let loadedItems = viewModel.loadSelectedItems() {

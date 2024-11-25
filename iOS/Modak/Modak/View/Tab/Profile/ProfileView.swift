@@ -32,7 +32,8 @@ struct ProfileView: View {
                         }
                     }
                 }
-                .frame(height: 300)
+                .padding(.init(top: -100, leading: -70, bottom: -70, trailing: -70))
+                .frame(height: 200)
             
             Button(action: {
                 showAvatarCustomizingView = true
@@ -40,13 +41,14 @@ struct ProfileView: View {
                 Text(" 캐릭터 꾸미기 ")
                     .font(.custom("Pretendard-Bold", size: 16))
                     .foregroundColor(.white)
-                    .padding(16)
+                    .padding(15)
                     .background {
                         RoundedRectangle(cornerRadius: 20)
                             .fill(Color.mainColor1)
                             .stroke(.white.opacity(0.05), lineWidth: 1)
                     }
             }
+            .padding(.vertical, 10)
             
             ProfileItem(title: "프로필 정보 편집", destination: AnyView(EditProfileView()))
             .background { ProfileItemFrame() }
