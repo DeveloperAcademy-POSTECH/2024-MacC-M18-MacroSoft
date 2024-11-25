@@ -19,16 +19,15 @@ struct ProfileView: View {
         VStack {
             CustomSCNView(scene: viewModel.scene)
                 .onAppear {
+                    viewModel.setupScene()
                     if let loadedItems = viewModel.loadSelectedItems() {
                         viewModel.selectedItems = loadedItems
-                        viewModel.setupScene()
                     }
                 }
                 .onChange(of: showAvatarCustomizingView) { _, newValue in
                     if !newValue {
                         if let loadedItems = viewModel.loadSelectedItems() {
                             viewModel.selectedItems = loadedItems
-                            viewModel.setupScene()
                         }
                     }
                 }

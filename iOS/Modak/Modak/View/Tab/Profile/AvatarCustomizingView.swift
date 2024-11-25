@@ -19,9 +19,9 @@ struct AvatarCustomizingView: View {
                 CustomSCNView(scene: viewModel.scene)
                 .edgesIgnoringSafeArea(.all)
                 .onAppear {
+                    viewModel.setupScene()
                     if let loadedItems = viewModel.loadSelectedItems() {
                         viewModel.selectedItems = loadedItems
-                        viewModel.setupScene()
                     }
                 }
                 .frame(height: 480)
