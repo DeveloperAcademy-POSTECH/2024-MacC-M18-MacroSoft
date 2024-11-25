@@ -124,7 +124,28 @@ class AvatarCustomizingViewModel: ObservableObject {
         }
     }
     
-    func save() {
+    func saveAvatarCustomInfo() {
         print("Selected Items: \(selectedItems.keys) // \(selectedItems.values) // \(selectedItems)")
+        let parameters: [String: Any] = [
+            "hatType": items.first(where: { $0.category == "Hat" })?.items.firstIndex(of: selectedItems["Hat"] ?? "nil") ?? 0,
+            "faceType": items.first(where: { $0.category == "Face" })?.items.firstIndex(of: selectedItems["Face"] ?? "nil") ?? 0,
+            "topType": items.first(where: { $0.category == "Top" })?.items.firstIndex(of: selectedItems["Top"] ?? "nil") ?? 0
+        ]
+        
+        Task {
+            do {
+                _ = try APIRouter.updateAvatar(parameters: parameters).asURLRequest()
+                let data = try await NetworkManager.shared.requestRawData(router: .updateAvatar(parameters: parameters))
+                
+                if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let result = jsonResponse["result"] as? [String: Any] {
+                    print("Avatar updated successfully: \(result)")
+                } else {
+                    print("Failed to update avatar on server.")
+                }
+            } catch {
+                print("Error updating avatar: \(error)")
+            }
+        }
     }
 }

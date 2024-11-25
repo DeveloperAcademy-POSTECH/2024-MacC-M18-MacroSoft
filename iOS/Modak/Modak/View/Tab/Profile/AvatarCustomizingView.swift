@@ -58,7 +58,8 @@ struct AvatarCustomizingView: View {
     
     private var saveButton: some View {
         Button(action: {
-            viewModel.save()
+            viewModel.saveAvatarCustomInfo()
+            dismiss()
         }) {
             Text("저장하고 나가기")
                 .font(.custom("Pretendard-Regular", size: 16))
