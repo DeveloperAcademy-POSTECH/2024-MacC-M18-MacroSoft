@@ -9,7 +9,7 @@ import SceneKit
 
 class AvatarCustomizingViewModel: ObservableObject {
     @Published var scene: SCNScene
-    @Published var selectedItems: [String: String] = [:]
+    @Published var selectedItems: AvatarItem
     @Published var selectedCategory: String
 
     private let avatar: [AvatarData]
@@ -20,6 +20,12 @@ class AvatarCustomizingViewModel: ObservableObject {
         self.items = ItemData.sample
         self.selectedCategory = items.first?.category ?? ""
         self.scene = SCNScene()
+        self.selectedItems = AvatarItem(hatType: 0, faceType: 0, topType: 0)
+        
+        // UserDefaults에서 저장된 선택 데이터를 불러오기
+        if let savedItems = self.loadSelectedItems() {
+            self.selectedItems = savedItems
+        }
     }
 
     func availableItems(for category: String) -> [String] {
@@ -29,9 +35,32 @@ class AvatarCustomizingViewModel: ObservableObject {
     func selectCategory(category: String) {
         selectedCategory = category
     }
+    
+    func isSelected(item: String, in category: String) -> Bool {
+        switch category {
+        case "Hat":
+            return availableItems(for: "Hat")[selectedItems.hatType] == item
+        case "Face":
+            return availableItems(for: "Face")[selectedItems.faceType] == item
+        case "Top":
+            return availableItems(for: "Top")[selectedItems.topType] == item
+        default:
+            return false
+        }
+    }
 
     func applyItemToScene(category: String, item: String) {
-        selectedItems[category] = item
+        // 카테고리별로 `selectedItems` 속성 업데이트
+        switch category {
+        case "Hat":
+            selectedItems.hatType = items.first { $0.category == "Hat" }?.items.firstIndex(of: item) ?? 0
+        case "Face":
+            selectedItems.faceType = items.first { $0.category == "Face" }?.items.firstIndex(of: item) ?? 0
+        case "Top":
+            selectedItems.topType = items.first { $0.category == "Top" }?.items.firstIndex(of: item) ?? 0
+        default:
+            break
+        }
         
         // 기존 노드 제거
         scene.rootNode.childNodes.filter { $0.name == category }.forEach { $0.removeFromParentNode() }
@@ -55,6 +84,8 @@ class AvatarCustomizingViewModel: ObservableObject {
     }
 
     func setupScene() {
+        scene.rootNode.childNodes.forEach { $0.removeFromParentNode() }
+        
         // 배경 설정
         DispatchQueue.main.async {
             if let backgroundImage = ProfileBackground().asUIImage(size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)) {
@@ -121,15 +152,43 @@ class AvatarCustomizingViewModel: ObservableObject {
         // 아바타 추가
         if let avatarNode = createNode(named: "avatar.scn") {
             scene.rootNode.addChildNode(avatarNode)
+            
+            // 선택된 아이템 적용
+            let hatItem = availableItems(for: "Hat").self[selectedItems.hatType]
+            applyItemToScene(category: "Hat", item: hatItem)
+            
+            let faceItem = availableItems(for: "Face").self[selectedItems.faceType]
+            applyItemToScene(category: "Face", item: faceItem)
+            
+            let topItem = availableItems(for: "Top").self[selectedItems.topType]
+            applyItemToScene(category: "Top", item: topItem)
         }
     }
     
+    private func saveSelectedItems() {
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(selectedItems) {
+            UserDefaults.standard.set(encoded, forKey: "selectedItems")
+        }
+    }
+    
+    func loadSelectedItems() -> AvatarItem? {
+        if let savedData = UserDefaults.standard.data(forKey: "selectedItems") {
+            let decoder = JSONDecoder()
+            return try? decoder.decode(AvatarItem.self, from: savedData)
+        }
+        return nil
+    }
+    
     func saveAvatarCustomInfo() {
-        print("Selected Items: \(selectedItems.keys) // \(selectedItems.values) // \(selectedItems)")
+        print("Selected Items: \(selectedItems)")
+        
+        saveSelectedItems() // UserDefaults에 저장
+        
         let parameters: [String: Any] = [
-            "hatType": items.first(where: { $0.category == "Hat" })?.items.firstIndex(of: selectedItems["Hat"] ?? "nil") ?? 0,
-            "faceType": items.first(where: { $0.category == "Face" })?.items.firstIndex(of: selectedItems["Face"] ?? "nil") ?? 0,
-            "topType": items.first(where: { $0.category == "Top" })?.items.firstIndex(of: selectedItems["Top"] ?? "nil") ?? 0
+            "hatType": selectedItems.hatType,
+            "faceType": selectedItems.faceType,
+            "topType": selectedItems.topType
         ]
         
         Task {

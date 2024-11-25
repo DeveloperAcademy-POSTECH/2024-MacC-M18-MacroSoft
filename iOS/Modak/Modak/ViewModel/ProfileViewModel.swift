@@ -11,9 +11,8 @@ import SceneKit
 
 class ProfileViewModel: ObservableObject {
     @Published var originalNickname: String = "" // 서버에서 가져온 닉네임
-    @Published var avatarData: [String: Int] = [:]
     @Published var scene: SCNScene
-    @Published var myAvatarInfo: MemberAvatar?
+    @Published var selectedItems: AvatarItem
     private let avatar: [AvatarData]
     private let items: [ItemData]
     
@@ -21,6 +20,11 @@ class ProfileViewModel: ObservableObject {
         self.avatar = AvatarData.sample
         self.items = ItemData.sample
         self.scene = SCNScene()
+        self.selectedItems = AvatarItem(hatType: 0, faceType: 0, topType: 0)
+        
+        if let savedItems = loadSelectedItems() {
+            self.selectedItems = savedItems
+        }
     }
     
     func fetchNickname() {
@@ -124,30 +128,12 @@ class ProfileViewModel: ObservableObject {
         }
     }
     
-    func fetchMyAvatar() {
-        Task {
-            do {
-                let data = try await NetworkManager.shared.requestRawData(router: .getMembersNicknameAvatar(memberIds: nil))
-                
-                if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                   let resultArray = jsonResponse["result"] as? [[String: Any]],
-                   let firstResult = resultArray.first {
-                    
-                    let decoder = JSONDecoder()
-                    let jsonData = try JSONSerialization.data(withJSONObject: firstResult, options: [])
-                    let avatarInfo = try decoder.decode(MemberAvatar.self, from: jsonData)
-                    
-                    DispatchQueue.main.async {
-                        self.myAvatarInfo = avatarInfo
-                        print("Fetched my avatar info: \(avatarInfo)")
-                    }
-                } else {
-                    print("Failed to parse my avatar info.")
-                }
-            } catch {
-                print("Error fetching my avatar info: \(error)")
-            }
+    func loadSelectedItems() -> AvatarItem? {
+        if let savedData = UserDefaults.standard.data(forKey: "selectedItems") {
+            let decoder = JSONDecoder()
+            return try? decoder.decode(AvatarItem.self, from: savedData)
         }
+        return nil
     }
     
     private func createNode(named name: String) -> SCNNode? {
@@ -163,8 +149,8 @@ class ProfileViewModel: ObservableObject {
         return newNode
     }
     
-    func setupScene(from avatar: MemberItem) -> SCNScene {
-        let scene = SCNScene()
+    func setupScene() {
+        scene.rootNode.childNodes.forEach { $0.removeFromParentNode() }
         scene.background.contents = UIColor.clear
         
         // 카메라 추가
@@ -210,18 +196,16 @@ class ProfileViewModel: ObservableObject {
             scene.rootNode.addChildNode(avatarNode)
             
             // 아이템 추가
-            if avatar.hatType > 0, let hatNode = createNode(named: "hat\(avatar.hatType).scn") {
+            if selectedItems.hatType > 0, let hatNode = createNode(named: "hat\(selectedItems.hatType).scn") {
                 avatarNode.addChildNode(hatNode)
             }
-            if avatar.faceType > 0, let faceNode = createNode(named: "face\(avatar.faceType).scn") {
+            if selectedItems.faceType > 0, let faceNode = createNode(named: "face\(selectedItems.faceType).scn") {
                 avatarNode.addChildNode(faceNode)
             }
-            if avatar.topType > 0, let topNode = createNode(named: "top\(avatar.topType).scn") {
+            if selectedItems.topType > 0, let topNode = createNode(named: "top\(selectedItems.topType).scn") {
                 avatarNode.addChildNode(topNode)
             }
         }
-        
-        return scene
     }
 }
 

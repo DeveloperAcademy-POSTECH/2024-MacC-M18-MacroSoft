@@ -17,24 +17,26 @@ struct ProfileView: View {
     
     var body: some View {
         VStack {
-            
-            VStack {
-                if let avatarInfo = viewModel.myAvatarInfo {
-                    SceneView(
-                        scene: viewModel.setupScene(from: avatarInfo.avatar),
-                        options: [.allowsCameraControl, .autoenablesDefaultLighting]
-                    )
-                    .background(Color.clear)
-                    .frame(height: 300)
-                } else {
-                    Text("아바타 정보를 불러오는 중...")
-                        .foregroundColor(.gray)
-                        .padding()
+            SceneView(
+                scene: viewModel.scene,
+                options: [.allowsCameraControl, .autoenablesDefaultLighting]
+            )
+            .background(Color.clear)
+            .onAppear {
+                if let loadedItems = viewModel.loadSelectedItems() {
+                    viewModel.selectedItems = loadedItems
+                    viewModel.setupScene()
                 }
             }
-            .onAppear {
-                viewModel.fetchMyAvatar()
+            .onChange(of: showAvatarCustomizingView) { _, newValue in
+                if !newValue {
+                    if let loadedItems = viewModel.loadSelectedItems() {
+                        viewModel.selectedItems = loadedItems
+                        viewModel.setupScene()
+                    }
+                }
             }
+            .frame(height: 300)
             
             Button(action: {
                 showAvatarCustomizingView = true

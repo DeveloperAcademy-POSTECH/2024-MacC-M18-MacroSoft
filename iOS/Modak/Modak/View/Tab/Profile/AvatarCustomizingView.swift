@@ -22,7 +22,10 @@ struct AvatarCustomizingView: View {
                 )
                 .edgesIgnoringSafeArea(.all)
                 .onAppear {
-                    viewModel.setupScene()
+                    if let loadedItems = viewModel.loadSelectedItems() {
+                        viewModel.selectedItems = loadedItems
+                        viewModel.setupScene()
+                    }
                 }
                 .frame(height: 480)
                 
@@ -131,7 +134,7 @@ struct AvatarCustomizingView: View {
                                 .padding(14)
                             
                             RoundedRectangle(cornerRadius: 14)
-                                .stroke(viewModel.selectedItems[category] == item ? Color.mainColor1 : Color.clear, lineWidth: 4)
+                                .stroke(viewModel.isSelected(item: item, in: category) ? Color.mainColor1 : Color.clear, lineWidth: 4)
                                 .foregroundStyle(Color.gray.opacity(0.1))
                         }
                         .cornerRadius(14)

@@ -8,11 +8,5 @@
 struct MemberAvatar: Codable {
     let memberId: Int
     let nickname: String
-    let avatar: MemberItem
-}
-
-struct MemberItem: Codable {
-    let hatType: Int
-    let faceType: Int
-    let topType: Int
+    let avatar: AvatarItem
 }
