@@ -474,6 +474,7 @@
 			isa = PBXGroup;
 			children = (
 				10AB91D32CACD79300BFA2EC /* ProfileView.swift */,
+				103B42462CF3B1CA0009375C /* AvatarCustomizingView.swift */,
 				10C4F4462CE519AA00FFDBDD /* EditProfileView.swift */,
 				10C4F4502CE52F5300FFDBDD /* EditNicknameView.swift */,
 				1087067A2CE5A838006DD903 /* AppDetailsView.swift */,
@@ -510,7 +511,6 @@
 			children = (
 				CAB2BE302CBD55870030C1F1 /* LogPile */,
 				CAC461812CD06BF700E0E366 /* Campfire */,
-				103B42462CF3B1CA0009375C /* AvatarCustomizingView.swift */,
 				10C4F4452CE5197E00FFDBDD /* Profile */,
 			);
 			path = Tab;
