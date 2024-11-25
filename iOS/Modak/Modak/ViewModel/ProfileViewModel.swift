@@ -14,12 +14,12 @@ class ProfileViewModel: ObservableObject {
     @Published var avatarData: [String: Int] = [:]
     @Published var scene: SCNScene
     @Published var myAvatarInfo: MemberAvatar?
-    private let avatar: [AvatarModel]
-    private let items: [ItemModel]
+    private let avatar: [AvatarData]
+    private let items: [ItemData]
     
     init() {
-        self.avatar = AvatarModel.sample
-        self.items = ItemModel.sample
+        self.avatar = AvatarData.sample
+        self.items = ItemData.sample
         self.scene = SCNScene()
     }
     

@@ -11,7 +11,7 @@ import SceneKit
 struct AvatarCustomizingView: View {
     @StateObject private var viewModel = AvatarCustomizingViewModel()
     @Environment(\.dismiss) private var dismiss
-    private var categories: [String] = ItemModel.sample.map { $0.category }
+    private var categories: [String] = ItemData.sample.map { $0.category }
 
     var body: some View {
         VStack(spacing: 0) {

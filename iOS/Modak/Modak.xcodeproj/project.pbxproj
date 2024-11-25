@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		103B422E2CF3AB100009375C /* AvatarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103B422D2CF3AB100009375C /* AvatarModel.swift */; };
-		103B42302CF3AB360009375C /* ItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103B422F2CF3AB360009375C /* ItemModel.swift */; };
+		103B422E2CF3AB100009375C /* AvatarData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103B422D2CF3AB100009375C /* AvatarData.swift */; };
+		103B42302CF3AB360009375C /* ItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103B422F2CF3AB360009375C /* ItemData.swift */; };
 		103B42392CF3ABB50009375C /* face2.scn in Resources */ = {isa = PBXBuildFile; fileRef = 103B42372CF3ABB50009375C /* face2.scn */; };
 		103B423A2CF3ABB50009375C /* top2.scn in Resources */ = {isa = PBXBuildFile; fileRef = 103B42332CF3ABB50009375C /* top2.scn */; };
 		103B423B2CF3ABB50009375C /* avatar.scn in Resources */ = {isa = PBXBuildFile; fileRef = 103B42312CF3ABB50009375C /* avatar.scn */; };
@@ -128,8 +128,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		103B422D2CF3AB100009375C /* AvatarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarModel.swift; sourceTree = "<group>"; };
-		103B422F2CF3AB360009375C /* ItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemModel.swift; sourceTree = "<group>"; };
+		103B422D2CF3AB100009375C /* AvatarData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarData.swift; sourceTree = "<group>"; };
+		103B422F2CF3AB360009375C /* ItemData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemData.swift; sourceTree = "<group>"; };
 		103B42312CF3ABB50009375C /* avatar.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = avatar.scn; sourceTree = "<group>"; };
 		103B42322CF3ABB50009375C /* top1.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = top1.scn; sourceTree = "<group>"; };
 		103B42332CF3ABB50009375C /* top2.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = top2.scn; sourceTree = "<group>"; };
@@ -265,8 +265,8 @@
 		103B422C2CF3AB010009375C /* AvatarCustomizing */ = {
 			isa = PBXGroup;
 			children = (
-				103B422F2CF3AB360009375C /* ItemModel.swift */,
-				103B422D2CF3AB100009375C /* AvatarModel.swift */,
+				103B422F2CF3AB360009375C /* ItemData.swift */,
+				103B422D2CF3AB100009375C /* AvatarData.swift */,
 				1090775F2CF413CF00BB0B32 /* MemberAvatar.swift */,
 			);
 			path = AvatarCustomizing;
@@ -650,7 +650,7 @@
 			files = (
 				10F58EE72CD0891300BF9D34 /* SignTextFieldModifier.swift in Sources */,
 				1093968F2CD2950A004C4EBD /* CameraViewModel.swift in Sources */,
-				103B42302CF3AB360009375C /* ItemModel.swift in Sources */,
+				103B42302CF3AB360009375C /* ItemData.swift in Sources */,
 				CA92B3792CE3BAC8004EFE1C /* MergeableLog.swift in Sources */,
 				CAA0B7BE2CD8DC160093AEA7 /* ExpandedPhoto.swift in Sources */,
 				CA2B5D052CBA6FDB0070DEBF /* DateExtension.swift in Sources */,
@@ -666,7 +666,7 @@
 				CA92B37F2CE3BCE8004EFE1C /* MaterialEffectView.swift in Sources */,
 				10BCB0E72CB825520013E227 /* BackButton.swift in Sources */,
 				10B0A6702CBE6F820048C313 /* AppleSigninViewModel.swift in Sources */,
-				103B422E2CF3AB100009375C /* AvatarModel.swift in Sources */,
+				103B422E2CF3AB100009375C /* AvatarData.swift in Sources */,
 				10BCB0E82CB825520013E227 /* OnboardingCard.swift in Sources */,
 				10BCB0F42CBCB58B0013E227 /* PrivateLog.swift in Sources */,
 				CAA0B7BA2CD470550093AEA7 /* EmptyCampfireView.swift in Sources */,

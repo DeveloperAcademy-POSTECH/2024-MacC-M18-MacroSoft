@@ -12,18 +12,18 @@ class AvatarCustomizingViewModel: ObservableObject {
     @Published var selectedItems: [String: String] = [:]
     @Published var selectedCategory: String
 
-    private let avatar: [AvatarModel]
-    private let items: [ItemModel]
+    private let avatar: [AvatarData]
+    private let items: [ItemData]
     
     init() {
-        self.avatar = AvatarModel.sample
-        self.items = ItemModel.sample
+        self.avatar = AvatarData.sample
+        self.items = ItemData.sample
         self.selectedCategory = items.first?.category ?? ""
         self.scene = SCNScene()
     }
 
     func availableItems(for category: String) -> [String] {
-        return ItemModel.sample.first { $0.category == category }?.items ?? []
+        return ItemData.sample.first { $0.category == category }?.items ?? []
     }
     
     func selectCategory(category: String) {
