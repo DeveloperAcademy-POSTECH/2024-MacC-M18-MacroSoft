@@ -22,6 +22,7 @@
 		1087067B2CE5A838006DD903 /* AppDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1087067A2CE5A838006DD903 /* AppDetailsView.swift */; };
 		1087067D2CE6D455006DD903 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1087067C2CE6D455006DD903 /* WebView.swift */; };
 		1087067F2CE6DBDE006DD903 /* ProfileItemFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1087067E2CE6DBDE006DD903 /* ProfileItemFrame.swift */; };
+		109077602CF413CF00BB0B32 /* MemberAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1090775F2CF413CF00BB0B32 /* MemberAvatar.swift */; };
 		1093968B2CD2879B004C4EBD /* JoinCampfireViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093968A2CD2879B004C4EBD /* JoinCampfireViewModel.swift */; };
 		1093968D2CD294A9004C4EBD /* JoinCampfireByCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093968C2CD294A9004C4EBD /* JoinCampfireByCameraView.swift */; };
 		1093968F2CD2950A004C4EBD /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093968E2CD2950A004C4EBD /* CameraViewModel.swift */; };
@@ -142,6 +143,7 @@
 		1087067A2CE5A838006DD903 /* AppDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailsView.swift; sourceTree = "<group>"; };
 		1087067C2CE6D455006DD903 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		1087067E2CE6DBDE006DD903 /* ProfileItemFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItemFrame.swift; sourceTree = "<group>"; };
+		1090775F2CF413CF00BB0B32 /* MemberAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberAvatar.swift; sourceTree = "<group>"; };
 		1093968A2CD2879B004C4EBD /* JoinCampfireViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCampfireViewModel.swift; sourceTree = "<group>"; };
 		1093968C2CD294A9004C4EBD /* JoinCampfireByCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCampfireByCameraView.swift; sourceTree = "<group>"; };
 		1093968E2CD2950A004C4EBD /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 			children = (
 				103B422F2CF3AB360009375C /* ItemModel.swift */,
 				103B422D2CF3AB100009375C /* AvatarModel.swift */,
+				1090775F2CF413CF00BB0B32 /* MemberAvatar.swift */,
 			);
 			path = AvatarCustomizing;
 			sourceTree = "<group>";
@@ -715,6 +718,7 @@
 				CAB2BE2F2CBD49BC0030C1F1 /* CoordinatorView.swift in Sources */,
 				10AB91D82CACD7AC00BFA2EC /* LogPileView.swift in Sources */,
 				CA64CD0B2CDE11B1003EFB69 /* LogPileSection.swift in Sources */,
+				109077602CF413CF00BB0B32 /* MemberAvatar.swift in Sources */,
 				CA22A7A12CD28D2A002195A2 /* CampfireNameView.swift in Sources */,
 				CA22A7A52CD32086002195A2 /* PublicLog.swift in Sources */,
 				1087067B2CE5A838006DD903 /* AppDetailsView.swift in Sources */,
