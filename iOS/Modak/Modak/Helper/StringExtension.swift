@@ -21,3 +21,16 @@ extension Optional where Wrapped == String {
         }
     }
 }
+
+// 서버에서 받은 ISO8601 타입 Date 문자열을 Date로 변환하는 메서드
+extension String {
+    var iso8601ToDate: Date {
+        let dateFormatter = ISO8601DateFormatter()
+        
+        if let date = dateFormatter.date(from: self) {
+            return date
+        } else {
+            return Date()
+        }
+    }
+}

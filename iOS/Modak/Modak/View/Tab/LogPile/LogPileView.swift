@@ -39,9 +39,6 @@ struct LogPileView: View {
             LogPileBackground()
                 .ignoresSafeArea()
         }
-        .onAppear {
-            fetchLogsWithGroupBy()
-        }
         .onAppear{
             Analytics.logEvent(AnalyticsEventScreenView,
                 parameters: [AnalyticsParameterScreenName: "LogPileView",

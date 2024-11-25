@@ -26,13 +26,19 @@ enum APIRouter: URLRequestConvertible {
     case refreshAccessToken(refreshToken: String)
     case logout
     case deactivate
-
+    
+    // Log API
+    case getCampfireLogsPreview(campfirePin: Int)
+    case updateCampfireLogs(campfirePin: Int, parameters: [String: Any])
+    case getCampfireLogImages(campfirePin: Int, logId: Int)
+    case getCampfireLogsMetadata(campfirePin: Int)
+    
     // Member API
     case getMembersNicknames
-    case updateNickname(parameters: [String: Any])
+    case updateNickname(nickname: String)
     
-    // Image API
-    case uploadImage(imageData: Data)
+    // File(Image) API
+    case getPresignedURL(fileExtension: String)
 
     private var baseURL: String {
         let url =  Bundle.main.environmentVariable(forKey: "ServerURL")!
@@ -71,24 +77,34 @@ enum APIRouter: URLRequestConvertible {
             return "/api/auth/logout"
         case .deactivate:
             return "/api/auth/deactivate"
-
+            
+        // Log API
+        case .getCampfireLogsPreview(campfirePin: let campfirePin):
+            return "/api/campfires/\(campfirePin)/logs"
+        case .updateCampfireLogs(let campfirePin, _):
+            return "/api/campfires/\(campfirePin)/logs"
+        case .getCampfireLogImages(campfirePin: let campfirePin, logId: let logId):
+            return "/api/campfires/\(campfirePin)/logs/\(logId)/images"
+        case .getCampfireLogsMetadata(campfirePin: let campfirePin):
+            return "/api/campfires/\(campfirePin)/logs/metadata"
+            
         // Member API
         case .getMembersNicknames:
             return "/api/members/nickname"
         case .updateNickname:
             return "/api/members/nickname"
        
-        // Image API
-        case .uploadImage:
-            return "/api/images"
+        // File(Image) API
+        case .getPresignedURL(let fileExtension):
+            return "/api/files/presigned-url/\(fileExtension)"
         }
     }
 
     private var method: HTTPMethod {
         switch self {
-        case .createCampfire, .joinCampfire, .socialLogin, .refreshAccessToken, .logout, .uploadImage:
+        case .createCampfire, .joinCampfire, .socialLogin, .refreshAccessToken, .logout, .updateCampfireLogs:
             return .POST
-        case .getCampfireName, .joinCampfireInfo, .getCampfireMainInfo, .getMyCampfires, .getMembersNicknames:
+        case .getCampfireName, .getCampfireMainInfo, .getMyCampfires, .getMembersNicknames, .getCampfireLogsPreview, .getCampfireLogImages, .getCampfireLogsMetadata, .joinCampfireInfo, .getPresignedURL:
             return .GET
         case .updateCampfireName, .updateNickname:
             return .PATCH
@@ -119,23 +135,41 @@ enum APIRouter: URLRequestConvertible {
         return headers
     }
 
-    private var parameters: [String: Any]? {
+    // bodyParameters와 queryParameters로 구분
+    private var bodyParameters: [String: Any]? {
         switch self {
-        case .updateCampfireName(_, let parameters),
-             .socialLogin(_, let parameters), .updateNickname(let parameters) :
+        case .updateCampfireName(_, let parameters), .socialLogin(_, let parameters):
             return parameters
-        case .createCampfire(let campfireName), .joinCampfire(_, let campfireName) :
+        case .createCampfire(let campfireName), .joinCampfire(_, let campfireName):
             return ["campfireName": campfireName]
         case .refreshAccessToken(let refreshToken):
             return ["refreshToken": refreshToken]
+        case .updateCampfireLogs(_, let parameters):
+            return parameters
+        default:
+            return nil
+        }
+    }
+    
+    private var queryParameters: [String: Any]? {
+        switch self {
+        case .updateNickname(let nickname):
+            return ["nickname": nickname]
         default:
             return nil
         }
     }
 
     func asURLRequest() throws -> URLRequest {
-        let url = URL(string: baseURL + path)!
+        var url = URL(string: baseURL + path)!
         print("URL >> \(url)")
+        
+        // 쿼리 파라미터 설정
+        if let queryParameters = queryParameters {
+            var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
+            urlComponents?.queryItems = queryParameters.map { URLQueryItem(name: $0.key, value: "\($0.value)") }
+            url = urlComponents?.url ?? url
+        }
         
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
@@ -145,9 +179,9 @@ enum APIRouter: URLRequestConvertible {
             request.setValue(value, forHTTPHeaderField: key)
         }
         
-        // 파라미터 설정
-        if let parameters = parameters {
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
+        // body 파라미터 설정
+        if let bodyParameters = bodyParameters {
+            request.httpBody = try JSONSerialization.data(withJSONObject: bodyParameters, options: [])
         }
         
         return request

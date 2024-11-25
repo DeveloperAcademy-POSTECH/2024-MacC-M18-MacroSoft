@@ -18,14 +18,6 @@ struct MergeableLogPile {
         self.mergeableLogs = mergeableLogs
     }
     
-    static var recommendedMergeableLogPile: MergeableLogPile {
-        .init(isRecommendedLogPile: true, mergeableLogs: [MergeableLog.testSelectedMergeableLog, MergeableLog.testNotSelectedMergeableLog])
-    }
-    
-    static var notRecommendedMergeableLogPile: MergeableLogPile {
-        .init(isRecommendedLogPile: false, mergeableLogs: [MergeableLog.testSelectedMergeableLog, MergeableLog.testNotSelectedMergeableLog])
-    }
-    
     func hasSelectedMergeableLogInLogPile() -> Bool {
         return mergeableLogs.contains { $0.isSelectedLog }
     }

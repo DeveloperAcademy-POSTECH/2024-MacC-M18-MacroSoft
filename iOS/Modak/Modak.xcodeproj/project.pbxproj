@@ -19,6 +19,9 @@
 		103B42412CF3AC050009375C /* 3DPreviewImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 103B42402CF3AC050009375C /* 3DPreviewImages.xcassets */; };
 		103B42472CF3B1CA0009375C /* AvatarCustomizingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103B42462CF3B1CA0009375C /* AvatarCustomizingView.swift */; };
 		103B42492CF3B1E10009375C /* AvatarCustomizingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103B42482CF3B1E10009375C /* AvatarCustomizingViewModel.swift */; };
+		1087067B2CE5A838006DD903 /* AppDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1087067A2CE5A838006DD903 /* AppDetailsView.swift */; };
+		1087067D2CE6D455006DD903 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1087067C2CE6D455006DD903 /* WebView.swift */; };
+		1087067F2CE6DBDE006DD903 /* ProfileItemFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1087067E2CE6DBDE006DD903 /* ProfileItemFrame.swift */; };
 		1093968B2CD2879B004C4EBD /* JoinCampfireViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093968A2CD2879B004C4EBD /* JoinCampfireViewModel.swift */; };
 		1093968D2CD294A9004C4EBD /* JoinCampfireByCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093968C2CD294A9004C4EBD /* JoinCampfireByCameraView.swift */; };
 		1093968F2CD2950A004C4EBD /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093968E2CD2950A004C4EBD /* CameraViewModel.swift */; };
@@ -65,6 +68,11 @@
 		10BE37772CB30CF9008D1DA1 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BE37762CB30CF9008D1DA1 /* RegisterView.swift */; };
 		10C0E7FE2CB4B88E00C7F3DE /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E7FD2CB4B88E00C7F3DE /* AuthorizationView.swift */; };
 		10C0E8082CB5593E00C7F3DE /* OrganizePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0E8072CB5593E00C7F3DE /* OrganizePhotoView.swift */; };
+		10C4F4472CE519AA00FFDBDD /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4F4462CE519AA00FFDBDD /* EditProfileView.swift */; };
+		10C4F4492CE51B4E00FFDBDD /* ProfileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4F4482CE51B4E00FFDBDD /* ProfileItem.swift */; };
+		10C4F44B2CE51C6C00FFDBDD /* ProfileGroupBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4F44A2CE51C6C00FFDBDD /* ProfileGroupBox.swift */; };
+		10C4F4512CE52F5300FFDBDD /* EditNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4F4502CE52F5300FFDBDD /* EditNicknameView.swift */; };
+		10C4F4532CE536F600FFDBDD /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4F4522CE536F600FFDBDD /* ProfileViewModel.swift */; };
 		10F58DB72CBFC81B00BF9D34 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 10F58DB62CBFC81B00BF9D34 /* Release.xcconfig */; };
 		10F58DBB2CC09D9300BF9D34 /* BundleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F58DBA2CC09D9300BF9D34 /* BundleExtension.swift */; };
 		10F58DC52CC0A8E400BF9D34 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 10F58DC42CC0A8E400BF9D34 /* Debug.xcconfig */; };
@@ -94,6 +102,7 @@
 		CA92B37B2CE3BB02004EFE1C /* MergeableLogImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA92B37A2CE3BB01004EFE1C /* MergeableLogImage.swift */; };
 		CA92B37F2CE3BCE8004EFE1C /* MaterialEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA92B37E2CE3BCE6004EFE1C /* MaterialEffectView.swift */; };
 		CA92B3812CE3BEA0004EFE1C /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA92B3802CE3BE97004EFE1C /* StringExtension.swift */; };
+		CA9C3C102CEDB52000509897 /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9C3C0F2CEDB51600509897 /* DoubleExtension.swift */; };
 		CAA0B7B22CD3228D0093AEA7 /* PublicLogImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B7B12CD322880093AEA7 /* PublicLogImage.swift */; };
 		CAA0B7B62CD329BE0093AEA7 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B7B52CD329BC0093AEA7 /* ViewExtension.swift */; };
 		CAA0B7BA2CD470550093AEA7 /* EmptyCampfireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B7B92CD470470093AEA7 /* EmptyCampfireView.swift */; };
@@ -112,6 +121,9 @@
 		CAB2BE422CC0A9D10030C1F1 /* DailyLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2BE412CC0A9BD0030C1F1 /* DailyLogs.swift */; };
 		CAB2BE4C2CC1ED1D0030C1F1 /* UINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2BE4B2CC1ECD00030C1F1 /* UINavigationControllerExtension.swift */; };
 		CAB310932CDFA5E8002BBB1D /* SelectMergeLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB310922CDFA5E0002BBB1D /* SelectMergeLogsView.swift */; };
+		CAF462FD2CECD56B0037F939 /* SDWebImageWebPCoder in Frameworks */ = {isa = PBXBuildFile; productRef = CAF462FC2CECD56B0037F939 /* SDWebImageWebPCoder */; };
+		CAF54EF52CE58E1E0071F798 /* SelectMergeLogsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF54EF42CE58E070071F798 /* SelectMergeLogsViewModel.swift */; };
+		CAF54EF72CE5A6B20071F798 /* CampfireLogMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF54EF62CE5A6990071F798 /* CampfireLogMetadata.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -127,6 +139,9 @@
 		103B42402CF3AC050009375C /* 3DPreviewImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = 3DPreviewImages.xcassets; sourceTree = "<group>"; };
 		103B42462CF3B1CA0009375C /* AvatarCustomizingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCustomizingView.swift; sourceTree = "<group>"; };
 		103B42482CF3B1E10009375C /* AvatarCustomizingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCustomizingViewModel.swift; sourceTree = "<group>"; };
+		1087067A2CE5A838006DD903 /* AppDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailsView.swift; sourceTree = "<group>"; };
+		1087067C2CE6D455006DD903 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		1087067E2CE6DBDE006DD903 /* ProfileItemFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItemFrame.swift; sourceTree = "<group>"; };
 		1093968A2CD2879B004C4EBD /* JoinCampfireViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCampfireViewModel.swift; sourceTree = "<group>"; };
 		1093968C2CD294A9004C4EBD /* JoinCampfireByCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCampfireByCameraView.swift; sourceTree = "<group>"; };
 		1093968E2CD2950A004C4EBD /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
@@ -176,6 +191,11 @@
 		10BE37762CB30CF9008D1DA1 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		10C0E7FD2CB4B88E00C7F3DE /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
 		10C0E8072CB5593E00C7F3DE /* OrganizePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizePhotoView.swift; sourceTree = "<group>"; };
+		10C4F4462CE519AA00FFDBDD /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		10C4F4482CE51B4E00FFDBDD /* ProfileItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItem.swift; sourceTree = "<group>"; };
+		10C4F44A2CE51C6C00FFDBDD /* ProfileGroupBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileGroupBox.swift; sourceTree = "<group>"; };
+		10C4F4502CE52F5300FFDBDD /* EditNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNicknameView.swift; sourceTree = "<group>"; };
+		10C4F4522CE536F600FFDBDD /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		10F58DB62CBFC81B00BF9D34 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		10F58DBA2CC09D9300BF9D34 /* BundleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtension.swift; sourceTree = "<group>"; };
 		10F58DC42CC0A8E400BF9D34 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
@@ -202,6 +222,7 @@
 		CA92B37A2CE3BB01004EFE1C /* MergeableLogImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergeableLogImage.swift; sourceTree = "<group>"; };
 		CA92B37E2CE3BCE6004EFE1C /* MaterialEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialEffectView.swift; sourceTree = "<group>"; };
 		CA92B3802CE3BE97004EFE1C /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		CA9C3C0F2CEDB51600509897 /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		CAA0B7B12CD322880093AEA7 /* PublicLogImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicLogImage.swift; sourceTree = "<group>"; };
 		CAA0B7B52CD329BC0093AEA7 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		CAA0B7B92CD470470093AEA7 /* EmptyCampfireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCampfireView.swift; sourceTree = "<group>"; };
@@ -220,6 +241,8 @@
 		CAB2BE412CC0A9BD0030C1F1 /* DailyLogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyLogs.swift; sourceTree = "<group>"; };
 		CAB2BE4B2CC1ECD00030C1F1 /* UINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtension.swift; sourceTree = "<group>"; };
 		CAB310922CDFA5E0002BBB1D /* SelectMergeLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMergeLogsView.swift; sourceTree = "<group>"; };
+		CAF54EF42CE58E070071F798 /* SelectMergeLogsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMergeLogsViewModel.swift; sourceTree = "<group>"; };
+		CAF54EF62CE5A6990071F798 /* CampfireLogMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireLogMetadata.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				10F58DCF2CC0BE0C00BF9D34 /* FirebaseAnalytics in Frameworks */,
+				CAF462FD2CECD56B0037F939 /* SDWebImageWebPCoder in Frameworks */,
 				10F58DD32CC0BE0C00BF9D34 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				10F58DD12CC0BE0C00BF9D34 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 			);
@@ -328,6 +352,7 @@
 			isa = PBXGroup;
 			children = (
 				103B422C2CF3AB010009375C /* AvatarCustomizing */,
+				CAF54EF62CE5A6990071F798 /* CampfireLogMetadata.swift */,
 				CA92B37A2CE3BB01004EFE1C /* MergeableLogImage.swift */,
 				CA92B3782CE3BAC5004EFE1C /* MergeableLog.swift */,
 				CA92B3762CE3843A004EFE1C /* MergeableLogPile.swift */,
@@ -363,6 +388,7 @@
 		10AB91B02CACD2C700BFA2EC /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				CAF54EF42CE58E070071F798 /* SelectMergeLogsViewModel.swift */,
 				CAA0B7C92CDB00A80093AEA7 /* LogPileViewModel.swift */,
 				109396942CD29693004C4EBD /* CameraTextRecognizer */,
 				10BCB0ED2CB84BCB0013E227 /* AuthorizationViewModel.swift */,
@@ -371,6 +397,7 @@
 				1093968A2CD2879B004C4EBD /* JoinCampfireViewModel.swift */,
 				109396A22CDAFCE6004C4EBD /* CampfireViewModel.swift */,
 				103B42482CF3B1E10009375C /* AvatarCustomizingViewModel.swift */,
+				10C4F4522CE536F600FFDBDD /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -399,6 +426,9 @@
 		10AB91D92CACDCD000BFA2EC /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				1087067E2CE6DBDE006DD903 /* ProfileItemFrame.swift */,
+				10C4F44A2CE51C6C00FFDBDD /* ProfileGroupBox.swift */,
+				10C4F4482CE51B4E00FFDBDD /* ProfileItem.swift */,
 				CA92B37E2CE3BCE6004EFE1C /* MaterialEffectView.swift */,
 				CA64CD102CDE22DA003EFB69 /* CampfireBackground.swift */,
 				CA64CD0E2CDE154C003EFB69 /* ProfileBackground.swift */,
@@ -419,6 +449,7 @@
 				10BCB0FC2CBE14BC0013E227 /* AppleSigninButton.swift */,
 				10F58EE62CD0891300BF9D34 /* SignTextFieldModifier.swift */,
 				109396A62CDB81C7004C4EBD /* NetworkMonitorAlert.swift */,
+				1087067C2CE6D455006DD903 /* WebView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -439,9 +470,21 @@
 			path = Pretendard;
 			sourceTree = "<group>";
 		};
+		10C4F4452CE5197E00FFDBDD /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				10AB91D32CACD79300BFA2EC /* ProfileView.swift */,
+				10C4F4462CE519AA00FFDBDD /* EditProfileView.swift */,
+				10C4F4502CE52F5300FFDBDD /* EditNicknameView.swift */,
+				1087067A2CE5A838006DD903 /* AppDetailsView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		CA2B5D032CBA6F4C0070DEBF /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				CA9C3C0F2CEDB51600509897 /* DoubleExtension.swift */,
 				CA92B3802CE3BE97004EFE1C /* StringExtension.swift */,
 				CAA0B7C52CDA62C80093AEA7 /* TextExtension.swift */,
 				CAA0B7B52CD329BC0093AEA7 /* ViewExtension.swift */,
@@ -467,8 +510,8 @@
 			children = (
 				CAB2BE302CBD55870030C1F1 /* LogPile */,
 				CAC461812CD06BF700E0E366 /* Campfire */,
-				10AB91D32CACD79300BFA2EC /* ProfileView.swift */,
 				103B42462CF3B1CA0009375C /* AvatarCustomizingView.swift */,
+				10C4F4452CE5197E00FFDBDD /* Profile */,
 			);
 			path = Tab;
 			sourceTree = "<group>";
@@ -519,6 +562,7 @@
 				10F58DCE2CC0BE0C00BF9D34 /* FirebaseAnalytics */,
 				10F58DD02CC0BE0C00BF9D34 /* FirebaseAnalyticsOnDeviceConversion */,
 				10F58DD22CC0BE0C00BF9D34 /* FirebaseAnalyticsWithoutAdIdSupport */,
+				CAF462FC2CECD56B0037F939 /* SDWebImageWebPCoder */,
 			);
 			productName = Modak;
 			productReference = 10AB91712CACCE4F00BFA2EC /* Modak.app */;
@@ -550,6 +594,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				10F58DCD2CC0BE0C00BF9D34 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CAF462FB2CECD56B0037F939 /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 10AB91722CACCE4F00BFA2EC /* Products */;
@@ -622,9 +667,11 @@
 				10BCB0E82CB825520013E227 /* OnboardingCard.swift in Sources */,
 				10BCB0F42CBCB58B0013E227 /* PrivateLog.swift in Sources */,
 				CAA0B7BA2CD470550093AEA7 /* EmptyCampfireView.swift in Sources */,
+				CAF54EF52CE58E1E0071F798 /* SelectMergeLogsViewModel.swift in Sources */,
 				10BCB0E92CB825520013E227 /* CircularProgressPhoto.swift in Sources */,
 				103B42472CF3B1CA0009375C /* AvatarCustomizingView.swift in Sources */,
 				10BCB0EA2CB825520013E227 /* CircularProgressBar.swift in Sources */,
+				10C4F4512CE52F5300FFDBDD /* EditNicknameView.swift in Sources */,
 				10BCB0EB2CB825520013E227 /* ProgressNumber.swift in Sources */,
 				1093968D2CD294A9004C4EBD /* JoinCampfireByCameraView.swift in Sources */,
 				109396912CD29615004C4EBD /* TextRecognizer.swift in Sources */,
@@ -635,9 +682,13 @@
 				10BCB0EC2CB825520013E227 /* BottomSheet.swift in Sources */,
 				109396932CD29680004C4EBD /* CameraGuidePreview.swift in Sources */,
 				CAA0B7C62CDA62D10093AEA7 /* TextExtension.swift in Sources */,
+				CAF54EF72CE5A6B20071F798 /* CampfireLogMetadata.swift in Sources */,
+				CA9C3C102CEDB52000509897 /* DoubleExtension.swift in Sources */,
 				109399192CE3A7AE004C4EBD /* CampfireMemberDetailView.swift in Sources */,
 				10BCB0E02CB8206C0013E227 /* DBSCAN.swift in Sources */,
+				1087067D2CE6D455006DD903 /* WebView.swift in Sources */,
 				10BCB0FD2CBE14BC0013E227 /* AppleSigninButton.swift in Sources */,
+				10C4F4532CE536F600FFDBDD /* ProfileViewModel.swift in Sources */,
 				10AB91D42CACD79300BFA2EC /* ProfileView.swift in Sources */,
 				1093969C2CD99F57004C4EBD /* NetworkManager.swift in Sources */,
 				CAB2BE422CC0A9D10030C1F1 /* DailyLogs.swift in Sources */,
@@ -647,12 +698,14 @@
 				CAA0B7CA2CDB00B70093AEA7 /* LogPileViewModel.swift in Sources */,
 				CAA0B7C42CD99FF20093AEA7 /* SelectCampfiresView.swift in Sources */,
 				CA2B5D0F2CBAAE5C0070DEBF /* LogPileDetailView.swift in Sources */,
+				1087067F2CE6DBDE006DD903 /* ProfileItemFrame.swift in Sources */,
 				CA70AD862CDC9DE800AA15B5 /* AddCampfireLogImage.swift in Sources */,
 				10BE37772CB30CF9008D1DA1 /* RegisterView.swift in Sources */,
 				CAB2BE322CBD55BB0030C1F1 /* SelectedPhotoView.swift in Sources */,
 				CAB2BE362CBF527B0030C1F1 /* DrawPhoto.swift in Sources */,
 				CA92B3772CE38442004EFE1C /* MergeableLogPile.swift in Sources */,
 				CA92B37B2CE3BB02004EFE1C /* MergeableLogImage.swift in Sources */,
+				10C4F44B2CE51C6C00FFDBDD /* ProfileGroupBox.swift in Sources */,
 				109396982CD8DB9A004C4EBD /* JoinCampfireByTextView.swift in Sources */,
 				CA22A7A32CD31B6E002195A2 /* Campfire.swift in Sources */,
 				10AB91AD2CACD29A00BFA2EC /* ModakApp.swift in Sources */,
@@ -664,14 +717,17 @@
 				CA64CD0B2CDE11B1003EFB69 /* LogPileSection.swift in Sources */,
 				CA22A7A12CD28D2A002195A2 /* CampfireNameView.swift in Sources */,
 				CA22A7A52CD32086002195A2 /* PublicLog.swift in Sources */,
+				1087067B2CE5A838006DD903 /* AppDetailsView.swift in Sources */,
 				CA64CD112CDE22E7003EFB69 /* CampfireBackground.swift in Sources */,
 				10BCB0DE2CB81F2D0013E227 /* PrivateLogImage.swift in Sources */,
 				CAB2BE4C2CC1ED1D0030C1F1 /* UINavigationControllerExtension.swift in Sources */,
 				10C0E8082CB5593E00C7F3DE /* OrganizePhotoView.swift in Sources */,
+				10C4F4492CE51B4E00FFDBDD /* ProfileItem.swift in Sources */,
 				CAA0B7BC2CD471290093AEA7 /* SelectedCampfireView.swift in Sources */,
 				CA64CD0F2CDE155B003EFB69 /* ProfileBackground.swift in Sources */,
 				10F58DBB2CC09D9300BF9D34 /* BundleExtension.swift in Sources */,
 				103B42492CF3B1E10009375C /* AvatarCustomizingViewModel.swift in Sources */,
+				10C4F4472CE519AA00FFDBDD /* EditProfileView.swift in Sources */,
 				109399172CE3A56D004C4EBD /* InviteMemberView.swift in Sources */,
 				CA64DBF02CDC5EFE00262E95 /* CampfireLogPileView.swift in Sources */,
 				CA2B5D0B2CBA70C40070DEBF /* ColorExtension.swift in Sources */,
@@ -921,6 +977,14 @@
 				minimumVersion = 11.3.0;
 			};
 		};
+		CAF462FB2CECD56B0037F939 /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageWebPCoder.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.14.6;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -938,6 +1002,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 10F58DCD2CC0BE0C00BF9D34 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		CAF462FC2CECD56B0037F939 /* SDWebImageWebPCoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CAF462FB2CECD56B0037F939 /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */;
+			productName = SDWebImageWebPCoder;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

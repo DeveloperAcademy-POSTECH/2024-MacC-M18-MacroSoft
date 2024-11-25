@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SelectMergeLogsView: View {
-    // TODO: 임시 데이터 적용 -> 추천 장작 로직 적용된 장작으로 바꾸기
-    @State private var mergeableLogPiles: [MergeableLogPile] = [MergeableLogPile.recommendedMergeableLogPile, MergeableLogPile.notRecommendedMergeableLogPile]
+    @EnvironmentObject private var campfireViewModel: CampfireViewModel
+    @EnvironmentObject private var selectMergeLogsViewModel: SelectMergeLogsViewModel
+    
+    @Environment(\.modelContext) private var modelContext
     
     var body: some View {
         ZStack {
@@ -19,7 +22,7 @@ struct SelectMergeLogsView: View {
                 
                 ScrollView {
                     LazyVStack(spacing: 12, pinnedViews: [.sectionHeaders]) {
-                        ForEach($mergeableLogPiles, id: \.id) { mergeableLogPile in
+                        ForEach($selectMergeLogsViewModel.mergeableLogPiles, id: \.id) { mergeableLogPile in
                             Section {
                                 SelectMergeLogsViewLowSection(mergeableLogPile: mergeableLogPile.mergeableLogs)
                             } header: {
@@ -27,19 +30,27 @@ struct SelectMergeLogsView: View {
                             }
                         }
                     }
+                    .padding(.bottom, 150)
                 }
             }
             
             VStack {
                 Spacer()
                 
-                SelectMergeLogsButton(hasSelectedMergeableLogs: mergeableLogPiles.hasSelectedMergeableLogInLogPiles())
+                SelectMergeLogsButton(hasSelectedMergeableLogs: selectMergeLogsViewModel.mergeableLogPiles.hasSelectedMergeableLogInLogPiles())
                     .background {
                         MaterialEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
                             .opacity(0.98)
                             .blur(radius: 16)
                             .padding(.bottom, -26)
                     }
+            }
+            if selectMergeLogsViewModel.isUploadCampfireLogsLoading {
+                Color.black.opacity(0.4)
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .foregroundColor(.white)
+                    .scaleEffect(1.5)
             }
         }
         .preferredColorScheme(.dark)
@@ -54,6 +65,15 @@ struct SelectMergeLogsView: View {
             LinearGradient.SelectMergeLogsViewBackground
                 .ignoresSafeArea()
         )
+        .onAppear {
+            Task {
+                await selectMergeLogsViewModel.getCampfireLogsMetadata(campfirePin: campfireViewModel.campfire!.pin)
+                selectMergeLogsViewModel.fetchMergeableLogPiles(modelContext: modelContext)
+            }
+        }
+        .onDisappear {
+            selectMergeLogsViewModel.resetProperties()
+        }
     }
 }
 
@@ -116,7 +136,6 @@ private struct SelectMergeLogsViewLowSection: View {
             .frame(height: 126)
             .padding(.horizontal)
         }
-        
     }
 }
 
@@ -140,14 +159,14 @@ private struct SelectMergeLogsViewLowSectionTitle: View {
                     .foregroundStyle(mergeableLog.isSelectedLog ? .textColor1 : .textColorGray2)
                     .font(.custom("Pretendard-Light", size: 15))
                 
-                Text(Date().logPileRowTitleDayFormat)
+                Text(mergeableLog.startAt.logPileRowTitleDayFormat)
                     .foregroundStyle(.textColorGray2)
                     .font(.custom("Pretendard-Medium", size: 12))
                 +
                 Text(" ")
                     .font(.custom("Pretendard-Medium", size: 12))
                 +
-                Text(Date().logPileRowTitleTimeFormat)
+                Text(mergeableLog.startAt.logPileRowTitleTimeFormat)
                     .foregroundStyle(.disable)
                     .font(.custom("Pretendard-Medium", size: 12))
             }
@@ -163,12 +182,10 @@ private struct SelectMergeLogsViewLowSectionContent: View {
     
     var body: some View {
         LazyHGrid(rows: [GridItem(.fixed(53))], spacing: 1) {
-            ForEach(mergeableLog.images, id: \.localIdentifier) { image in
+            ForEach(mergeableLog.images.prefix(8), id: \.localIdentifier) { image in
                 // TODO: 실제 개인 장작 Log 보여주기
-                Image(.progressDefault)
-                    .resizable()
-                    .frame(width: (UIScreen.main.bounds.width - 54) / CGFloat(mergeableLog.images.count))
-                    .scaledToFill()
+                DrawPhoto(photoMetadata: image)
+                    .frame(width: (UIScreen.main.bounds.width - 54) / CGFloat(mergeableLog.images.count > 8 ? 8 : mergeableLog.images.count))
             }
         }
         .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -194,6 +211,11 @@ private struct SelectMergeLogsViewLowHeader: View {
 // MARK: - SelectMergeLogsButton
 
 private struct SelectMergeLogsButton: View {
+    @EnvironmentObject private var campfireViewModel: CampfireViewModel
+    @EnvironmentObject private var selectMergeLogsViewModel: SelectMergeLogsViewModel
+    
+    @Environment(\.dismiss) private var dismiss
+    
     private(set) var hasSelectedMergeableLogs: Bool
     
     var body: some View {
@@ -203,7 +225,11 @@ private struct SelectMergeLogsButton: View {
             VStack {
                 if hasSelectedMergeableLogs {
                     Button {
-                        // TODO: 캠프파이어에 장작 추가 API 연결
+                        Task {
+                            selectMergeLogsViewModel.isUploadCampfireLogsLoading = true
+                            await selectMergeLogsViewModel.updateCampfireLogs(campfirePin: campfireViewModel.campfire!.pin)
+                            dismiss()
+                        }
                     } label: {
                         
                         Text("장작 던져넣기")
