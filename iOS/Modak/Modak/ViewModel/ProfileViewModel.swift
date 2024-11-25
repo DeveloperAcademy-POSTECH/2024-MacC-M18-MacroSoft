@@ -151,7 +151,6 @@ class ProfileViewModel: ObservableObject {
     
     func setupScene() {
         scene.rootNode.childNodes.forEach { $0.removeFromParentNode() }
-        scene.background.contents = UIColor.clear
         
         // 카메라 추가
         let cameraNode = SCNNode()

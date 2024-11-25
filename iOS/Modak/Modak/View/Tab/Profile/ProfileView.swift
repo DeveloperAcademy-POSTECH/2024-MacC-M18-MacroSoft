@@ -17,26 +17,22 @@ struct ProfileView: View {
     
     var body: some View {
         VStack {
-            SceneView(
-                scene: viewModel.scene,
-                options: [.allowsCameraControl, .autoenablesDefaultLighting]
-            )
-            .background(Color.clear)
-            .onAppear {
-                if let loadedItems = viewModel.loadSelectedItems() {
-                    viewModel.selectedItems = loadedItems
-                    viewModel.setupScene()
-                }
-            }
-            .onChange(of: showAvatarCustomizingView) { _, newValue in
-                if !newValue {
+            CustomSCNView(scene: viewModel.scene)
+                .onAppear {
                     if let loadedItems = viewModel.loadSelectedItems() {
                         viewModel.selectedItems = loadedItems
                         viewModel.setupScene()
                     }
                 }
-            }
-            .frame(height: 300)
+                .onChange(of: showAvatarCustomizingView) { _, newValue in
+                    if !newValue {
+                        if let loadedItems = viewModel.loadSelectedItems() {
+                            viewModel.selectedItems = loadedItems
+                            viewModel.setupScene()
+                        }
+                    }
+                }
+                .frame(height: 300)
             
             Button(action: {
                 showAvatarCustomizingView = true
