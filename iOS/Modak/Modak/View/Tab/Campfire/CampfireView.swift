@@ -10,6 +10,7 @@ import SwiftData
 
 struct CampfireView: View {
     @EnvironmentObject private var viewModel: CampfireViewModel
+    @EnvironmentObject private var avatarViewModel: AvatarViewModel
     @Query var campfires: [Campfire]
     @Binding private(set) var isShowSideMenu: Bool
     
@@ -17,10 +18,22 @@ struct CampfireView: View {
         // VStack {
         //    if viewModel.myCampfireInfos.isEmpty {
         ZStack {
-            if viewModel.isEmptyCampfire && campfires.isEmpty {
+            if viewModel.myCampfireInfos.isEmpty && campfires.isEmpty {
                 EmptyCampfireView()
             } else {
                 SelectedCampfireView(isShowSideMenu: $isShowSideMenu)
+            }
+        }
+        .onAppear {
+            Task {
+                guard let memberIds = viewModel.mainCampfireInfo?.memberIds else { return }
+                await avatarViewModel.fetchMemberAvatars(memberIds: memberIds)
+            }
+        }
+        .onChange(of: viewModel.mainCampfireInfo) { _, newValue in
+            Task {
+                guard let memberIds = viewModel.mainCampfireInfo?.memberIds else { return }
+                await avatarViewModel.fetchMemberAvatars(memberIds: memberIds)
             }
         }
         .background {
