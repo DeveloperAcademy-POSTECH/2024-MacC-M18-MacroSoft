@@ -24,7 +24,7 @@ struct CampfireMainAvatarView: View {
                         await fetchMemberAvatars(memberIds: memberIds)
                     }
                 }
-                .onChange(of: viewModel.recentVisitedCampfirePin) { _, newValue in
+                .onChange(of: viewModel.campfire) { _, newValue in
                     Task {
                         guard let memberIds = viewModel.campfire?.memberIds else { return }
                         await fetchMemberAvatars(memberIds: memberIds)
