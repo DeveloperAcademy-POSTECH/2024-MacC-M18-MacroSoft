@@ -8,22 +8,42 @@
 import SwiftUI
 
 struct ExpandableEmoji: View {
+    @EnvironmentObject private var campfireViewModel: CampfireViewModel
+    @EnvironmentObject private var profileViewModel: ProfileViewModel
+    
     @State private var isShowEmojiPicker: Bool = true
-    // TODO: 오늘의 사진에 반응한 이모지로 연결
-    @State private var currentEmoji: String = "death"
     
     private(set) var emojiList: [String]
     
     var body: some View {
         HStack {
             Spacer()
-            if isShowEmojiPicker {
+            if let currentCampfire = campfireViewModel.mainCampfireInfo, let myEmotion = currentCampfire.todayImage.emotions.first(where: {$0.memberNickname == profileViewModel.originalNickname }), !isShowEmojiPicker {
+                Button {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        isShowEmojiPicker = true
+                    }
+                } label: {
+                    Image(myEmotion.emotion)
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 12)
+                }
+                .background(
+                    RoundedRectangle(cornerRadius: 30)
+                        .stroke(Color.disable, lineWidth: 1)
+                )
+            } else {
                 HStack(spacing: 16) {
                     ForEach(emojiList, id: \.self) { emoji in
                         Button {
-                            currentEmoji = emoji
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                isShowEmojiPicker = false
+                            Task {
+                                await campfireViewModel.updateTodayImageEmotion(emotion: emoji)
+                                await campfireViewModel.testFetchMainCampfireInfo()
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    isShowEmojiPicker = false
+                                }
                             }
                         } label: {
                             Image(emoji)
@@ -39,22 +59,13 @@ struct ExpandableEmoji: View {
                         .fill(Color(hex: "221F20"))
                 }
                 .animation(.easeInOut(duration: 0.3), value: isShowEmojiPicker)
+            }
+        }
+        .onAppear {
+            if let currentCampfire = campfireViewModel.mainCampfireInfo, currentCampfire.todayImage.emotions.first(where: {$0.memberNickname == profileViewModel.originalNickname }) != nil {
+                isShowEmojiPicker = false
             } else {
-                Button {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        isShowEmojiPicker = true
-                    }
-                } label: {
-                    Image(currentEmoji)
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .padding(.vertical, 8)
-                        .padding(.horizontal, 12)
-                }
-                .background(
-                    RoundedRectangle(cornerRadius: 30)
-                        .stroke(Color.disable, lineWidth: 1)
-                )
+                isShowEmojiPicker = true
             }
         }
     }

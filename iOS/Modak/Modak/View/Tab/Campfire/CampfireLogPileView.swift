@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct CampfireLogPileView: View {
     @EnvironmentObject private var viewModel: CampfireViewModel
     // TODO: 테스트용 변수들 추후 제거
     @State private var isEmpty: Bool = false
-    @State private var yearlyLogs: [(MonthlyLogs)] = []
     
     init() {
         let appearanceWhenNotScrolled = UINavigationBarAppearance()
@@ -34,30 +34,29 @@ struct CampfireLogPileView: View {
     
     var body: some View {
         ZStack {
-            // TODO: 캠프파이어 로그가 없는지 체크하는 로직 추가
-            if isEmpty {
+            if viewModel.currentCampfireYearlyLogs.isEmpty {
                 VStack {
-                    CampfireLogPileViewTitle(campfireName: viewModel.campfire!.name, campfireMemberCount: (viewModel.campfire!.membersNames.isEmpty ? viewModel.campfire!.memberIds.count : viewModel.campfire!.membersNames.count))
+                    CampfireLogPileViewTitle(campfireName: viewModel.mainCampfireInfo!.campfireName, campfireMemberCount: (viewModel.mainCampfireInfo!.memberIds.count))
                         .padding(.leading, 24)
                     
                     Spacer()
                     
-                    CampfireEmptyLog(campfireName: viewModel.campfire!.name)
+                    CampfireEmptyLog()
                     
                     Spacer()
                 }
             } else {
                 ScrollView {
-                    CampfireLogPileViewTitle(campfireName: viewModel.campfire!.name, campfireMemberCount: (viewModel.campfire!.membersNames.isEmpty ? viewModel.campfire!.memberIds.count : viewModel.campfire!.membersNames.count))
+                    CampfireLogPileViewTitle(campfireName: viewModel.mainCampfireInfo!.campfireName, campfireMemberCount: viewModel.mainCampfireInfo!.memberIds.count)
                         .padding(.leading, 24)
                         .padding(.bottom, 12)
                     
                     LazyVStack(alignment: .leading, pinnedViews: [.sectionHeaders]) {
-                        ForEach($yearlyLogs, id: \.date){ monthlyLog in
+                        ForEach($viewModel.currentCampfireYearlyLogs, id: \.date){ monthlyLogOverview in
                             Section {
-                                LogPileSection(monthlyLog: monthlyLog.dailyLogs.wrappedValue)
+                                CampfireLogPileSection(monthlyLog: monthlyLogOverview.dailyLogs)
                             } header: {
-                                LogPileHeader(date: monthlyLog.date.wrappedValue)
+                                LogPileHeader(date: monthlyLogOverview.date.wrappedValue)
                             }
                         }
                     }
@@ -71,7 +70,7 @@ struct CampfireLogPileView: View {
             LogPileBackground()
                 .ignoresSafeArea()
         }
-        .navigationTitle("\(viewModel.campfire!.name) 모닥불")
+        .navigationTitle("\(viewModel.mainCampfireInfo!.campfireName) 모닥불")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -138,9 +137,8 @@ private struct CampfireLogPileViewFloatingButton: View {
             HStack {
                 Spacer()
                 
-                // TODO: SelectMergeLogs 화면으로 연결
                 NavigationLink {
-                    
+                    SelectMergeLogsView()
                 } label: {
                     Circle()
                         .fill(Color.init(hex: "4C4545"))

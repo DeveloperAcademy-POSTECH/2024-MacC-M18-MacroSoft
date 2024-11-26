@@ -127,7 +127,6 @@ private struct CampfireViewNextButton: View {
     
     var body: some View {
         Button {
-            // TODO: API 통신 추가
             if isCreate {
                 viewModel.createCampfire(campfireName: campfireName) {
                     saveCampfireToLocalStorage()

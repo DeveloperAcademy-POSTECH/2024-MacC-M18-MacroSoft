@@ -23,7 +23,7 @@ struct CampfireMemberDetailView: View {
                         .foregroundStyle(.textColorTitleView)
                         .font(.custom("Pretendard_Medium", size: 12))
                         .padding(.init(top: 6, leading: 8, bottom: 6, trailing: 0))
-                    Text("\(viewModel.campfire!.membersNames.isEmpty ? viewModel.campfire!.memberIds.count : viewModel.campfire!.membersNames.count)명")
+                    Text("\(viewModel.mainCampfireInfo?.memberIds.count ?? 0)명")
                         .foregroundStyle(.textColor3)
                         .font(.custom("Pretendard_Medium", size: 14))
                         .padding(.init(top: 6, leading: 0, bottom: 6, trailing: 8))
@@ -59,7 +59,7 @@ struct CampfireMemberDetailView: View {
                 HStack {
                     BackButton()
                         .colorMultiply(Color.textColorGray1)
-                    Text("\(viewModel.campfire!.name)")
+                    Text("\(viewModel.mainCampfireInfo?.campfireName ?? "")")
                         .foregroundStyle(.textColor2)
                         .font(.custom("Pretendard-Regular", size: 16))
                         .padding(.leading, -10)
