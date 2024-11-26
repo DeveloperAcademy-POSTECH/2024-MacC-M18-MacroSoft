@@ -11,7 +11,9 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var networkMonitor = NetworkMonitor() // 네트워크 모니터링 객체
-    @StateObject private var viewModel = CampfireViewModel()
+    @StateObject private var campfireViewModel = CampfireViewModel()
+    @StateObject private var profileViewModel: ProfileViewModel = ProfileViewModel()
+    
     @State private var tabSelection: Int = 0
     @State private var isShowSideMenu: Bool = false
     
@@ -101,11 +103,22 @@ struct ContentView: View {
                 }
             }
         }
-        .environmentObject(viewModel)
+        .onAppear {
+            profileViewModel.fetchNickname()
+            Task {
+                await campfireViewModel.testFetchCampfireInfos()
+                await campfireViewModel.testFetchMainCampfireInfo()
+                if let todayImage = campfireViewModel.mainCampfireInfo?.todayImage {
+                    campfireViewModel.mainTodayImage = await campfireViewModel.fetchTodayImage(imageURLName: todayImage.name)
+                }
+            }
+        }
+        .environmentObject(campfireViewModel)
         .environmentObject(networkMonitor)
+        .environmentObject(profileViewModel)
         .overlay(
             VStack {
-                if viewModel.showNetworkAlert {
+                if campfireViewModel.showNetworkAlert {
                     NetworkMonitorAlert()
                 }
                 Spacer()
