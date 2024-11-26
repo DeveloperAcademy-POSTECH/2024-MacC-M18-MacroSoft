@@ -15,12 +15,12 @@ class AvatarCustomizingViewModel: ObservableObject {
     private let avatar: [AvatarData]
     private let items: [ItemData]
     
-    init() {
+    init(sharedItems: AvatarItem) {
         self.avatar = AvatarData.sample
         self.items = ItemData.sample
         self.selectedCategory = items.first?.category ?? ""
         self.scene = SCNScene()
-        self.selectedItems = AvatarItem(hatType: 0, faceType: 0, topType: 0)
+        self.selectedItems = sharedItems
         
         // UserDefaults에서 저장된 선택 데이터를 불러오기
         if let savedItems = self.loadSelectedItems() {

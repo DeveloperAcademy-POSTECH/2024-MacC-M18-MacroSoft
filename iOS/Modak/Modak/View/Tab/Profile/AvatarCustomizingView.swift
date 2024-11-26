@@ -9,10 +9,15 @@ import SwiftUI
 import SceneKit
 
 struct AvatarCustomizingView: View {
-    @StateObject private var viewModel = AvatarCustomizingViewModel()
+    @StateObject private var viewModel: AvatarCustomizingViewModel
     @Environment(\.dismiss) private var dismiss
     private var categories: [String] = ItemData.sample.map { $0.category }
 
+    init(viewModel: AvatarCustomizingViewModel, categories: [String] = ItemData.sample.map { $0.category }) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+        self.categories = categories
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             ZStack(alignment: .trailing) {
@@ -143,5 +148,8 @@ struct AvatarCustomizingView: View {
 }
 
 #Preview {
-    AvatarCustomizingView()
+    let previewViewModel = AvatarCustomizingViewModel(
+        sharedItems: AvatarItem(hatType: 1, faceType: 2, topType: 3) // 테스트 데이터를 넣습니다.
+    )
+    AvatarCustomizingView(viewModel: previewViewModel)
 }

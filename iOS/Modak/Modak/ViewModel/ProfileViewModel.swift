@@ -27,6 +27,26 @@ class ProfileViewModel: ObservableObject {
         }
     }
     
+    func fetchUserAvatar() async {
+        do {
+            let data = try await NetworkManager.shared.requestRawData(router: .getMembersNicknameAvatar(memberIds: []))
+            let decoder = JSONDecoder()
+            if let jsonResponse = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+               let resultArray = jsonResponse["result"] as? [[String: Any]],
+               let firstResult = resultArray.first {
+                let jsonData = try JSONSerialization.data(withJSONObject: firstResult, options: [])
+                if let myAvatar = try? decoder.decode(MemberAvatar.self, from: jsonData) {
+                    DispatchQueue.main.async {
+                        self.selectedItems = myAvatar.avatar
+                        self.setupScene()
+                    }
+                }
+            }
+        } catch {
+            print("Error fetching user avatar: \(error)")
+        }
+    }
+    
     func fetchNickname() {
         Task {
             do {

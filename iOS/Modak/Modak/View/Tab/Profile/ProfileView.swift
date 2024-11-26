@@ -10,6 +10,7 @@ import SceneKit
 
 struct ProfileView: View {
     @AppStorage("isSkipRegister") var isSkipRegister: Bool = false
+    @AppStorage("isInitialAvatarDataLoad") private var isInitialAvatarDataLoad: Bool = true
     @EnvironmentObject private var profileViewModel: ProfileViewModel
     @State private var showAvatarCustomizingView = false
     @State private var showWebViewSheet = false
@@ -19,9 +20,16 @@ struct ProfileView: View {
         VStack {
             CustomSCNView(scene: profileViewModel.scene)
                 .onAppear {
-                    profileViewModel.setupScene()
-                    if let loadedItems = profileViewModel.loadSelectedItems() {
-                        profileViewModel.selectedItems = loadedItems
+                    if isInitialAvatarDataLoad {
+                        Task {
+                            await profileViewModel.fetchUserAvatar()
+                            isInitialAvatarDataLoad = false
+                        }
+                    } else {
+                        if let loadedItems = profileViewModel.loadSelectedItems() {
+                            profileViewModel.selectedItems = loadedItems
+                        }
+                        profileViewModel.setupScene()
                     }
                 }
                 .onChange(of: showAvatarCustomizingView) { _, newValue in
@@ -87,7 +95,7 @@ struct ProfileView: View {
             profileViewModel.fetchNickname()
         }
         .fullScreenCover(isPresented: $showAvatarCustomizingView) {
-            AvatarCustomizingView()
+            AvatarCustomizingView(viewModel: AvatarCustomizingViewModel(sharedItems: profileViewModel.selectedItems))
         }
         .sheet(isPresented: Binding(get: { webViewURL != nil && showWebViewSheet }, set: { _ in }), onDismiss: {
             showWebViewSheet = false
