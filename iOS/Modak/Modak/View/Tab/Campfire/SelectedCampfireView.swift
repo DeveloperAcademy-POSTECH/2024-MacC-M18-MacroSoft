@@ -17,6 +17,10 @@ struct SelectedCampfireView: View {
     @AppStorage("isInitialDataLoad") private var isInitialDataLoad: Bool = true
     
     var body: some View {
+        if !isEmptyCampfireLog {
+            CampfireMainAvatarView()
+                .padding(.bottom, -210)
+        }
         VStack {
             // TODO: 네트워크가 연결되지 않은 경우 로컬 데이터를 사용
             if viewModel.mainCampfireInfo != nil {
@@ -43,6 +47,32 @@ struct SelectedCampfireView: View {
                     .font(Font.custom("Pretendard-Regular", size: 18))
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
                     .ignoresSafeArea()
+            }
+        }
+        .frame(width: UIScreen.main.bounds.width)
+        .onAppear {
+            if isInitialDataLoad {
+                fetchAndSaveCampfireToLocalStorage()
+            } else {
+                viewModel.fetchCampfireMainInfo()
+            }
+        }
+    }
+
+    private func fetchAndSaveCampfireToLocalStorage() {
+        viewModel.fetchUserCampfireInfos { campfires in
+            if let campfires = campfires {
+                for campfire in campfires {
+                    self.modelContext.insert(campfire)
+                }
+                viewModel.recentVisitedCampfirePin = campfires.first!.pin
+                self.isInitialDataLoad = false
+                do {
+                    try modelContext.save()
+                    print("Campfire 데이터 - 로컬 데이터베이스 저장")
+                } catch {
+                    print("Error saving Campfire data: \(error)")
+                }
             }
         }
 //        .onAppear {

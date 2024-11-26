@@ -38,6 +38,8 @@ enum APIRouter: URLRequestConvertible {
     // Member API
     case getMembersNicknames
     case updateNickname(nickname: String)
+    case updateAvatar(parameters: [String: Any])
+    case getMembersNicknameAvatar(memberIds: [Int]?)
     
     // File(Image) API
     case getPresignedURL(fileExtension: String)
@@ -99,6 +101,10 @@ enum APIRouter: URLRequestConvertible {
             return "/api/members/nickname"
         case .updateNickname:
             return "/api/members/nickname"
+        case .updateAvatar:
+            return "/api/members/avatar"
+        case .getMembersNicknameAvatar:
+            return "/api/members/nickname-avatar"
        
         // File(Image) API
         case .getPresignedURL(let fileExtension):
@@ -110,9 +116,9 @@ enum APIRouter: URLRequestConvertible {
         switch self {
         case .createCampfire, .joinCampfire, .socialLogin, .refreshAccessToken, .logout, .updateCampfireLogs:
             return .POST
-        case .getCampfireName, .getCampfireMainInfo, .getMyCampfires, .getMembersNicknames, .getCampfireLogsPreview, .getCampfireLogImages, .getCampfireLogsMetadata, .joinCampfireInfo, .getPresignedURL, .getCampfireLogImageDetail:
+        case .getCampfireName, .getCampfireMainInfo, .getMyCampfires, .getMembersNicknames, .getCampfireLogsPreview, .getCampfireLogImages, .getCampfireLogsMetadata, .joinCampfireInfo, .getPresignedURL, .getCampfireLogImageDetail, .getMembersNicknameAvatar:
             return .GET
-        case .updateCampfireName, .updateNickname:
+        case .updateCampfireName, .updateNickname, .updateAvatar:
             return .PATCH
         case .deleteCampfire, .leaveCampfire, .deactivate:
             return .DELETE
@@ -146,7 +152,7 @@ enum APIRouter: URLRequestConvertible {
     // bodyParameters와 queryParameters로 구분
     private var bodyParameters: [String: Any]? {
         switch self {
-        case .updateCampfireName(_, let parameters), .socialLogin(_, let parameters):
+        case .updateCampfireName(_, let parameters), .socialLogin(_, let parameters), .updateAvatar(let parameters):
             return parameters
         case .createCampfire(let campfireName), .joinCampfire(_, let campfireName):
             return ["campfireName": campfireName]
@@ -163,6 +169,12 @@ enum APIRouter: URLRequestConvertible {
         switch self {
         case .updateNickname(let nickname):
             return ["nickname": nickname]
+        case .getMembersNicknameAvatar(let memberIds):
+            if let memberIds = memberIds {
+                return ["memberIds": memberIds.map { String($0) }.joined(separator: ",")]
+            } else {
+                return nil
+            }
         default:
             return nil
         }

@@ -14,8 +14,10 @@ struct CampfireView: View {
     @Binding private(set) var isShowSideMenu: Bool
     
     var body: some View {
-        VStack {
-            if viewModel.myCampfireInfos.isEmpty {
+        // VStack {
+        //    if viewModel.myCampfireInfos.isEmpty {
+        ZStack {
+            if viewModel.isEmptyCampfire && campfires.isEmpty {
                 EmptyCampfireView()
             } else {
                 SelectedCampfireView(isShowSideMenu: $isShowSideMenu)
