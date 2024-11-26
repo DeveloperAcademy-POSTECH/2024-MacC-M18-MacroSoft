@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CampfireMemberDetailView: View {
     @EnvironmentObject private var viewModel: CampfireViewModel
-    @StateObject private var avatarViewModel = CampfireMemberDetailViewModel()
+    @EnvironmentObject private var avatarViewModel: AvatarViewModel
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -92,9 +92,13 @@ struct CampfireMemberDetailView: View {
             }
         }
         .onAppear {
-            Task {
-                guard let memberIds = viewModel.campfire?.memberIds else { return }
-                await avatarViewModel.fetchMemberAvatars(memberIds: memberIds)
+            avatarViewModel.avatar = AvatarData.sample
+            for member in avatarViewModel.memberAvatars {
+                if avatarViewModel.memberViewModels[member.memberId] == nil {
+                    let viewModel = AvatarViewModel()
+                    viewModel.setupScene1(for: member.avatar)
+                    avatarViewModel.memberViewModels[member.memberId] = viewModel
+                }
             }
         }
     }
