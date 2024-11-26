@@ -181,7 +181,11 @@ class SelectMergeLogsViewModel: ObservableObject{
                     }
                 }
             }
-            mergeableLogPiles = [recommendedMergeableLogPile, notRecommendedMergeableLogPile]
+            if recommendedMergeableLogPile.mergeableLogs.isEmpty {
+                mergeableLogPiles = [notRecommendedMergeableLogPile]
+            } else {
+                mergeableLogPiles = [recommendedMergeableLogPile, notRecommendedMergeableLogPile]
+            }
         }
     }
     
