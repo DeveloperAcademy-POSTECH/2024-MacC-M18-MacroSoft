@@ -78,6 +78,12 @@
 		CA2B5D0B2CBA70C40070DEBF /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D0A2CBA70C00070DEBF /* ColorExtension.swift */; };
 		CA2B5D0F2CBAAE5C0070DEBF /* LogPileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D0E2CBAAE5C0070DEBF /* LogPileDetailView.swift */; };
 		CA3467A82CEECB4900F6EF90 /* TodayImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3467A72CEECB3800F6EF90 /* TodayImage.swift */; };
+		CA4C52292CF408580098DD7B /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4C52282CF4084E0098DD7B /* ResponseModel.swift */; };
+		CA4C522B2CF40B330098DD7B /* CampfireTodayImageEmotionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4C522A2CF40B1A0098DD7B /* CampfireTodayImageEmotionResult.swift */; };
+		CA4C522D2CF425BA0098DD7B /* CampfireLogsInfosResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4C522C2CF425AE0098DD7B /* CampfireLogsInfosResult.swift */; };
+		CA4C522F2CF4D10B0098DD7B /* CampfireLogsPreviewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4C522E2CF4D0D80098DD7B /* CampfireLogsPreviewResult.swift */; };
+		CA4C52332CF4FA6C0098DD7B /* CampfireLogImagesResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4C52322CF4FA5E0098DD7B /* CampfireLogImagesResult.swift */; };
+		CA4C52352CF506670098DD7B /* CampfireLogImageDetailResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4C52342CF5065C0098DD7B /* CampfireLogImageDetailResult.swift */; };
 		CA64CD092CDE107F003EFB69 /* LogPileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA64CD082CDE105D003EFB69 /* LogPileHeader.swift */; };
 		CA64CD0B2CDE11B1003EFB69 /* LogPileSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA64CD0A2CDE11A6003EFB69 /* LogPileSection.swift */; };
 		CA64CD0D2CDE133C003EFB69 /* LogPileBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA64CD0C2CDE131D003EFB69 /* LogPileBackground.swift */; };
@@ -187,6 +193,12 @@
 		CA2B5D0A2CBA70C00070DEBF /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		CA2B5D0E2CBAAE5C0070DEBF /* LogPileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPileDetailView.swift; sourceTree = "<group>"; };
 		CA3467A72CEECB3800F6EF90 /* TodayImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayImage.swift; sourceTree = "<group>"; };
+		CA4C52282CF4084E0098DD7B /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
+		CA4C522A2CF40B1A0098DD7B /* CampfireTodayImageEmotionResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireTodayImageEmotionResult.swift; sourceTree = "<group>"; };
+		CA4C522C2CF425AE0098DD7B /* CampfireLogsInfosResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireLogsInfosResult.swift; sourceTree = "<group>"; };
+		CA4C522E2CF4D0D80098DD7B /* CampfireLogsPreviewResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireLogsPreviewResult.swift; sourceTree = "<group>"; };
+		CA4C52322CF4FA5E0098DD7B /* CampfireLogImagesResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireLogImagesResult.swift; sourceTree = "<group>"; };
+		CA4C52342CF5065C0098DD7B /* CampfireLogImageDetailResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireLogImageDetailResult.swift; sourceTree = "<group>"; };
 		CA64CD082CDE105D003EFB69 /* LogPileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPileHeader.swift; sourceTree = "<group>"; };
 		CA64CD0A2CDE11A6003EFB69 /* LogPileSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPileSection.swift; sourceTree = "<group>"; };
 		CA64CD0C2CDE131D003EFB69 /* LogPileBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPileBackground.swift; sourceTree = "<group>"; };
@@ -305,6 +317,12 @@
 		10AB91AE2CACD2AC00BFA2EC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CA4C52342CF5065C0098DD7B /* CampfireLogImageDetailResult.swift */,
+				CA4C52322CF4FA5E0098DD7B /* CampfireLogImagesResult.swift */,
+				CA4C522E2CF4D0D80098DD7B /* CampfireLogsPreviewResult.swift */,
+				CA4C522C2CF425AE0098DD7B /* CampfireLogsInfosResult.swift */,
+				CA4C522A2CF40B1A0098DD7B /* CampfireTodayImageEmotionResult.swift */,
+				CA4C52282CF4084E0098DD7B /* ResponseModel.swift */,
 				CA3467A72CEECB3800F6EF90 /* TodayImage.swift */,
 				CAF54EF62CE5A6990071F798 /* CampfireLogMetadata.swift */,
 				CA92B37A2CE3BB01004EFE1C /* MergeableLogImage.swift */,
@@ -607,6 +625,7 @@
 				10B0A6702CBE6F820048C313 /* AppleSigninViewModel.swift in Sources */,
 				10BCB0E82CB825520013E227 /* OnboardingCard.swift in Sources */,
 				10BCB0F42CBCB58B0013E227 /* PrivateLog.swift in Sources */,
+				CA4C52292CF408580098DD7B /* ResponseModel.swift in Sources */,
 				CAA0B7BA2CD470550093AEA7 /* EmptyCampfireView.swift in Sources */,
 				CAF54EF52CE58E1E0071F798 /* SelectMergeLogsViewModel.swift in Sources */,
 				10BCB0E92CB825520013E227 /* CircularProgressPhoto.swift in Sources */,
@@ -626,6 +645,7 @@
 				CA9C3C102CEDB52000509897 /* DoubleExtension.swift in Sources */,
 				109399192CE3A7AE004C4EBD /* CampfireMemberDetailView.swift in Sources */,
 				10BCB0E02CB8206C0013E227 /* DBSCAN.swift in Sources */,
+				CA4C522F2CF4D10B0098DD7B /* CampfireLogsPreviewResult.swift in Sources */,
 				1087067D2CE6D455006DD903 /* WebView.swift in Sources */,
 				10BCB0FD2CBE14BC0013E227 /* AppleSigninButton.swift in Sources */,
 				10C4F4532CE536F600FFDBDD /* ProfileViewModel.swift in Sources */,
@@ -636,6 +656,7 @@
 				CAB310932CDFA5E8002BBB1D /* SelectMergeLogsView.swift in Sources */,
 				CAA0B7B22CD3228D0093AEA7 /* PublicLogImage.swift in Sources */,
 				CAA0B7CA2CDB00B70093AEA7 /* LogPileViewModel.swift in Sources */,
+				CA4C522B2CF40B330098DD7B /* CampfireTodayImageEmotionResult.swift in Sources */,
 				CAA0B7C42CD99FF20093AEA7 /* SelectCampfiresView.swift in Sources */,
 				CA2B5D0F2CBAAE5C0070DEBF /* LogPileDetailView.swift in Sources */,
 				1087067F2CE6DBDE006DD903 /* ProfileItemFrame.swift in Sources */,
@@ -646,6 +667,7 @@
 				CA92B3772CE38442004EFE1C /* MergeableLogPile.swift in Sources */,
 				CA92B37B2CE3BB02004EFE1C /* MergeableLogImage.swift in Sources */,
 				CA3467A82CEECB4900F6EF90 /* TodayImage.swift in Sources */,
+				CA4C52332CF4FA6C0098DD7B /* CampfireLogImagesResult.swift in Sources */,
 				10C4F44B2CE51C6C00FFDBDD /* ProfileGroupBox.swift in Sources */,
 				109396982CD8DB9A004C4EBD /* JoinCampfireByTextView.swift in Sources */,
 				CA22A7A32CD31B6E002195A2 /* Campfire.swift in Sources */,
@@ -658,6 +680,7 @@
 				CA64CD0B2CDE11B1003EFB69 /* LogPileSection.swift in Sources */,
 				CA22A7A12CD28D2A002195A2 /* CampfireNameView.swift in Sources */,
 				CA22A7A52CD32086002195A2 /* PublicLog.swift in Sources */,
+				CA4C52352CF506670098DD7B /* CampfireLogImageDetailResult.swift in Sources */,
 				1087067B2CE5A838006DD903 /* AppDetailsView.swift in Sources */,
 				CA64CD112CDE22E7003EFB69 /* CampfireBackground.swift in Sources */,
 				10BCB0DE2CB81F2D0013E227 /* PrivateLogImage.swift in Sources */,
@@ -672,6 +695,7 @@
 				CA64DBF02CDC5EFE00262E95 /* CampfireLogPileView.swift in Sources */,
 				CA2B5D0B2CBA70C40070DEBF /* ColorExtension.swift in Sources */,
 				CA92B3812CE3BEA0004EFE1C /* StringExtension.swift in Sources */,
+				CA4C522D2CF425BA0098DD7B /* CampfireLogsInfosResult.swift in Sources */,
 				CA64CD092CDE107F003EFB69 /* LogPileHeader.swift in Sources */,
 				109396A32CDAFCE6004C4EBD /* CampfireViewModel.swift in Sources */,
 			);
