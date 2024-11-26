@@ -125,6 +125,27 @@ struct ContentView: View {
             }
             .padding(.top, 50)
         )
+        .overlay {
+            if campfireViewModel.showEmptyLogAlert {
+                VStack(spacing: 10) {
+                    Spacer()
+                    HStack {
+                        Image(systemName: "exclamationmark.circle")
+                        Text("개인 장작을 먼저 채워주세요!")
+                    }
+                    .padding(EdgeInsets(top: 8, leading: 20, bottom: 8, trailing: 20))
+                    .background(Color.errorRed)
+                    .foregroundColor(Color.white)
+                    .cornerRadius(14)
+                    
+                    Text("*개인 장작은 장작 창고 탭에서 채울 수 있어요.")
+                        .foregroundColor(Color.white.opacity(0.5))
+                }
+                .font(Font.custom("Pretendard-Regular", size: 14))
+                .padding(.bottom, 170)
+                .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
+        }
     }
 }
 
