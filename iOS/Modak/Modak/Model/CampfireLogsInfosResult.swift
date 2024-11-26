@@ -16,7 +16,13 @@ struct CampfireInfo: Codable {
     var memberIds: [Int]
     var imageName: String?
 }
-struct MainCampfireInfo: Codable {
+struct MainCampfireInfo: Codable, Equatable {
+    static func == (lhs: MainCampfireInfo, rhs: MainCampfireInfo) -> Bool {
+        // TODO: todayImage 프로퍼티 비교까지 하면 번거로워져서 제외
+        return lhs.campfirePin == rhs.campfirePin &&
+        lhs.campfireName == rhs.campfireName &&
+        lhs.memberIds == rhs.memberIds
+    }
     
     var campfirePin: Int
     var campfireName: String
