@@ -10,22 +10,23 @@ import SceneKit
 import Lottie
 
 struct CampfireMainAvatarView: View {
+    @EnvironmentObject private var viewModel: CampfireViewModel
     @State private var scene = SCNScene()
     @State private var avatars: [AvatarData] = AvatarData.sample2
+    @State private var memberAvatars: [MemberAvatar] = []
     
     var body: some View {
         ZStack(alignment: .center) {
             // scene 추가
             CustomSCNView(scene: scene)
-//            SceneView(
-//                scene: scene,
-//                options: [.allowsCameraControl, .autoenablesDefaultLighting]
-//            )
-            .edgesIgnoringSafeArea(.all)
-            .onAppear {
-                setupScene()
-            }
-            .frame(height: 480)
+                .edgesIgnoringSafeArea(.all)
+                .onChange(of: viewModel.campfire) { _, newValue in
+                    Task {
+                        guard let memberIds = viewModel.campfire?.memberIds else { return }
+                        await fetchMemberAvatars(memberIds: memberIds)
+                    }
+                }
+                .frame(height: 480)
             
             LottieView(filename: "fireTest")
                 .frame(width: 500, height: 500)
@@ -33,12 +34,32 @@ struct CampfireMainAvatarView: View {
         }
     }
     
+    private func fetchMemberAvatars(memberIds: [Int]) async {
+        Task {
+            do {
+                let data = try await NetworkManager.shared.requestRawData(router: .getMembersNicknameAvatar(memberIds: memberIds))
+                let decoder = JSONDecoder()
+                if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let resultArray = jsonResponse["result"] as? [[String: Any]] {
+                    let jsonData = try JSONSerialization.data(withJSONObject: resultArray, options: [])
+                    let fetchedAvatars = try decoder.decode([MemberAvatar].self, from: jsonData)
+                    
+                    DispatchQueue.main.async {
+                        self.memberAvatars = fetchedAvatars
+                        setupScene()
+                    }
+                } else {
+                    print("Unexpected API response structure.")
+                }
+            } catch {
+                print("Error fetching member avatars: \(error)")
+            }
+        }
+    }
+    
     private func setupScene() {
         // 기존 노드 제거
         scene.rootNode.childNodes.forEach { $0.removeFromParentNode() }
-        
-        // 배경 설정
-//        scene.background.contents = UIColor.systemGray6
         
         // 카메라 추가
         let cameraNode = SCNNode()
@@ -89,20 +110,33 @@ struct CampfireMainAvatarView: View {
         scene.rootNode.addChildNode(lightNode3)
         
         // 아바타 배치
-        for avatar in avatars {
-            if let avatarNode = createAvatarNode(named: "avatar.scn") {
-                avatarNode.position = avatar.position
-                avatarNode.rotation = avatar.rotation
+        for (index, member) in memberAvatars.prefix(avatars.count).enumerated() {
+            let avatarData = avatars[index]
+            if let avatarNode = createNode(named: "avatar.scn") {
+                avatarNode.scale = SCNVector3(0.5, 0.5, 0.5)
+                avatarNode.position = avatarData.position
+                avatarNode.rotation = avatarData.rotation
+                
+                // 멤버 아이템을 자식 노드로 추가
+                if let hatNode = createNode(named: "hat\(member.avatar.hatType).scn") {
+                    avatarNode.addChildNode(hatNode)
+                }
+                if let faceNode = createNode(named: "face\(member.avatar.faceType).scn") {
+                    avatarNode.addChildNode(faceNode)
+                }
+                if let topNode = createNode(named: "top\(member.avatar.topType).scn") {
+                    avatarNode.addChildNode(topNode)
+                }
+                
                 scene.rootNode.addChildNode(avatarNode)
             }
         }
     }
     
-    private func createAvatarNode(named name: String) -> SCNNode? {
+    private func createNode(named name: String) -> SCNNode? {
         guard let objScene = SCNScene(named: name) else { return nil }
-        let avatarNode = objScene.rootNode.childNodes.first?.clone()
-        avatarNode?.scale = SCNVector3(0.5, 0.5, 0.5) // 아바타 크기 조정
-        return avatarNode
+        let itemNode = objScene.rootNode.childNodes.first?.clone()
+        return itemNode
     }
 }
 
