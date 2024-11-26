@@ -23,6 +23,31 @@ class AvatarViewModel: ObservableObject {
         self.scene = SCNScene()
     }
     
+    func fetchMemberAvatars(memberIds: [Int]) async {
+        Task {
+            do {
+                let data = try await NetworkManager.shared.requestRawData(router: .getMembersNicknameAvatar(memberIds: memberIds))
+                let decoder = JSONDecoder()
+                if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let resultArray = jsonResponse["result"] as? [[String: Any]] {
+                    let jsonData = try JSONSerialization.data(withJSONObject: resultArray, options: [])
+                    let fetchedAvatars = try decoder.decode([MemberAvatar].self, from: jsonData)
+                    
+                    DispatchQueue.main.async {
+                        self.memberAvatars = fetchedAvatars
+                        print(">>> fetchedAvatars :\(fetchedAvatars)")
+                        self.avatar = AvatarData.sample2
+                        self.setupScene2()
+                    }
+                } else {
+                    print("Unexpected API response structure.")
+                }
+            } catch {
+                print("Error fetching member avatars: \(error)")
+            }
+        }
+    }
+    
     func setupScene1(for avatar: AvatarItem) {
         scene.rootNode.childNodes.forEach { $0.removeFromParentNode() }
         
