@@ -10,23 +10,35 @@ import SceneKit
 
 struct AvatarCustomizingView: View {
     @StateObject private var viewModel = AvatarCustomizingViewModel()
-    private var categories: [String] = ItemModel.sample.map { $0.category }
+    @Environment(\.dismiss) private var dismiss
+    private var categories: [String] = ItemData.sample.map { $0.category }
 
     var body: some View {
         VStack(spacing: 0) {
-            ZStack(alignment: .bottomTrailing) {
-                SceneView(
-                    scene: viewModel.scene,
-                    options: [.allowsCameraControl, .autoenablesDefaultLighting]
-                )
+            ZStack(alignment: .trailing) {
+                CustomSCNView(scene: viewModel.scene)
                 .edgesIgnoringSafeArea(.all)
                 .onAppear {
                     viewModel.setupScene()
+                    if let loadedItems = viewModel.loadSelectedItems() {
+                        viewModel.selectedItems = loadedItems
+                    }
                 }
                 .frame(height: 480)
                 
-                saveButton
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 20))
+                VStack(alignment: .trailing) {
+                    Button(action: {
+                        dismiss() // 이전 화면으로 이동
+                    }) {
+                        Image(systemName: "xmark")
+                            .font(.custom("Pretendard-Medium", size: 22))
+                            .foregroundColor(Color.textColorGray1)
+                            .padding()
+                    }
+                    Spacer()
+                    saveButton
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 20))
+                }
             }
             
             VStack {
@@ -46,7 +58,8 @@ struct AvatarCustomizingView: View {
     
     private var saveButton: some View {
         Button(action: {
-            viewModel.save()
+            viewModel.saveAvatarCustomInfo()
+            dismiss()
         }) {
             Text("저장하고 나가기")
                 .font(.custom("Pretendard-Regular", size: 16))
@@ -118,7 +131,7 @@ struct AvatarCustomizingView: View {
                                 .padding(14)
                             
                             RoundedRectangle(cornerRadius: 14)
-                                .stroke(viewModel.selectedItems[category] == item ? Color.mainColor1 : Color.clear, lineWidth: 4)
+                                .stroke(viewModel.isSelected(item: item, in: category) ? Color.mainColor1 : Color.clear, lineWidth: 4)
                                 .foregroundStyle(Color.gray.opacity(0.1))
                         }
                         .cornerRadius(14)

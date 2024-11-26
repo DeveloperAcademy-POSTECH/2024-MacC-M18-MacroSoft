@@ -6,17 +6,49 @@
 //
 
 import SwiftUI
+import SceneKit
 
 struct ProfileView: View {
     @AppStorage("isSkipRegister") var isSkipRegister: Bool = false
     @StateObject private var viewModel = ProfileViewModel()
+    @State private var showAvatarCustomizingView = false
     @State private var showWebViewSheet = false
     @State private var webViewURL: URL? = nil
     
     var body: some View {
         VStack {
+            CustomSCNView(scene: viewModel.scene)
+                .onAppear {
+                    viewModel.setupScene()
+                    if let loadedItems = viewModel.loadSelectedItems() {
+                        viewModel.selectedItems = loadedItems
+                    }
+                }
+                .onChange(of: showAvatarCustomizingView) { _, newValue in
+                    if !newValue {
+                        if let loadedItems = viewModel.loadSelectedItems() {
+                            viewModel.selectedItems = loadedItems
+                            viewModel.setupScene()
+                        }
+                    }
+                }
+                .padding(.init(top: -100, leading: -70, bottom: -70, trailing: -70))
+                .frame(height: 200)
             
-            Text("닉네임 : \(viewModel.originalNickname)")
+            Button(action: {
+                showAvatarCustomizingView = true
+            }) {
+                Text(" 캐릭터 꾸미기 ")
+                    .font(.custom("Pretendard-Bold", size: 16))
+                    .foregroundColor(.white)
+                    .padding(15)
+                    .background {
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color.mainColor1)
+                            .stroke(.white.opacity(0.05), lineWidth: 1)
+                    }
+            }
+            .padding(.vertical, 10)
             
             ProfileItem(title: "프로필 정보 편집", destination: AnyView(EditProfileView()))
             .background { ProfileItemFrame() }
@@ -52,6 +84,9 @@ struct ProfileView: View {
         }
         .onAppear() {
             viewModel.fetchNickname()
+        }
+        .fullScreenCover(isPresented: $showAvatarCustomizingView) {
+            AvatarCustomizingView()
         }
         .sheet(isPresented: Binding(get: { webViewURL != nil && showWebViewSheet }, set: { _ in }), onDismiss: {
             showWebViewSheet = false
