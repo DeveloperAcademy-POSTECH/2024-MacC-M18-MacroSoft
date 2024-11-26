@@ -13,6 +13,7 @@ struct CampfireInfo: Codable {
     var campfirePin: Int
     var campfireName: String
     var membersNames: [String]
+    var memberIds: [Int]
     var imageName: String?
 }
 struct MainCampfireInfo: Codable {
