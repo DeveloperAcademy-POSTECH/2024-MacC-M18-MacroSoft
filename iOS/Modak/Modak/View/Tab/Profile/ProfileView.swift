@@ -17,18 +17,18 @@ struct ProfileView: View {
     
     var body: some View {
         VStack {
-            CustomSCNView(scene: viewModel.scene)
+            CustomSCNView(scene: profileViewModel.scene)
                 .onAppear {
-                    viewModel.setupScene()
-                    if let loadedItems = viewModel.loadSelectedItems() {
-                        viewModel.selectedItems = loadedItems
+                    profileViewModel.setupScene()
+                    if let loadedItems = profileViewModel.loadSelectedItems() {
+                        profileViewModel.selectedItems = loadedItems
                     }
                 }
                 .onChange(of: showAvatarCustomizingView) { _, newValue in
                     if !newValue {
-                        if let loadedItems = viewModel.loadSelectedItems() {
-                            viewModel.selectedItems = loadedItems
-                            viewModel.setupScene()
+                        if let loadedItems = profileViewModel.loadSelectedItems() {
+                            profileViewModel.selectedItems = loadedItems
+                            profileViewModel.setupScene()
                         }
                     }
                 }
