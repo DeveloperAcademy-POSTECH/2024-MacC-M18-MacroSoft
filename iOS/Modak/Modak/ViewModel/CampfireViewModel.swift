@@ -23,6 +23,7 @@ class CampfireViewModel: ObservableObject {
     @AppStorage("recentVisitedCampfirePin") var recentVisitedCampfirePin: Int = 0
     
     @Published var showNetworkAlert: Bool = false
+    @Published var showEmptyLogAlert: Bool = false
     @Published var currentCampfirePin: Int = 0
     @Published var mainTodayImage: UIImage?
     @Published var currentCampfireYearlyLogs: [(MonthlyLogsOverview)] = []
@@ -289,6 +290,18 @@ class CampfireViewModel: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             withAnimation {
                 self.showNetworkAlert = false
+            }
+        }
+    }
+    
+    func showEmptyLogPileAlert() {
+        withAnimation {
+            self.showEmptyLogAlert = true
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            withAnimation {
+                self.showEmptyLogAlert = false
             }
         }
     }

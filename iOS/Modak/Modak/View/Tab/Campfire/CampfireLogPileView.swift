@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CampfireLogPileView: View {
+    @EnvironmentObject private var logPileViewModel: LogPileViewModel
+    @EnvironmentObject private var networkMonitor: NetworkMonitor
     @EnvironmentObject private var viewModel: CampfireViewModel
     // TODO: 테스트용 변수들 추후 제거
     @State private var isEmpty: Bool = false
@@ -64,6 +66,14 @@ struct CampfireLogPileView: View {
             
             CampfireLogPileViewFloatingButton()
                 .padding(.init(top: 0, leading: 0, bottom: 14, trailing: 24))
+                .disabled(!networkMonitor.isConnected || logPileViewModel.yearlyLogs.isEmpty)
+                .simultaneousGesture(TapGesture().onEnded {
+                    if !networkMonitor.isConnected {
+                        viewModel.showTemporaryNetworkAlert()
+                    } else if logPileViewModel.yearlyLogs.isEmpty {
+                        viewModel.showEmptyLogPileAlert()
+                    }
+                })
         }
         .background {
             LogPileBackground()
