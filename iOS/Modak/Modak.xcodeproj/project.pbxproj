@@ -83,6 +83,7 @@
 		CA4C522B2CF40B330098DD7B /* CampfireTodayImageEmotionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4C522A2CF40B1A0098DD7B /* CampfireTodayImageEmotionResult.swift */; };
 		CA4C522D2CF425BA0098DD7B /* CampfireLogsInfosResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4C522C2CF425AE0098DD7B /* CampfireLogsInfosResult.swift */; };
 		CA4C522F2CF4D10B0098DD7B /* CampfireLogsPreviewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4C522E2CF4D0D80098DD7B /* CampfireLogsPreviewResult.swift */; };
+		CA4C52312CF4F5210098DD7B /* CampfireLogPileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4C52302CF4F5200098DD7B /* CampfireLogPileDetailView.swift */; };
 		CA4C52332CF4FA6C0098DD7B /* CampfireLogImagesResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4C52322CF4FA5E0098DD7B /* CampfireLogImagesResult.swift */; };
 		CA4C52352CF506670098DD7B /* CampfireLogImageDetailResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4C52342CF5065C0098DD7B /* CampfireLogImageDetailResult.swift */; };
 		CA4C52382CF54E460098DD7B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CA4C52372CF54E460098DD7B /* Kingfisher */; };
@@ -200,6 +201,7 @@
 		CA4C522A2CF40B1A0098DD7B /* CampfireTodayImageEmotionResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireTodayImageEmotionResult.swift; sourceTree = "<group>"; };
 		CA4C522C2CF425AE0098DD7B /* CampfireLogsInfosResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireLogsInfosResult.swift; sourceTree = "<group>"; };
 		CA4C522E2CF4D0D80098DD7B /* CampfireLogsPreviewResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireLogsPreviewResult.swift; sourceTree = "<group>"; };
+		CA4C52302CF4F5200098DD7B /* CampfireLogPileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireLogPileDetailView.swift; sourceTree = "<group>"; };
 		CA4C52322CF4FA5E0098DD7B /* CampfireLogImagesResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireLogImagesResult.swift; sourceTree = "<group>"; };
 		CA4C52342CF5065C0098DD7B /* CampfireLogImageDetailResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireLogImageDetailResult.swift; sourceTree = "<group>"; };
 		CA64CD082CDE105D003EFB69 /* LogPileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPileHeader.swift; sourceTree = "<group>"; };
@@ -503,6 +505,7 @@
 			isa = PBXGroup;
 			children = (
 				CA2FA8AC2CF5AF9F00E55AD6 /* CampfireLogDrawPhoto.swift */,
+				CA4C52302CF4F5200098DD7B /* CampfireLogPileDetailView.swift */,
 				CAB310922CDFA5E0002BBB1D /* SelectMergeLogsView.swift */,
 				CA64DBEF2CDC5EF700262E95 /* CampfireLogPileView.swift */,
 				109399182CE3A7AE004C4EBD /* CampfireMemberDetailView.swift */,
@@ -636,6 +639,7 @@
 				CAA0B7BA2CD470550093AEA7 /* EmptyCampfireView.swift in Sources */,
 				CAF54EF52CE58E1E0071F798 /* SelectMergeLogsViewModel.swift in Sources */,
 				10BCB0E92CB825520013E227 /* CircularProgressPhoto.swift in Sources */,
+				CA4C52312CF4F5210098DD7B /* CampfireLogPileDetailView.swift in Sources */,
 				10BCB0EA2CB825520013E227 /* CircularProgressBar.swift in Sources */,
 				10C4F4512CE52F5300FFDBDD /* EditNicknameView.swift in Sources */,
 				10BCB0EB2CB825520013E227 /* ProgressNumber.swift in Sources */,
