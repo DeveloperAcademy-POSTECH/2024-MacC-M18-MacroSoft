@@ -123,20 +123,9 @@ class JoinCampfireViewModel: ObservableObject {
                         self.campfireName = result["campfireName"] as? String ?? ""
                         
                         if let createdAtString = result["createdAt"] as? String {
-                            // 옵셔널 언래핑 및 날짜 변환
-                            let dateFormatter = DateFormatter()
-                            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-                            dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-                            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
-
-                            if let createdAtDate = dateFormatter.date(from: createdAtString) {
-                                dateFormatter.dateFormat = "yyyy.MM.dd"
-                                self.createdAt = dateFormatter.string(from: createdAtDate)
-                            } else {
-                                self.createdAt = "2024.00.00"
-                            }
+                            self.createdAt = createdAtString.iso8601ToDate.YYYYMMddFormat
                         } else {
-                            self.createdAt = "2024.00.00"
+                            self.createdAt = Date().YYYYMMddFormat
                         }
                         
                         self.membersNames = result["membersNames"] as? [String] ?? []
