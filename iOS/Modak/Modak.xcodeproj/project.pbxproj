@@ -84,6 +84,7 @@
 		CA4C522F2CF4D10B0098DD7B /* CampfireLogsPreviewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4C522E2CF4D0D80098DD7B /* CampfireLogsPreviewResult.swift */; };
 		CA4C52332CF4FA6C0098DD7B /* CampfireLogImagesResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4C52322CF4FA5E0098DD7B /* CampfireLogImagesResult.swift */; };
 		CA4C52352CF506670098DD7B /* CampfireLogImageDetailResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4C52342CF5065C0098DD7B /* CampfireLogImageDetailResult.swift */; };
+		CA4C52382CF54E460098DD7B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CA4C52372CF54E460098DD7B /* Kingfisher */; };
 		CA64CD092CDE107F003EFB69 /* LogPileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA64CD082CDE105D003EFB69 /* LogPileHeader.swift */; };
 		CA64CD0B2CDE11B1003EFB69 /* LogPileSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA64CD0A2CDE11A6003EFB69 /* LogPileSection.swift */; };
 		CA64CD0D2CDE133C003EFB69 /* LogPileBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA64CD0C2CDE131D003EFB69 /* LogPileBackground.swift */; };
@@ -244,6 +245,7 @@
 				CAF462FD2CECD56B0037F939 /* SDWebImageWebPCoder in Frameworks */,
 				10F58DD32CC0BE0C00BF9D34 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				10F58DD12CC0BE0C00BF9D34 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
+				CA4C52382CF54E460098DD7B /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,6 +534,7 @@
 				10F58DD02CC0BE0C00BF9D34 /* FirebaseAnalyticsOnDeviceConversion */,
 				10F58DD22CC0BE0C00BF9D34 /* FirebaseAnalyticsWithoutAdIdSupport */,
 				CAF462FC2CECD56B0037F939 /* SDWebImageWebPCoder */,
+				CA4C52372CF54E460098DD7B /* Kingfisher */,
 			);
 			productName = Modak;
 			productReference = 10AB91712CACCE4F00BFA2EC /* Modak.app */;
@@ -564,6 +567,7 @@
 			packageReferences = (
 				10F58DCD2CC0BE0C00BF9D34 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				CAF462FB2CECD56B0037F939 /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */,
+				CA4C52362CF54E460098DD7B /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 10AB91722CACCE4F00BFA2EC /* Products */;
@@ -941,6 +945,14 @@
 				minimumVersion = 11.3.0;
 			};
 		};
+		CA4C52362CF54E460098DD7B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.1.1;
+			};
+		};
 		CAF462FB2CECD56B0037F939 /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageWebPCoder.git";
@@ -966,6 +978,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 10F58DCD2CC0BE0C00BF9D34 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		CA4C52372CF54E460098DD7B /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CA4C52362CF54E460098DD7B /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		CAF462FC2CECD56B0037F939 /* SDWebImageWebPCoder */ = {
 			isa = XCSwiftPackageProductDependency;
