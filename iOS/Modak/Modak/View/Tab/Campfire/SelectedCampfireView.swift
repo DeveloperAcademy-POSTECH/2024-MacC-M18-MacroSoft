@@ -17,7 +17,7 @@ struct SelectedCampfireView: View {
     @AppStorage("isInitialDataLoad") private var isInitialDataLoad: Bool = true
     
     var body: some View {
-        if !isEmptyCampfireLog {
+        if viewModel.mainTodayImage != nil {
             CampfireMainAvatarView()
                 .padding(.bottom, -210)
         }
