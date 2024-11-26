@@ -228,6 +228,12 @@ private struct SelectMergeLogsButton: View {
                         Task {
                             selectMergeLogsViewModel.isUploadCampfireLogsLoading = true
                             await selectMergeLogsViewModel.updateCampfireLogs(campfirePin: campfireViewModel.mainCampfireInfo!.campfirePin)
+                            await campfireViewModel.testFetchCampfireInfos()
+                            await campfireViewModel.testFetchMainCampfireInfo()
+                            await campfireViewModel.testFetchCampfireLogsPreview()
+                            if let todayImage = campfireViewModel.mainCampfireInfo?.todayImage {
+                                campfireViewModel.mainTodayImage = await campfireViewModel.fetchTodayImage(imageURLName: todayImage.name)
+                            }
                             dismiss()
                         }
                     } label: {
