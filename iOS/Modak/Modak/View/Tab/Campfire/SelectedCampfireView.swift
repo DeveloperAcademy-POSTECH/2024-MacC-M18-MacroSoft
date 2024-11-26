@@ -19,6 +19,10 @@ struct SelectedCampfireView: View {
     @AppStorage("isInitialDataLoad") private var isInitialDataLoad: Bool = true
     
     var body: some View {
+        if !isEmptyCampfireLog {
+            CampfireMainAvatarView()
+                .padding(.bottom, -210)
+        }
         VStack {
             // 네트워크가 연결되지 않은 경우 로컬 데이터를 사용
             // TODO: 참여한 캠프파이어가 없을 경우에 모닥불 참여를 눌렀을 때, 언래핑 오류가 떠서 수정하긴 했으나 확인 필요
@@ -49,6 +53,7 @@ struct SelectedCampfireView: View {
                     .ignoresSafeArea()
             }
         }
+        .frame(width: UIScreen.main.bounds.width)
         .onAppear {
             if isInitialDataLoad {
                 fetchAndSaveCampfireToLocalStorage()
