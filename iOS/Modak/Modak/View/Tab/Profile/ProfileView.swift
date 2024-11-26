@@ -9,14 +9,14 @@ import SwiftUI
 
 struct ProfileView: View {
     @AppStorage("isSkipRegister") var isSkipRegister: Bool = false
-    @StateObject private var viewModel = ProfileViewModel()
+    @EnvironmentObject private var profileViewModel: ProfileViewModel
     @State private var showWebViewSheet = false
     @State private var webViewURL: URL? = nil
     
     var body: some View {
         VStack {
             
-            Text("닉네임 : \(viewModel.originalNickname)")
+            Text("닉네임 : \(profileViewModel.originalNickname)")
             
             ProfileItem(title: "프로필 정보 편집", destination: AnyView(EditProfileView()))
             .background { ProfileItemFrame() }
@@ -33,7 +33,7 @@ struct ProfileView: View {
             .groupBoxStyle(ProfileGroupBox())
             
             ProfileItem(title: "로그아웃") {
-                viewModel.logout { success in
+                profileViewModel.logout { success in
                     if success {
                         isSkipRegister = false
                     }
@@ -43,7 +43,7 @@ struct ProfileView: View {
             
             Spacer()
         }
-        .environmentObject(viewModel)
+        .environmentObject(profileViewModel)
         .padding(.top, 18)
         .padding(.horizontal, 13)
         .background {
@@ -51,7 +51,7 @@ struct ProfileView: View {
                 .ignoresSafeArea()
         }
         .onAppear() {
-            viewModel.fetchNickname()
+            profileViewModel.fetchNickname()
         }
         .sheet(isPresented: Binding(get: { webViewURL != nil && showWebViewSheet }, set: { _ in }), onDismiss: {
             showWebViewSheet = false
