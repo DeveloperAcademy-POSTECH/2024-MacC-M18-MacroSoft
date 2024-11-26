@@ -77,6 +77,7 @@
 		CA2B5D072CBA70280070DEBF /* GradientColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D062CBA70210070DEBF /* GradientColorExtension.swift */; };
 		CA2B5D0B2CBA70C40070DEBF /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D0A2CBA70C00070DEBF /* ColorExtension.swift */; };
 		CA2B5D0F2CBAAE5C0070DEBF /* LogPileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B5D0E2CBAAE5C0070DEBF /* LogPileDetailView.swift */; };
+		CA2FA8AD2CF5AFBF00E55AD6 /* CampfireLogDrawPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2FA8AC2CF5AF9F00E55AD6 /* CampfireLogDrawPhoto.swift */; };
 		CA3467A82CEECB4900F6EF90 /* TodayImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3467A72CEECB3800F6EF90 /* TodayImage.swift */; };
 		CA4C52292CF408580098DD7B /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4C52282CF4084E0098DD7B /* ResponseModel.swift */; };
 		CA4C522B2CF40B330098DD7B /* CampfireTodayImageEmotionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4C522A2CF40B1A0098DD7B /* CampfireTodayImageEmotionResult.swift */; };
@@ -193,6 +194,7 @@
 		CA2B5D062CBA70210070DEBF /* GradientColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientColorExtension.swift; sourceTree = "<group>"; };
 		CA2B5D0A2CBA70C00070DEBF /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		CA2B5D0E2CBAAE5C0070DEBF /* LogPileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPileDetailView.swift; sourceTree = "<group>"; };
+		CA2FA8AC2CF5AF9F00E55AD6 /* CampfireLogDrawPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireLogDrawPhoto.swift; sourceTree = "<group>"; };
 		CA3467A72CEECB3800F6EF90 /* TodayImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayImage.swift; sourceTree = "<group>"; };
 		CA4C52282CF4084E0098DD7B /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
 		CA4C522A2CF40B1A0098DD7B /* CampfireTodayImageEmotionResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampfireTodayImageEmotionResult.swift; sourceTree = "<group>"; };
@@ -500,6 +502,7 @@
 		CAC461812CD06BF700E0E366 /* Campfire */ = {
 			isa = PBXGroup;
 			children = (
+				CA2FA8AC2CF5AF9F00E55AD6 /* CampfireLogDrawPhoto.swift */,
 				CAB310922CDFA5E0002BBB1D /* SelectMergeLogsView.swift */,
 				CA64DBEF2CDC5EF700262E95 /* CampfireLogPileView.swift */,
 				109399182CE3A7AE004C4EBD /* CampfireMemberDetailView.swift */,
@@ -687,6 +690,7 @@
 				CA4C52352CF506670098DD7B /* CampfireLogImageDetailResult.swift in Sources */,
 				1087067B2CE5A838006DD903 /* AppDetailsView.swift in Sources */,
 				CA64CD112CDE22E7003EFB69 /* CampfireBackground.swift in Sources */,
+				CA2FA8AD2CF5AFBF00E55AD6 /* CampfireLogDrawPhoto.swift in Sources */,
 				10BCB0DE2CB81F2D0013E227 /* PrivateLogImage.swift in Sources */,
 				CAB2BE4C2CC1ED1D0030C1F1 /* UINavigationControllerExtension.swift in Sources */,
 				10C0E8082CB5593E00C7F3DE /* OrganizePhotoView.swift in Sources */,
