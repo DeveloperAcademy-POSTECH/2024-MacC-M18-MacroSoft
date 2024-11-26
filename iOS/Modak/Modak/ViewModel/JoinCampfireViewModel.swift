@@ -27,13 +27,14 @@ class JoinCampfireViewModel: ObservableObject {
     }
 
     // 유효성 검사 및 서버 통신을 관리
-    func validateAndSendCredentials() {
+    func validateAndSendCredentials(completion: @escaping () -> Void) {
         guard !campfireName.isEmpty, !campfirePin.isEmpty else {
             showError = true
             return
         }
 
         sendCampfireCredentialsToServer()
+        completion()
     }
     
     // 서버에 요청 전송
@@ -49,8 +50,9 @@ class JoinCampfireViewModel: ObservableObject {
                    let joinedCampfirePin = result["campfirePin"] as? Int {
                     
                     DispatchQueue.main.async {
+                        self.campfirePin = String(joinedCampfirePin)
                         self.recentVisitedCampfirePin = joinedCampfirePin
-                        self.fetchCampfireInfo(campfirePin: joinedCampfirePin)
+//                        self.fetchCampfireInfo(campfirePin: joinedCampfirePin)
                     }
                     print("Successfully joined campfire with PIN: \(joinedCampfirePin)")
                 } else {
@@ -111,7 +113,7 @@ class JoinCampfireViewModel: ObservableObject {
         }
     }
     
-    private func fetchCampfireInfo(campfirePin: Int) {
+    func fetchCampfireInfo(campfirePin: Int) {
         Task {
             do {
                 let data = try await NetworkManager.shared.requestRawData(router: .joinCampfireInfo(campfirePin: campfirePin))

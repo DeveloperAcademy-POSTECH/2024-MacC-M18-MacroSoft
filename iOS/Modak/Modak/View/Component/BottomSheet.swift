@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct BottomSheet: View {
+    @EnvironmentObject private var joinCampfireViewModel: JoinCampfireViewModel
+    @EnvironmentObject private var campfireViewModel: CampfireViewModel
     @Environment(\.dismiss) private var dismiss
     @Binding var isPresented: Bool
     @State private var offset: CGFloat = UIScreen.main.bounds.height
@@ -184,9 +186,19 @@ extension BottomSheet {
             .padding(.leading, 24)
             
             Button(action: {
-                //TODO: 다음 페이지 전환
-                dismiss()
-                dismiss()
+                joinCampfireViewModel.validateAndSendCredentials {
+                    Task {
+                        await campfireViewModel.testChangeCurrentCampfirePin(Int(joinCampfireViewModel.campfirePin) ?? 0)
+                        await campfireViewModel.testFetchCampfireInfos()
+                        await campfireViewModel.testFetchMainCampfireInfo()
+                        if let todayImage = campfireViewModel.mainCampfireInfo?.todayImage {
+                            campfireViewModel.mainTodayImage = await campfireViewModel.fetchTodayImage(imageURLName: todayImage.name)
+                        }
+                        //TODO: 다음 페이지 전환 방법 생각해보기
+                        dismiss()
+                        dismiss()
+                    }
+                }
             }) {
                 Text("모닥불 참여하기")
                     .font(.custom("Pretendard-Bold", size: 16))
