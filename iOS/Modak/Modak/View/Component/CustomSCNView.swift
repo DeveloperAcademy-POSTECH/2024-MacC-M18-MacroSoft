@@ -20,5 +20,7 @@ struct CustomSCNView: UIViewRepresentable {
         return scnView
     }
 
-    func updateUIView(_ uiView: SCNView, context: Context) {}
+    func updateUIView(_ uiView: SCNView, context: Context) {
+        uiView.scene = scene
+    }
 }

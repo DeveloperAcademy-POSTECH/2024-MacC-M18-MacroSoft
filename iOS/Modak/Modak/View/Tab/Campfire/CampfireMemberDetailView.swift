@@ -94,11 +94,9 @@ struct CampfireMemberDetailView: View {
         .onAppear {
             avatarViewModel.avatar = AvatarData.sample
             for member in avatarViewModel.memberAvatars {
-                if avatarViewModel.memberViewModels[member.memberId] == nil {
-                    let viewModel = AvatarViewModel()
-                    viewModel.setupScene1(for: member.avatar)
-                    avatarViewModel.memberViewModels[member.memberId] = viewModel
-                }
+                let viewModel = AvatarViewModel()
+                viewModel.setupScene1(for: member.avatar)
+                avatarViewModel.memberViewModels[member.memberId] = viewModel
             }
         }
     }
