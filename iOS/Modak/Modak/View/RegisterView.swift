@@ -53,17 +53,8 @@ struct RegisterView: View {
                 
                 AppleSigninButton(isSkipRegister: $isSkipRegister)
                 
-                Button(action: {
-                    isSkipRegister = true
-                }) {
-                    Text("건너뛰기")
-                        .font(.custom("Pretendard-Medium", size: 16))
-                        .foregroundColor(.mainColor1)
-                        .underline()
-                }
-                .padding(.top, 14)
                 
-                Spacer(minLength: 5)
+                Spacer(minLength: 45)
             }
             .multilineTextAlignment(.center)
         }
