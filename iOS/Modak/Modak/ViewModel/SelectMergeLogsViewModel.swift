@@ -247,6 +247,7 @@ class SelectMergeLogsViewModel: ObservableObject{
         options.isSynchronous = true
         options.deliveryMode = .opportunistic
         options.resizeMode = .fast
+        options.isNetworkAccessAllowed = true
         
         imageManager.requestImage(for: asset, targetSize: .init(width: 1920, height: 1920), contentMode: .aspectFit, options: options) { img, _ in
             uiImage = img
