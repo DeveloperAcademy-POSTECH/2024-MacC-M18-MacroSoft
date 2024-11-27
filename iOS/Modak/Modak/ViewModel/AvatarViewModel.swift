@@ -181,7 +181,7 @@ class AvatarViewModel: ObservableObject {
                 }
                 
                 // 닉네임 추가
-                let nicknamePosition = SCNVector3(0, 0, index%2 != 0 ? 3.6 : 3.9)
+                let nicknamePosition = SCNVector3(0, 0, index%2 != 0 ? 3.6 : 4.0)
                 let textNode = createTextNode(text: member.nickname, position: nicknamePosition)
                 avatarNode.addChildNode(textNode)
                 
@@ -193,13 +193,13 @@ class AvatarViewModel: ObservableObject {
     private func createTextNode(text: String, position: SCNVector3) -> SCNNode {
         // SCNText 생성
         let textGeometry = SCNText(string: text, extrusionDepth: 0)
-        textGeometry.font = UIFont.systemFont(ofSize: 0.5)
-        textGeometry.firstMaterial?.diffuse.contents = UIColor.white
+        textGeometry.font = UIFont(name: "Pretendard-Medium", size: 0.54) ?? UIFont.systemFont(ofSize: 0.54)
+        textGeometry.firstMaterial?.diffuse.contents = UIColor.white.withAlphaComponent(0.8)
         textGeometry.firstMaterial?.isDoubleSided = true
         
         // 텍스트 노드 생성
         let textNode = SCNNode(geometry: textGeometry)
-        textNode.scale = SCNVector3(0.4, 0.4, 0.4)
+        textNode.scale = SCNVector3(0.6, 0.6, 0.6)
         
         // 텍스트의 bounding box를 사용하여 크기 계산
         let (min, max) = textGeometry.boundingBox
@@ -208,13 +208,13 @@ class AvatarViewModel: ObservableObject {
         
         // 배경 크기 동적으로 설정 (텍스트 크기 + 여백 추가)
         let padding: CGFloat = 10
-        let backgroundWidth = (textWidth * 0.4) + Float(padding) / 20.0
-        let backgroundHeight = (textHeight * 0.4) + Float(padding) / 30.0
+        let backgroundWidth = (textWidth * 0.6) + Float(padding) / 20.0
+        let backgroundHeight = (textHeight * 0.6) + Float(padding) / 30.0
         
         // 둥근 모서리 사각형 생성
         let backgroundPlane = SCNPlane(width: CGFloat(backgroundWidth), height: CGFloat(backgroundHeight))
         backgroundPlane.cornerRadius = CGFloat(backgroundHeight / 2)
-        backgroundPlane.firstMaterial?.diffuse.contents = UIColor.black.withAlphaComponent(0.8)
+        backgroundPlane.firstMaterial?.diffuse.contents = UIColor.black.withAlphaComponent(0.4)
         backgroundPlane.firstMaterial?.isDoubleSided = true
         
         let backgroundNode = SCNNode(geometry: backgroundPlane)

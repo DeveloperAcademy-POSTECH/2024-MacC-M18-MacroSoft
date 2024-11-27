@@ -48,13 +48,13 @@ struct JoinCampfireView: View {
                     } else {
                         Analytics.logEvent("join_with_text", parameters: [:])
                     }
-                    viewModel.fetchCampfireInfo(campfirePin: Int(viewModel.campfirePin) ?? 0)
+                    viewModel.fetchCampfireInfo(campfirePin: viewModel.campfirePin)
 //                    viewModel.validateAndSendCredentials() // TODO: 서버 api 연결
 //                    saveCampfireToLocalStorage()
                 }) {
                     Text("완료")
                         .font(.custom("Pretendard-Regular", size: 18))
-                        .foregroundColor((!viewModel.campfireName.isEmpty || !viewModel.campfirePin.isEmpty) ? (!viewModel.showSuccess ? Color.mainColor1 : Color.clear) : Color.disable)
+                        .foregroundColor(viewModel.isCameraMode ? Color.clear : ((!viewModel.campfireName.isEmpty || !viewModel.campfirePin.isEmpty) ? (!viewModel.showSuccess ? Color.mainColor1 : Color.clear) : Color.disable))
                     
                     Spacer(minLength: 2)
                 }

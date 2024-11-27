@@ -219,9 +219,11 @@ private struct CampfireLogPileSectionRow: View {
                                         .background(.pagenationDisable)
                                         .padding(.init(top: -5, leading: 12, bottom: -7, trailing: 0))
                                 }
-                                CampfireLogPileLazyVGrid(log: log)
-                                    .background(.backgroundLogPile)
-                                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                                if log.imageNames.count > 3 {
+                                    CampfireLogPileLazyVGrid(log: log)
+                                        .background(.backgroundLogPile)
+                                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                                }
                             }
                             .padding(.bottom, log.logId.wrappedValue == dailyLogLast.logId ? 0 : 20)
                         }

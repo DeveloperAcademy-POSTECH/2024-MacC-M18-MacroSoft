@@ -21,18 +21,25 @@ struct JoinCampfireByCameraView: View {
                 .onDisappear {
                     viewModel.cameraViewModel.stopSession()
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                .clipped()
+                .ignoresSafeArea()
             
             if let image = viewModel.cameraViewModel.recentImage, viewModel.cameraViewModel.isCapturing == false {
                 Image(uiImage: image)
                     .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: .infinity,maxHeight: .infinity)
-                    .zIndex(-1) // 배경에 위치시키기 위해 zIndex 사용
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                    .zIndex(-1)
+                    .clipped()
+                    .ignoresSafeArea()
             }
             
             Image(!viewModel.showError ? "joincmapfirebycamera_captureguideline" : "joincmapfirebycamera_captureguideline_error")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                .clipped()
                 .ignoresSafeArea()
 
             HStack {
@@ -52,9 +59,6 @@ struct JoinCampfireByCameraView: View {
                     
                     Spacer()
                 }
-                .onAppear() {
-                    print("-------")
-                }
                 
                 Spacer()
             }
@@ -64,6 +68,22 @@ struct JoinCampfireByCameraView: View {
                 
                 Button(action: {
                     viewModel.cameraViewModel.isCapturing = true
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        if !viewModel.campfirePin.isEmpty {
+                            viewModel.fetchCampfireInfo(campfirePin: viewModel.campfirePin)
+                            viewModel.showSuccess = true
+                        } else {
+                            print("캠프파이어 PIN이 유효하지 않음: \(viewModel.campfirePin)")
+                            viewModel.showError = true
+                            
+                            // 1초 후 에러 상태 초기화 및 카메라 다시 작동
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                viewModel.cameraViewModel.startSessionIfNeeded() // 카메라 세션 재시작
+                                viewModel.showError = false // 에러 상태 초기화
+                            }
+                        }
+                    }
                 }, label: {
                     Image(systemName: "camera.fill")
                         .font(.system(size: 24))
@@ -74,6 +94,13 @@ struct JoinCampfireByCameraView: View {
                         }
                 })
                 .padding(.bottom, 140)
+                .onChange(of: viewModel.showSuccess) { _, newValue in
+                    if !newValue {
+                        viewModel.campfirePin = ""
+                        viewModel.campfireName = ""
+                        viewModel.cameraViewModel.startSessionIfNeeded()
+                    }
+                }
             }
         }
         .alert(isPresented: $viewModel.cameraViewModel.cameraPermissionAlert) {
