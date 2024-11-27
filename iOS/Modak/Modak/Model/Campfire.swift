@@ -13,7 +13,8 @@ class Campfire: Codable {
     @Attribute(.unique) var id: UUID = UUID()
     var name: String
     var pin: Int
-    var image: String? // TODO: PublicLogImage 모델로 교체, codable 준수.
+    var todayImage: TodayImage
+    var imageName: String?
     var membersNames: [String]
     var memberIds: [Int]
     
@@ -21,17 +22,19 @@ class Campfire: Codable {
         case id
         case name = "campfireName"
         case pin = "campfirePin"
-        case image // 현재 실제 DB값과 다르게 설정해놔서, 연결 안되어있음.
+        case todayImage
+        case imageName
         case membersNames
         case memberIds
     }
-
-    init(name: String, pin: Int, image: String? = "", membersNames: [String] = [], memberIds: [Int] = []) {
+    
+    init(name: String, pin: Int, todayImage: TodayImage, imageName: String?, membersNames: [String] = [], memberIds: [Int] = []) {
         self.name = name
         self.pin = pin
-        self.image = image
+        self.todayImage = todayImage
         self.membersNames = membersNames
         self.memberIds = memberIds
+        self.imageName = imageName
     }
     
     // Decodable
@@ -40,7 +43,8 @@ class Campfire: Codable {
         self.id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
         self.name = try container.decode(String.self, forKey: .name)
         self.pin = try container.decode(Int.self, forKey: .pin)
-        self.image = try container.decodeIfPresent(String.self, forKey: .image) ?? ""
+        self.todayImage = try container.decodeIfPresent(TodayImage.self, forKey: .todayImage) ?? .init(imageId: 0, name: "", emotions: [])
+        self.imageName = try container.decodeIfPresent(String.self, forKey: .imageName) ?? ""
         self.membersNames = try container.decodeIfPresent([String].self, forKey: .membersNames) ?? []
         self.memberIds = try container.decodeIfPresent([Int].self, forKey: .memberIds) ?? []
     }
@@ -51,7 +55,8 @@ class Campfire: Codable {
         try container.encode(id, forKey: .id)
         try container.encode(name, forKey: .name)
         try container.encode(pin, forKey: .pin)
-        try container.encodeIfPresent(image, forKey: .image)
+        try container.encode(todayImage, forKey: .id)
+        try container.encodeIfPresent(imageName, forKey: .imageName)
         try container.encode(membersNames, forKey: .membersNames)
     }
 }

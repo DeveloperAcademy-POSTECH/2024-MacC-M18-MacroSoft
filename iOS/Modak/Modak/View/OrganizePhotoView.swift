@@ -11,6 +11,7 @@ import SwiftData
 import Firebase
 
 struct OrganizePhotoView: View {
+    @EnvironmentObject private var logPileViewModel: LogPileViewModel
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = OrganizePhotoViewModel()
@@ -60,6 +61,7 @@ struct OrganizePhotoView: View {
                 Spacer(minLength: 0)
                 
                 Button(action: {
+                    logPileViewModel.fetchLogsWithGroupBy(modelContext: modelContext)
                     dismiss()
                 }) {
                     RoundedRectangle(cornerRadius: 73)

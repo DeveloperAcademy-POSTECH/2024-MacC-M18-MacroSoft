@@ -14,9 +14,11 @@ struct CampfireView: View {
     @Query var campfires: [Campfire]
     @Binding private(set) var isShowSideMenu: Bool
     
-    var body: some View { 
+    var body: some View {
+        // VStack {
+        //    if viewModel.myCampfireInfos.isEmpty {
         ZStack {
-            if viewModel.isEmptyCampfire && campfires.isEmpty {
+            if viewModel.myCampfireInfos.isEmpty && campfires.isEmpty {
                 EmptyCampfireView()
             } else {
                 SelectedCampfireView(isShowSideMenu: $isShowSideMenu)
@@ -24,13 +26,13 @@ struct CampfireView: View {
         }
         .onAppear {
             Task {
-                guard let memberIds = viewModel.campfire?.memberIds else { return }
+                guard let memberIds = viewModel.mainCampfireInfo?.memberIds else { return }
                 await avatarViewModel.fetchMemberAvatars(memberIds: memberIds)
             }
         }
-        .onChange(of: viewModel.campfire) { _, newValue in
+        .onChange(of: viewModel.mainCampfireInfo) { _, newValue in
             Task {
-                guard let memberIds = viewModel.campfire?.memberIds else { return }
+                guard let memberIds = viewModel.mainCampfireInfo?.memberIds else { return }
                 await avatarViewModel.fetchMemberAvatars(memberIds: memberIds)
             }
         }

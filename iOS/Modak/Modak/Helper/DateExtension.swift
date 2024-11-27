@@ -9,6 +9,12 @@ import Foundation
 
 extension Date {
     
+    var YYYYMMddFormat: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd"
+        return formatter.string(from: self)
+    }
+    
     var compareYYMMFormat: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy월 M월"

@@ -27,13 +27,14 @@ class JoinCampfireViewModel: ObservableObject {
     }
 
     // 유효성 검사 및 서버 통신을 관리
-    func validateAndSendCredentials() {
+    func validateAndSendCredentials(completion: @escaping () -> Void) {
         guard !campfireName.isEmpty, !campfirePin.isEmpty else {
             showError = true
             return
         }
 
         sendCampfireCredentialsToServer()
+        completion()
     }
     
     // 서버에 요청 전송
@@ -49,8 +50,9 @@ class JoinCampfireViewModel: ObservableObject {
                    let joinedCampfirePin = result["campfirePin"] as? Int {
                     
                     DispatchQueue.main.async {
+                        self.campfirePin = String(joinedCampfirePin)
                         self.recentVisitedCampfirePin = joinedCampfirePin
-                        self.fetchCampfireInfo(campfirePin: joinedCampfirePin)
+//                        self.fetchCampfireInfo(campfirePin: joinedCampfirePin)
                     }
                     print("Successfully joined campfire with PIN: \(joinedCampfirePin)")
                 } else {
@@ -111,7 +113,7 @@ class JoinCampfireViewModel: ObservableObject {
         }
     }
     
-    private func fetchCampfireInfo(campfirePin: Int) {
+    func fetchCampfireInfo(campfirePin: Int) {
         Task {
             do {
                 let data = try await NetworkManager.shared.requestRawData(router: .joinCampfireInfo(campfirePin: campfirePin))
@@ -123,20 +125,9 @@ class JoinCampfireViewModel: ObservableObject {
                         self.campfireName = result["campfireName"] as? String ?? ""
                         
                         if let createdAtString = result["createdAt"] as? String {
-                            // 옵셔널 언래핑 및 날짜 변환
-                            let dateFormatter = DateFormatter()
-                            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-                            dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-                            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
-
-                            if let createdAtDate = dateFormatter.date(from: createdAtString) {
-                                dateFormatter.dateFormat = "yyyy.MM.dd"
-                                self.createdAt = dateFormatter.string(from: createdAtDate)
-                            } else {
-                                self.createdAt = "2024.00.00"
-                            }
+                            self.createdAt = createdAtString.iso8601ToDate.YYYYMMddFormat
                         } else {
-                            self.createdAt = "2024.00.00"
+                            self.createdAt = Date().YYYYMMddFormat
                         }
                         
                         self.membersNames = result["membersNames"] as? [String] ?? []

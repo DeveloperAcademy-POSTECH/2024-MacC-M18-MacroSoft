@@ -10,25 +10,33 @@ import SceneKit
 
 struct ProfileView: View {
     @AppStorage("isSkipRegister") var isSkipRegister: Bool = false
-    @StateObject private var viewModel = ProfileViewModel()
+    @AppStorage("isInitialAvatarDataLoad") private var isInitialAvatarDataLoad: Bool = true
+    @EnvironmentObject private var profileViewModel: ProfileViewModel
     @State private var showAvatarCustomizingView = false
     @State private var showWebViewSheet = false
     @State private var webViewURL: URL? = nil
     
     var body: some View {
         VStack {
-            CustomSCNView(scene: viewModel.scene)
+            CustomSCNView(scene: profileViewModel.scene)
                 .onAppear {
-                    viewModel.setupScene()
-                    if let loadedItems = viewModel.loadSelectedItems() {
-                        viewModel.selectedItems = loadedItems
+                    if isInitialAvatarDataLoad {
+                        Task {
+                            await profileViewModel.fetchUserAvatar()
+                            isInitialAvatarDataLoad = false
+                        }
+                    } else {
+                        if let loadedItems = profileViewModel.loadSelectedItems() {
+                            profileViewModel.selectedItems = loadedItems
+                        }
+                        profileViewModel.setupScene()
                     }
                 }
                 .onChange(of: showAvatarCustomizingView) { _, newValue in
                     if !newValue {
-                        if let loadedItems = viewModel.loadSelectedItems() {
-                            viewModel.selectedItems = loadedItems
-                            viewModel.setupScene()
+                        if let loadedItems = profileViewModel.loadSelectedItems() {
+                            profileViewModel.selectedItems = loadedItems
+                            profileViewModel.setupScene()
                         }
                     }
                 }
@@ -65,7 +73,7 @@ struct ProfileView: View {
             .groupBoxStyle(ProfileGroupBox())
             
             ProfileItem(title: "로그아웃") {
-                viewModel.logout { success in
+                profileViewModel.logout { success in
                     if success {
                         isSkipRegister = false
                     }
@@ -75,7 +83,8 @@ struct ProfileView: View {
             
             Spacer()
         }
-        .environmentObject(viewModel)
+        // TODO: 제거해도 될듯?
+        .environmentObject(profileViewModel)
         .padding(.top, 18)
         .padding(.horizontal, 13)
         .background {
@@ -83,10 +92,10 @@ struct ProfileView: View {
                 .ignoresSafeArea()
         }
         .onAppear() {
-            viewModel.fetchNickname()
+            profileViewModel.fetchNickname()
         }
         .fullScreenCover(isPresented: $showAvatarCustomizingView) {
-            AvatarCustomizingView()
+            AvatarCustomizingView(viewModel: AvatarCustomizingViewModel(sharedItems: profileViewModel.selectedItems))
         }
         .sheet(isPresented: Binding(get: { webViewURL != nil && showWebViewSheet }, set: { _ in }), onDismiss: {
             showWebViewSheet = false

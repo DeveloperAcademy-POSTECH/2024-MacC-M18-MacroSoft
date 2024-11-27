@@ -21,7 +21,7 @@ struct CampfireMainAvatarView: View {
                 .frame(height: 480)
             
             LottieView(filename: "fireTest")
-                .frame(width: 500, height: 500)
+                .frame(width: UIScreen.main.bounds.width * 2.5)
                 .padding(.top, 160)
         }
     }

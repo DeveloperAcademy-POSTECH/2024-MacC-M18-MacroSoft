@@ -32,6 +32,8 @@ enum APIRouter: URLRequestConvertible {
     case updateCampfireLogs(campfirePin: Int, parameters: [String: Any])
     case getCampfireLogImages(campfirePin: Int, logId: Int)
     case getCampfireLogsMetadata(campfirePin: Int)
+    case updateTodayImageEmotion(campfirePin: Int, imageId: Int, parameters: [String: Any])
+    case getCampfireLogImageDetail(campfirePin: Int, imageId: Int)
     
     // Member API
     case getMembersNicknames
@@ -89,6 +91,10 @@ enum APIRouter: URLRequestConvertible {
             return "/api/campfires/\(campfirePin)/logs/\(logId)/images"
         case .getCampfireLogsMetadata(campfirePin: let campfirePin):
             return "/api/campfires/\(campfirePin)/logs/metadata"
+        case .updateTodayImageEmotion(let campfirePin, let imageId, _):
+            return "/api/campfires/\(campfirePin)/images/\(imageId)/emotions"
+        case .getCampfireLogImageDetail(let campfirePin, let imageId):
+            return "/api/campfires/\(campfirePin)/images/\(imageId)"
             
         // Member API
         case .getMembersNicknames:
@@ -110,12 +116,14 @@ enum APIRouter: URLRequestConvertible {
         switch self {
         case .createCampfire, .joinCampfire, .socialLogin, .refreshAccessToken, .logout, .updateCampfireLogs:
             return .POST
-        case .getCampfireName, .getCampfireMainInfo, .getMyCampfires, .getMembersNicknames, .getCampfireLogsPreview, .getCampfireLogImages, .getCampfireLogsMetadata, .joinCampfireInfo, .getPresignedURL, .getMembersNicknameAvatar:
+        case .getCampfireName, .getCampfireMainInfo, .getMyCampfires, .getMembersNicknames, .getCampfireLogsPreview, .getCampfireLogImages, .getCampfireLogsMetadata, .joinCampfireInfo, .getPresignedURL, .getCampfireLogImageDetail, .getMembersNicknameAvatar:
             return .GET
         case .updateCampfireName, .updateNickname, .updateAvatar:
             return .PATCH
         case .deleteCampfire, .leaveCampfire, .deactivate:
             return .DELETE
+        case .updateTodayImageEmotion:
+            return .PUT
         }
     }
 
@@ -150,7 +158,7 @@ enum APIRouter: URLRequestConvertible {
             return ["campfireName": campfireName]
         case .refreshAccessToken(let refreshToken):
             return ["refreshToken": refreshToken]
-        case .updateCampfireLogs(_, let parameters):
+        case .updateCampfireLogs(_, let parameters), .updateTodayImageEmotion(_, _, let parameters):
             return parameters
         default:
             return nil
@@ -213,6 +221,7 @@ enum HTTPMethod: String {
     case POST
     case PATCH
     case DELETE
+    case PUT
 }
 
 

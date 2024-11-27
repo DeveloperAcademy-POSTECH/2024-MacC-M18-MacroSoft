@@ -9,10 +9,15 @@ import SwiftUI
 import SceneKit
 
 struct AvatarCustomizingView: View {
-    @StateObject private var viewModel = AvatarCustomizingViewModel()
+    @StateObject private var viewModel: AvatarCustomizingViewModel
     @Environment(\.dismiss) private var dismiss
     private var categories: [String] = ItemData.sample.map { $0.category }
 
+    init(viewModel: AvatarCustomizingViewModel, categories: [String] = ItemData.sample.map { $0.category }) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+        self.categories = categories
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             ZStack(alignment: .trailing) {
@@ -81,11 +86,10 @@ struct AvatarCustomizingView: View {
                     Button(action: {
                         viewModel.selectCategory(category: category)
                     }) {
-                        Image(systemName: iconName(for: category))
+                        Image(iconName(for: category))
                             .resizable()
                             .scaledToFit()
                             .frame(width: 28, height: 28)
-                            .foregroundColor(viewModel.selectedCategory == category ? .white : .gray)
                             .padding(6)
                             .background {
                                 RoundedRectangle(cornerRadius: 10)
@@ -101,11 +105,11 @@ struct AvatarCustomizingView: View {
     private func iconName(for category: String) -> String {
         switch category {
         case "Top":
-            return viewModel.selectedCategory == "Top" ? "tshirt.fill" : "tshirt"
+            return viewModel.selectedCategory == "Top" ? "icon_top_fill" : "icon_top"
         case "Hat":
-            return viewModel.selectedCategory == "Hat" ? "hat.widebrim.fill" : "hat.widebrim"
+            return viewModel.selectedCategory == "Hat" ? "icon_hat_fill" : "icon_hat"
         case "Face":
-            return viewModel.selectedCategory == "Face" ? "sunglasses.fill" : "sunglasses"
+            return viewModel.selectedCategory == "Face" ? "icon_face_fill" : "icon_face"
         default:
             return "questionmark"
         }
@@ -143,5 +147,8 @@ struct AvatarCustomizingView: View {
 }
 
 #Preview {
-    AvatarCustomizingView()
+    let previewViewModel = AvatarCustomizingViewModel(
+        sharedItems: AvatarItem(hatType: 1, faceType: 2, topType: 3) // 테스트 데이터를 넣습니다.
+    )
+    AvatarCustomizingView(viewModel: previewViewModel)
 }

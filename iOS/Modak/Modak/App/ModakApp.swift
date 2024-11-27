@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+import Kingfisher
 
 @main
 struct ModakApp: App {
@@ -14,8 +15,12 @@ struct ModakApp: App {
     = LogPileViewModel()
     @StateObject private var selectMergeLogsViewModel: SelectMergeLogsViewModel = SelectMergeLogsViewModel()
     @StateObject private var avatarViewModel: AvatarViewModel = AvatarViewModel()
-    
+
     init() {
+        // Kingfisher 만료 설정
+        let cache = ImageCache.default
+        cache.diskStorage.config.expiration = .never
+        
         FirebaseApp.configure()
         Analytics.setAnalyticsCollectionEnabled(true)
         Analytics.logEvent(AnalyticsEventAppOpen, parameters: nil)

@@ -12,8 +12,6 @@ struct CampfireEmptyLog: View {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
     @EnvironmentObject private var campfireViewModel: CampfireViewModel
     
-    private(set) var campfireName: String
-    
     var body: some View {
         VStack {
             Spacer()
@@ -23,7 +21,7 @@ struct CampfireEmptyLog: View {
                 .font(Font.custom("Pretendard-Bold", size: 20))
                 .padding(.bottom, 8)
             
-            Text("\(campfireName) 모닥불에 추억 장작을 넣어\n오늘의 사진을 확인해보세요")
+            Text("\(campfireViewModel.mainCampfireInfo?.campfireName ?? "") 모닥불에 추억 장작을 넣어\n오늘의 사진을 확인해보세요")
                 .foregroundStyle(.textColorGray2)
                 .font(Font.custom("Pretendard-Regular", size: 16))
                 .padding(.bottom, 22)
@@ -31,9 +29,7 @@ struct CampfireEmptyLog: View {
                 .multilineTextAlignment(.center)
             
             NavigationLink {
-                if let _ = campfireViewModel.campfire?.pin {
-                    SelectMergeLogsView()
-                }
+                SelectMergeLogsView()
             } label: {
                 HStack(spacing: 8) {
                     Spacer()
@@ -59,6 +55,8 @@ struct CampfireEmptyLog: View {
             .simultaneousGesture(TapGesture().onEnded {
                 if !networkMonitor.isConnected {
                     campfireViewModel.showTemporaryNetworkAlert()
+                } else if logPileViewModel.yearlyLogs.isEmpty {
+                    campfireViewModel.showEmptyLogPileAlert()
                 }
             })
             

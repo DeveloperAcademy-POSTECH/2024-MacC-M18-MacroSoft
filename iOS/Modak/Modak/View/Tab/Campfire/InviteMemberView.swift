@@ -38,7 +38,7 @@ struct InviteMemberView: View {
                                 .fill(Color.init(hex: "C28C7B").opacity(0.25))
                                 .frame(height: 30)
                                 .overlay {
-                                    Text("\(viewModel.campfire!.name)")
+                                    Text("\(viewModel.mainCampfireInfo!.campfireName)")
                                         .foregroundStyle(Color.white)
                                         .font(.custom("Pretendard-Bold", size: 18))
                                         .kerning(18 * 0.01)
@@ -49,7 +49,7 @@ struct InviteMemberView: View {
                                 .font(.custom("Pretendard-Bold", size: 16))
                                 .kerning(16 * 0.01)
                         }
-                        .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: (viewModel.campfire!.name.count < 5 ? 214 : 84)))
+                        .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: (viewModel.mainCampfireInfo!.campfireName.count < 5 ? 214 : 84)))
                         
                         HStack {
                             RoundedRectangle(cornerRadius: 4)
@@ -112,7 +112,7 @@ struct InviteMemberView: View {
     }
     
     private func formattedPin() -> String {
-        let pinString = String(viewModel.campfire!.pin)
+        let pinString = String(viewModel.mainCampfireInfo!.campfirePin)
         let formatted = pinString.prefix(3) + "." + pinString.suffix(3)
         return String(formatted)
     }
