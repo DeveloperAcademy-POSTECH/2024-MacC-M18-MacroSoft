@@ -86,11 +86,10 @@ struct AvatarCustomizingView: View {
                     Button(action: {
                         viewModel.selectCategory(category: category)
                     }) {
-                        Image(systemName: iconName(for: category))
+                        Image(iconName(for: category))
                             .resizable()
                             .scaledToFit()
                             .frame(width: 28, height: 28)
-                            .foregroundColor(viewModel.selectedCategory == category ? .white : .gray)
                             .padding(6)
                             .background {
                                 RoundedRectangle(cornerRadius: 10)
@@ -106,11 +105,11 @@ struct AvatarCustomizingView: View {
     private func iconName(for category: String) -> String {
         switch category {
         case "Top":
-            return viewModel.selectedCategory == "Top" ? "tshirt.fill" : "tshirt"
+            return viewModel.selectedCategory == "Top" ? "icon_top_fill" : "icon_top"
         case "Hat":
-            return viewModel.selectedCategory == "Hat" ? "hat.widebrim.fill" : "hat.widebrim"
+            return viewModel.selectedCategory == "Hat" ? "icon_hat_fill" : "icon_hat"
         case "Face":
-            return viewModel.selectedCategory == "Face" ? "sunglasses.fill" : "sunglasses"
+            return viewModel.selectedCategory == "Face" ? "icon_face_fill" : "icon_face"
         default:
             return "questionmark"
         }
