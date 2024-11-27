@@ -127,12 +127,19 @@ private struct CampfireViewNextButton: View {
     
     var body: some View {
         Button {
-            // TODO: API 통신 추가
             if isCreate {
-                viewModel.createCampfire(campfireName: campfireName) {
-                    saveCampfireToLocalStorage()
+                Task {
+                    await viewModel.testCreateCampfire(newCampfireName: campfireName)
+                    dismiss()
                 }
-                dismiss()
+//                viewModel.createCampfire(campfireName: campfireName) {
+//                    saveCampfireToLocalStorage()
+//                }
+            } else {
+                Task {
+                    await viewModel.updateCampfireName(newName: campfireName)
+                    dismiss()
+                }
             }
         } label: {
             HStack {
@@ -154,7 +161,7 @@ private struct CampfireViewNextButton: View {
     }
     
     private func saveCampfireToLocalStorage() {
-        let newCampfire = Campfire(name: campfireName, pin: viewModel.recentVisitedCampfirePin)
+        let newCampfire = Campfire(name: campfireName, pin: viewModel.recentVisitedCampfirePin, todayImage: viewModel.currentCampfire?.todayImage ?? TodayImage(imageId: 0, name: "", emotions: []), imageName: "")
         modelContext.insert(newCampfire)
         do {
             try modelContext.save()

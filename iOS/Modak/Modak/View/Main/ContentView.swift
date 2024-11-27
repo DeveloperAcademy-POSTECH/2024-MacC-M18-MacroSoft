@@ -11,7 +11,9 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var networkMonitor = NetworkMonitor() // 네트워크 모니터링 객체
-    @StateObject private var viewModel = CampfireViewModel()
+    @StateObject private var campfireViewModel = CampfireViewModel()
+    @StateObject private var profileViewModel: ProfileViewModel = ProfileViewModel()
+    
     @State private var tabSelection: Int = 0
     @State private var isShowSideMenu: Bool = false
     
@@ -101,17 +103,49 @@ struct ContentView: View {
                 }
             }
         }
-        .environmentObject(viewModel)
+        .onAppear {
+            profileViewModel.fetchNickname()
+            Task {
+                await campfireViewModel.testFetchCampfireInfos()
+                await campfireViewModel.testFetchMainCampfireInfo()
+                if let todayImage = campfireViewModel.mainCampfireInfo?.todayImage {
+                    campfireViewModel.mainTodayImage = await campfireViewModel.fetchTodayImage(imageURLName: todayImage.name)
+                }
+            }
+        }
+        .environmentObject(campfireViewModel)
         .environmentObject(networkMonitor)
+        .environmentObject(profileViewModel)
         .overlay(
             VStack {
-                if viewModel.showNetworkAlert {
+                if campfireViewModel.showNetworkAlert {
                     NetworkMonitorAlert()
                 }
                 Spacer()
             }
             .padding(.top, 50)
         )
+        .overlay {
+            if campfireViewModel.showEmptyLogAlert {
+                VStack(spacing: 10) {
+                    Spacer()
+                    HStack {
+                        Image(systemName: "exclamationmark.circle")
+                        Text("개인 장작을 먼저 채워주세요!")
+                    }
+                    .padding(EdgeInsets(top: 8, leading: 20, bottom: 8, trailing: 20))
+                    .background(Color.errorRed)
+                    .foregroundColor(Color.white)
+                    .cornerRadius(14)
+                    
+                    Text("*개인 장작은 장작 창고 탭에서 채울 수 있어요.")
+                        .foregroundColor(Color.white.opacity(0.5))
+                }
+                .font(Font.custom("Pretendard-Regular", size: 14))
+                .padding(.bottom, 170)
+                .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
+        }
     }
 }
 

@@ -13,33 +13,29 @@ struct SelectedCampfireView: View {
     @EnvironmentObject private var viewModel: CampfireViewModel
     @Environment(\.modelContext) private var modelContext
     @Query var campfiresLocalData: [Campfire]
-    // TODO: 참여한 모닥불의 로그가 없는지 체크하는 로직 추가
-    @State private var isEmptyCampfireLog: Bool = true
     @Binding private(set) var isShowSideMenu: Bool
     @AppStorage("isInitialDataLoad") private var isInitialDataLoad: Bool = true
     
     var body: some View {
-        if !isEmptyCampfireLog {
+        if viewModel.mainTodayImage != nil {
             CampfireMainAvatarView()
                 .padding(.bottom, -210)
         }
         VStack {
-            // 네트워크가 연결되지 않은 경우 로컬 데이터를 사용
-            // TODO: 참여한 캠프파이어가 없을 경우에 모닥불 참여를 눌렀을 때, 언래핑 오류가 떠서 수정하긴 했으나 확인 필요
-            if let viewModelCampfire = viewModel.campfire, let campfire = (networkMonitor.isConnected ? viewModelCampfire : campfiresLocalData.first(where: { $0.pin == viewModel.recentVisitedCampfirePin })) {
-                CampfireViewTopButton(isShowSideMenu: $isShowSideMenu, campfireName: campfire.name)
+            // TODO: 네트워크가 연결되지 않은 경우 로컬 데이터를 사용
+            if viewModel.mainCampfireInfo != nil {
+                CampfireViewTopButton(isShowSideMenu: $isShowSideMenu)
                 
-                // TODO: 참여한 모닥불의 로그가 없는지 체크하는 로직 추가
-                if isEmptyCampfireLog {
-                    CampfireEmptyLog(campfireName: campfire.name)
+                if viewModel.mainTodayImage == nil {
+                    CampfireEmptyLog()
                     
                     Spacer()
                 } else {
-                    CampfireViewTodayPhoto(image: "photosIcon")
+                    CampfireViewTodayPhoto()
                     
                     Spacer()
                     
-                    ExpandableEmoji(emojiList: ["laugh", "embarrassed", "panic", "cry", "heart", "death"])
+                    ExpandableEmoji(emojiList: ["😀", "😅", "😱", "😭", "❤️", "☠️"])
                         .padding(.trailing, 24)
                         .padding(.bottom)
                 }
@@ -79,14 +75,57 @@ struct SelectedCampfireView: View {
                 }
             }
         }
+//        .onAppear {
+//            if isInitialDataLoad {
+//                fetchAndSaveCampfireToLocalStorage()
+//            } else {
+//                viewModel.fetchCampfireMainInfo()
+//            }
+//        }
+//        .onChange(of: isShowSideMenu) {
+            
+//            viewModel.fetchUserCampfireInfos { _ in
+//                Task {
+//                    if let imageURLName = viewModel.currentCampfire?.imageName, let uiImage = await viewModel.fetchTodayImage(imageURLName: imageURLName) {
+//                        mainTodayUIImage = uiImage
+//                    }
+//                }
+//            }
+//        }
+//        .onAppear {
+//            Task {
+//                if let imageURLName = viewModel.currentCampfire?.imageName, let uiImage = await viewModel.fetchTodayImage(imageURLName: imageURLName) {
+//                    mainTodayUIImage = uiImage
+//                }
+//            }
+//        }
     }
+
+//    private func fetchAndSaveCampfireToLocalStorage() {
+//        viewModel.fetchUserCampfireInfos { campfires in
+//            if let campfires = campfires {
+//                for campfire in campfires {
+//                    self.modelContext.insert(campfire)
+//                }
+//                viewModel.recentVisitedCampfirePin = campfires.first!.pin
+//                self.isInitialDataLoad = false
+//                do {
+//                    try modelContext.save()
+//                    print("Campfire 데이터 - 로컬 데이터베이스 저장")
+//                } catch {
+//                    print("Error saving Campfire data: \(error)")
+//                }
+//            }
+//        }
+//    }
 }
 
 // MARK: - CampfireViewTopButton
 
 private struct CampfireViewTopButton: View {
+    @EnvironmentObject private var campfireViewModel: CampfireViewModel
+    
     @Binding private(set) var isShowSideMenu: Bool
-    var campfireName: String
     
     var body: some View {
         HStack(spacing: 0) {
@@ -96,13 +135,19 @@ private struct CampfireViewTopButton: View {
                 }
             } label: {
                 HStack(spacing: 8) {
-                    // TODO: 모닥불 이미지 적용하는 로직 추가
-                    Image(.leaf3D)
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                    if let image = campfireViewModel.mainTodayImage {
+                        Image(uiImage: image)
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    } else {
+                        Image(.photosIcon)
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
                     
-                    Text(campfireName)
+                    Text(campfireViewModel.mainCampfireInfo?.campfireName ?? "")
                         .multilineTextAlignment(.leading)
                         .lineLimit(1)
                         .foregroundStyle(.textColor1)
@@ -117,7 +162,6 @@ private struct CampfireViewTopButton: View {
             Spacer(minLength: 16)
             
             NavigationLink {
-                // TODO: 해당 모닥불의 장작 창고로 이동하는 로직 추가
                 CampfireLogPileView()
             } label: {
                 RoundedRectangle(cornerRadius: 14)
@@ -132,6 +176,11 @@ private struct CampfireViewTopButton: View {
             }
             .padding(.trailing)
             .padding(.top, 6)
+            .simultaneousGesture(TapGesture().onEnded({
+                Task {
+                    await campfireViewModel.testFetchCampfireLogsPreview()
+                }
+            }))
         }
         .padding(.bottom)
     }
@@ -140,28 +189,29 @@ private struct CampfireViewTopButton: View {
 // MARK: - CampfireViewTodayPhoto
 
 private struct CampfireViewTodayPhoto: View {
+    @EnvironmentObject private var campfireViewModel: CampfireViewModel
+    
     @State private var randomRotation: Bool = Bool.random()
     @State private var isTodayPhotoFullSheet: Bool = false
-    var image: String = "photosIcon"
-    
-    // TODO: 오늘의 사진 높이가 320 넘는지 판별하는 로직 추가하기
-    private var isTodayPhotoHeightOver320: Bool = false
-    
-    init(image: String) {
-        self.image = image
-    }
     
     var body: some View {
         VStack(spacing: 8) {
             Button {
                 isTodayPhotoFullSheet = true
             } label: {
-                // TODO: 오늘의 이미지 넣는 로직 추가
-                Image(image)
-                    .resizable()
-                    .scaledToFit()
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
-                    .padding(.init(top: 8, leading: 8, bottom: 0, trailing: 8))
+                if let todayImage = campfireViewModel.mainTodayImage {
+                    Image(uiImage: todayImage)
+                        .resizable()
+                        .scaledToFit()
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                        .padding(.init(top: 8, leading: 8, bottom: 0, trailing: 8))
+                } else {
+                    Image(.photosIcon)
+                        .resizable()
+                        .scaledToFit()
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                        .padding(.init(top: 8, leading: 8, bottom: 0, trailing: 8))
+                }
             }
             
             Text("오늘의 사진")
@@ -175,12 +225,10 @@ private struct CampfireViewTodayPhoto: View {
                 .stroke(Color.init(hex: "6E615F").opacity(0.32), lineWidth: 1)
         }
         .shadow(color: .black.opacity(0.25), radius: 9.09486, x: 0, y: 4.54743)
-        // TODO: 오늘의 사진 높이가 320 넘는지 판별하는 로직 추가하기
-        .frame(width: 320, height: isTodayPhotoHeightOver320 ? 320 : .infinity)
+        .frame(width: 320, height: min(campfireViewModel.mainTodayImage?.size.height ?? 320, 320))
         .rotationEffect(.degrees(randomRotation ? 2 : -2))
         .fullScreenCover(isPresented: $isTodayPhotoFullSheet) {
-            // TODO: 선택한 이미지가 보이도록 로직 추가
-            ExpandedPhoto(photo: .progressDefault)
+            ExpandedPhoto()
                 .presentationBackground(Color.black.opacity(0.8))
         }
     }
