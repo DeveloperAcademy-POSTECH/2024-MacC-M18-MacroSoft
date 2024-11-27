@@ -111,6 +111,13 @@ private struct SelectCampfiresViewCampfireButton: View {
 //                    viewModel.updateRecentVisitedCampfirePin(to: campfireInfo.campfirePin)
 //                    viewModel.currentCampfire = campfire
 //                    print("Updated recentVisitedCampfirePin to: \(viewModel.recentVisitedCampfirePin)")
+                    Task {
+                        await viewModel.testFetchCampfireInfos()
+                        await viewModel.testFetchMainCampfireInfo()
+                        if let todayImage = viewModel.mainCampfireInfo?.todayImage {
+                            viewModel.mainTodayImage = await viewModel.fetchTodayImage(imageURLName: todayImage.name)
+                        }
+                    }
                     withAnimation {
                         isShowSideMenu = false
                     }
