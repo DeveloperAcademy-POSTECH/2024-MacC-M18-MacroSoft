@@ -70,5 +70,12 @@ struct ExpandableEmoji: View {
                 isShowEmojiPicker = true
             }
         }
+        .onChange(of: campfireViewModel.mainCampfireInfo) {
+            if let currentCampfire = campfireViewModel.mainCampfireInfo, currentCampfire.todayImage.emotions.first(where: {$0.memberNickname == profileViewModel.originalNickname }) != nil {
+                isShowEmojiPicker = false
+            } else {
+                isShowEmojiPicker = true
+            }
+        }
     }
 }
