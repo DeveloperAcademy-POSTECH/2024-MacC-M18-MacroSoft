@@ -69,7 +69,7 @@ struct InviteMemberView: View {
                                 .font(.custom("Pretendard-Bold", size: 16))
                                 .kerning(16 * 0.01)
                         }
-                        .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: 176))
+                        .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: UIScreen.main.bounds.width/3))
                     }
                     .padding(.top, -90)
                 }
