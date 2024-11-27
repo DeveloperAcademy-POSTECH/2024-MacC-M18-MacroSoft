@@ -63,11 +63,12 @@ struct JoinCampfireByTextView: View {
                                         .transition(.opacity)
                                         .animation(.easeOut, value: viewModel.campfireName.count)
                                 }
-                                .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: (viewModel.campfireName.count < 5 ? 214 : 84)))
+                                .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: (viewModel.campfireName.count < 5 ? UIScreen.main.bounds.width/2 : 84)))
                                 
                                 HStack {
                                     TextField("", text: $viewModel.campfirePin)
                                         .customTextFieldStyle(placeholder: "km", text: $viewModel.campfirePin, alignment: .trailing)
+                                        .keyboardType(.decimalPad)
                                         .animation(.easeOut, value: viewModel.campfirePin.count)
                                         .onChange(of: viewModel.campfirePin) { _, newValue in
                                             let filtered = newValue.filter { $0.isNumber || $0 == "." }
@@ -86,7 +87,7 @@ struct JoinCampfireByTextView: View {
                                         .transition(.opacity)
                                         .animation(.easeOut, value: viewModel.campfirePin.count)
                                 }
-                                .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: (viewModel.campfirePin.count < 6 ? 196 : 176)))
+                                .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: (viewModel.campfirePin.count < 4 ? UIScreen.main.bounds.width/2 : UIScreen.main.bounds.width/3)))
                             }
                             .padding(.top, -90)
                         }

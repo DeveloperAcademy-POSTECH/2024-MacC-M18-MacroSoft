@@ -28,4 +28,9 @@ extension Array where Element == MergeableLogPile {
     func hasSelectedMergeableLogInLogPiles() -> Bool {
         return self.contains { $0.hasSelectedMergeableLogInLogPile() }
     }
+    func countSelectedMergeableLogInLogPiles() -> Int {
+        return self.reduce(0) { count, logPile in
+            count + logPile.mergeableLogs.filter { $0.isSelectedLog }.count
+        }
+    }
 }

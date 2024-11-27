@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import FirebaseAnalytics
 
 struct SelectMergeLogsView: View {
     @EnvironmentObject private var campfireViewModel: CampfireViewModel
@@ -236,6 +237,7 @@ private struct SelectMergeLogsButton: View {
                             }
                             dismiss()
                         }
+                        Analytics.logEvent("merge_log_pushed", parameters: ["mergedLogCount": selectMergeLogsViewModel.mergeableLogPiles.countSelectedMergeableLogInLogPiles()])
                     } label: {
                         
                         Text("장작 던져넣기")

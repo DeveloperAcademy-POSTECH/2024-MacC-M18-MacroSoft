@@ -15,6 +15,7 @@ struct ModakApp: App {
     = LogPileViewModel()
     @StateObject private var selectMergeLogsViewModel: SelectMergeLogsViewModel = SelectMergeLogsViewModel()
     @StateObject private var avatarViewModel: AvatarViewModel = AvatarViewModel()
+
     init() {
         // Kingfisher 만료 설정
         let cache = ImageCache.default

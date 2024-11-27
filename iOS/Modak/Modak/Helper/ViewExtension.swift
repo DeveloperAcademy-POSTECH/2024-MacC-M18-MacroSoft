@@ -9,11 +9,15 @@ import SwiftUI
 
 extension View {
     // 화면 터치 시, 키보드 내려가게 하는 뷰 모디파이어
-    func tapDismissesKeyboard() -> some View {
+    func onTapDismissKeyboard() -> some View {
         self.onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
     }
+    // 키보드 내려가게 하는 메서드
+    func dismissKeyboard() {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
     
     // SwiftUI View를 UIImage로 변환
     func asUIImage(size: CGSize) -> UIImage? {

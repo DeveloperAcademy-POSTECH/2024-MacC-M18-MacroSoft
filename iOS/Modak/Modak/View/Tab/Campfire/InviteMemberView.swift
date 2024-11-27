@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAnalytics
 
 struct InviteMemberView: View {
     @EnvironmentObject private var viewModel: CampfireViewModel
@@ -68,7 +69,7 @@ struct InviteMemberView: View {
                                 .font(.custom("Pretendard-Bold", size: 16))
                                 .kerning(16 * 0.01)
                         }
-                        .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: 176))
+                        .padding(EdgeInsets(top: 0, leading: 38, bottom: 0, trailing: UIScreen.main.bounds.width/3))
                     }
                     .padding(.top, -90)
                 }
@@ -108,6 +109,11 @@ struct InviteMemberView: View {
                         .colorMultiply(Color.textColorGray1)
                 }
             }
+        }
+        .onAppear{
+            Analytics.logEvent(AnalyticsEventScreenView,
+                parameters: [AnalyticsParameterScreenName: "InviteMemberView",
+                AnalyticsParameterScreenClass: "InviteMemberView"])
         }
     }
     
