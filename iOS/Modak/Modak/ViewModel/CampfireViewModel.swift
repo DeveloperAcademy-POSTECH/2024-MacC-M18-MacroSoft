@@ -25,7 +25,7 @@ class CampfireViewModel: ObservableObject {
     @Published var showNetworkAlert: Bool = false
     @Published var showEmptyLogAlert: Bool = false
     @Published var currentCampfirePin: Int = 0
-    @Published var mainTodayImage: UIImage?
+    @Published var mainTodayImageURL: URL?
     @Published var currentCampfireYearlyLogs: [(MonthlyLogsOverview)] = []
     @Published var currentCampfireLogImages: [CampfireLogImage] = []
     @Published var currentCampfireLogImageDetail: CampfireLogImageDetailResult?
@@ -64,7 +64,6 @@ class CampfireViewModel: ObservableObject {
                 let result = try JSONDecoder().decode(ResponseModel<MainCampfireInfo>.self, from: response).result
                 DispatchQueue.main.async {
                     self.mainCampfireInfo = result
-                    
                 }
             } else {
                 print("testfetchCampfireMainInfo currentCampfirePin == 0")
@@ -90,7 +89,7 @@ class CampfireViewModel: ObservableObject {
                 await testFetchCampfireInfos()
                 await testFetchMainCampfireInfo()
                 DispatchQueue.main.async {
-                    self.mainTodayImage = nil
+                    self.mainTodayImageURL = nil
                 }
             }
         } catch {
@@ -311,17 +310,21 @@ class CampfireViewModel: ObservableObject {
         fetchCampfireMainInfo()  // 새로운 pin에 맞는 캠프파이어 정보 가져오기
     }
     
-    func getWebpImageDataURL(imageURLName: String) async -> URL? {
-        do {
-            let baseURL = Bundle.main.environmentVariable(forKey: "ImageURL")
-            let totalURL = baseURL! + "/" + imageURLName
-            if let url = URL(string: totalURL) {
-                return url
-            } else {
-                throw NetworkError.invalidURL
+    func getWebpImageDataURL(imageURLName: String?) -> URL? {
+        if let urlString = imageURLName, urlString != "" {
+            do {
+                let baseURL = Bundle.main.environmentVariable(forKey: "ImageURL")
+                let totalURL = baseURL! + "/" + urlString
+                if let url = URL(string: totalURL) {
+                    return url
+                } else {
+                    throw NetworkError.invalidURL
+                }
+            } catch {
+                print("getWebpImageDataURL Error: \(error)")
+                return nil
             }
-        } catch {
-            print("getWebpImageDataURL Error: \(error)")
+        } else {
             return nil
         }
     }
@@ -352,13 +355,26 @@ class CampfireViewModel: ObservableObject {
         }
     }
     
-    func fetchTodayImage(imageURLName: String) async -> UIImage? {
-        if imageURLName != ""  {
-            let webpImageData = await getWebpImageData(imageURLName: imageURLName)
-            return convertWebpDataToUIImage(webpData: webpImageData)
-        } else {
-            print("fetchTodayImage imageURLName is empty")
-            return nil
+    func fetchTodayImageURL() async {
+        do {
+            if let todayImageName = self.mainCampfireInfo?.todayImage.name, todayImageName != "" {
+                let baseURL = Bundle.main.environmentVariable(forKey: "ImageURL")
+                let totalURL = baseURL! + "/" + todayImageName
+                if let url = URL(string: totalURL) {
+                    DispatchQueue.main.async {
+                        self.mainTodayImageURL = url
+                    }
+                } else {
+                    throw NetworkError.invalidURL
+                }
+            } else {
+                throw NetworkError.invalidURL
+            }
+        } catch {
+            print("fetchTodayImageURL Error: \(error)")
+            DispatchQueue.main.async {
+                self.mainTodayImageURL = nil
+            }
         }
     }
     

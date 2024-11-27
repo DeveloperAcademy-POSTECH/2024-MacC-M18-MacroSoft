@@ -38,9 +38,7 @@ struct CampfireLogDrawPhoto: View {
                 Color.gray
                     .frame(width: geometry.size.width, height: geometry.size.width)
                     .onAppear {
-                        Task {
-                            imageURL = await viewModel.getWebpImageDataURL(imageURLName: imageName)
-                        }
+                        imageURL = viewModel.getWebpImageDataURL(imageURLName: imageName)
                     }
             }
         }
