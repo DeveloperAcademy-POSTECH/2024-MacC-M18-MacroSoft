@@ -46,7 +46,7 @@ struct EditNicknameView: View {
                 BackButton()
             }
         }
-        .tapDismissesKeyboard()
+        .onTapDismissKeyboard()
         .onAppear {
             viewModel.fetchNickname()
             editedNickname = viewModel.originalNickname

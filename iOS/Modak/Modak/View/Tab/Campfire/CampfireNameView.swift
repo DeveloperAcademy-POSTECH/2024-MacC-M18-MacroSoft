@@ -37,7 +37,7 @@ struct CampfireNameView: View {
                 BackButton()
             }
         }
-        .tapDismissesKeyboard()
+        .onTapDismissKeyboard()
         .onAppear{
             if isCreate {
                 Analytics.logEvent(AnalyticsEventScreenView,

@@ -33,7 +33,7 @@ struct JoinCampfireView: View {
             }
             
         }
-        .tapDismissesKeyboard()
+        .onTapDismissKeyboard()
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
@@ -42,7 +42,7 @@ struct JoinCampfireView: View {
             
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
-                    viewModel.showSuccess = true //테스트 전용
+                    dismissKeyboard()
                     if viewModel.isCameraMode {
                         Analytics.logEvent("join_with_camera", parameters: [:])
                     } else {
