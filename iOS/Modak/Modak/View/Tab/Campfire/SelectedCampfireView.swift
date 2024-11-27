@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import FirebaseAnalytics
+import Kingfisher
 
 struct SelectedCampfireView: View {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
@@ -136,8 +137,8 @@ private struct CampfireViewTopButton: View {
                 }
             } label: {
                 HStack(spacing: 8) {
-                    if let image = campfireViewModel.mainTodayImage {
-                        Image(uiImage: image)
+                    if let todayImageURL = campfireViewModel.mainTodayImageURL {
+                        KFImage(todayImageURL)
                             .resizable()
                             .frame(width: 40, height: 40)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -201,8 +202,11 @@ private struct CampfireViewTodayPhoto: View {
                 isTodayPhotoFullSheet = true
                 Analytics.logEvent("Image_tapped", parameters: [:])
             } label: {
-                if let todayImage = campfireViewModel.mainTodayImage {
-                    Image(uiImage: todayImage)
+                if let todayImageURL = campfireViewModel.mainTodayImageURL {
+                    KFImage.url(todayImageURL)
+                        .onSuccess { result in
+                            self.todayImageHeight = result.image.size.height
+                        }
                         .resizable()
                         .scaledToFit()
                         .clipShape(RoundedRectangle(cornerRadius: 14))
