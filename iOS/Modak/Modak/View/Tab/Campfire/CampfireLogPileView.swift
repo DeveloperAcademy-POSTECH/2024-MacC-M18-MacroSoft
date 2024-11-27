@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAnalytics
 
 struct CampfireLogPileView: View {
     @EnvironmentObject private var logPileViewModel: LogPileViewModel
@@ -86,6 +87,11 @@ struct CampfireLogPileView: View {
             ToolbarItem(placement: .topBarLeading) {
                 BackButton()
             }
+        }
+        .onAppear{
+            Analytics.logEvent(AnalyticsEventScreenView,
+                parameters: [AnalyticsParameterScreenName: "CampfireLogPileView",
+                AnalyticsParameterScreenClass: "CampfireLogPileView"])
         }
     }
 }

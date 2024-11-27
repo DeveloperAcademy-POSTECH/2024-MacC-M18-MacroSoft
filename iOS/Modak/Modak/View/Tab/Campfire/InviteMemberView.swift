@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAnalytics
 
 struct InviteMemberView: View {
     @EnvironmentObject private var viewModel: CampfireViewModel
@@ -108,6 +109,11 @@ struct InviteMemberView: View {
                         .colorMultiply(Color.textColorGray1)
                 }
             }
+        }
+        .onAppear{
+            Analytics.logEvent(AnalyticsEventScreenView,
+                parameters: [AnalyticsParameterScreenName: "InviteMemberView",
+                AnalyticsParameterScreenClass: "InviteMemberView"])
         }
     }
     

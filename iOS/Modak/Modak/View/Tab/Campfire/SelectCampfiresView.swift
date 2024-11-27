@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import FirebaseAnalytics
 
 struct SelectCampfiresView: View {
     @EnvironmentObject private var viewModel: CampfireViewModel
@@ -174,6 +175,7 @@ private struct SelectCampfiresViewCampfireButton: View {
                             viewModel.mainTodayImage = await viewModel.fetchTodayImage(imageURLName: todayImage.name)
                         }
                     }
+                    Analytics.logEvent("campfire_change_tapped", parameters: ["changedCampfire": campfireInfo.campfireName])
 //                    viewModel.updateRecentVisitedCampfirePin(to: campfireInfo.campfirePin)
 //                    print("Updated recentVisitedCampfirePin to: \(viewModel.recentVisitedCampfirePin)")
 

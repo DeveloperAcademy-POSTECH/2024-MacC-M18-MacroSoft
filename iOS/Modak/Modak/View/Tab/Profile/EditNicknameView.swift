@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAnalytics
 
 struct EditNicknameView: View {
     @EnvironmentObject var viewModel: ProfileViewModel
@@ -123,6 +124,7 @@ private struct EditNicknameViewNextButton: View {
     
     var body: some View {
         Button {
+            Analytics.logEvent("change_nickname", parameters: [:])
             viewModel.saveNickname(newNickname: editedNickname) {
                 dismiss()
             }
