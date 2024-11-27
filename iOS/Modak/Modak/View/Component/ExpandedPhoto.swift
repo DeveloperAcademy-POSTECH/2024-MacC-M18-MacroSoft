@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct ExpandedPhoto: View {
+    @EnvironmentObject private var campfireViewModel: CampfireViewModel
     @Environment(\.dismiss) private var dismiss
-    
-    private(set) var photo: ImageResource
     
     var body: some View {
         VStack {
@@ -30,9 +29,15 @@ struct ExpandedPhoto: View {
             Spacer()
             
             // TODO: 선택한 이미지가 보이도록 로직 추가
-            Image(photo)
-                .resizable()
-                .scaledToFit()
+            if let uiImage = campfireViewModel.mainTodayImage {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFit()
+            } else {
+                Image(.photosIcon)
+                    .resizable()
+                    .scaledToFit()
+            }
             
             Spacer()
         }

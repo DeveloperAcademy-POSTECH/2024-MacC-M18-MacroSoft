@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct CampfireLogPileView: View {
+    @EnvironmentObject private var logPileViewModel: LogPileViewModel
+    @EnvironmentObject private var networkMonitor: NetworkMonitor
     @EnvironmentObject private var viewModel: CampfireViewModel
     // TODO: 테스트용 변수들 추후 제거
     @State private var isEmpty: Bool = false
-    @State private var yearlyLogs: [(MonthlyLogs)] = []
     
     init() {
         let appearanceWhenNotScrolled = UINavigationBarAppearance()
@@ -34,30 +35,29 @@ struct CampfireLogPileView: View {
     
     var body: some View {
         ZStack {
-            // TODO: 캠프파이어 로그가 없는지 체크하는 로직 추가
-            if isEmpty {
+            if viewModel.currentCampfireYearlyLogs.isEmpty {
                 VStack {
-                    CampfireLogPileViewTitle(campfireName: viewModel.campfire!.name, campfireMemberCount: (viewModel.campfire!.membersNames.isEmpty ? viewModel.campfire!.memberIds.count : viewModel.campfire!.membersNames.count))
+                    CampfireLogPileViewTitle(campfireName: viewModel.mainCampfireInfo!.campfireName, campfireMemberCount: (viewModel.mainCampfireInfo!.memberIds.count))
                         .padding(.leading, 24)
                     
                     Spacer()
                     
-                    CampfireEmptyLog(campfireName: viewModel.campfire!.name)
+                    CampfireEmptyLog()
                     
                     Spacer()
                 }
             } else {
                 ScrollView {
-                    CampfireLogPileViewTitle(campfireName: viewModel.campfire!.name, campfireMemberCount: (viewModel.campfire!.membersNames.isEmpty ? viewModel.campfire!.memberIds.count : viewModel.campfire!.membersNames.count))
+                    CampfireLogPileViewTitle(campfireName: viewModel.mainCampfireInfo!.campfireName, campfireMemberCount: viewModel.mainCampfireInfo!.memberIds.count)
                         .padding(.leading, 24)
                         .padding(.bottom, 12)
                     
                     LazyVStack(alignment: .leading, pinnedViews: [.sectionHeaders]) {
-                        ForEach($yearlyLogs, id: \.date){ monthlyLog in
+                        ForEach($viewModel.currentCampfireYearlyLogs, id: \.date){ monthlyLogOverview in
                             Section {
-                                LogPileSection(monthlyLog: monthlyLog.dailyLogs.wrappedValue)
+                                CampfireLogPileSection(monthlyLog: monthlyLogOverview.dailyLogs)
                             } header: {
-                                LogPileHeader(date: monthlyLog.date.wrappedValue)
+                                LogPileHeader(date: monthlyLogOverview.date.wrappedValue)
                             }
                         }
                     }
@@ -66,12 +66,20 @@ struct CampfireLogPileView: View {
             
             CampfireLogPileViewFloatingButton()
                 .padding(.init(top: 0, leading: 0, bottom: 14, trailing: 24))
+                .disabled(!networkMonitor.isConnected || logPileViewModel.yearlyLogs.isEmpty)
+                .simultaneousGesture(TapGesture().onEnded {
+                    if !networkMonitor.isConnected {
+                        viewModel.showTemporaryNetworkAlert()
+                    } else if logPileViewModel.yearlyLogs.isEmpty {
+                        viewModel.showEmptyLogPileAlert()
+                    }
+                })
         }
         .background {
             LogPileBackground()
                 .ignoresSafeArea()
         }
-        .navigationTitle("\(viewModel.campfire!.name) 모닥불")
+        .navigationTitle("\(viewModel.mainCampfireInfo!.campfireName) 모닥불")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -138,9 +146,8 @@ private struct CampfireLogPileViewFloatingButton: View {
             HStack {
                 Spacer()
                 
-                // TODO: SelectMergeLogs 화면으로 연결
                 NavigationLink {
-                    
+                    SelectMergeLogsView()
                 } label: {
                     Circle()
                         .fill(Color.init(hex: "4C4545"))
@@ -152,6 +159,150 @@ private struct CampfireLogPileViewFloatingButton: View {
                         }
                 }
             }
+        }
+    }
+}
+
+private struct CampfireLogPileSection: View {
+    @Environment(\.modelContext) private var modelContext
+    
+    @EnvironmentObject private var logPileViewModel: LogPileViewModel
+    
+    @Binding private(set) var monthlyLog: [DailyLogsOverview]
+    
+    var body: some View {
+        ForEach($monthlyLog, id: \.date) { dailyLog in
+            CampfireLogPileSectionRow(dailyLog: dailyLog)
+                .background(LinearGradient.logPileRowBackground)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .padding([.horizontal, .bottom], 10)
+                .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 3)
+                .onAppear {
+                    //                    logPileViewModel.fetchMoreLogsWithGroupBy(modelContext: modelContext, currentLog: dailyLog)
+                }
+        }
+    }
+}
+
+
+private struct CampfireLogPileSectionRow: View {
+    @EnvironmentObject private var viewModel: CampfireViewModel
+    
+    @Binding private(set) var dailyLog: DailyLogsOverview
+    
+    private(set) var gridItems: [GridItem] = Array(repeating: GridItem(.flexible(minimum: 80, maximum: 87), spacing: 1), count: 4)
+    
+    var body: some View {
+        // TODO: 옵셔널 언래핑 실패 시 로직 구현
+        if let dailyLogFirst = dailyLog.logs.first, let dailyLogLast = dailyLog.logs.last {
+            VStack(spacing: 0) {
+                ForEach($dailyLog.logs, id: \.logId) { log in
+                    NavigationLink {
+                        CampfireLogPileDetailView(selectedLog: log.wrappedValue)
+                    } label: {
+                        VStack(spacing: dailyLogFirst.logId == dailyLogLast.logId ? 14 : 12) {
+                            if log.logId.wrappedValue == dailyLogFirst.logId || dailyLogFirst.logId == dailyLogLast.logId {
+                                CampfireLogPileRowTitle(date: log.startAt.wrappedValue.iso8601ToDate, location: log.address.wrappedValue, isLeaf: false)
+                            } else {
+                                CampfireLogPileRowTitle(date: log.startAt.wrappedValue.iso8601ToDate, location: log.address.wrappedValue, isLeaf: true)
+                            }
+                            HStack(spacing: 14) {
+                                if log.logId.wrappedValue != dailyLogLast.logId {
+                                    Divider()
+                                        .frame(width: 1)
+                                        .background(.pagenationDisable)
+                                        .padding(.init(top: -5, leading: 12, bottom: -7, trailing: 0))
+                                }
+                                CampfireLogPileLazyVGrid(log: log)
+                                    .background(.backgroundLogPile)
+                                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                            }
+                            .padding(.bottom, log.logId.wrappedValue == dailyLogLast.logId ? 0 : 20)
+                        }
+                    }
+                    .simultaneousGesture(TapGesture().onEnded({
+                        Task {
+                            await viewModel.getCampfireLogImages(logId: log.logId.wrappedValue)
+                        }
+                    }))
+                }
+            }
+            .padding(.init(top: 16, leading: 10, bottom: 10, trailing: 10))
+            .overlay {
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(.textColor2.opacity(0.2), lineWidth: 0.33)
+            }
+        }
+    }
+}
+
+private struct CampfireLogPileLazyVGrid: View {
+    private(set) var gridItems: [GridItem] = Array(repeating: GridItem(.flexible(minimum: 80, maximum: 87), spacing: 1), count: 4)
+    
+    @Binding var log: LogOverview
+    
+    var body: some View {
+        LazyVGrid(columns: gridItems, spacing: 1) {
+            ForEach(0..<((4...7).contains(log.imageNames.count) ? 4 : 8), id: \.self) { index in
+                Group {
+                    if (log.imageNames.count == 3 && index == 2) || (log.imageNames.count == 2 && index == 1) || (log.imageNames.count == 1 && index == 0) {
+                        CampfireLogDrawPhoto(imageName: log.imageNames[index], isClip: true)
+                        // clipShape 때문에 Group을 못 썼는데 이 로직으로 들어오는 경우가 없어서 일단 Group 사용함
+                            .clipShape(.rect(bottomTrailingRadius: 20, topTrailingRadius: 20))
+                    } else {
+                        CampfireLogDrawPhoto(imageName: log.imageNames[index], isClip: true)
+                    }
+                }
+                .aspectRatio(1, contentMode: .fill)
+                .foregroundStyle(.textColorTitleView)
+            }
+        }
+    }
+}
+
+private struct CampfireLogPileRowTitle: View {
+    private(set) var date: Date
+    private(set) var location: String?
+    private(set) var isLeaf: Bool
+    
+    init(date: Date, location: String? = nil, isLeaf: Bool) {
+        self.date = date
+        self.isLeaf = isLeaf
+        if location == "위치 정보 없음" {
+            self.location = "지구"
+        }else {
+            self.location = location
+        }
+    }
+    
+    var body: some View {
+        // TODO: Text 표시하는 로직 수정
+        HStack(spacing: 10) {
+            Image(isLeaf ? .leaf : .log)
+            VStack(alignment: .leading, spacing: 4) {
+                Text(location ?? "지구")
+                    .foregroundStyle(.textColor3)
+                    .font(Font.custom("Pretendard-Bold", size: 16))
+                +
+                Text("에서 발견된 장작")
+                    .foregroundStyle(.textColorGray1)
+                    .font(Font.custom("Pretendard-Light", size: 15))
+                
+                Text("\(date.logPileRowTitleDayFormat) ")
+                    .font(
+                        Font.custom("Pretendard-Medium", size: 12)
+                    )
+                    .foregroundStyle(.textColorGray1.opacity(0.55))
+                +
+                Text(date.logPileRowTitleTimeFormat)
+                    .font(
+                        Font.custom("Pretendard-Medium", size: 12)
+                    )
+                    .foregroundStyle(.textColorGray4.opacity(0.54))
+            }
+            Spacer()
+            Image(systemName: "chevron.right")
+                .foregroundStyle(.textColorGray1)
         }
     }
 }

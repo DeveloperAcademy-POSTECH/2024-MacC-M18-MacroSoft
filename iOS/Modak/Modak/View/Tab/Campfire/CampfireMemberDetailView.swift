@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CampfireMemberDetailView: View {
     @EnvironmentObject private var viewModel: CampfireViewModel
+    @EnvironmentObject private var avatarViewModel: AvatarViewModel
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -23,7 +24,7 @@ struct CampfireMemberDetailView: View {
                         .foregroundStyle(.textColorTitleView)
                         .font(.custom("Pretendard_Medium", size: 12))
                         .padding(.init(top: 6, leading: 8, bottom: 6, trailing: 0))
-                    Text("\(viewModel.campfire!.membersNames.isEmpty ? viewModel.campfire!.memberIds.count : viewModel.campfire!.membersNames.count)명")
+                    Text("\(viewModel.mainCampfireInfo?.memberIds.count ?? 0)명")
                         .foregroundStyle(.textColor3)
                         .font(.custom("Pretendard_Medium", size: 14))
                         .padding(.init(top: 6, leading: 0, bottom: 6, trailing: 8))
@@ -46,8 +47,32 @@ struct CampfireMemberDetailView: View {
                 
             }
             
-            Spacer()
-            
+            ScrollView {
+                LazyVGrid(
+                    columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 3),
+                    spacing: 20
+                ) {
+                    ForEach(avatarViewModel.memberAvatars, id: \.memberId) { member in
+                        VStack {
+                            if let viewModel = avatarViewModel.memberViewModels[member.memberId] {
+                                CustomSCNView(scene: viewModel.scene) // 멤버별 Scene 사용
+                                    .frame(height: 270)
+                                    .padding(EdgeInsets.init(top: -48, leading: 0, bottom: -54, trailing: 0))
+                            }
+                            Text(member.nickname)
+                                .font(.custom("Pretendard-Medium", size: 12))
+                                .kerning(14 * 0.01)
+                                .foregroundColor(Color.pagenationAble)
+                                .lineLimit(1)
+                                .padding(EdgeInsets.init(top: 6, leading: 11, bottom: 6, trailing: 11))
+                                .background {
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .fill(Color.init(hex: "4D4343"))
+                                }
+                        }
+                    }
+                }
+            }
         }
         .padding(EdgeInsets.init(top: 10, leading: 20, bottom: 0, trailing: 20))
         .background {
@@ -59,11 +84,19 @@ struct CampfireMemberDetailView: View {
                 HStack {
                     BackButton()
                         .colorMultiply(Color.textColorGray1)
-                    Text("\(viewModel.campfire!.name)")
+                    Text("\(viewModel.mainCampfireInfo?.campfireName ?? "")")
                         .foregroundStyle(.textColor2)
                         .font(.custom("Pretendard-Regular", size: 16))
                         .padding(.leading, -10)
                 }
+            }
+        }
+        .onAppear {
+            avatarViewModel.avatar = AvatarData.sample
+            for member in avatarViewModel.memberAvatars {
+                let viewModel = AvatarViewModel()
+                viewModel.setupScene1(for: member.avatar)
+                avatarViewModel.memberViewModels[member.memberId] = viewModel
             }
         }
     }

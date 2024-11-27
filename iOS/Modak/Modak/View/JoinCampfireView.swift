@@ -28,9 +28,11 @@ struct JoinCampfireView: View {
                     membersNames: .constant(viewModel.membersNames)
                 )
                 .transition(.move(edge: .bottom))
+                .environmentObject(viewModel)
             }
             
         }
+        .tapDismissesKeyboard()
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
@@ -39,9 +41,10 @@ struct JoinCampfireView: View {
             
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
-//                    viewModel.showSuccess = true //테스트 전용
-                    viewModel.validateAndSendCredentials() // TODO: 서버 api 연결
-                    saveCampfireToLocalStorage()
+                    viewModel.showSuccess = true //테스트 전용
+                    viewModel.fetchCampfireInfo(campfirePin: Int(viewModel.campfirePin) ?? 0)
+//                    viewModel.validateAndSendCredentials() // TODO: 서버 api 연결
+//                    saveCampfireToLocalStorage()
                 }) {
                     Text("완료")
                         .font(.custom("Pretendard-Regular", size: 18))
@@ -95,7 +98,7 @@ struct JoinCampfireView: View {
     private func saveCampfireToLocalStorage() {
         let extractedCampfirePin = viewModel.campfirePin.compactMap { $0.isNumber ? String($0) : nil }.joined()
 
-        let newCampfire = Campfire(name: viewModel.campfireName, pin: Int(extractedCampfirePin) ?? 0)
+        let newCampfire = Campfire(name: viewModel.campfireName, pin: Int(extractedCampfirePin) ?? 0, todayImage: TodayImage(imageId: 0, name: "", emotions: []), imageName: "")
         modelContext.insert(newCampfire)
         do {
             try modelContext.save()

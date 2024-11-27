@@ -6,17 +6,57 @@
 //
 
 import SwiftUI
+import SceneKit
 
 struct ProfileView: View {
     @AppStorage("isSkipRegister") var isSkipRegister: Bool = false
-    @StateObject private var viewModel = ProfileViewModel()
+    @AppStorage("isInitialAvatarDataLoad") private var isInitialAvatarDataLoad: Bool = true
+    @EnvironmentObject private var profileViewModel: ProfileViewModel
+    @State private var showAvatarCustomizingView = false
     @State private var showWebViewSheet = false
     @State private var webViewURL: URL? = nil
     
     var body: some View {
         VStack {
+            CustomSCNView(scene: profileViewModel.scene)
+                .onAppear {
+                    if isInitialAvatarDataLoad {
+                        Task {
+                            await profileViewModel.fetchUserAvatar()
+                            isInitialAvatarDataLoad = false
+                        }
+                    } else {
+                        if let loadedItems = profileViewModel.loadSelectedItems() {
+                            profileViewModel.selectedItems = loadedItems
+                        }
+                        profileViewModel.setupScene()
+                    }
+                }
+                .onChange(of: showAvatarCustomizingView) { _, newValue in
+                    if !newValue {
+                        if let loadedItems = profileViewModel.loadSelectedItems() {
+                            profileViewModel.selectedItems = loadedItems
+                            profileViewModel.setupScene()
+                        }
+                    }
+                }
+                .padding(.init(top: -100, leading: -70, bottom: -70, trailing: -70))
+                .frame(height: 200)
             
-            Text("닉네임 : \(viewModel.originalNickname)")
+            Button(action: {
+                showAvatarCustomizingView = true
+            }) {
+                Text(" 캐릭터 꾸미기 ")
+                    .font(.custom("Pretendard-Bold", size: 16))
+                    .foregroundColor(.white)
+                    .padding(15)
+                    .background {
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color.mainColor1)
+                            .stroke(.white.opacity(0.05), lineWidth: 1)
+                    }
+            }
+            .padding(.vertical, 10)
             
             ProfileItem(title: "프로필 정보 편집", destination: AnyView(EditProfileView()))
             .background { ProfileItemFrame() }
@@ -33,7 +73,7 @@ struct ProfileView: View {
             .groupBoxStyle(ProfileGroupBox())
             
             ProfileItem(title: "로그아웃") {
-                viewModel.logout { success in
+                profileViewModel.logout { success in
                     if success {
                         isSkipRegister = false
                     }
@@ -43,7 +83,8 @@ struct ProfileView: View {
             
             Spacer()
         }
-        .environmentObject(viewModel)
+        // TODO: 제거해도 될듯?
+        .environmentObject(profileViewModel)
         .padding(.top, 18)
         .padding(.horizontal, 13)
         .background {
@@ -51,7 +92,10 @@ struct ProfileView: View {
                 .ignoresSafeArea()
         }
         .onAppear() {
-            viewModel.fetchNickname()
+            profileViewModel.fetchNickname()
+        }
+        .fullScreenCover(isPresented: $showAvatarCustomizingView) {
+            AvatarCustomizingView(viewModel: AvatarCustomizingViewModel(sharedItems: profileViewModel.selectedItems))
         }
         .sheet(isPresented: Binding(get: { webViewURL != nil && showWebViewSheet }, set: { _ in }), onDismiss: {
             showWebViewSheet = false
