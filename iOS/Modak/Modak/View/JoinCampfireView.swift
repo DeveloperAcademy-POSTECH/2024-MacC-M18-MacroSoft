@@ -48,7 +48,7 @@ struct JoinCampfireView: View {
                     } else {
                         Analytics.logEvent("join_with_text", parameters: [:])
                     }
-                    viewModel.fetchCampfireInfo(campfirePin: Int(viewModel.campfirePin) ?? 0)
+                    viewModel.fetchCampfireInfo(campfirePin: viewModel.campfirePin)
 //                    viewModel.validateAndSendCredentials() // TODO: 서버 api 연결
 //                    saveCampfireToLocalStorage()
                 }) {
