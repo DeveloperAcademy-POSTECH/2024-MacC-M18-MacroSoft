@@ -14,7 +14,7 @@ struct AppDetailsView: View {
                 Text("서비스 버전")
                     .foregroundStyle(Color.textColor1)
                 Spacer()
-                Text("1.1.0")
+                Text("1.0.0")
                     .foregroundStyle(Color.textColorGray1)
             }
             .font(Font.custom("Pretendard-regular", size: 16))
