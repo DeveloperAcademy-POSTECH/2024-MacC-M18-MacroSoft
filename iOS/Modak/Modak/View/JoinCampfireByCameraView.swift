@@ -21,18 +21,25 @@ struct JoinCampfireByCameraView: View {
                 .onDisappear {
                     viewModel.cameraViewModel.stopSession()
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                .clipped()
+                .ignoresSafeArea()
             
             if let image = viewModel.cameraViewModel.recentImage, viewModel.cameraViewModel.isCapturing == false {
                 Image(uiImage: image)
                     .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: .infinity,maxHeight: .infinity)
-                    .zIndex(-1) // 배경에 위치시키기 위해 zIndex 사용
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                    .zIndex(-1)
+                    .clipped()
+                    .ignoresSafeArea()
             }
             
             Image(!viewModel.showError ? "joincmapfirebycamera_captureguideline" : "joincmapfirebycamera_captureguideline_error")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                .clipped()
                 .ignoresSafeArea()
 
             HStack {
@@ -51,9 +58,6 @@ struct JoinCampfireByCameraView: View {
                         .animation(.easeOut(duration: 0.2), value: viewModel.showError)
                     
                     Spacer()
-                }
-                .onAppear() {
-                    print("-------")
                 }
                 
                 Spacer()
