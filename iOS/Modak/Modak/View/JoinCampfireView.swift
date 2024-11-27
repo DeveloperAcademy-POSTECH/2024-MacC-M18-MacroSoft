@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAnalytics
 
 struct JoinCampfireView: View {
     @Environment(\.modelContext) private var modelContext
@@ -32,7 +33,7 @@ struct JoinCampfireView: View {
             }
             
         }
-        .tapDismissesKeyboard()
+        .onTapDismissKeyboard()
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
@@ -41,7 +42,12 @@ struct JoinCampfireView: View {
             
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
-                    viewModel.showSuccess = true //테스트 전용
+                    dismissKeyboard()
+                    if viewModel.isCameraMode {
+                        Analytics.logEvent("join_with_camera", parameters: [:])
+                    } else {
+                        Analytics.logEvent("join_with_text", parameters: [:])
+                    }
                     viewModel.fetchCampfireInfo(campfirePin: Int(viewModel.campfirePin) ?? 0)
 //                    viewModel.validateAndSendCredentials() // TODO: 서버 api 연결
 //                    saveCampfireToLocalStorage()
@@ -60,6 +66,11 @@ struct JoinCampfireView: View {
                     cameraModeToggleButton
                 }
             }
+        }
+        .onAppear{
+            Analytics.logEvent(AnalyticsEventScreenView,
+                parameters: [AnalyticsParameterScreenName: "JoinCampfireView",
+                AnalyticsParameterScreenClass: "JoinCampfireView"])
         }
     }
     

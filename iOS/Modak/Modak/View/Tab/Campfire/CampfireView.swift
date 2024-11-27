@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import FirebaseAnalytics
 
 struct CampfireView: View {
     @EnvironmentObject private var viewModel: CampfireViewModel
@@ -39,6 +40,11 @@ struct CampfireView: View {
         .background {
             CampfireBackground()
                 .ignoresSafeArea()
+        }
+        .onAppear{
+            Analytics.logEvent(AnalyticsEventScreenView,
+                parameters: [AnalyticsParameterScreenName: "CampfiresView",
+                AnalyticsParameterScreenClass: "CampfiresView"])
         }
     }
 }

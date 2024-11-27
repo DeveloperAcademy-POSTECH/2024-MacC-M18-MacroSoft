@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import FirebaseAnalytics
 
 struct SelectedCampfireView: View {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
@@ -198,6 +199,7 @@ private struct CampfireViewTodayPhoto: View {
         VStack(spacing: 8) {
             Button {
                 isTodayPhotoFullSheet = true
+                Analytics.logEvent("Image_tapped", parameters: [:])
             } label: {
                 if let todayImage = campfireViewModel.mainTodayImage {
                     Image(uiImage: todayImage)

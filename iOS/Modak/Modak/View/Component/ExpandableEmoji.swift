@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAnalytics
 
 struct ExpandableEmoji: View {
     @EnvironmentObject private var campfireViewModel: CampfireViewModel
@@ -45,6 +46,7 @@ struct ExpandableEmoji: View {
                                     isShowEmojiPicker = false
                                 }
                             }
+                            Analytics.logEvent("reaction_tapped", parameters: ["reactionName": emoji])
                         } label: {
                             Image(emoji)
                                 .resizable()

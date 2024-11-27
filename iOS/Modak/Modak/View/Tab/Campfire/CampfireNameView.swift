@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAnalytics
 
 struct CampfireNameView: View {
     @State private var campfireName: String = ""
@@ -36,7 +37,18 @@ struct CampfireNameView: View {
                 BackButton()
             }
         }
-        .tapDismissesKeyboard()
+        .onTapDismissKeyboard()
+        .onAppear{
+            if isCreate {
+                Analytics.logEvent(AnalyticsEventScreenView,
+                    parameters: [AnalyticsParameterScreenName: "CreateCampfireView",
+                    AnalyticsParameterScreenClass: "CreateCampfireView"])
+            } else {
+                Analytics.logEvent(AnalyticsEventScreenView,
+                    parameters: [AnalyticsParameterScreenName: "EditCampfireView",
+                    AnalyticsParameterScreenClass: "EditCampfireView"])
+            }
+        }
     }
 }
 
@@ -132,6 +144,7 @@ private struct CampfireViewNextButton: View {
                     await viewModel.testCreateCampfire(newCampfireName: campfireName)
                     dismiss()
                 }
+                Analytics.logEvent("create_campfire", parameters: [:])
 //                viewModel.createCampfire(campfireName: campfireName) {
 //                    saveCampfireToLocalStorage()
 //                }
@@ -140,6 +153,7 @@ private struct CampfireViewNextButton: View {
                     await viewModel.updateCampfireName(newName: campfireName)
                     dismiss()
                 }
+                Analytics.logEvent("edit_campfire", parameters: [:])
             }
         } label: {
             HStack {
