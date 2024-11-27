@@ -68,6 +68,16 @@ struct JoinCampfireByCameraView: View {
                 
                 Button(action: {
                     viewModel.cameraViewModel.isCapturing = true
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        if let campfirePin = Int(viewModel.campfirePin), !viewModel.campfirePin.isEmpty {
+                            viewModel.fetchCampfireInfo(campfirePin: campfirePin)
+                            viewModel.showSuccess = true
+                        } else {
+                            print("캠프파이어 PIN이 유효하지 않음: \(viewModel.campfirePin)")
+                            viewModel.showError = true
+                        }
+                    }
                 }, label: {
                     Image(systemName: "camera.fill")
                         .font(.system(size: 24))
