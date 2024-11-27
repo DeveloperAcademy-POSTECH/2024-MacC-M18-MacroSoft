@@ -76,6 +76,12 @@ struct JoinCampfireByCameraView: View {
                         } else {
                             print("캠프파이어 PIN이 유효하지 않음: \(viewModel.campfirePin)")
                             viewModel.showError = true
+                            
+                            // 1초 후 에러 상태 초기화 및 카메라 다시 작동
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                viewModel.cameraViewModel.startSessionIfNeeded() // 카메라 세션 재시작
+                                viewModel.showError = false // 에러 상태 초기화
+                            }
                         }
                     }
                 }, label: {
@@ -88,6 +94,13 @@ struct JoinCampfireByCameraView: View {
                         }
                 })
                 .padding(.bottom, 140)
+                .onChange(of: viewModel.showSuccess) { _, newValue in
+                    if !newValue {
+                        viewModel.campfirePin = ""
+                        viewModel.campfireName = ""
+                        viewModel.cameraViewModel.startSessionIfNeeded()
+                    }
+                }
             }
         }
         .alert(isPresented: $viewModel.cameraViewModel.cameraPermissionAlert) {
