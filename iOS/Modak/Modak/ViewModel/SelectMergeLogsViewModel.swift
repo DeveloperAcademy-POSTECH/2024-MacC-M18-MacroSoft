@@ -175,7 +175,9 @@ class SelectMergeLogsViewModel: ObservableObject{
                         recommendedMergeableLogPile.mergeableLogs.append(mergeableLog)
                         break
                     } else {
-                        if campfireLogMetadata == campfireLogsMetadata.last {
+                        if notRecommendedMergeableLogPile.mergeableLogs.contains(where: { $0.id == mergeableLog.id }) {
+                            break
+                        } else {
                             notRecommendedMergeableLogPile.mergeableLogs.append(mergeableLog)
                         }
                     }
