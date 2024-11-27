@@ -113,10 +113,12 @@ class JoinCampfireViewModel: ObservableObject {
         }
     }
     
-    func fetchCampfireInfo(campfirePin: Int) {
+    func fetchCampfireInfo(campfirePin: String) {
         Task {
             do {
-                let data = try await NetworkManager.shared.requestRawData(router: .joinCampfireInfo(campfirePin: campfirePin))
+                let extractedCampfirePin = campfirePin.compactMap { $0.isNumber ? String($0) : nil }.joined()
+                
+                let data = try await NetworkManager.shared.requestRawData(router: .joinCampfireInfo(campfirePin: Int(extractedCampfirePin) ?? 0))
                 
                 if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                    let result = jsonResponse["result"] as? [String: Any] {

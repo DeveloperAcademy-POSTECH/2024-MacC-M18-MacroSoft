@@ -60,7 +60,8 @@ struct BottomSheet: View {
                         }
                 )
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+            .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height)
+            .ignoresSafeArea()
         }
         .edgesIgnoringSafeArea(.all)
         .onAppear {
