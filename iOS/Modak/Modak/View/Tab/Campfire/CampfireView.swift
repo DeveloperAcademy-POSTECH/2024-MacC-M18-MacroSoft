@@ -24,18 +24,6 @@ struct CampfireView: View {
                 SelectedCampfireView(isShowSideMenu: $isShowSideMenu)
             }
         }
-        .onAppear {
-            Task {
-                guard let memberIds = viewModel.mainCampfireInfo?.memberIds else { return }
-                await avatarViewModel.fetchMemberAvatars(memberIds: memberIds)
-            }
-        }
-        .onChange(of: viewModel.mainCampfireInfo) { _, newValue in
-            Task {
-                guard let memberIds = viewModel.mainCampfireInfo?.memberIds else { return }
-                await avatarViewModel.fetchMemberAvatars(memberIds: memberIds)
-            }
-        }
         .background {
             CampfireBackground()
                 .ignoresSafeArea()

@@ -13,6 +13,7 @@ class AvatarViewModel: ObservableObject {
     @Published var scene: SCNScene
     @Published var memberAvatars: [MemberAvatar] = []
     @Published var memberViewModels: [Int: AvatarViewModel] = [:]
+    @Published var memberEmotions: [Emotion] = []
     
     var avatar: [AvatarData]
     private let items: [ItemData]
@@ -181,9 +182,17 @@ class AvatarViewModel: ObservableObject {
                 }
                 
                 // 닉네임 추가
-                let nicknamePosition = SCNVector3(0, 0, index%2 != 0 ? 3.6 : 4.0)
+                let nicknamePosition = SCNVector3(0, 0, index%2 != 0 ? 3.5 : 3.9)
                 let textNode = createTextNode(text: member.nickname, position: nicknamePosition)
                 avatarNode.addChildNode(textNode)
+                
+                print("members emotion3 : \(String(describing: memberEmotions))")
+                // 감정 이모지 추가 (닉네임 위에 표시) let emojiNode = SKLabelNode(text: "😀")
+                if let emotion = memberEmotions.first(where: { $0.memberNickname == member.nickname })?.emotion {
+                    let emotionPosition = SCNVector3(nicknamePosition.x, nicknamePosition.y, nicknamePosition.z + 0.5)
+                    let emotionNode = createEmotionNode(text: emotion, position: emotionPosition)
+                    avatarNode.addChildNode(emotionNode)
+                }
                 
                 scene.rootNode.addChildNode(avatarNode)
             }
@@ -234,6 +243,42 @@ class AvatarViewModel: ObservableObject {
         containerNode.constraints = [SCNBillboardConstraint()] // 카메라를 항상 바라보게 설정
         
         return containerNode
+    }
+    
+    private func createEmotionNode(text: String, position: SCNVector3) -> SCNNode {
+        guard let emojiImage = createEmojiImage(from: text, size: 128) else {
+            print("Failed to create emoji image")
+            return SCNNode()
+        }
+
+        let material = SCNMaterial()
+        material.diffuse.contents = emojiImage
+        material.isDoubleSided = true
+
+        let plane = SCNPlane(width: 0.8, height: 0.8)
+        plane.firstMaterial = material
+
+        let emojiNode = SCNNode(geometry: plane)
+        emojiNode.position = SCNVector3(position.x, position.y, position.z)
+        emojiNode.constraints = [SCNBillboardConstraint()]
+
+        return emojiNode
+    }
+
+    private func createEmojiImage(from text: String, size: CGFloat) -> UIImage? {
+        // Create a UILabel to render the emoji
+        let label = UILabel()
+        label.text = text
+        label.font = UIFont.systemFont(ofSize: size)
+        label.textAlignment = .center
+        label.backgroundColor = .clear
+        label.sizeToFit()
+
+        // Render the UILabel into an UIImage
+        let renderer = UIGraphicsImageRenderer(size: label.bounds.size)
+        return renderer.image { context in
+            label.layer.render(in: context.cgContext)
+        }
     }
     
     private func createNode(named name: String) -> SCNNode? {
