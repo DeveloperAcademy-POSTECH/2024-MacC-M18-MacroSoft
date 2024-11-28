@@ -15,6 +15,12 @@ struct CampfireMainAvatarView: View {
     
     var body: some View {
         ZStack(alignment: .center) {
+            Image(.campfiremainavatarviewTree)
+                .resizable()
+                .scaledToFit()
+                .frame(width: UIScreen.main.bounds.width)
+                .padding(.top, 180)
+            
             // scene 추가
             CustomSCNView(scene: avatarViewModel.scene)
                 .edgesIgnoringSafeArea(.all)
