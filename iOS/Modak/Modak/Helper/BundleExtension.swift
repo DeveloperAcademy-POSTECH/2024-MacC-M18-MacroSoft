@@ -34,4 +34,12 @@ extension Bundle {
         }
         return nil
     }
+    
+    static func getAppVersion() -> String {
+        if let versionString = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            return versionString
+        } else {
+            return "1.0.0"
+        }
+    }
 }
