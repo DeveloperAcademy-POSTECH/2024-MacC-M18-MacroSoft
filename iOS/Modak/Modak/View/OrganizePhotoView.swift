@@ -18,6 +18,7 @@ struct OrganizePhotoView: View {
     @State private var currentPage = 0
     @State private var showBottomSheet = false
     @State private var locationCache: [String: (center: CLLocationCoordinate2D, radius: Double, address: String)] = [:]
+    @State private var isHidePhoto: Bool = false
     let geocoder = CLGeocoder()
     
     init() {
@@ -139,7 +140,18 @@ struct OrganizePhotoView: View {
                             
             ZStack {
                 CircularProgressBar(progress: Double(viewModel.displayedCount) / Double(viewModel.totalCount))
-                CircularProgressPhoto(image: viewModel.currentCircularProgressPhoto)
+                Button {
+                    isHidePhoto.toggle()
+                } label: {
+                    CircularProgressPhoto(image: viewModel.currentCircularProgressPhoto)
+                        .overlay {
+                            if isHidePhoto {
+                                MaterialEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
+                                    .clipShape(.circle)
+                            }
+                        }
+                }
+                .buttonStyle(PlainButtonStyle())
             }
                 
             Spacer()
