@@ -52,6 +52,7 @@ struct DrawPhoto: View {
         let options = PHImageRequestOptions()
         options.isSynchronous = false
         options.deliveryMode = .highQualityFormat
+        options.isNetworkAccessAllowed = true
         
         imageManager.requestImage(for: asset, targetSize: CGSize(width: geometrySize.width, height: geometrySize.width), contentMode: .aspectFill, options: options) { image, _ in
             DispatchQueue.main.async {

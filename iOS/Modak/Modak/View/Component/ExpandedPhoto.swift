@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ExpandedPhoto: View {
     @EnvironmentObject private var campfireViewModel: CampfireViewModel
@@ -28,9 +29,8 @@ struct ExpandedPhoto: View {
             }
             Spacer()
             
-            // TODO: 선택한 이미지가 보이도록 로직 추가
-            if let uiImage = campfireViewModel.mainTodayImage {
-                Image(uiImage: uiImage)
+            if let todayImageURL = campfireViewModel.mainTodayImageURL {
+                KFImage(todayImageURL)
                     .resizable()
                     .scaledToFit()
             } else {
