@@ -32,10 +32,16 @@ struct CampfireMainAvatarView: View {
                         await avatarViewModel.fetchMemberAvatars(memberIds: memberIds)
                     }
                 }
-                .onChange(of: viewModel.mainCampfireInfo) { _, newValue in
-                    Task {
-                        guard let memberIds = viewModel.mainCampfireInfo?.memberIds else { return }
-                        await avatarViewModel.fetchMemberAvatars(memberIds: memberIds)
+                .onChange(of: viewModel.isEmotionRequest) { _, newValue in
+                    if newValue {
+                        Task {
+                            avatarViewModel.memberEmotions = (viewModel.mainCampfireInfo?.todayImage.emotions)!
+                            guard let memberIds = viewModel.mainCampfireInfo?.memberIds else { return }
+                            await avatarViewModel.fetchMemberAvatars(memberIds: memberIds)
+                            print("emoji-avatarViewModel : \(avatarViewModel.memberEmotions)")
+                            print("emoji-mainCampfireInfo : \(String(describing: viewModel.mainCampfireInfo?.todayImage.emotions))")
+                            viewModel.isEmotionRequest = false
+                        }
                     }
                 }
             

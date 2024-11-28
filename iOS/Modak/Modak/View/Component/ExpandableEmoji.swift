@@ -42,6 +42,7 @@ struct ExpandableEmoji: View {
                             Task {
                                 await campfireViewModel.updateTodayImageEmotion(emotion: emoji)
                                 await campfireViewModel.testFetchMainCampfireInfo()
+                                campfireViewModel.isEmotionRequest = true
                                 withAnimation(.easeInOut(duration: 0.3)) {
                                     isShowEmojiPicker = false
                                 }
