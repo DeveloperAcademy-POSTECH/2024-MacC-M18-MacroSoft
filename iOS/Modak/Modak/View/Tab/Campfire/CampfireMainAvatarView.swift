@@ -44,6 +44,16 @@ struct CampfireMainAvatarView: View {
                         }
                     }
                 }
+                .onChange(of: viewModel.mainCampfireInfo) { _, newValue in
+                    Task {
+                        avatarViewModel.memberEmotions = (viewModel.mainCampfireInfo?.todayImage.emotions)!
+                        guard let memberIds = viewModel.mainCampfireInfo?.memberIds else { return }
+                        await avatarViewModel.fetchMemberAvatars(memberIds: memberIds)
+                        print("emoji-avatarViewModel : \(avatarViewModel.memberEmotions)")
+                        print("emoji-mainCampfireInfo : \(String(describing: viewModel.mainCampfireInfo?.todayImage.emotions))")
+                        viewModel.isEmotionRequest = false
+                    }
+                }
             
             LottieView(filename: "fireTest")
                 .frame(width: UIScreen.main.bounds.width * 2.5)
