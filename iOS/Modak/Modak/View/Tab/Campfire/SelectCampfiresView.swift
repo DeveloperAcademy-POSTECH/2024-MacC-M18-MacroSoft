@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import FirebaseAnalytics
+import Kingfisher
 
 struct SelectCampfiresView: View {
     @EnvironmentObject private var viewModel: CampfireViewModel
@@ -55,7 +56,7 @@ struct SelectCampfiresView: View {
 private struct SelectCampfiresViewTopButton: View {
     @EnvironmentObject private var viewModel: CampfireViewModel
     @EnvironmentObject private var networkMonitor: NetworkMonitor
-    private(set) var buttonImage: ImageResource
+    private(set) var buttonImage: SwiftUI.ImageResource
     private(set) var buttonText: String
     
     var body: some View {
@@ -100,153 +101,138 @@ private struct SelectCampfiresViewTopButton: View {
 private struct SelectCampfiresViewCampfireButton: View {
     @EnvironmentObject private var viewModel: CampfireViewModel
     
-    @State private var todayUIImage: UIImage?
     @Binding private(set) var isShowSideMenu: Bool
     
     var campfireInfo: CampfireInfo
     
     var body: some View {
-        Group {
-            if campfireInfo.campfirePin == viewModel.currentCampfirePin {
-                Button {
-//                    viewModel.updateRecentVisitedCampfirePin(to: campfireInfo.campfirePin)
-//                    viewModel.currentCampfire = campfire
-//                    print("Updated recentVisitedCampfirePin to: \(viewModel.recentVisitedCampfirePin)")
-                    Task {
-                        await viewModel.testFetchCampfireInfos()
-                        await viewModel.testFetchMainCampfireInfo()
-                        if let todayImage = viewModel.mainCampfireInfo?.todayImage {
-                            viewModel.mainTodayImage = await viewModel.fetchTodayImage(imageURLName: todayImage.name)
-                        }
-                    }
-                    withAnimation {
-                        isShowSideMenu = false
-                    }
-                } label: {
-                    UnevenRoundedRectangle(cornerRadii: .init(bottomTrailing: 20, topTrailing: 20))
-                        .fill(Color(hex: "464141"))
-                        .overlay(
-                            UnevenRoundedRectangle(cornerRadii: .init(bottomTrailing: 20, topTrailing: 20))
-                                .strokeBorder(.mainColor2, lineWidth: 1)
-                                .clipShape(
-                                    UnevenRoundedRectangle(cornerRadii: .init(bottomTrailing: 20, topTrailing: 20))
-                                )
-                                .mask(
-                                    Rectangle()
-                                        .padding(.leading, 1)
-                                )
-                        )
-                        .overlay {
-                            HStack(spacing: 12) {
-                                if let uiImage = todayUIImage {
-                                    Image(uiImage: uiImage)
-                                        .resizable()
-                                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                                        .aspectRatio(1, contentMode: .fit)
-                                } else {
-                                    Image(.photosIcon)
-                                        .resizable()
-                                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                                        .aspectRatio(1, contentMode: .fit)
-                                }
-                                
-                                VStack {
-                                    Text(campfireInfo.campfireName)
-                                        .font(Font.custom("Pretendard-SemiBold", size: 14))
-                                        .foregroundStyle(.white)
-                                }
-                                
-                                Spacer()
-                            }
-                            .padding(12)
-                        }
+        
+        if campfireInfo.campfirePin == viewModel.currentCampfirePin {
+            Button {
+                //                    viewModel.updateRecentVisitedCampfirePin(to: campfireInfo.campfirePin)
+                //                    viewModel.currentCampfire = campfire
+                //                    print("Updated recentVisitedCampfirePin to: \(viewModel.recentVisitedCampfirePin)")
+                Task {
+                    await viewModel.testFetchCampfireInfos()
+                    await viewModel.testFetchMainCampfireInfo()
+                    await viewModel.fetchTodayImageURL()
                 }
-                .frame(height: 72)
-                .padding(.trailing)
-            } else {
-                Button {
-//                    viewModel.updateRecentVisitedCampfirePin(to: campfireInfo.campfirePin)
-                    Task {
-                        viewModel.currentCampfireYearlyLogs = []
-                        await viewModel.testChangeCurrentCampfirePin(campfireInfo.campfirePin)
-                        await viewModel.testFetchCampfireInfos()
-                        await viewModel.testFetchMainCampfireInfo()
-                        if let todayImage = viewModel.mainCampfireInfo?.todayImage {
-                            viewModel.mainTodayImage = await viewModel.fetchTodayImage(imageURLName: todayImage.name)
+                withAnimation {
+                    isShowSideMenu = false
+                }
+            } label: {
+                UnevenRoundedRectangle(cornerRadii: .init(bottomTrailing: 20, topTrailing: 20))
+                    .fill(Color(hex: "464141"))
+                    .overlay(
+                        UnevenRoundedRectangle(cornerRadii: .init(bottomTrailing: 20, topTrailing: 20))
+                            .strokeBorder(.mainColor2, lineWidth: 1)
+                            .clipShape(
+                                UnevenRoundedRectangle(cornerRadii: .init(bottomTrailing: 20, topTrailing: 20))
+                            )
+                            .mask(
+                                Rectangle()
+                                    .padding(.leading, 1)
+                            )
+                    )
+                    .overlay {
+                        HStack(spacing: 12) {
+                            if let imageURL = viewModel.getWebpImageDataURL(imageURLName: campfireInfo.imageName) {
+                                KFImage(imageURL)
+                                    .resizable()
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    .aspectRatio(1, contentMode: .fit)
+                            } else {
+                                Image(.photosIcon)
+                                    .resizable()
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    .aspectRatio(1, contentMode: .fit)
+                            }
+                            
+                            VStack {
+                                Text(campfireInfo.campfireName)
+                                    .font(Font.custom("Pretendard-SemiBold", size: 14))
+                                    .foregroundStyle(.white)
+                            }
+                            
+                            Spacer()
                         }
+                        .padding(12)
                     }
-                    Analytics.logEvent("campfire_change_tapped", parameters: ["changedCampfire": campfireInfo.campfireName])
-//                    viewModel.updateRecentVisitedCampfirePin(to: campfireInfo.campfirePin)
-//                    print("Updated recentVisitedCampfirePin to: \(viewModel.recentVisitedCampfirePin)")
-
-                    withAnimation {
-                        isShowSideMenu = false
-                    }
-                } label: {
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.init(hex: "443D41"))
-                        .overlay {
-                            HStack(spacing: 12) {
-                                if let uiImage = todayUIImage {
-                                    Image(uiImage: uiImage)
-                                        .resizable()
-                                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                                        .aspectRatio(1, contentMode: .fit)
-                                } else {
-                                    Image(.photosIcon)
-                                        .resizable()
-                                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                                        .aspectRatio(1, contentMode: .fit)
-                                }
+            }
+            .frame(height: 72)
+            .padding(.trailing)
+        } else {
+            Button {
+                //                    viewModel.updateRecentVisitedCampfirePin(to: campfireInfo.campfirePin)
+                Task {
+                    viewModel.currentCampfireYearlyLogs = []
+                    await viewModel.testChangeCurrentCampfirePin(campfireInfo.campfirePin)
+                    await viewModel.testFetchCampfireInfos()
+                    await viewModel.testFetchMainCampfireInfo()
+                    await viewModel.fetchTodayImageURL()
+                }
+                Analytics.logEvent("campfire_change_tapped", parameters: ["changedCampfire": campfireInfo.campfireName])
+                //                    viewModel.updateRecentVisitedCampfirePin(to: campfireInfo.campfirePin)
+                //                    print("Updated recentVisitedCampfirePin to: \(viewModel.recentVisitedCampfirePin)")
+                
+                withAnimation {
+                    isShowSideMenu = false
+                }
+            } label: {
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color.init(hex: "443D41"))
+                    .overlay {
+                        HStack(spacing: 12) {
+                            if let imageURL = viewModel.getWebpImageDataURL(imageURLName: campfireInfo.imageName) {
+                                KFImage(imageURL)
+                                    .resizable()
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    .aspectRatio(1, contentMode: .fit)
+                            } else {
+                                Image(.photosIcon)
+                                    .resizable()
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    .aspectRatio(1, contentMode: .fit)
+                            }
+                            
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(campfireInfo.campfireName)
+                                    .font(Font.custom("Pretendard-SemiBold", size: 14))
+                                    .foregroundStyle(.textColorGray2)
                                 
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(campfireInfo.campfireName)
-                                        .font(Font.custom("Pretendard-SemiBold", size: 14))
-                                        .foregroundStyle(.textColorGray2)
-                                    
-                                    HStack(spacing: 2){
-                                        ForEach(Array(campfireInfo.membersNames.prefix(3).enumerated()), id: \.0) { index ,member in
-                                            if index < 3{
-                                                Text(member, textLimit: 4)
-                                                    .foregroundStyle(Color.init(hex: "B58580"))
-                                                    .padding(6)
-                                                    .background {
-                                                        RoundedRectangle(cornerRadius: 13)
-                                                            .fill(Color.init(hex: "4D4343"))
-                                                    }
-                                            }
-                                        }
-                                        if campfireInfo.membersNames.count > 3 {
-                                            Text("+\(campfireInfo.membersNames.count - 3)")
+                                HStack(spacing: 2){
+                                    ForEach(Array(campfireInfo.membersNames.prefix(3).enumerated()), id: \.0) { index ,member in
+                                        if index < 3{
+                                            Text(member, textLimit: 4)
+                                                .foregroundStyle(Color.init(hex: "B58580"))
                                                 .padding(6)
-                                                .foregroundStyle(.textColor2)
                                                 .background {
                                                     RoundedRectangle(cornerRadius: 13)
-                                                        .stroke(Color.init(hex: "4D4343"), lineWidth: 1)
+                                                        .fill(Color.init(hex: "4D4343"))
                                                 }
                                         }
                                     }
-                                    .font(Font.custom("Pretendard-Medium", size: 11))
+                                    if campfireInfo.membersNames.count > 3 {
+                                        Text("+\(campfireInfo.membersNames.count - 3)")
+                                            .padding(6)
+                                            .foregroundStyle(.textColor2)
+                                            .background {
+                                                RoundedRectangle(cornerRadius: 13)
+                                                    .stroke(Color.init(hex: "4D4343"), lineWidth: 1)
+                                            }
+                                    }
                                 }
-                                
-                                Spacer()
+                                .font(Font.custom("Pretendard-Medium", size: 11))
                             }
-                            .padding(12)
+                            
+                            Spacer()
                         }
-                }
-                .frame(height: 72)
-                .padding(.leading, 12)
-                .padding(.trailing)
+                        .padding(12)
+                    }
             }
-        }
-        .onAppear {
-            Task {
-                if let urlName = campfireInfo.imageName, urlName != "", let uiImage = await viewModel.fetchTodayImage(imageURLName: urlName) {
-                    todayUIImage = uiImage
-                } else {
-                    print("urlName is empty")
-                }
-            }
+            .frame(height: 72)
+            .padding(.leading, 12)
+            .padding(.trailing)
         }
     }
 }

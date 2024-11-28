@@ -34,3 +34,27 @@ extension String {
         }
     }
 }
+
+// presignedURL String에서 webpURLName을 추출하는 메서드
+extension String {
+    var webpURLName: String {
+        do {
+            // .com/ 이후부터 .webp까지 String을 추출하는 정규식 패턴
+            let pattern = "(?<=\\.com/).*?\\.webp"
+            let regex = try NSRegularExpression(pattern: pattern)
+            let range = NSRange(self.startIndex..<self.endIndex, in: self)
+            
+            if let matchString = regex.firstMatch(in: self, range: range) {
+                if let matchRange = Range(matchString.range, in: self) {
+                    return String(self[matchRange])
+                } else {
+                    return ""
+                }
+            } else {
+                return ""
+            }
+        } catch {
+            return ""
+        }
+    }
+}

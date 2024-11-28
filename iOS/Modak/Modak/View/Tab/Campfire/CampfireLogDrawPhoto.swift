@@ -22,14 +22,14 @@ struct CampfireLogDrawPhoto: View {
         GeometryReader { geometry in
             if let url = imageURL {
                 if isClip {
-                    KFImage.url(url)
+                    KFImage(url)
                         .resizable()
                         .scaledToFill()
                         .frame(width: geometry.size.width, height: geometry.size.width)
                         .clipShape(Rectangle())
                         .clipped()
                 } else {
-                    KFImage.url(url)
+                    KFImage(url)
                         .resizable()
                         .scaledToFill()
                         .frame(width: geometry.size.width, height: geometry.size.width)
@@ -38,9 +38,7 @@ struct CampfireLogDrawPhoto: View {
                 Color.gray
                     .frame(width: geometry.size.width, height: geometry.size.width)
                     .onAppear {
-                        Task {
-                            imageURL = await viewModel.getWebpImageDataURL(imageURLName: imageName)
-                        }
+                        imageURL = viewModel.getWebpImageDataURL(imageURLName: imageName)
                     }
             }
         }

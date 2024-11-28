@@ -132,6 +132,7 @@ struct LogImageView: View {
         let options = PHImageRequestOptions()
         options.isSynchronous = false
         options.deliveryMode = .highQualityFormat
+        options.isNetworkAccessAllowed = true
 
         imageManager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFill, options: options) { image, _ in
             DispatchQueue.main.async {

@@ -232,9 +232,7 @@ private struct SelectMergeLogsButton: View {
                             await campfireViewModel.testFetchCampfireInfos()
                             await campfireViewModel.testFetchMainCampfireInfo()
                             await campfireViewModel.testFetchCampfireLogsPreview()
-                            if let todayImage = campfireViewModel.mainCampfireInfo?.todayImage {
-                                campfireViewModel.mainTodayImage = await campfireViewModel.fetchTodayImage(imageURLName: todayImage.name)
-                            }
+                            await campfireViewModel.fetchTodayImageURL()
                             dismiss()
                         }
                         Analytics.logEvent("merge_log_pushed", parameters: ["mergedLogCount": selectMergeLogsViewModel.mergeableLogPiles.countSelectedMergeableLogInLogPiles()])

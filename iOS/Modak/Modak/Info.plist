@@ -6,10 +6,10 @@
 	<false/>
 	<key>LSEnvironment</key>
 	<dict>
-		<key>ServerURL</key>
-		<string>$(SERVER_URL)</string>
 		<key>ImageURL</key>
 		<string>$(IMAGE_URL)</string>
+		<key>ServerURL</key>
+		<string>$(SERVER_URL)</string>
 	</dict>
 	<key>UIAppFonts</key>
 	<array>

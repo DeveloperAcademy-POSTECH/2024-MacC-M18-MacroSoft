@@ -14,8 +14,11 @@ struct AppDetailsView: View {
                 Text("서비스 버전")
                     .foregroundStyle(Color.textColor1)
                 Spacer()
-
+<<<<<<< HEAD
+                Text("1.0.1")
+=======
                 Text(Bundle.getAppVersion())
+>>>>>>> develop
                     .foregroundStyle(Color.textColorGray1)
             }
             .font(Font.custom("Pretendard-regular", size: 16))

@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import FirebaseAnalytics
+import Kingfisher
 
 struct SelectedCampfireView: View {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
@@ -18,7 +19,7 @@ struct SelectedCampfireView: View {
     @AppStorage("isInitialDataLoad") private var isInitialDataLoad: Bool = true
     
     var body: some View {
-        if viewModel.mainTodayImage != nil {
+        if viewModel.mainTodayImageURL != nil {
             CampfireMainAvatarView()
                 .padding(.bottom, -210)
         }
@@ -27,7 +28,7 @@ struct SelectedCampfireView: View {
             if viewModel.mainCampfireInfo != nil {
                 CampfireViewTopButton(isShowSideMenu: $isShowSideMenu)
                 
-                if viewModel.mainTodayImage == nil {
+                if viewModel.mainTodayImageURL == nil {
                     CampfireEmptyLog()
                     
                     Spacer()
@@ -55,7 +56,9 @@ struct SelectedCampfireView: View {
             if isInitialDataLoad {
                 fetchAndSaveCampfireToLocalStorage()
             } else {
-                viewModel.fetchCampfireMainInfo()
+                Task {
+                    await viewModel.testFetchMainCampfireInfo()
+                }
             }
         }
     }
@@ -136,8 +139,8 @@ private struct CampfireViewTopButton: View {
                 }
             } label: {
                 HStack(spacing: 8) {
-                    if let image = campfireViewModel.mainTodayImage {
-                        Image(uiImage: image)
+                    if let todayImageURL = campfireViewModel.mainTodayImageURL {
+                        KFImage(todayImageURL)
                             .resizable()
                             .frame(width: 40, height: 40)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -194,6 +197,7 @@ private struct CampfireViewTodayPhoto: View {
     
     @State private var randomRotation: Bool = Bool.random()
     @State private var isTodayPhotoFullSheet: Bool = false
+    @State private var todayImageHeight: CGFloat?
     
     var body: some View {
         VStack(spacing: 8) {
@@ -201,8 +205,11 @@ private struct CampfireViewTodayPhoto: View {
                 isTodayPhotoFullSheet = true
                 Analytics.logEvent("Image_tapped", parameters: [:])
             } label: {
-                if let todayImage = campfireViewModel.mainTodayImage {
-                    Image(uiImage: todayImage)
+                if let todayImageURL = campfireViewModel.mainTodayImageURL {
+                    KFImage.url(todayImageURL)
+                        .onSuccess { result in
+                            self.todayImageHeight = result.image.size.height
+                        }
                         .resizable()
                         .scaledToFit()
                         .clipShape(RoundedRectangle(cornerRadius: 14))
@@ -227,7 +234,7 @@ private struct CampfireViewTodayPhoto: View {
                 .stroke(Color.init(hex: "6E615F").opacity(0.32), lineWidth: 1)
         }
         .shadow(color: .black.opacity(0.25), radius: 9.09486, x: 0, y: 4.54743)
-        .frame(width: 320, height: min(campfireViewModel.mainTodayImage?.size.height ?? 320, 320))
+        .frame(width: 320, height: min(self.todayImageHeight ?? 320, 320))
         .rotationEffect(.degrees(randomRotation ? 2 : -2))
         .fullScreenCover(isPresented: $isTodayPhotoFullSheet) {
             ExpandedPhoto()

@@ -277,13 +277,9 @@ class SelectMergeLogsViewModel: ObservableObject{
                     print("uploadWebpImageData response code: \(response)")
                     throw NetworkError.serverError
                 }
-                if let startRange = self.presignedURL.range(of: "prod/") {
-                    let subString = self.presignedURL[startRange.lowerBound...]
-                    if let endRange = subString.range(of: "?") {
-                        let urlName = subString[..<endRange.lowerBound]
-                        imageURLName = String(urlName)
-                    }
-                }
+                
+                imageURLName = self.presignedURL.webpURLName
+
             } else {
                 print("uploadWebpImageData url error: \(presignedURL) \n webpImageData == nil: \(webpImageData == nil)")
             }

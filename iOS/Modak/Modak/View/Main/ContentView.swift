@@ -108,9 +108,7 @@ struct ContentView: View {
             Task {
                 await campfireViewModel.testFetchCampfireInfos()
                 await campfireViewModel.testFetchMainCampfireInfo()
-                if let todayImage = campfireViewModel.mainCampfireInfo?.todayImage {
-                    campfireViewModel.mainTodayImage = await campfireViewModel.fetchTodayImage(imageURLName: todayImage.name)
-                }
+                await campfireViewModel.fetchTodayImageURL()
             }
         }
         .environmentObject(campfireViewModel)

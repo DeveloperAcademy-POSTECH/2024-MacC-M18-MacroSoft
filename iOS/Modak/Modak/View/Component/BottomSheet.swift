@@ -192,9 +192,7 @@ extension BottomSheet {
                         await campfireViewModel.testChangeCurrentCampfirePin(Int(joinCampfireViewModel.campfirePin) ?? 0)
                         await campfireViewModel.testFetchCampfireInfos()
                         await campfireViewModel.testFetchMainCampfireInfo()
-                        if let todayImage = campfireViewModel.mainCampfireInfo?.todayImage {
-                            campfireViewModel.mainTodayImage = await campfireViewModel.fetchTodayImage(imageURLName: todayImage.name)
-                        }
+                        await campfireViewModel.fetchTodayImageURL()
                         //TODO: 다음 페이지 전환 방법 생각해보기
                         dismiss()
                         dismiss()
