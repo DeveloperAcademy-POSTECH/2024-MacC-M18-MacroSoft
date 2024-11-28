@@ -15,10 +15,29 @@ struct CampfireMainAvatarView: View {
     
     var body: some View {
         ZStack(alignment: .center) {
+            Image(.campfiremainavatarviewTree)
+                .resizable()
+                .scaledToFit()
+                .frame(width: UIScreen.main.bounds.width)
+                .padding(.top, 180)
+            
             // scene 추가
             CustomSCNView(scene: avatarViewModel.scene)
                 .edgesIgnoringSafeArea(.all)
                 .frame(height: 480)
+                .onAppear {
+                    Task {
+                        avatarViewModel.memberEmotions = (viewModel.mainCampfireInfo?.todayImage.emotions)!
+                        guard let memberIds = viewModel.mainCampfireInfo?.memberIds else { return }
+                        await avatarViewModel.fetchMemberAvatars(memberIds: memberIds)
+                    }
+                }
+                .onChange(of: viewModel.mainCampfireInfo) { _, newValue in
+                    Task {
+                        guard let memberIds = viewModel.mainCampfireInfo?.memberIds else { return }
+                        await avatarViewModel.fetchMemberAvatars(memberIds: memberIds)
+                    }
+                }
             
             LottieView(filename: "fireTest")
                 .frame(width: UIScreen.main.bounds.width * 2.5)
