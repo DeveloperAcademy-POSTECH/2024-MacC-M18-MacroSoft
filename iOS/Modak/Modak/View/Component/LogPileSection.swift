@@ -105,7 +105,7 @@ private struct LogPileRowTitle: View {
     var body: some View {
         // TODO: Text 표시하는 로직 수정
         HStack(spacing: 10) {
-            Image(isLeaf ? .leaf : .log)
+            Image(isLeaf ? .leaf3D : .log3D)
             VStack(alignment: .leading, spacing: 4) {
                 Text(location ?? "지구")
                     .foregroundStyle(.textColor3)
