@@ -14,7 +14,7 @@ struct ContentView: View {
     @StateObject private var campfireViewModel = CampfireViewModel()
     @StateObject private var profileViewModel: ProfileViewModel = ProfileViewModel()
     
-    @State private var tabSelection: Int = 0
+    @State private var tabSelection: Int = 1
     @State private var isShowSideMenu: Bool = false
     
     init() {
