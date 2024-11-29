@@ -988,11 +988,11 @@
 				};
 			};
 			buildConfigurationList = 10AB916C2CACCE4F00BFA2EC /* Build configuration list for PBXProject "Modak" */;
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				ko,
 			);
 			mainGroup = 10AB91682CACCE4F00BFA2EC;
 			minimizedProjectReferenceProxies = 1;
