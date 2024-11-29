@@ -63,7 +63,7 @@ struct AuthorizationView: View {
                     .frame(width: 326, height: 56)
                     .foregroundStyle(Color.textBackgroundRedGray.opacity(0.1))
                     .overlay {
-                        Text("사진은 휴대전화 내에서만 사용됩니다\n관련한 정보는 개발자가 접근할 수 없어요.")
+                        Text("사진은 휴대전화 내에서만 사용됩니다\n사진 정보는 개발자가 접근할 수 없어요.")
                             .font(.custom("Pretendard-Regular", size: 14))
                             .lineSpacing(14 * 0.4)
                             .foregroundStyle(Color.textColorGray2)
@@ -82,8 +82,8 @@ struct AuthorizationView: View {
         }
         .alert(isPresented: $viewModel.showAlert) {
             Alert(
-                title: Text("사진첩 접근 권한을 허용해주세요"),
-                message: Text("\n원활한 사용을 위해서 사진첩 접근 권한이 필요합니다.\n\n*사진을 정리할 때 사진 정보는 서버에 공유되지 않아요."),
+                title: Text("사진첩 전체 접근 권한을 허용해주세요"),
+                message: Text("\n장작을 만들기 위해서 당신의 여러 활동이 담긴 사진이 필요합니다.\n\n*사진을 정리할 때의 사진과 개인 장작의 사진은 서버에 공유되지 않아요."),
                 primaryButton: .default(Text("확인")) {
                     if let appSettings = URL(string: UIApplication.openSettingsURLString) {
                         UIApplication.shared.open(appSettings)
