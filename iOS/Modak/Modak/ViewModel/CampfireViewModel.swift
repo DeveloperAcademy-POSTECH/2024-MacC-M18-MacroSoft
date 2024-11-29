@@ -12,6 +12,7 @@ import SDWebImageWebPCoder
 class CampfireViewModel: ObservableObject {
     @Published var mainCampfireInfo: MainCampfireInfo? // 단일 데이터
     @Published var myCampfireInfos: [CampfireInfo] = [] // 데이터 묶음
+    @Published var isEmotionRequest: Bool = false
     
     // TODO: 제거하기
     @Published var currentCampfire: Campfire? // 단일 데이터
