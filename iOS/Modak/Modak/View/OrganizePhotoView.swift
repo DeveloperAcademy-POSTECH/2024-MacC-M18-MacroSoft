@@ -63,7 +63,10 @@ struct OrganizePhotoView: View {
                 Spacer(minLength: 0)
                 
                 Button(action: {
-                    logPileViewModel.fetchLogsWithGroupBy(modelContext: modelContext)
+                    Task {
+                        await saveClusteredLogs()
+                        logPileViewModel.fetchLogsWithGroupBy(modelContext: modelContext)
+                    }
                     dismiss()
                 }) {
                     RoundedRectangle(cornerRadius: 73)
@@ -106,20 +109,25 @@ struct OrganizePhotoView: View {
         .onAppear {
             viewModel.startStatusMessageRotation()  // 메시지 회전 시작
 
-            // DBSCAN이 끝나면 콜백에서 saveClusteredLogs 실행
             viewModel.applyDBSCAN {
-                Task {
-                    await saveClusteredLogs()  // 클러스터 로그 저장
+                if viewModel.clusters.isEmpty {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        showAlert = false
+                        showAlert = true
+                    }
                 }
             }
         }
         .alert(isPresented: $showAlert) {
             Alert(
                 title: Text("추천할 장작이 없어요."),
-                message: Text("사진을 직접 선택해서 장작을 만들 수 있어요. 장작을 만들러 이동하시겠어요?"),
+                message: Text("선택한 사진으로 직접 장작을 만들 수 있어요. 다시 장작을 만드시겠어요?"),
                 primaryButton: .default(Text("확인")) {
-                    // 직접 추가 로직 추가
                     showAlert = false
+                    viewModel.clusters.removeAll()
+                    viewModel.photoMetadataList.removeAll()
+                    viewModel.fetchPhotos(fromLast: 6, unit: .month, excludeScreenshots: false)
+                    viewModel.applyDBSCAN(eps: 7200, minPts: 1) { }
                 },
                 secondaryButton: .cancel(Text("취소")) {
                     showAlert = false
@@ -178,7 +186,6 @@ struct OrganizePhotoView: View {
     
     private func saveClusteredLogs() async {
         var savedClusterIdentifiers = Set<String>()
-        var clustersSaved = 0 // 저장된 클러스터 개수
         
         for cluster in viewModel.clusters {
             guard let firstMetadata = cluster.first, let lastMetadata = cluster.last else {
@@ -193,7 +200,6 @@ struct OrganizePhotoView: View {
             }
 
             savedClusterIdentifiers.insert(clusterID)
-            clustersSaved += 1
 
             let startAt = firstMetadata.creationDate ?? Date()
             let endAt = lastMetadata.creationDate ?? Date()
@@ -252,14 +258,6 @@ struct OrganizePhotoView: View {
                 print("로그와 주소 저장 성공: \(address)")
             } catch {
                 print("로그와 주소 저장 실패: \(error)")
-            }
-        }
-        
-        // 저장된 클러스터가 없을 경우 Alert 표시
-        if viewModel.clusters.isEmpty {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                showAlert = false
-                showAlert = true
             }
         }
     }
