@@ -56,11 +56,12 @@ private struct LogPileSectionRow: View {
                                         .padding(.init(top: -5, leading: 12, bottom: -7, trailing: 0))
                                 }
                                 LazyVGrid(columns: gridItems, spacing: 1) {
-                                    ForEach(0..<((4...7).contains(log.sortedImages.count) ? 4 : 8), id: \.self) { index in
+                                    ForEach(0..<min(((4...7).contains(log.sortedImages.count) ? 4 : 8), log.sortedImages.count), id: \.self) { index in
                                         Group {
-                                            if (log.sortedImages.count == 3 && index == 2) || (log.sortedImages.count == 2 && index == 1) || (log.sortedImages.count == 1 && index == 0) {
+                                            if (log.sortedImages.count == 3 && index == 2) ||
+                                               (log.sortedImages.count == 2 && index == 1) ||
+                                               (log.sortedImages.count == 1 && index == 0) {
                                                 DrawPhoto(photoMetadata: log.sortedImages[index], isClip: true)
-                                                // clipShape 때문에 Group을 못 썼는데 이 로직으로 들어오는 경우가 없어서 일단 Group 사용함
                                                     .clipShape(.rect(bottomTrailingRadius: 20, topTrailingRadius: 20))
                                             } else {
                                                 DrawPhoto(photoMetadata: log.sortedImages[index], isClip: true)
