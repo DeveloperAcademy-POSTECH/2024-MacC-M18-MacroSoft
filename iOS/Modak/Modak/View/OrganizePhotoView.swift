@@ -119,8 +119,10 @@ struct OrganizePhotoView: View {
                 message: Text("사진을 직접 선택해서 장작을 만들 수 있어요. 장작을 만들러 이동하시겠어요?"),
                 primaryButton: .default(Text("확인")) {
                     // 직접 추가 로직 추가
+                    showAlert = false
                 },
                 secondaryButton: .cancel(Text("취소")) {
+                    showAlert = false
                     dismiss()
                 }
             )
@@ -253,9 +255,10 @@ struct OrganizePhotoView: View {
             }
         }
         
-        // 저장된 클러스터가 0개일 경우 Alert 표시
-        if clustersSaved == 0 {
-            DispatchQueue.main.async {
+        // 저장된 클러스터가 없을 경우 Alert 표시
+        if viewModel.clusters.isEmpty {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                showAlert = false
                 showAlert = true
             }
         }
