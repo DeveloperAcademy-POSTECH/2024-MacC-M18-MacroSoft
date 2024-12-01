@@ -19,6 +19,7 @@ struct OrganizePhotoView: View {
     @State private var showBottomSheet = false
     @State private var locationCache: [String: (center: CLLocationCoordinate2D, radius: Double, address: String)] = [:]
     @State private var isHidePhoto: Bool = false
+    @State private var showAlert = false
     let geocoder = CLGeocoder()
     
     init() {
@@ -62,7 +63,10 @@ struct OrganizePhotoView: View {
                 Spacer(minLength: 0)
                 
                 Button(action: {
-                    logPileViewModel.fetchLogsWithGroupBy(modelContext: modelContext)
+                    Task {
+                        await saveClusteredLogs()
+                        logPileViewModel.fetchLogsWithGroupBy(modelContext: modelContext)
+                    }
                     dismiss()
                 }) {
                     RoundedRectangle(cornerRadius: 73)
@@ -105,12 +109,31 @@ struct OrganizePhotoView: View {
         .onAppear {
             viewModel.startStatusMessageRotation()  // 메시지 회전 시작
 
-            // DBSCAN이 끝나면 콜백에서 saveClusteredLogs 실행
             viewModel.applyDBSCAN {
-                Task {
-                    await saveClusteredLogs()  // 클러스터 로그 저장
+                if viewModel.clusters.isEmpty {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        showAlert = false
+                        showAlert = true
+                    }
                 }
             }
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("추천할 장작이 없어요."),
+                message: Text("선택한 사진으로 직접 장작을 만들 수 있어요. 다시 장작을 만드시겠어요?"),
+                primaryButton: .default(Text("확인")) {
+                    showAlert = false
+                    viewModel.clusters.removeAll()
+                    viewModel.photoMetadataList.removeAll()
+                    viewModel.fetchPhotos(fromLast: 6, unit: .month, excludeScreenshots: false)
+                    viewModel.applyDBSCAN(eps: 7200, minPts: 1) { }
+                },
+                secondaryButton: .cancel(Text("취소")) {
+                    showAlert = false
+                    dismiss()
+                }
+            )
         }
         .onAppear{
             Analytics.logEvent(AnalyticsEventScreenView,
@@ -133,7 +156,8 @@ struct OrganizePhotoView: View {
             }
             .font(.custom("Pretendard-Bold", size: 23))
             .padding(.top, 14)
-            .padding(.bottom, 65)
+            
+            Spacer()
             
             ProgressNumber(currentCount: viewModel.displayedCount, totalCount: viewModel.totalCount)
                 .padding(.bottom, 26)
@@ -153,6 +177,7 @@ struct OrganizePhotoView: View {
                 }
                 .buttonStyle(PlainButtonStyle())
             }
+            .padding(.bottom, 30)
                 
             Spacer()
         }
@@ -163,7 +188,7 @@ struct OrganizePhotoView: View {
     
     private func saveClusteredLogs() async {
         var savedClusterIdentifiers = Set<String>()
-
+        
         for cluster in viewModel.clusters {
             guard let firstMetadata = cluster.first, let lastMetadata = cluster.last else {
                 print("클러스터에 이미지가 없습니다.")

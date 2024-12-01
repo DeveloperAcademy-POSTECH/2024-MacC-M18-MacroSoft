@@ -26,7 +26,7 @@ struct CircularProgressBar: View {
                     )
                 )
                 .rotationEffect(Angle(degrees: -90))
-                .frame(width: 277, height: 277)
+                .frame(width: UIScreen.main.bounds.width / 1.4, height: UIScreen.main.bounds.width / 1.4)
         }
     }
 }

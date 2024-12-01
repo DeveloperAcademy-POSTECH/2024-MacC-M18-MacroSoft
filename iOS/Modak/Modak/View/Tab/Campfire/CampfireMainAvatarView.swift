@@ -24,12 +24,27 @@ struct CampfireMainAvatarView: View {
             // scene 추가
             CustomSCNView(scene: avatarViewModel.scene)
                 .edgesIgnoringSafeArea(.all)
-                .frame(height: 480)
+                .frame(height: 460)
                 .onAppear {
                     Task {
-                        avatarViewModel.memberEmotions = (viewModel.mainCampfireInfo?.todayImage.emotions)!
-                        guard let memberIds = viewModel.mainCampfireInfo?.memberIds else { return }
-                        await avatarViewModel.fetchMemberAvatars(memberIds: memberIds)
+                        if let emotions = viewModel.mainCampfireInfo?.todayImage.emotions {
+                            avatarViewModel.memberEmotions = emotions
+                        }
+                        if let memberIds = viewModel.mainCampfireInfo?.memberIds {
+                            await avatarViewModel.fetchMemberAvatars(memberIds: memberIds)
+                        }
+                    }
+                }
+                .onChange(of: viewModel.isEmotionRequest) { _, newValue in
+                    if newValue {
+                        Task {
+                            avatarViewModel.memberEmotions = (viewModel.mainCampfireInfo?.todayImage.emotions)!
+                            guard let memberIds = viewModel.mainCampfireInfo?.memberIds else { return }
+                            await avatarViewModel.fetchMemberAvatars(memberIds: memberIds)
+                            print("emoji-avatarViewModel : \(avatarViewModel.memberEmotions)")
+                            print("emoji-mainCampfireInfo : \(String(describing: viewModel.mainCampfireInfo?.todayImage.emotions))")
+                            viewModel.isEmotionRequest = false
+                        }
                     }
                 }
                 .onChange(of: viewModel.isEmotionRequest) { _, newValue in
@@ -55,9 +70,23 @@ struct CampfireMainAvatarView: View {
                     }
                 }
             
-            LottieView(filename: "fireTest")
-                .frame(width: UIScreen.main.bounds.width * 2.5)
-                .padding(.top, 160)
+            if viewModel.mainTodayImageURL == nil {
+                Image(.fireTestDefault)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: UIScreen.main.bounds.width * 1.25)
+                    .padding(.top, 160)
+            } else {
+                LottieView(filename: "fireTest")
+                    .frame(width: UIScreen.main.bounds.width * 2.5)
+                    .padding(.top, 160)
+            }
+            
+            if viewModel.mainTodayImageURL == nil {
+                Color.white
+                    .blendMode(.saturation)
+                    .edgesIgnoringSafeArea(.all)
+            }
         }
     }
 }

@@ -988,11 +988,11 @@
 				};
 			};
 			buildConfigurationList = 10AB916C2CACCE4F00BFA2EC /* Build configuration list for PBXProject "Modak" */;
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				ko,
 			);
 			mainGroup = 10AB91682CACCE4F00BFA2EC;
 			minimizedProjectReferenceProxies = 1;
@@ -1406,8 +1406,8 @@
 				INFOPLIST_FILE = Modak/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Modak;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
-				INFOPLIST_KEY_NSCameraUsageDescription = "카메라를 사용합니다.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "최근 6개월 이내의 사진을 자동으로 정리하려면 사진 접근 권한이 필요합니다.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "모닥불 이정표의 정보 인식을 위해 카메라 접근 권한이 필요합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "최근 6개월 이내의 사진을 자동으로 정리하기 위해 앨범의 전체 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1448,8 +1448,8 @@
 				INFOPLIST_FILE = Modak/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Modak;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
-				INFOPLIST_KEY_NSCameraUsageDescription = "카메라를 사용합니다.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "최근 6개월 이내의 사진을 자동으로 정리하려면 사진 접근 권한이 필요합니다.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "모닥불 이정표의 정보 인식을 위해 카메라 접근 권한이 필요합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "최근 6개월 이내의 사진을 자동으로 정리하기 위해 앨범의 전체 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
