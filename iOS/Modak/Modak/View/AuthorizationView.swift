@@ -11,6 +11,7 @@ import Photos
 struct AuthorizationView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = AuthorizationViewModel()
+    @State private var showBottomSheet = false
     
     var body: some View {
         ZStack {
@@ -42,7 +43,17 @@ struct AuthorizationView: View {
                                 .foregroundStyle(Color.white)
                         }
                 }
-                .padding(.bottom, 14)
+                .padding(.bottom, 28)
+                
+                Button(action: {
+                    showBottomSheet.toggle()
+                }) {
+                    Text("장작이 무엇인가요?")
+                        .font(.custom("Pretendard-Medium", size: 16))
+                        .foregroundColor(.mainColor1)
+                        .underline()
+                }
+                .padding(.bottom, 12)
             }
             
             VStack {
@@ -72,7 +83,16 @@ struct AuthorizationView: View {
             .padding(.top, 30)
             .padding(.bottom, 80)
             
-            
+            if showBottomSheet {
+                BottomSheet(
+                    isPresented: $showBottomSheet,
+                    viewName: "AuthorizationView",
+                    campfireName: .constant(nil),
+                    createdAt: .constant(nil),
+                    membersNames: .constant(nil)
+                )
+                .transition(.move(edge: .bottom))
+            }
         }
         .multilineTextAlignment(.center)
         .toolbar {

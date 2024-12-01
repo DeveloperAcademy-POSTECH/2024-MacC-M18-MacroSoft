@@ -41,7 +41,7 @@ struct BottomSheet: View {
                     
                     Spacer()
                 }
-                .frame(height: (viewName == "OrganizePhotoView" ? geometry.size.height/3 : geometry.size.height*2/5))
+                .frame(height: (viewName != "JoinCampfireView" ? geometry.size.height/3 : geometry.size.height*2/5))
                 .frame(maxWidth: .infinity)
                 .background(Color.backgroundDefault)
                 .cornerRadius(24, corners: [.topLeft, .topRight])
@@ -114,7 +114,7 @@ extension BottomSheet {
     @ViewBuilder
     func bottomSheetContent(_ name: String) -> some View {
         switch name {
-        case "OrganizePhotoView":
+        case "OrganizePhotoView", "AuthorizationView":
             VStack(alignment: .leading) {
                 Text("장작이란?")
                     .foregroundStyle(Color.textColor2)
@@ -149,6 +149,7 @@ extension BottomSheet {
                     .lineSpacing(16 * 0.5)
             }
             .padding(.leading, 24)
+            .multilineTextAlignment(.leading)
             
         case "JoinCampfireView":
             VStack(alignment: .leading) {

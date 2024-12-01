@@ -16,10 +16,8 @@ class AuthorizationViewModel: ObservableObject {
         PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
             DispatchQueue.main.async {
                 switch status {
-                case .authorized:
+                case .authorized, .limited:
                     self.navigateToOrganizePhotoView = true
-                case .limited:
-                    self.showAlert = true
                 case .denied, .restricted, .notDetermined :
                     self.showAlert = true
                 @unknown default:

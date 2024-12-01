@@ -19,6 +19,7 @@ struct OrganizePhotoView: View {
     @State private var showBottomSheet = false
     @State private var locationCache: [String: (center: CLLocationCoordinate2D, radius: Double, address: String)] = [:]
     @State private var isHidePhoto: Bool = false
+    @State private var showAlert = false
     let geocoder = CLGeocoder()
     
     init() {
@@ -112,6 +113,18 @@ struct OrganizePhotoView: View {
                 }
             }
         }
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("추천할 장작이 없어요."),
+                message: Text("사진을 직접 선택해서 장작을 만들 수 있어요. 장작을 만들러 이동하시겠어요?"),
+                primaryButton: .default(Text("확인")) {
+                    // 직접 추가 로직 추가
+                },
+                secondaryButton: .cancel(Text("취소")) {
+                    dismiss()
+                }
+            )
+        }
         .onAppear{
             Analytics.logEvent(AnalyticsEventScreenView,
                 parameters: [AnalyticsParameterScreenName: "OrganizePhotoView",
@@ -163,7 +176,8 @@ struct OrganizePhotoView: View {
     
     private func saveClusteredLogs() async {
         var savedClusterIdentifiers = Set<String>()
-
+        var clustersSaved = 0 // 저장된 클러스터 개수
+        
         for cluster in viewModel.clusters {
             guard let firstMetadata = cluster.first, let lastMetadata = cluster.last else {
                 print("클러스터에 이미지가 없습니다.")
@@ -177,6 +191,7 @@ struct OrganizePhotoView: View {
             }
 
             savedClusterIdentifiers.insert(clusterID)
+            clustersSaved += 1
 
             let startAt = firstMetadata.creationDate ?? Date()
             let endAt = lastMetadata.creationDate ?? Date()
@@ -235,6 +250,13 @@ struct OrganizePhotoView: View {
                 print("로그와 주소 저장 성공: \(address)")
             } catch {
                 print("로그와 주소 저장 실패: \(error)")
+            }
+        }
+        
+        // 저장된 클러스터가 0개일 경우 Alert 표시
+        if clustersSaved == 0 {
+            DispatchQueue.main.async {
+                showAlert = true
             }
         }
     }
