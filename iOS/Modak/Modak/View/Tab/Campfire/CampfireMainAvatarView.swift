@@ -27,9 +27,12 @@ struct CampfireMainAvatarView: View {
                 .frame(height: 460)
                 .onAppear {
                     Task {
-                        avatarViewModel.memberEmotions = (viewModel.mainCampfireInfo?.todayImage.emotions)!
-                        guard let memberIds = viewModel.mainCampfireInfo?.memberIds else { return }
-                        await avatarViewModel.fetchMemberAvatars(memberIds: memberIds)
+                        if let emotions = viewModel.mainCampfireInfo?.todayImage.emotions {
+                            avatarViewModel.memberEmotions = emotions
+                        }
+                        if let memberIds = viewModel.mainCampfireInfo?.memberIds {
+                            await avatarViewModel.fetchMemberAvatars(memberIds: memberIds)
+                        }
                     }
                 }
                 .onChange(of: viewModel.isEmotionRequest) { _, newValue in
