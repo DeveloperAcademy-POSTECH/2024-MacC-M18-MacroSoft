@@ -140,7 +140,7 @@ struct ContentView: View {
                         .foregroundColor(Color.white.opacity(0.5))
                 }
                 .font(Font.custom("Pretendard-Regular", size: 14))
-                .padding(.bottom, 170)
+                .padding(.bottom, 80)
                 .transition(.move(edge: .bottom).combined(with: .opacity))
             }
         }
