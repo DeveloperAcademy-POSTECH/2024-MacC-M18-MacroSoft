@@ -156,7 +156,8 @@ struct OrganizePhotoView: View {
             }
             .font(.custom("Pretendard-Bold", size: 23))
             .padding(.top, 14)
-            .padding(.bottom, 65)
+            
+            Spacer()
             
             ProgressNumber(currentCount: viewModel.displayedCount, totalCount: viewModel.totalCount)
                 .padding(.bottom, 26)
@@ -176,6 +177,7 @@ struct OrganizePhotoView: View {
                 }
                 .buttonStyle(PlainButtonStyle())
             }
+            .padding(.bottom, 30)
                 
             Spacer()
         }
