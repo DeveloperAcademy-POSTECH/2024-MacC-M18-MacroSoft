@@ -17,7 +17,6 @@ class OrganizePhotoViewModel: ObservableObject {
     @Published var statusMessage: String = "장작을 모으는 중"
     @Published var currentCircularProgressPhoto: UIImage? = nil
     
-    private var dbscan = DBSCAN()
     private var messageRotationTimer: Timer?
     private var estimatedTimeToComplete: TimeInterval = 0
     
@@ -50,10 +49,11 @@ class OrganizePhotoViewModel: ObservableObject {
         }
     }
     
-    func applyDBSCAN(completion: @escaping () -> Void) {
+    func applyDBSCAN(eps: TimeInterval = 7200, minPts: Int = 10, completion: @escaping () -> Void) {
+        let dbscan = DBSCAN(eps: eps, minPts: minPts)
         // 비동기적으로 DBSCAN 알고리즘 적용
         DispatchQueue.global(qos: .userInitiated).async {
-            let resultClusters = self.dbscan.applyAlgorithm(points: self.photoMetadataList) { progress in
+            let resultClusters = dbscan.applyAlgorithm(points: self.photoMetadataList) { progress in
                 DispatchQueue.main.async {
                     self.currentCount = progress // 알고리즘 진행 상황을 메인 스레드에서 업데이트
                     self.updateCircularProgressPhoto(currentProgress: progress)
