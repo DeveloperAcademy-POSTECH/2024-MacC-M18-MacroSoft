@@ -17,26 +17,31 @@ class OrganizePhotoViewModel: ObservableObject {
     @Published var statusMessage: String = "장작을 모으는 중"
     @Published var currentCircularProgressPhoto: UIImage? = nil
     
-    private var dbscan = DBSCAN()
     private var messageRotationTimer: Timer?
     private var estimatedTimeToComplete: TimeInterval = 0
     
     private let statusMessages = ["장작을 모으는 중", "기억에서 장작 선별중..", "장작의 원산지를 파악중"]
 
     init() {
-        fetchPhotos(fromLast: 6, unit: .month) // 6개월 설정
+        fetchPhotos(fromLast: 6, unit: .month, excludeScreenshots: true) // 6개월 설정, 스크린샷 제외
     }
     
-    private func fetchPhotos(fromLast value: Int, unit: Calendar.Component) {
+    func fetchPhotos(fromLast value: Int, unit: Calendar.Component, excludeScreenshots: Bool) {
         // FetchOptions 생성
         let fetchOptions = PHFetchOptions()
         let startDate = Calendar.current.date(byAdding: unit, value: -value, to: Date())!
         
-        // 특정 기간 이내에 촬영된 사진만 가져오고 스크린샷을 제외하는 필터를 설정
-        fetchOptions.predicate = NSPredicate(format: "creationDate > %@ AND mediaType == %d AND NOT (mediaSubtypes & %d != 0)",
-                                             startDate as NSDate,
-                                             PHAssetMediaType.image.rawValue,
-                                             PHAssetMediaSubtype.photoScreenshot.rawValue)
+        // 특정 기간 이내에 촬영된 사진만 가져옴
+        if excludeScreenshots {
+            fetchOptions.predicate = NSPredicate(format: "creationDate > %@ AND mediaType == %d AND NOT (mediaSubtypes & %d != 0)",
+                                                 startDate as NSDate,
+                                                 PHAssetMediaType.image.rawValue,
+                                                 PHAssetMediaSubtype.photoScreenshot.rawValue)
+        } else {
+            fetchOptions.predicate = NSPredicate(format: "creationDate > %@ AND mediaType == %d",
+                                                 startDate as NSDate,
+                                                 PHAssetMediaType.image.rawValue)
+        }
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)] // 최신순 정렬
         
         let fetchResult = PHAsset.fetchAssets(with: fetchOptions)
@@ -50,10 +55,11 @@ class OrganizePhotoViewModel: ObservableObject {
         }
     }
     
-    func applyDBSCAN(completion: @escaping () -> Void) {
+    func applyDBSCAN(eps: TimeInterval = 7200, minPts: Int = 10, completion: @escaping () -> Void) {
+        let dbscan = DBSCAN(eps: eps, minPts: minPts)
         // 비동기적으로 DBSCAN 알고리즘 적용
         DispatchQueue.global(qos: .userInitiated).async {
-            let resultClusters = self.dbscan.applyAlgorithm(points: self.photoMetadataList) { progress in
+            let resultClusters = dbscan.applyAlgorithm(points: self.photoMetadataList) { progress in
                 DispatchQueue.main.async {
                     self.currentCount = progress // 알고리즘 진행 상황을 메인 스레드에서 업데이트
                     self.updateCircularProgressPhoto(currentProgress: progress)

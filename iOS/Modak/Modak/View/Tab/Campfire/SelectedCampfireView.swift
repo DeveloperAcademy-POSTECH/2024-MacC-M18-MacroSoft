@@ -19,10 +19,8 @@ struct SelectedCampfireView: View {
     @AppStorage("isInitialDataLoad") private var isInitialDataLoad: Bool = true
     
     var body: some View {
-        if viewModel.mainTodayImageURL != nil {
-            CampfireMainAvatarView()
-                .padding(.bottom, -210)
-        }
+        CampfireMainAvatarView()
+            .padding(.bottom, -240)
         VStack {
             // TODO: 네트워크가 연결되지 않은 경우 로컬 데이터를 사용
             if viewModel.mainCampfireInfo != nil {
@@ -31,7 +29,7 @@ struct SelectedCampfireView: View {
                 if viewModel.mainTodayImageURL == nil {
                     CampfireEmptyLog()
                     
-                    Spacer()
+                    Spacer(minLength: UIScreen.main.bounds.height / 3)
                 } else {
                     CampfireViewTodayPhoto()
                     
@@ -234,7 +232,7 @@ private struct CampfireViewTodayPhoto: View {
                 .stroke(Color.init(hex: "6E615F").opacity(0.32), lineWidth: 1)
         }
         .shadow(color: .black.opacity(0.25), radius: 9.09486, x: 0, y: 4.54743)
-        .frame(width: 320, height: min(self.todayImageHeight ?? 320, 320))
+        .frame(width: UIScreen.main.bounds.width / 1.3, height: min(self.todayImageHeight ?? UIScreen.main.bounds.width / 1.3, UIScreen.main.bounds.width / 1.3))
         .rotationEffect(.degrees(randomRotation ? 2 : -2))
         .fullScreenCover(isPresented: $isTodayPhotoFullSheet) {
             ExpandedPhoto()

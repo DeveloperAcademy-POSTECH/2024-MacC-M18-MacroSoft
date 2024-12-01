@@ -24,7 +24,7 @@ struct CampfireMainAvatarView: View {
             // scene 추가
             CustomSCNView(scene: avatarViewModel.scene)
                 .edgesIgnoringSafeArea(.all)
-                .frame(height: 480)
+                .frame(height: 460)
                 .onAppear {
                     Task {
                         avatarViewModel.memberEmotions = (viewModel.mainCampfireInfo?.todayImage.emotions)!
@@ -55,9 +55,23 @@ struct CampfireMainAvatarView: View {
                     }
                 }
             
-            LottieView(filename: "fireTest")
-                .frame(width: UIScreen.main.bounds.width * 2.5)
-                .padding(.top, 160)
+            if viewModel.mainTodayImageURL == nil {
+                Image(.fireTestDefault)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: UIScreen.main.bounds.width * 1.25)
+                    .padding(.top, 160)
+            } else {
+                LottieView(filename: "fireTest")
+                    .frame(width: UIScreen.main.bounds.width * 2.5)
+                    .padding(.top, 160)
+            }
+            
+            if viewModel.mainTodayImageURL == nil {
+                Color.white
+                    .blendMode(.saturation)
+                    .edgesIgnoringSafeArea(.all)
+            }
         }
     }
 }

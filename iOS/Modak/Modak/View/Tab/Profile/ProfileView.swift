@@ -58,30 +58,32 @@ struct ProfileView: View {
             }
             .padding(.vertical, 10)
             
-            ProfileItem(title: "프로필 정보 편집", destination: AnyView(EditProfileView()))
-            .background { ProfileItemFrame() }
-            
-            GroupBox {
-                ProfileItem(title: "모닥불 정보", destination: AnyView(AppDetailsView()))
-                ProfileItem(title: "개인정보 처리방침") {
-                    openWebView(url: "https://sites.google.com/view/modak-privacy/%ED%99%88")
-                }
-                ProfileItem(title: "이용약관") {
-                    openWebView(url: "https://sites.google.com/view/modak-servicepolicy/%ED%99%88")
-                }
-            }
-            .groupBoxStyle(ProfileGroupBox())
-            
-            ProfileItem(title: "로그아웃") {
-                profileViewModel.logout { success in
-                    if success {
-                        isSkipRegister = false
+            ScrollView {
+                ProfileItem(title: "프로필 정보 편집", destination: AnyView(EditProfileView()))
+                    .background { ProfileItemFrame() }
+                
+                GroupBox {
+                    ProfileItem(title: "모닥불 정보", destination: AnyView(AppDetailsView()))
+                    ProfileItem(title: "개인정보 처리방침") {
+                        openWebView(url: "https://sites.google.com/view/modak-privacy/%ED%99%88")
+                    }
+                    ProfileItem(title: "이용약관") {
+                        openWebView(url: "https://sites.google.com/view/modak-servicepolicy/%ED%99%88")
                     }
                 }
+                .groupBoxStyle(ProfileGroupBox())
+                
+                ProfileItem(title: "로그아웃") {
+                    profileViewModel.logout { success in
+                        if success {
+                            isSkipRegister = false
+                        }
+                    }
+                }
+                .background { ProfileItemFrame() }
+                
+                Spacer()
             }
-            .background { ProfileItemFrame() }
-            
-            Spacer()
         }
         // TODO: 제거해도 될듯?
         .environmentObject(profileViewModel)
