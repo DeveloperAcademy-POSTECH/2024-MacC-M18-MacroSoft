@@ -112,7 +112,7 @@ class SelectMergeLogsViewModel: ObservableObject{
                 
                 isFetchingPage = false
             } catch {
-                print("fetchLogsWithGroupBy failed: \(error)")
+                print("fetchMergeableLogPiles failed: \(error)")
                 isFetchingPage = false
             }
         }

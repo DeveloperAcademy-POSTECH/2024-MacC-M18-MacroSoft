@@ -12,7 +12,8 @@ import Kingfisher
 
 struct SelectedCampfireView: View {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
-    @EnvironmentObject private var viewModel: CampfireViewModel
+    @EnvironmentObject private var campfireViewModel: CampfireViewModel
+    @EnvironmentObject private var logPileViewModel: LogPileViewModel
     @Environment(\.modelContext) private var modelContext
     @Query var campfiresLocalData: [Campfire]
     @Binding private(set) var isShowSideMenu: Bool
@@ -23,10 +24,10 @@ struct SelectedCampfireView: View {
             .padding(.bottom, -240)
         VStack {
             // TODO: 네트워크가 연결되지 않은 경우 로컬 데이터를 사용
-            if viewModel.mainCampfireInfo != nil {
+            if campfireViewModel.mainCampfireInfo != nil {
                 CampfireViewTopButton(isShowSideMenu: $isShowSideMenu)
                 
-                if viewModel.mainTodayImageURL == nil {
+                if campfireViewModel.mainTodayImageURL == nil {
                     CampfireEmptyLog()
                     
                     Spacer(minLength: UIScreen.main.bounds.height / 3)
@@ -51,23 +52,24 @@ struct SelectedCampfireView: View {
         }
         .frame(width: UIScreen.main.bounds.width)
         .onAppear {
+            logPileViewModel.fetchLogsWithGroupBy(modelContext: modelContext)
             if isInitialDataLoad {
                 fetchAndSaveCampfireToLocalStorage()
             } else {
                 Task {
-                    await viewModel.testFetchMainCampfireInfo()
+                    await campfireViewModel.testFetchMainCampfireInfo()
                 }
             }
         }
     }
 
     private func fetchAndSaveCampfireToLocalStorage() {
-        viewModel.fetchUserCampfireInfos { campfires in
+        campfireViewModel.fetchUserCampfireInfos { campfires in
             if let campfires = campfires {
                 for campfire in campfires {
                     self.modelContext.insert(campfire)
                 }
-                viewModel.recentVisitedCampfirePin = campfires.first!.pin
+                campfireViewModel.recentVisitedCampfirePin = campfires.first!.pin
                 self.isInitialDataLoad = false
                 do {
                     try modelContext.save()
