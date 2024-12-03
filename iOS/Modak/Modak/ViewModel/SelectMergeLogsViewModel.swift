@@ -138,56 +138,66 @@ class SelectMergeLogsViewModel: ObservableObject{
     private func convertToMergeableLogPiles(privateLogs: [PrivateLog]) {
         
         if campfireLogsMetadata.isEmpty {
-            for privateLog in privateLogs {
-                let mergeableLog = MergeableLog(
-                    id: privateLog.id,
-                    minLatitude: privateLog.minLatitude,
-                    maxLatitude: privateLog.maxLatitude,
-                    minLongitude: privateLog.minLongitude,
-                    maxLongitude: privateLog.maxLongitude,
-                    startAt: privateLog.startAt,
-                    endAt: privateLog.endAt,
-                    images: privateLog.sortedImages,
-                    address: privateLog.address
+            notRecommendedMergeableLogPile.mergeableLogs = privateLogs.map {
+                MergeableLog(
+                    id: $0.id,
+                    minLatitude: $0.minLatitude,
+                    maxLatitude: $0.maxLatitude,
+                    minLongitude: $0.minLongitude,
+                    maxLongitude: $0.maxLongitude,
+                    startAt: $0.startAt,
+                    endAt: $0.endAt,
+                    images: $0.sortedImages,
+                    address: $0.address
                 )
-                
-                notRecommendedMergeableLogPile.mergeableLogs.append(mergeableLog)
             }
-            
             mergeableLogPiles = [notRecommendedMergeableLogPile]
-        } else {
-            for privateLog in privateLogs {
-                for campfireLogMetadata in campfireLogsMetadata {
-                    
-                    let mergeableLog = MergeableLog(
-                        id: privateLog.id,
-                        minLatitude: privateLog.minLatitude,
-                        maxLatitude: privateLog.maxLatitude,
-                        minLongitude: privateLog.minLongitude,
-                        maxLongitude: privateLog.maxLongitude,
-                        startAt: privateLog.startAt,
-                        endAt: privateLog.endAt,
-                        images: privateLog.sortedImages,
-                        address: privateLog.address
-                    )
-                    
-                    if checkLogMetadataOverlap(privateLog: privateLog, campfireLogMetadata: campfireLogMetadata) {
+            return
+        }
+
+        // 중복 방지를 위한 Set
+        var recommendedLogIDs = Set<UUID>()
+        var notRecommendedLogIDs = Set<UUID>()
+
+        // privateLogs 순회
+        for privateLog in privateLogs {
+            let mergeableLog = MergeableLog(
+                id: privateLog.id,
+                minLatitude: privateLog.minLatitude,
+                maxLatitude: privateLog.maxLatitude,
+                minLongitude: privateLog.minLongitude,
+                maxLongitude: privateLog.maxLongitude,
+                startAt: privateLog.startAt,
+                endAt: privateLog.endAt,
+                images: privateLog.sortedImages,
+                address: privateLog.address
+            )
+
+            // 추천 그룹 확인
+            var isRecommended = false
+            for campfireLogMetadata in campfireLogsMetadata {
+                if checkLogMetadataOverlap(privateLog: privateLog, campfireLogMetadata: campfireLogMetadata) {
+                    if !recommendedLogIDs.contains(privateLog.id) {
                         recommendedMergeableLogPile.mergeableLogs.append(mergeableLog)
-                        break
-                    } else {
-                        if notRecommendedMergeableLogPile.mergeableLogs.contains(where: { $0.id == mergeableLog.id }) {
-                            break
-                        } else {
-                            notRecommendedMergeableLogPile.mergeableLogs.append(mergeableLog)
-                        }
+                        recommendedLogIDs.insert(privateLog.id)
                     }
+                    isRecommended = true
+                    break
                 }
             }
-            if recommendedMergeableLogPile.mergeableLogs.isEmpty {
-                mergeableLogPiles = [notRecommendedMergeableLogPile]
-            } else {
-                mergeableLogPiles = [recommendedMergeableLogPile, notRecommendedMergeableLogPile]
+
+            // 비추천 그룹 추가
+            if !isRecommended, !notRecommendedLogIDs.contains(privateLog.id) {
+                notRecommendedMergeableLogPile.mergeableLogs.append(mergeableLog)
+                notRecommendedLogIDs.insert(privateLog.id)
             }
+        }
+
+        // mergeableLogPiles 업데이트
+        if recommendedMergeableLogPile.mergeableLogs.isEmpty {
+            mergeableLogPiles = [notRecommendedMergeableLogPile]
+        } else {
+            mergeableLogPiles = [recommendedMergeableLogPile, notRecommendedMergeableLogPile]
         }
     }
     
