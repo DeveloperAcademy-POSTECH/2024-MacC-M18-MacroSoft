@@ -10,6 +10,14 @@ import SwiftUI
 struct CampfireLogImagesResult: Codable {
     var logId: Int
     var images: [CampfireLogImage]
+    var hasNext: Bool
+}
+
+struct CampfireLogImagesData: Codable {
+    var logId: Int
+    var images: [CampfireLogImage]
+    var hasNext: Bool
+    var currentPage: Int
 }
 
 struct CampfireLogImage: Codable {

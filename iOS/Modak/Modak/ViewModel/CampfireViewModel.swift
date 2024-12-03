@@ -28,7 +28,7 @@ class CampfireViewModel: ObservableObject {
     @Published var currentCampfirePin: Int = 0
     @Published var mainTodayImageURL: URL?
     @Published var currentCampfireYearlyLogs: YearlyLogsOverview = .init(hasNext: false, currentPage: 0, monthlyLogs: [])
-    @Published var currentCampfireLogImages: [CampfireLogImage] = []
+    @Published var currentCampfireLogImagesData: CampfireLogImagesData = .init(logId: 0, images: [], hasNext: false, currentPage: 0)
     @Published var currentCampfireLogImageDetail: CampfireLogImageDetailResult?
     
     //    init() {
@@ -183,13 +183,33 @@ class CampfireViewModel: ObservableObject {
     @MainActor
     func getCampfireLogImages(logId: Int) async {
         do {
-            let response = try await NetworkManager.shared.requestRawData(router: .getCampfireLogImages(campfirePin: currentCampfirePin, logId: logId))
+            let response = try await NetworkManager.shared.requestRawData(router: .getCampfireLogImages(campfirePin: currentCampfirePin, logId: logId, parameters: [:]))
             
             let result = try JSONDecoder().decode(ResponseModel<CampfireLogImagesResult>.self, from: response).result
             
-            currentCampfireLogImages = result.images
+            currentCampfireLogImagesData = .init(logId: result.logId, images: result.images, hasNext: result.hasNext, currentPage: 0)
+            currentCampfireLogImagesData.currentPage += 1
         } catch {
             print("getCampfireLogImages error: \(error)")
+        }
+    }
+    
+    @MainActor
+    func getMoreCampfireLogImages(logId: Int) {
+        if currentCampfireLogImagesData.hasNext {
+            Task {
+                do {
+                    let response = try await NetworkManager.shared.requestRawData(router: .getCampfireLogImages(campfirePin: currentCampfirePin, logId: logId, parameters: ["page": currentCampfireLogImagesData.currentPage]))
+                    
+                    let result = try JSONDecoder().decode(ResponseModel<CampfireLogImagesResult>.self, from: response).result
+                    
+                    currentCampfireLogImagesData.images.append(contentsOf: result.images)
+                    currentCampfireLogImagesData.hasNext = result.hasNext
+                    currentCampfireLogImagesData.currentPage += 1
+                } catch {
+                    print("getMoreCampfireLogImages error: \(error)")
+                }
+            }
         }
     }
     

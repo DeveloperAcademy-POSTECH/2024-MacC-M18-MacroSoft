@@ -30,7 +30,7 @@ enum APIRouter: URLRequestConvertible {
     // Log API
     case getCampfireLogsPreview(campfirePin: Int, parameters: [String: Any])
     case updateCampfireLogs(campfirePin: Int, parameters: [String: Any])
-    case getCampfireLogImages(campfirePin: Int, logId: Int)
+    case getCampfireLogImages(campfirePin: Int, logId: Int, parameters: [String: Any])
     case getCampfireLogsMetadata(campfirePin: Int)
     case updateTodayImageEmotion(campfirePin: Int, imageId: Int, parameters: [String: Any])
     case getCampfireLogImageDetail(campfirePin: Int, imageId: Int)
@@ -87,7 +87,7 @@ enum APIRouter: URLRequestConvertible {
             return "/api/campfires/\(campfirePin)/logs"
         case .updateCampfireLogs(let campfirePin, _):
             return "/api/campfires/\(campfirePin)/logs"
-        case .getCampfireLogImages(campfirePin: let campfirePin, logId: let logId):
+        case .getCampfireLogImages(campfirePin: let campfirePin, logId: let logId, _):
             return "/api/campfires/\(campfirePin)/logs/\(logId)/images"
         case .getCampfireLogsMetadata(campfirePin: let campfirePin):
             return "/api/campfires/\(campfirePin)/logs/metadata"
@@ -175,7 +175,7 @@ enum APIRouter: URLRequestConvertible {
             } else {
                 return nil
             }
-        case .getCampfireLogsPreview(_, parameters: let parameters):
+        case .getCampfireLogsPreview(_, parameters: let parameters), .getCampfireLogImages(_, _, let parameters):
             return parameters
         default:
             return nil

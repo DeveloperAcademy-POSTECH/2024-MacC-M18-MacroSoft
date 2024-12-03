@@ -83,7 +83,7 @@ private struct CampfireLogPileDetailViewGrid: View {
     
     var body: some View {
         LazyVGrid(columns: gridItems, spacing: 1.5) {
-            ForEach(viewModel.currentCampfireLogImages, id: \.imageId) { imageData in
+            ForEach(viewModel.currentCampfireLogImagesData.images, id: \.imageId) { imageData in
                 // 원래 여기서 @Bindable로 PhotoGridView에 metadata를 넘겨줬었는데 그랬더니 데이터가 엉켜서 같은 사진만 2장 보이는 경우가 생김
                 NavigationLink {
                     CampfireSelectedPhotoView(selectedLog: selectedLog, imageName: imageData.imageName)
@@ -91,6 +91,11 @@ private struct CampfireLogPileDetailViewGrid: View {
                     CampfireLogDrawPhoto(imageName: imageData.imageName, isClip: true)
                         .aspectRatio(1, contentMode: .fill)
                         .foregroundStyle(.accent)
+                }
+                .onAppear {
+                    if imageData.imageId == viewModel.currentCampfireLogImagesData.images.last?.imageId {
+                        viewModel.getMoreCampfireLogImages(logId: selectedLog.logId)
+                    }
                 }
                 .simultaneousGesture(TapGesture().onEnded({
                     Task {
@@ -112,7 +117,7 @@ private struct CampfireSelectedPhotoView: View {
     
     var body: some View {
         TabView(selection: $tabSelection) {
-            ForEach(viewModel.currentCampfireLogImages, id: \.imageId) { imageData in
+            ForEach(viewModel.currentCampfireLogImagesData.images, id: \.imageId) { imageData in
                 VStack {
                     Spacer()
                     CampfireLogDrawPhoto(imageName: imageData.imageName, isClip: false)
@@ -140,7 +145,7 @@ private struct CampfireSelectedPhotoView: View {
                         .foregroundStyle(.textColorWhite)
                         .font(Font.custom("Pretendard-Regular", size: 13))
                     // 혹시 몰라서 현재 보여지는 사진의 날짜를 가지고 오기는 하는데,,, 현재 로직 상 한 로그는 같은 날짜일거라서...흠
-                    if let currentImage = viewModel.currentCampfireLogImages.first(where: { $0.imageName == tabSelection }) {
+                    if let currentImage = viewModel.currentCampfireLogImagesData.images.first(where: { $0.imageName == tabSelection }) {
                         Text(viewModel.currentCampfireLogImageDetail?.takenAt.iso8601ToDate.logPileRowTitleDayFormat ?? Date().logPileRowTitleDayFormat)
                             .foregroundStyle(.textColor1)
                             .font(Font.custom("Pretendard-Regular", size: 10))
