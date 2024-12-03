@@ -19,6 +19,12 @@ struct LogOverview: Codable {
     var imageNames: [String]
 }
 
+struct YearlyLogsOverview {
+    var hasNext: Bool
+    var currentPage: Int
+    var monthlyLogs: [(MonthlyLogsOverview)]
+}
+
 // 월별로 일별 로그를 묶는 구조체
 struct MonthlyLogsOverview {
     let id: UUID = UUID()

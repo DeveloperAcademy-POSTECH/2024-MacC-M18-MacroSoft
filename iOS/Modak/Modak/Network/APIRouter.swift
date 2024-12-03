@@ -28,7 +28,7 @@ enum APIRouter: URLRequestConvertible {
     case deactivate
     
     // Log API
-    case getCampfireLogsPreview(campfirePin: Int)
+    case getCampfireLogsPreview(campfirePin: Int, parameters: [String: Any])
     case updateCampfireLogs(campfirePin: Int, parameters: [String: Any])
     case getCampfireLogImages(campfirePin: Int, logId: Int)
     case getCampfireLogsMetadata(campfirePin: Int)
@@ -83,7 +83,7 @@ enum APIRouter: URLRequestConvertible {
             return "/api/auth/deactivate"
             
         // Log API
-        case .getCampfireLogsPreview(campfirePin: let campfirePin):
+        case .getCampfireLogsPreview(campfirePin: let campfirePin, _):
             return "/api/campfires/\(campfirePin)/logs"
         case .updateCampfireLogs(let campfirePin, _):
             return "/api/campfires/\(campfirePin)/logs"
@@ -175,6 +175,8 @@ enum APIRouter: URLRequestConvertible {
             } else {
                 return nil
             }
+        case .getCampfireLogsPreview(_, parameters: let parameters):
+            return parameters
         default:
             return nil
         }

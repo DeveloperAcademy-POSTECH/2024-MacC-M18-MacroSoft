@@ -12,8 +12,6 @@ struct CampfireLogPileView: View {
     @EnvironmentObject private var logPileViewModel: LogPileViewModel
     @EnvironmentObject private var networkMonitor: NetworkMonitor
     @EnvironmentObject private var viewModel: CampfireViewModel
-    // TODO: 테스트용 변수들 추후 제거
-    @State private var isEmpty: Bool = false
     
     init() {
         let appearanceWhenNotScrolled = UINavigationBarAppearance()
@@ -36,7 +34,7 @@ struct CampfireLogPileView: View {
     
     var body: some View {
         ZStack {
-            if viewModel.currentCampfireYearlyLogs.isEmpty {
+            if viewModel.currentCampfireYearlyLogs.monthlyLogs.isEmpty {
                 VStack {
                     CampfireLogPileViewTitle(campfireName: viewModel.mainCampfireInfo!.campfireName, campfireMemberCount: (viewModel.mainCampfireInfo!.memberIds.count))
                         .padding(.leading, 24)
@@ -54,7 +52,7 @@ struct CampfireLogPileView: View {
                         .padding(.bottom, 12)
                     
                     LazyVStack(alignment: .leading, pinnedViews: [.sectionHeaders]) {
-                        ForEach($viewModel.currentCampfireYearlyLogs, id: \.date){ monthlyLogOverview in
+                        ForEach($viewModel.currentCampfireYearlyLogs.monthlyLogs, id: \.id){ monthlyLogOverview in
                             Section {
                                 CampfireLogPileSection(monthlyLog: monthlyLogOverview.dailyLogs)
                             } header: {
@@ -173,6 +171,7 @@ private struct CampfireLogPileSection: View {
     @Environment(\.modelContext) private var modelContext
     
     @EnvironmentObject private var logPileViewModel: LogPileViewModel
+    @EnvironmentObject private var campfireViewModel: CampfireViewModel
     
     @Binding private(set) var monthlyLog: [DailyLogsOverview]
     
@@ -184,7 +183,9 @@ private struct CampfireLogPileSection: View {
                 .padding([.horizontal, .bottom], 10)
                 .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 3)
                 .onAppear {
-                    //                    logPileViewModel.fetchMoreLogsWithGroupBy(modelContext: modelContext, currentLog: dailyLog)
+                    if dailyLog.wrappedValue.date == campfireViewModel.currentCampfireYearlyLogs.monthlyLogs.last?.dailyLogs.last?.date {
+                        campfireViewModel.testFetchMoreCampfireLogsPreview()
+                    }
                 }
         }
     }

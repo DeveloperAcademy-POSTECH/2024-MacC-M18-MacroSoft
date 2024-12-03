@@ -27,7 +27,7 @@ class CampfireViewModel: ObservableObject {
     @Published var showEmptyLogAlert: Bool = false
     @Published var currentCampfirePin: Int = 0
     @Published var mainTodayImageURL: URL?
-    @Published var currentCampfireYearlyLogs: [(MonthlyLogsOverview)] = []
+    @Published var currentCampfireYearlyLogs: YearlyLogsOverview = .init(hasNext: false, currentPage: 0, monthlyLogs: [])
     @Published var currentCampfireLogImages: [CampfireLogImage] = []
     @Published var currentCampfireLogImageDetail: CampfireLogImageDetailResult?
     
@@ -101,7 +101,7 @@ class CampfireViewModel: ObservableObject {
     @MainActor
     func testFetchCampfireLogsPreview() async {
         do {
-            let response = try await NetworkManager.shared.requestRawData(router: .getCampfireLogsPreview(campfirePin: currentCampfirePin))
+            let response = try await NetworkManager.shared.requestRawData(router: .getCampfireLogsPreview(campfirePin: currentCampfirePin, parameters: [:]))
             
             let result = try JSONDecoder().decode(ResponseModel<CampfireLogsPreviewResult>.self, from: response).result
             
@@ -113,7 +113,7 @@ class CampfireViewModel: ObservableObject {
                 }
                 
                 // YearlyLogs를 최신 순으로 정렬하고, 각 월 안에서 다시 일별로 그룹화
-                currentCampfireYearlyLogs = monthlyLogs.sorted { $0.key > $1.key } // 최신 월 순으로 정렬
+                currentCampfireYearlyLogs.monthlyLogs = monthlyLogs.sorted { $0.key > $1.key } // 최신 월 순으로 정렬
                     .map { (month, logsInMonth) in
                         // 같은 월 안에서 다시 일별로 그룹화
                         let dailyLogs = Dictionary(grouping: logsInMonth) { log in
@@ -129,9 +129,54 @@ class CampfireViewModel: ObservableObject {
                         // 월 단위로 묶고, 그 안에 일별로 묶인 로그들 포함
                         return MonthlyLogsOverview(date: month, dailyLogs: sortedDailyLogs)
                     }
+                currentCampfireYearlyLogs.hasNext = result.hasNext
+                currentCampfireYearlyLogs.currentPage += 1
             }
         } catch {
-            print("testFetchCampfireLogs error: \(error)")
+            print("testFetchCampfireLogsPreview error: \(error)")
+        }
+    }
+    
+    @MainActor
+    func testFetchMoreCampfireLogsPreview() {
+        if currentCampfireYearlyLogs.hasNext {
+            Task {
+                do {
+                    let response = try await NetworkManager.shared.requestRawData(router: .getCampfireLogsPreview(campfirePin: currentCampfirePin, parameters: ["page" : currentCampfireYearlyLogs.currentPage]))
+                    
+                    let result = try JSONDecoder().decode(ResponseModel<CampfireLogsPreviewResult>.self, from: response).result
+                    
+                    if !result.logOverviews.isEmpty {
+                        // logs: [Log]를, monthlyLogs(MonthlyLogs Model과는 다름): [Date : [Log]] 형태로 (년, 월 기준으로)
+                        let monthlyLogs = Dictionary(grouping: result.logOverviews) { log in
+                            let components = Calendar.current.dateComponents([.year, .month], from: log.startAt.iso8601ToDate)
+                            return Calendar.current.date(from: components)!
+                        }
+                        
+                        // YearlyLogs를 최신 순으로 정렬하고, 각 월 안에서 다시 일별로 그룹화
+                        currentCampfireYearlyLogs.monthlyLogs.append(contentsOf: monthlyLogs.sorted { $0.key > $1.key } // 최신 월 순으로 정렬
+                            .map { (month, logsInMonth) in
+                                // 같은 월 안에서 다시 일별로 그룹화
+                                let dailyLogs = Dictionary(grouping: logsInMonth) { log in
+                                    Calendar.current.startOfDay(for: log.startAt.iso8601ToDate) // 일 단위로 그룹화
+                                }
+                                
+                                // 날짜별 로그들을 최신 날짜 순으로 정렬
+                                let sortedDailyLogs = dailyLogs.sorted { $0.key > $1.key }
+                                    .map { (day, logsInDay) in
+                                        DailyLogsOverview(date: day, logs: logsInDay.sorted { $0.startAt.iso8601ToDate > $1.startAt.iso8601ToDate }) // 시간순으로 정렬
+                                    }
+                                
+                                // 월 단위로 묶고, 그 안에 일별로 묶인 로그들 포함
+                                return MonthlyLogsOverview(date: month, dailyLogs: sortedDailyLogs)
+                            })
+                        currentCampfireYearlyLogs.hasNext = result.hasNext
+                        currentCampfireYearlyLogs.currentPage += 1
+                    }
+                } catch {
+                    print("testFetchMoreCampfireLogsPreview error: \(error)")
+                }
+            }
         }
     }
     
