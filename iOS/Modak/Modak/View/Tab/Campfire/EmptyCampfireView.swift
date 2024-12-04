@@ -28,7 +28,7 @@ struct EmptyCampfireView: View {
             
             HStack(spacing: 16) {
                 EmptyCampfireViewButton(buttonImage: .milestone, buttonText: "모닥불 참여")
-                EmptyCampfireViewButton(buttonImage: .tent, buttonText: "모닥불 생성")
+                EmptyCampfireViewButton(buttonImage: .igniteLogs, buttonText: "모닥불 생성")
             }
             .padding(.horizontal, 38)
             
@@ -47,7 +47,7 @@ private struct EmptyCampfireViewButton: View {
             switch buttonImage {
             case .milestone:
                 JoinCampfireView()
-            case .tent:
+            case .igniteLogs:
                 CampfireNameView(isCreate: true)
             default:
                 CampfireNameView(isCreate: true)

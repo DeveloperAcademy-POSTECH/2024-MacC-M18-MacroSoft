@@ -8,14 +8,30 @@
 import UIKit
 
 // Swipe back Gesture를 위한 UINavigationController extension
-extension UINavigationController : @retroactive UINavigationControllerDelegate, @retroactive UIGestureRecognizerDelegate {
+extension UINavigationController: @retroactive UIGestureRecognizerDelegate {
     open override func viewDidLoad() {
         super.viewDidLoad()
         interactivePopGestureRecognizer?.delegate = self
     }
-
-    // Navigation Stack에 쌓인 뷰가 1개를 초과해야 제스처가 동작 하도록 적용
+    
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-            return viewControllers.count > 1
+        
+        // 2가지 조건 모두 만족했을 때 뒤로가기 제스처를 활성화 시킵니다!
+        return PopGestureManager.shared.isAllowPopGesture && viewControllers.count > 1
+    }
+}
+
+final class PopGestureManager {
+    
+    // Singleton 객체 생성
+    static let shared = PopGestureManager()
+    private init() {}
+    
+    // 뒤로가기 제스처를 허용하는지 확인 변수
+    private(set) var isAllowPopGesture = true
+    
+    // 뒤로가기 제스처를 허용하는 변수 업데이트
+    func updateAllowPopGesture(_ bool: Bool) {
+        isAllowPopGesture = bool
     }
 }

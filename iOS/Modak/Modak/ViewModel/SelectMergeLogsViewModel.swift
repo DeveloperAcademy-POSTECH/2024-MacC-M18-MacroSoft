@@ -56,6 +56,8 @@ class SelectMergeLogsViewModel: ObservableObject{
     @Published var recommendedMergeableLogPile: MergeableLogPile = MergeableLogPile(isRecommendedLogPile: true, mergeableLogs: [])
     @Published var notRecommendedMergeableLogPile: MergeableLogPile = MergeableLogPile(isRecommendedLogPile: false, mergeableLogs: [])
     @Published var isUploadCampfireLogsLoading: Bool = false
+    @Published var uploadProgressCount: Int = 0
+    @Published var uploadTotalCount: Int = 0
     
     private var campfireLogsMetadata: [CampfireLogMetadata] = []
     private var currentPage = 1 // 페이지네이션을 위한 페이지 변수
@@ -207,6 +209,13 @@ class SelectMergeLogsViewModel: ObservableObject{
         let selectedLogs = mergeableLogPiles.flatMap { $0.mergeableLogs.filter { $0.isSelectedLog } }
         var uploadLogs: [UploadCampfireLogsBodyDTO] = []
         
+        DispatchQueue.main.async {
+            self.uploadTotalCount = selectedLogs.reduce(0) { total, log in
+                total + log.images.count
+            }
+            self.isUploadCampfireLogsLoading = true
+        }
+        
         for selectedLog in selectedLogs {
             var uploadLog: UploadCampfireLogsBodyDTO = .init(logMetadata: .init(startAt: selectedLog.startAt.ISO8601Format(), endAt: selectedLog.endAt.ISO8601Format(), address: selectedLog.address.checkAddressNilAndEmpty(), minLatitude: selectedLog.minLatitude, maxLatitude: selectedLog.maxLatitude, minLongitude: selectedLog.minLongitude, maxLongitude: selectedLog.maxLongitude), imageInfos: [])
             for metadata in selectedLog.images {
@@ -218,12 +227,17 @@ class SelectMergeLogsViewModel: ObservableObject{
                     uploadLogImage.imageName = imageURLName
                     uploadLog.imageInfos.append(uploadLogImage)
                 }
+                DispatchQueue.main.async {
+                    self.uploadProgressCount += 1
+                }
             }
             uploadLogs.append(uploadLog)
         }
         await uploadCampfireLogs(campfirePin: campfirePin, selectedLogs: uploadLogs)
         DispatchQueue.main.async {
             self.isUploadCampfireLogsLoading = false
+            self.uploadProgressCount = 0
+            self.uploadTotalCount = 0
         }
     }
     

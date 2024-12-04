@@ -15,6 +15,8 @@ struct SelectMergeLogsView: View {
     
     @Environment(\.modelContext) private var modelContext
     
+    @State private var uploadProgressCount: Int = 0
+    
     var body: some View {
         ZStack {
             VStack(alignment: .leading, spacing: 16) {
@@ -48,10 +50,19 @@ struct SelectMergeLogsView: View {
             }
             if selectMergeLogsViewModel.isUploadCampfireLogsLoading {
                 Color.black.opacity(0.4)
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle())
-                    .foregroundColor(.white)
-                    .scaleEffect(1.5)
+                CircularProgressBar(progress: Double(selectMergeLogsViewModel.uploadProgressCount) / Double(selectMergeLogsViewModel.uploadTotalCount))
+                    .animation(.default, value: selectMergeLogsViewModel.uploadProgressCount)
+                    .overlay {
+                        Text("\(uploadProgressCount)%")
+                            .foregroundStyle(.mainColor1)
+                            .font(.custom("Pretendard-Bold", size: 32))
+                            .onChange(of: selectMergeLogsViewModel.uploadProgressCount) { _ ,newProgress in
+                                withAnimation {
+                                    let targetValue = Int(Double(selectMergeLogsViewModel.uploadProgressCount) / Double(selectMergeLogsViewModel.uploadTotalCount) * 100)
+                                    animateNumber(to: targetValue)
+                                }
+                            }
+                    }
             }
         }
         .preferredColorScheme(.dark)
@@ -60,6 +71,7 @@ struct SelectMergeLogsView: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 BackButton()
+                    .disabled(selectMergeLogsViewModel.isUploadCampfireLogsLoading)
             }
         }
         .background(
@@ -74,6 +86,26 @@ struct SelectMergeLogsView: View {
         }
         .onDisappear {
             selectMergeLogsViewModel.resetProperties()
+        }
+        .onChange(of: selectMergeLogsViewModel.isUploadCampfireLogsLoading) {
+            if selectMergeLogsViewModel.isUploadCampfireLogsLoading {
+                PopGestureManager.shared.updateAllowPopGesture(false)
+            } else {
+                PopGestureManager.shared.updateAllowPopGesture(true)
+            }
+        }
+    }
+    
+    // 숫자 증가 애니메이션
+    private func animateNumber(to targetValue: Int) {
+        Timer.scheduledTimer(withTimeInterval: 0.07, repeats: true) { timer in
+            if uploadProgressCount < targetValue {
+                uploadProgressCount += 1
+            } else if uploadProgressCount > targetValue {
+                uploadProgressCount -= 1
+            } else {
+                timer.invalidate()
+            }
         }
     }
 }
@@ -227,7 +259,6 @@ private struct SelectMergeLogsButton: View {
                 if hasSelectedMergeableLogs {
                     Button {
                         Task {
-                            selectMergeLogsViewModel.isUploadCampfireLogsLoading = true
                             await selectMergeLogsViewModel.updateCampfireLogs(campfirePin: campfireViewModel.mainCampfireInfo!.campfirePin)
                             await campfireViewModel.testFetchCampfireInfos()
                             await campfireViewModel.testFetchMainCampfireInfo()
