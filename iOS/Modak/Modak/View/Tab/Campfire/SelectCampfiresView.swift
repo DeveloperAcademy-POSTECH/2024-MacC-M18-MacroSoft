@@ -165,7 +165,7 @@ private struct SelectCampfiresViewCampfireButton: View {
             Button {
                 //                    viewModel.updateRecentVisitedCampfirePin(to: campfireInfo.campfirePin)
                 Task {
-                    viewModel.currentCampfireYearlyLogs = []
+                    viewModel.currentCampfireYearlyLogs = .init(hasNext: false, currentPage: 0, monthlyLogs: [])
                     await viewModel.testChangeCurrentCampfirePin(campfireInfo.campfirePin)
                     await viewModel.testFetchCampfireInfos()
                     await viewModel.testFetchMainCampfireInfo()
