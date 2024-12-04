@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "tent@1x.png",
+      "filename" : "Ignite Logs@1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "tent@2x.png",
+      "filename" : "Ignite Logs@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "tent@3x.png",
+      "filename" : "Ignite Logs@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
