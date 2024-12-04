@@ -87,6 +87,13 @@ struct SelectMergeLogsView: View {
         .onDisappear {
             selectMergeLogsViewModel.resetProperties()
         }
+        .onChange(of: selectMergeLogsViewModel.isUploadCampfireLogsLoading) {
+            if selectMergeLogsViewModel.isUploadCampfireLogsLoading {
+                PopGestureManager.shared.updateAllowPopGesture(false)
+            } else {
+                PopGestureManager.shared.updateAllowPopGesture(true)
+            }
+        }
     }
     
     // 숫자 증가 애니메이션
